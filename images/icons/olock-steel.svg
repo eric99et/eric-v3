@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <!-- Ring-Lock for the finish picker, simplified to what reads at 30 px: the thick ring body and the thin bolt closing it at the bottom. -->
+  <defs><linearGradient id="g-steel" x1=".15" y1="0" x2=".85" y2="1"><stop offset="0" stop-color="#F4F6F7"/><stop offset=".5" stop-color="#B3BBBF"/><stop offset="1" stop-color="#7A8388"/></linearGradient></defs>
+  <path d="M12.2 31.4 A13.5 13.5 0 0 0 27.8 31.4" fill="none" stroke="#8E979C" stroke-width="3"/>
+  <path d="M12.2 31.4 A13.5 13.5 0 1 1 27.8 31.4" fill="none" stroke="url(#g-steel)" stroke-width="8" stroke-linecap="round"/>
+</svg>
