@@ -407,21 +407,7 @@
 .shop-page main.shop { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; }
 .shop-page main.shop > .foot { margin-top: auto; }
 
-/* the shop footer: one calm band. The logo stays at the guide's 120 px minimum; contact and the legal line are
-   plain Inter, small, on two short rows */
-.buy-page .foot { padding: 26px var(--gutter) calc(20px + env(safe-area-inset-bottom, 0px)); }
-.buy-page .foot__grid { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 28px; padding-bottom: 18px; }
-.buy-page .foot__logo { width: 120px; display: block; }
-.buy-page .foot__contact { gap: 22px; font: 500 14px/1 var(--body); letter-spacing: 0; text-transform: none; }
-.buy-page .foot__contact a { min-height: 44px; color: rgba(236, 236, 234, .78); }
-.buy-page .foot__legal { padding-top: 14px; font-size: 11.5px; line-height: 1.5; }
-@media (max-width: 860px) { .buy-page .foot__grid { display: flex; } .buy-page .foot__contact { grid-column: auto; } }
-@media (max-width: 560px) { .buy-page .foot__contact { width: 100%; gap: 6px 20px; flex-wrap: wrap; } .buy-page .foot__legal { flex-direction: column; gap: 4px; } }
 
 /* an empty cart or checkout: the small card sits in the middle of the space above the footer */
 html.is-empty .shop-page .cart__wrap { flex: 1; width: 100%; align-content: center; padding-bottom: 96px; }
-/* a little more air than the first compact pass */
-.buy-page .foot { padding: 40px var(--gutter) calc(36px + env(safe-area-inset-bottom, 0px)); }
-.buy-page .foot__grid { padding-bottom: 24px; }
-.buy-page .foot__legal { padding-top: 20px; gap: 6px 24px; font-size: 12px; }
-@media (max-width: 560px) { .buy-page .foot { padding-top: 32px; padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px)); } }
+.pick__name { letter-spacing: .08em; font-size: 10px; overflow: visible; }

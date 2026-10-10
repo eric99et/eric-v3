@@ -85,3 +85,12 @@
   };
   window.LAAS_CART = { add };
 })();
+
+// the footer's entrance (after 21st.dev "Footer section 1"): once, when it comes into view
+(() => {
+  const f = document.querySelector('.foot2');
+  if (!f || !('IntersectionObserver' in window)) return;
+  f.classList.add('is-ready');
+  const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { f.classList.add('is-in'); io.disconnect(); } }, { rootMargin: '0px 0px -60px 0px' });
+  io.observe(f);
+})();

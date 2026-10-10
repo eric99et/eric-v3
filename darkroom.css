@@ -978,3 +978,29 @@ html[data-tone="dark"] .nav__bag { color: #ECECEA; background: rgba(236, 236, 23
 
 /* in the buy chapter the nav has no Buy pill: the button is right there on the page */
 html.in-buy .nav__buy { display: none; }
+
+/* ---------------- the footer, after 21st.dev "Footer section 1": centred mark, a row of links with a pill that grows
+   under the pointer, the ways to reach us, a slow hatched band, the legal lines. Ink ground, Chalk type. */
+.foot:has(.foot2) { padding: 56px 0 calc(28px + env(safe-area-inset-bottom, 0px)); }
+.foot2__top { display: flex; flex-direction: column; align-items: center; gap: 26px; padding: 0 var(--gutter) 40px; text-align: center; }
+.foot2__logo { width: 120px; height: auto; fill: #ECECEA; display: block; }
+.foot2__nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 6px; }
+.foot2__nav a { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; font: 500 15px/1 var(--display); color: #ECECEA; isolation: isolate; transition: color .25s; }
+.foot2__nav a::before { content: ""; position: absolute; inset: 6px 0; z-index: -1; border-radius: 999px; background: rgba(236, 236, 234, .1); scale: 0; opacity: 0; transition: scale .35s cubic-bezier(.34, 1.56, .64, 1), opacity .25s; }
+.foot2__nav a:hover::before, .foot2__nav a:focus-visible::before { scale: 1; opacity: 1; }
+.foot2__nav a:active { scale: .96; }
+.foot2__reach { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 22px; }
+.foot2__reach a { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; font: 400 14px/1 var(--body); color: rgba(236, 236, 234, .72); transition: color .2s; }
+.foot2__reach a:hover { color: #ECECEA; }
+.foot2__reach svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.foot2__band { display: block; height: 44px; border-block: 1px solid rgba(236, 236, 234, .1); background: repeating-linear-gradient(315deg, rgba(236, 236, 234, .1) 0 1px, transparent 0 50%) 0 0 / 10px 10px; }
+.foot2.is-in .foot2__band { animation: foot2-band 20s linear forwards; }
+@keyframes foot2-band { to { background-position-x: 100%; } }
+.foot2__legal { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 22px var(--gutter) 0; text-align: center; font: 400 12px/1.6 var(--body); color: rgba(236, 236, 234, .55); }
+/* the entrance: the parts rise in one after another as the footer comes into view */
+.foot2.is-ready .foot2__top > *, .foot2.is-ready .foot2__band, .foot2.is-ready .foot2__legal { opacity: 0; translate: 0 20px; transition: opacity .5s ease, translate .6s cubic-bezier(.34, 1.4, .64, 1); }
+.foot2.is-in .foot2__top > *, .foot2.is-in .foot2__band, .foot2.is-in .foot2__legal { opacity: 1; translate: 0 0; }
+.foot2.is-in .foot2__top > :nth-child(2) { transition-delay: .1s; } .foot2.is-in .foot2__top > :nth-child(3) { transition-delay: .2s; }
+.foot2.is-in .foot2__band { transition-delay: .45s; translate: 0 0; } .foot2.is-in .foot2__legal { transition-delay: .55s; }
+@media (prefers-reduced-motion: reduce) { .foot2.is-ready * { opacity: 1 !important; translate: none !important; transition: none !important; animation: none !important; } }
+@media (max-width: 560px) { .foot:has(.foot2) { padding-top: 44px; } .foot2__top { gap: 20px; padding-bottom: 32px; } .foot2__nav a { padding: 0 11px; font-size: 14px; } }
