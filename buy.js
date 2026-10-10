@@ -1,9 +1,8 @@
 // LAAS · Ring-Lock · the buy page
 // António's buy block (finish dots, quantity, Buy) beside the real lock in 3D.
-// Buy asks once about the Flex Mount, then writes the same line items the old
-// product page writes: localStorage 'laas.cart.v1.en', an array of
-// {name, finish, unit, qty, img}, merged by name + finish, and opens cart-v2.html.
-// ?finish=steel|copper|black (silver also works) and ?qty=1..9 preselect.
+// Buy writes, right here, the same line items the old product page writes (via cart-nav.js): localStorage 'laas.cart.v1.en', an array of
+// {name, finish, unit, qty, img}, merged by name + finish. No new page.
+// ?finish=steel|copper|black (silver also works) and ?qty=1..15 preselect.
 // The lock is the landing page's model (images/3d, three.js 0.170, the same studio
 // light, tone mapping and per-finish material tweaks as darkroom.js) on a transparent
 // canvas. It turns gently on its own until touched; a sideways drag turns it, with
@@ -19,7 +18,7 @@
   /* ---------------------------------------------------------------- cart */
   const CART_KEY = 'laas.cart.v1.en';  // laas.js: 'laas.cart.v1.' + (DA ? 'da' : 'en')
   const PRICE = 129;                    // laas.js LOCK / laas-pdp.js P.full, EUR
-  const NAME = { steel: 'Silver', copper: 'Copper', black: 'Black' };
+  const NAME = { steel: 'Steel', copper: 'Copper', black: 'Black' };
   const readCart = () => {
     try { const v = JSON.parse(localStorage.getItem(CART_KEY)); return Array.isArray(v) ? v : []; } catch { return []; }
   };
@@ -29,7 +28,8 @@
   const addLocks = (finish, qty) => {
     const items = readCart(), name = 'Ring-Lock', fin = NAME[finish];
     const same = items.find(i => i && i.name === name && i.finish === fin);
-    if (same) same.qty = (same.qty || 1) + qty;
+    // never more than 9 of one finish, as the cart's own + stops at 9
+    if (same) same.qty = Math.min(15, (same.qty || 1) + qty);
     else items.push({ name, finish: fin, unit: PRICE, qty, img: 'images/lock-' + finish + '-render.jpg' });
     return writeCart(items);
   };
@@ -38,7 +38,7 @@
   const q = new URLSearchParams(location.search);
   const wanted = (q.get('finish') || '').toLowerCase().replace('silver', 'steel');
   let finish = NAME[wanted] ? wanted : 'steel';
-  let qty = clamp(parseInt(q.get('qty'), 10) || 1, 1, 9);
+  let qty = clamp(parseInt(q.get('qty'), 10) || 1, 1, 15);
 
   const still = $('#lock-still'), photo = $('#photo'), stage = $('#lock3d');
   const swapImg = (img, src, alt) => {
@@ -55,7 +55,6 @@
     $$('[data-finish]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.finish === finish)));
     $('#finish-name').textContent = name;
     $('#buybar-finish').textContent = name + (qty > 1 ? ' · ' + qty : '');
-    $('#stock').textContent = '1,000+ available in ' + name;
     $('#qty-value').textContent = qty;
     const label = 'Buy · €' + PRICE * qty;
     $('#buy-btn').textContent = label;
@@ -90,7 +89,7 @@
     });
   });
   function syncTabs() { dots.forEach(b => (b.tabIndex = b.dataset.finish === finish ? 0 : -1)); }
-  $$('[data-qty]').forEach(b => b.addEventListener('click', () => { qty = clamp(qty + +b.dataset.qty, 1, 9); render(false); }));
+  $$('[data-qty]').forEach(b => b.addEventListener('click', () => { qty = clamp(qty + +b.dataset.qty, 1, 15); render(false); }));
 
   /* ------------------------------------------------------- the lock, in 3D */
   const lock3d = (() => {
@@ -178,7 +177,7 @@
       const METAL = { steel: { env: 1.15, exp: 0.98, rot: 0.9 }, copper: { env: 1.1, exp: 1.0, rot: 0 }, black: { env: 1.4, exp: 1.3, rot: 2.4 } };
       const gltfLoader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
       const models = {};
-      const load = f => models[f] || (models[f] = new Promise((res, rej) => gltfLoader.load('images/3d/' + FILES[f] + '?v=8e8a3912', res, undefined, rej)).then(gltf => {
+      const load = f => models[f] || (models[f] = new Promise((res, rej) => gltfLoader.load('images/3d/' + FILES[f] + '?v=7f891b83', res, undefined, rej)).then(gltf => {
         const group = new THREE.Group(), model = gltf.scene;
         group.add(model);
         const box = new THREE.Box3().setFromObject(model);
@@ -279,49 +278,17 @@
   })();
 
   // Buy: the locks go in the cart, then the cart page
-  // before the cart: does the frame have mounting holes? (asked once; a cart that already has a Flex Mount skips it)
-  const FLEX = 9.99;
-  let ask = null;
-  const askFlex = () => new Promise(done => {
-    if (!('HTMLDialogElement' in window) || readCart().some(i => i && /Flex/.test(i.name))) { done('no'); return; }
-    if (!ask) {
-      ask = document.createElement('dialog');
-      ask.className = 'flex-ask'; ask.setAttribute('aria-labelledby', 'flex-ask-h');
-      ask.innerHTML = `<form method="dialog">
-        <img src="images/flexmount-install.webp" width="680" height="411" alt="Fitting the Flex Mount to a bike frame by hand">
-        <div class="flex-ask__body">
-          <p class="label flex-ask__kicker">One question</p>
-          <h2 id="flex-ask-h">Does your frame have mounting holes?</h2>
-          <p>Most bikes do, and the two screws are in the box. No holes? The Flex Mount fits the Ring-Lock without them, no drilling.</p>
-          <button class="buy-btn" value="yes">Add the Flex Mount · €9.99</button>
-          <button class="flex-ask__no" value="no">No thanks, my frame has holes</button>
-        </div>
-        <button class="flex-ask__x" value="later" aria-label="Close"></button>
-      </form>`;
-      document.body.append(ask);
-      ask.addEventListener('click', e => { if (e.target === ask) ask.close('later'); });
-    }
-    ask.returnValue = '';
-    ask.addEventListener('close', () => done(ask.returnValue || 'later'), { once: true });
-    ask.showModal();
-  });
-  const buy = async () => {
-    const btn = $('#buy-btn');
-    if (btn.disabled) return;
-    const answer = await askFlex();
-    if (answer === 'later') return;
-    const ok = addLocks(finish, qty);
-    if (ok && answer === 'yes') {
-      const items = readCart();
-      const flex = items.find(i => i && /Flex/.test(i.name));
-      if (flex) flex.qty = (flex.qty || 1) + qty;
-      else items.push({ name: 'Flex Mount', finish: '', unit: FLEX, qty, img: 'images/flexmount.jpg' });
-      writeCart(items);
-    }
-    if (!ok) { $('#buy-status').textContent = 'Your browser blocked the cart. Turn off private mode and try again.'; return; }
-    btn.disabled = true; btn.classList.add('is-added'); btn.textContent = 'Added. Opening your cart';
-    $('#buy-status').textContent = qty + ' Ring-Lock in ' + NAME[finish] + ' added to your cart.';
-    setTimeout(() => { location.href = 'cart-v2.html'; }, reduce ? 0 : 280);
+  // Buy puts the locks in the cart right here, no new page and no question on the way (the cart offers the
+  // Flex Mount); cart-nav.js shows what was added, with Check out one tap away
+  const buy = () => {
+    const ok = window.LAAS_CART ? window.LAAS_CART.add(finish, qty) : addLocks(finish, qty);
+    if (ok === 0) { $('#buy-status').textContent = 'Your cart already has 15 locks, the most in one order.'; return; }
+    if (ok === false) { $('#buy-status').textContent = 'Your browser blocked the cart. Turn off private mode and try again.'; return; }
+    $('#buy-status').textContent = (ok === true ? qty : ok) + ' Ring-Lock in ' + NAME[finish] + ' added to your cart.';
+    ['#buy-btn', '#buybar-btn'].forEach(sel => {
+      const btn = $(sel); btn.classList.add('is-added'); btn.textContent = 'Added';
+      setTimeout(() => { btn.classList.remove('is-added'); render(true); }, 1600);
+    });
   };
   $('#buy-btn').addEventListener('click', buy);
   $('#buybar-btn').addEventListener('click', buy);

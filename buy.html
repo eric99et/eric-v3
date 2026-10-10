@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Buy the LAAS Ring-Lock · €129</title>
-<meta name="description" content="The LAAS Ring-Lock in Silver, Copper or Black. Keyless, works with Apple Find My, insurance-approved in Denmark. €129, 57 days to return it.">
+<meta name="description" content="The LAAS Ring-Lock in Steel, Copper or Black. Keyless, opens with your phone, insurance-approved in Denmark. €129, 57 days to return it.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#ECECEA">
 <meta property="og:type" content="product">
 <meta property="og:title" content="Buy the LAAS Ring-Lock · €129">
-<meta property="og:description" content="Keyless, works with Apple Find My, insurance-approved in Denmark.">
+<meta property="og:description" content="A keyless bike lock that opens with your phone. Insurance-approved in Denmark (Varefakta VK 37868).">
 <meta property="og:image" content="https://laas.me/images/og/home.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -20,18 +20,11 @@
 <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.170.0/+esm">
 <link rel="stylesheet" href="darkroom.css">
 <link rel="stylesheet" href="buy.css">
-<script>
-  // Danish visitors go to the Danish shop (kroner, the Danish cart); ?lang=en keeps this page
-  (function () {
-    var q = new URLSearchParams(location.search), l = q.get('lang');
-    try { if (l) localStorage.setItem('laas-lang', l); if (!l) l = localStorage.getItem('laas-lang'); } catch (e) {}
-  })();
-</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Product","name":"LAAS Ring-Lock","brand":{"@type":"Brand","name":"LAAS"},
- "description":"Keyless bike lock. Works with Apple Find My. Insurance-approved in Denmark (Varefakta VF 5029:4).",
- "image":["images/scenes/finish-steel.webp","images/scenes/finish-copper.webp","images/scenes/finish-black.webp"],"color":"Silver, Copper, Black","weight":{"@type":"QuantitativeValue","value":540,"unitCode":"GRM"},
- "offers":{"@type":"Offer","price":"129","priceCurrency":"EUR","availability":"https://schema.org/InStock"}}
+ "description":"Keyless bike lock that opens with your phone. Insurance-approved in Denmark, Varefakta VK 37868 (certificate VF 5029:4).",
+ "image":["images/scenes/finish-steel.webp","images/scenes/finish-copper.webp","images/scenes/finish-black.webp"],"color":"Steel, Copper, Black","weight":{"@type":"QuantitativeValue","value":504,"unitCode":"GRM"},
+ "offers":{"@type":"Offer","price":"129","priceCurrency":"EUR","priceValidUntil":"2026-12-31","availability":"https://schema.org/InStock"}}
 </script>
 </head>
 <body class="buy-page" data-shop>
@@ -62,7 +55,6 @@
       <a href="mailto:support@laaslocks.com">Support</a>
     </nav>
     <div class="nav__end">
-      <p class="lang label" role="group" aria-label="Language"><a href="?lang=en" data-lang="en" hreflang="en" aria-current="true">EN</a><i aria-hidden="true">/</i><a href="?lang=da" data-lang="da" hreflang="da">DA</a></p>
       <button class="ghost label nav__menu" id="menu-open" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
     </div>
   </div>
@@ -75,7 +67,6 @@
     <a class="display" href="index.html#shipping"><span class="label">03</span>Shipping</a>
     <a class="display" href="mailto:support@laaslocks.com"><span class="label">04</span>Support</a>
   </nav>
-  <p class="lang lang--menu label" role="group" aria-label="Language"><a href="?lang=en" data-lang="en" aria-current="true">EN</a><i aria-hidden="true">/</i><a href="?lang=da" data-lang="da">DA</a></p>
 </div>
 
 <main id="top">
@@ -83,7 +74,7 @@
   <!-- the product: the real lock, in 3D, on the left (on top on a phone); title, price and the buy card beside it -->
   <section class="pdp" id="buy" data-metal="steel" aria-labelledby="pdp-h">
     <div class="pdp__stage">
-      <div class="lock3d" id="lock3d" tabindex="0" role="group" aria-roledescription="3D view" aria-label="The Ring-Lock in Silver. Drag, or use the arrow keys, to turn it.">
+      <div class="lock3d" id="lock3d" tabindex="0" role="group" aria-roledescription="3D view" aria-label="The Ring-Lock in Steel. Drag, or use the arrow keys, to turn it.">
         <img class="lock3d__still" id="lock-still" src="images/scenes/finish-steel.webp" width="800" height="800" alt="" fetchpriority="high" decoding="async">
         <i class="lock3d__floor" aria-hidden="true"></i>
       </div>
@@ -92,17 +83,17 @@
 
     <div class="pdp__col">
       <h1 class="heading pdp__title" id="pdp-h">The Ring-Lock.</h1>
-      <p class="pdp__price"><strong>€129</strong><s><span class="visually-hidden">Regular price </span>€159</s><span class="label pdp__intro">Intro price</span></p>
-      <p class="pdp__sub">Keyless. Works with Apple Find My. Insurance-approved in Denmark.</p>
+      <p class="pdp__price"><strong>€129</strong><s><span class="visually-hidden">Regular price </span>€149</s><span class="label pdp__intro">Intro price until 31 Dec 2026</span></p>
+      <p class="pdp__sub">Keyless. <a class="link" href="https://varefakta.dk/cykellaase/" target="_blank" rel="noopener">Insurance-approved in Denmark</a>, Varefakta VK 37868. Fits most bikes.</p>
 
       <!-- António's buy block (as on index.html #buy): three finish dots, the chosen one ringed and named; quantity and Buy;
-           what you are covered by; stock; how you can pay -->
+           what you are covered by; how you can pay -->
       <div class="buybox">
         <div class="finishes" role="radiogroup" aria-label="Finish">
-          <button type="button" role="radio" data-finish="steel" aria-checked="true" style="--c:#C9CDCF"><span class="visually-hidden">Silver</span></button>
+          <button type="button" role="radio" data-finish="steel" aria-checked="true" style="--c:#C9CDCF"><span class="visually-hidden">Steel</span></button>
           <button type="button" role="radio" data-finish="copper" aria-checked="false" style="--c:#B9774F"><span class="visually-hidden">Copper</span></button>
           <button type="button" role="radio" data-finish="black" aria-checked="false" style="--c:#2A2D2E"><span class="visually-hidden">Black</span></button>
-          <span class="finishes__name label" id="finish-name" aria-hidden="true">Silver</span>
+          <span class="finishes__name label" id="finish-name" aria-hidden="true">Steel</span>
         </div>
         <div class="qty-row">
           <div class="qty">
@@ -114,33 +105,32 @@
         </div>
         <ul class="trust-row" aria-label="What you are covered by">
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>57-day returns</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Return online or in store</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>2-year warranty</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Prepaid return label in the box</li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Two-year right to complain</li>
         </ul>
-        <p class="stock" id="stock">1,000+ available in Silver</p>
         <ul class="paywall" aria-label="Accepted payment methods"><li><img src="images/icons/mobilepay-mark.svg" alt="MobilePay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/applepay.svg" alt="Apple Pay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/googlepay.svg" alt="Google Pay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/klarna.svg" alt="Klarna" width="38" height="24" loading="lazy"></li><li><img src="images/icons/visa.svg" alt="Visa" width="38" height="24" loading="lazy"></li><li><img src="images/icons/mastercard.svg" alt="Mastercard" width="38" height="24" loading="lazy"></li></ul>
       </div>
-      <p class="fine pdp__ship">Ships in 1–2 working days. No frame holes? The Flex Mount, €9.99, is offered when you press Buy.</p>
+      <p class="fine pdp__ship">Ships in 1–2 working days. Shipping €9, free on orders over €250. Prices include VAT. No frame holes? The Flex Mount, €9.99, is in your cart, one tap away.</p>
     </div>
   </section>
 
   <!-- the details: one real photo, the few numbers that matter, the box -->
   <section class="details" id="details" aria-labelledby="details-h">
     <figure class="details__photo">
-      <img id="photo" src="images/lock-steel.webp" width="1080" height="1080" alt="The Ring-Lock in Silver on the rear wheel of a bike" loading="lazy" decoding="async">
+      <img id="photo" src="images/lock-steel.webp" width="1080" height="1080" alt="The Ring-Lock in Steel on the rear wheel of a bike" loading="lazy" decoding="async">
     </figure>
     <div class="details__text">
       <h2 class="details__h" id="details-h">Details</h2>
       <dl class="specs__list">
-        <div><dt>Opening</dt><dd>106 mm, fits most bikes</dd></div>
+        <div><dt>Fit</dt><dd>Tyres up to 60 mm. Mount spacing 75 to 100 mm. Not for fat bikes.</dd></div>
         <div><dt>Bolt</dt><dd>9 mm hardened steel</dd></div>
-        <div><dt>Weight</dt><dd>540 g</dd></div>
-        <div><dt>Battery</dt><dd>Six months per charge, about an hour on USB-C</dd></div>
-        <div><dt>Approval</dt><dd>Varefakta VF 5029:4, VK 37868</dd></div>
-        <div><dt>Fitting</dt><dd>Two screws, about four minutes</dd></div>
+        <div><dt>Weight</dt><dd>504 g</dd></div>
+        <div><dt>Battery</dt><dd>About six months per charge. A full charge over USB-C takes 90 minutes.</dd></div>
+        <div><dt>Approval</dt><dd>Varefakta-approved, VK 37868 (certificate VF 5029:4)</dd></div>
+        <div><dt>Fitting</dt><dd>The mounting screws are in the box</dd></div>
       </dl>
       <h3 class="details__h details__h--box">In the box</h3>
-      <p class="details__box">Ring-Lock, two mounting screws, 4 mm hex key, USB-C cable, lock certificate, return label.</p>
+      <p class="details__box">Ring-Lock, mounting screws, certificates, return label. No charging cable in the box: any USB-C cable works.</p>
     </div>
   </section>
 
@@ -148,10 +138,10 @@
   <section class="pdp-faq" id="faq" aria-labelledby="faq-h">
     <h2 class="details__h" id="faq-h">Questions</h2>
     <div class="faq">
-      <details class="qa" name="qa"><summary>Will it fit my bike?<i aria-hidden="true"></i></summary><p>Most bikes, cargo bikes and e-bikes too, but not fat bikes. Frame holes? Two screws in the box, about four minutes. No holes? The Flex Mount, €9.99.</p></details>
-      <details class="qa" name="qa"><summary>Will my insurance accept it?<i aria-hidden="true"></i></summary><p>In Denmark, yes. Varefakta VF 5029:4, VK 37868, approved July 2025. Outside Denmark, check what your policy asks for first.</p></details>
-      <details class="qa" name="qa"><summary>What if the battery runs flat?<i aria-hidden="true"></i></summary><p>Six months per charge, and about an hour on USB-C to fill it again. Flat? Unlock while it charges from a power bank.</p></details>
-      <details class="qa" name="qa"><summary>How do returns and the warranty work?<i aria-hidden="true"></i></summary><p>57 days to send it back, online or in store, and your money is back within 14 days. After that, a two-year warranty from Copenhagen.</p></details>
+      <details class="qa" name="qa"><summary>Will it fit my bike?<i aria-hidden="true"></i></summary><p>Most bikes, cargo bikes and e-bikes too: tyres up to 60 mm, mount spacing 75 to 100 mm. Not fat bikes. Frame holes? The mounting screws are in the box. No holes? The Flex Mount, €9.99.</p></details>
+      <details class="qa" name="qa"><summary>Will my insurance accept it?<i aria-hidden="true"></i></summary><p>In Denmark, the Ring-Lock is insurance-approved: Varefakta VK 37868. Most Danish insurers ask for a Varefakta-approved lock and a lock certificate, and the certificate is in the box. Check your own policy. Outside Denmark, check what your policy asks for first.</p></details>
+      <details class="qa" name="qa"><summary>What if the battery runs flat?<i aria-hidden="true"></i></summary><p>About six months per charge. A full charge over USB-C takes 90 minutes.</p></details>
+      <details class="qa" name="qa"><summary>How do returns and the right to complain work?<i aria-hidden="true"></i></summary><p>Hand it to the carrier with the prepaid return label by day 57, and your money is back within 14 days. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery.</p></details>
     </div>
     <p class="fine pdp-faq__more">Not here? Call <a class="link" href="tel:+4540853099">+45 40 85 30 99</a> or write to <a class="link" href="mailto:support@laaslocks.com">support@laaslocks.com</a>.</p>
   </section>
@@ -160,15 +150,14 @@
     <div class="foot__grid">
       <a href="index.html" aria-label="LAAS, home"><svg class="foot__logo" viewBox="0 0 343.43 88.44" aria-hidden="true"><use href="#laas-mark"/></svg></a>
       <p class="foot__contact label"><a href="mailto:support@laaslocks.com">support@laaslocks.com</a><a href="tel:+4540853099">+45 40 85 30 99</a></p>
-      <a class="foot__buy label" href="#buy"><span>Buy</span><span>€129</span></a>
     </div>
-    <p class="foot__legal"><span>LAAS ApS · CVR 40942491 · Copenhagen · © 2026</span><span>Apple, the Apple logo, and Find My are trademarks of Apple Inc.</span></p>
+    <p class="foot__legal"><span>LAAS ApS · Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · © 2026</span><span>Apple, the Apple logo, and Find My are trademarks of Apple Inc.</span></p>
   </footer>
 </main>
 
 <!-- the mobile buy bar: shows once the buy block has scrolled away -->
 <div class="buybar" id="buybar" aria-hidden="true">
-  <p class="buybar__what"><b>Ring-Lock</b><span id="buybar-finish">Silver</span></p>
+  <p class="buybar__what"><b>Ring-Lock</b><span id="buybar-finish">Steel</span></p>
   <button class="buy-btn buybar__btn" type="button" id="buybar-btn" tabindex="-1">Buy · €129</button>
 </div>
 

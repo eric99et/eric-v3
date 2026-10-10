@@ -14,15 +14,8 @@
 <link rel="stylesheet" href="darkroom.css">
 <link rel="stylesheet" href="buy.css">
 <link rel="stylesheet" href="shop-v2.css">
-<script>
-  // Danish visitors go to the Danish cart (kroner, its own storage); ?lang=en keeps this page
-  (function () {
-    var l = new URLSearchParams(location.search).get('lang');
-    try { if (l) localStorage.setItem('laas-lang', l); if (!l) l = localStorage.getItem('laas-lang'); } catch (e) {}
-  })();
-</script>
 </head>
-<body class="buy-page shop-page" data-shop>
+<body class="buy-page shop-page cart-page" data-shop>
 <a class="skip label" href="#cart-h">Skip to content</a>
 
 <!-- the wordmark, supplied artwork (images/logo-white.svg), drawn once -->
@@ -50,7 +43,6 @@
       <a href="mailto:support@laaslocks.com">Support</a>
     </nav>
     <div class="nav__end">
-      <p class="lang label" role="group" aria-label="Language"><a href="?lang=en" data-lang="en" hreflang="en" aria-current="true">EN</a><i aria-hidden="true">/</i><a href="?lang=da" data-lang="da" hreflang="da">DA</a></p>
       <button class="ghost label nav__menu" id="menu-open" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
     </div>
   </div>
@@ -63,93 +55,70 @@
     <a class="display" href="index.html#shipping"><span class="label">03</span>Shipping</a>
     <a class="display" href="mailto:support@laaslocks.com"><span class="label">04</span>Support</a>
   </nav>
-  <p class="lang lang--menu label" role="group" aria-label="Language"><a href="?lang=en" data-lang="en" aria-current="true">EN</a><i aria-hidden="true">/</i><a href="?lang=da" data-lang="da">DA</a></p>
 </div>
 
-<main id="top" class="shop">
-  <div class="shop__head">
-    <p class="void__index label"><b>Cart</b> <span data-count>0 items</span></p>
-    <h1 class="heading shop__title" id="cart-h" tabindex="-1">Your cart.</h1>
-    <p class="body shop__lead">Everything you have chosen. You have 57 days to change your mind, online or in store.</p>
-  </div>
+<main id="top" class="shop cart">
+  <!-- the cart, in one narrow column: the lines, the Flex Mount if it is needed, the sum and one button -->
+  <div class="cart__wrap">
+    <h1 class="cart__h" id="cart-h" tabindex="-1">Your cart <span class="cart__n" data-count>0 items</span></h1>
 
-  <!-- empty: one way back -->
-  <div class="card empty" data-empty hidden>
-    <img src="images/scenes/finish-steel.webp" width="800" height="800" alt="" class="empty__pic">
-    <div>
-      <h2 class="empty__h">Nothing here yet.</h2>
-      <p class="empty__p">Pick a finish and it lands here.</p>
-      <a class="pill-btn" href="buy.html">See the Ring-Lock</a>
-    </div>
-  </div>
-
-  <div class="shop__grid" data-full>
-    <div class="shop__main">
-      <section class="card" aria-label="What is in your cart">
-        <ul class="lines" data-lines="edit"></ul>
-      </section>
-
-      <!-- the Flex Mount, offered once, as a card (the old cart asked in a popup on the way to checkout) -->
-      <section class="card offer" id="offer-flex" aria-labelledby="offer-flex-h" hidden>
-        <span class="offer__pic"><img src="images/flexmount.webp" width="1200" height="1600" alt="The Flex Mount holding a Ring-Lock on a bike without frame holes" loading="lazy" decoding="async"></span>
-        <div class="offer__body">
-          <p class="label offer__kicker">Does your frame have mounting holes?</p>
-          <h2 class="offer__h" id="offer-flex-h">No holes? Add the Flex Mount.</h2>
-          <p class="offer__p">Most bikes have them, and the screws are in the box. The Flex Mount fits the Ring-Lock without them, no drilling. One per lock, in the same box. How do I check my frame?</p>
-        </div>
-        <button class="ghost offer__add" type="button" data-add="flex"><span>Add</span><b>€9.99</b></button>
-      </section>
-
-      <section class="card offer offer--quiet" id="offer-second" aria-labelledby="offer-second-h" hidden>
-        <span class="offer__pic offer__pic--pack"><img src="images/scenes/finish-steel.webp" width="800" height="800" alt="" loading="lazy" decoding="async"></span>
-        <div class="offer__body">
-          <h2 class="offer__h" id="offer-second-h">A second Ring-Lock<span id="offer-second-fin"></span>, €129.</h2>
-          <p class="offer__p">Two locks pass €250, so the whole order ships free.</p>
-        </div>
-        <button class="ghost offer__add" type="button" data-add="lock"><span>Add</span><b>€129</b></button>
-      </section>
-    </div>
-
-    <aside class="shop__side" aria-labelledby="sum-h">
-      <div class="card summary">
-        <h2 class="summary__h" id="sum-h">Summary</h2>
-        <div class="meter" id="meter" role="progressbar" aria-valuemin="0" aria-valuemax="250" aria-valuenow="0" aria-label="Free shipping over €250">
-          <p class="meter__label"><span id="meter-label">Free shipping over €250</span><span class="label">€250</span></p>
-          <i class="meter__bar"><i></i></i>
-        </div>
-        <dl class="sums">
-          <div><dt>Subtotal</dt><dd data-subtotal>€0</dd></div>
-          <div><dt>Shipping</dt><dd data-shipping>€0</dd></div>
-          <div class="sums__total"><dt>Total</dt><dd data-total>€0</dd></div>
-        </dl>
-        <p class="fine summary__vat">Prices include European VAT. €9 flat rate shipping, free over €250. Ships in 1–2 working days.</p>
-        <a class="pill-btn pill-btn--wide" href="checkout-v2.html" data-checkout><span>Check out</span><b data-total>€0</b></a>
-        <p class="fine summary__fine">The 57 days start on delivery, not today. How returns work</p>
-        <ul class="trust-row" aria-label="What you are covered by">
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>57-day returns</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Return online or in store</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>2-year warranty</li>
-        </ul>
-        <ul class="paywall" aria-label="Accepted payment methods"><li><img src="images/icons/mobilepay-mark.svg" alt="MobilePay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/applepay.svg" alt="Apple Pay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/googlepay.svg" alt="Google Pay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/klarna.svg" alt="Klarna" width="38" height="24" loading="lazy"></li><li><img src="images/icons/visa.svg" alt="Visa" width="38" height="24" loading="lazy"></li><li><img src="images/icons/mastercard.svg" alt="Mastercard" width="38" height="24" loading="lazy"></li></ul>
+    <!-- empty: one small card, one way back -->
+    <div class="item item--empty" data-empty hidden>
+      <span class="item__pic"><img src="images/scenes/finish-steel.webp" width="800" height="800" alt=""></span>
+      <div class="item__what">
+        <p class="item__name">Nothing here yet.</p>
+        <p class="item__meta">Pick a finish and it lands here.</p>
       </div>
-    </aside>
+      <a class="item__go" href="buy.html">See the Ring-Lock</a>
+    </div>
+
+    <!-- one card holds it all: the things in the cart, the Flex Mount if it is needed, the sum and the button -->
+    <section class="cart__box" data-full aria-label="Your cart">
+    <ul class="items" data-lines="edit" aria-label="What is in your cart"></ul>
+
+    <!-- two small offers side by side: the Flex Mount, and a second lock while it would make shipping free -->
+    <div class="addons">
+      <div class="addon" id="offer-flex" hidden>
+        <img src="images/flexmount.webp" width="1200" height="1600" alt="" decoding="async">
+        <p><b>No frame holes?</b> The Flex Mount fits without them. <a class="link" href="index.html#fit">Check</a></p>
+        <button class="addon__btn" type="button" data-add="flex">Add · €9.99</button>
+      </div>
+      <div class="addon" id="offer-second" hidden>
+        <img src="images/scenes/finish-steel.webp" width="800" height="800" alt="" decoding="async">
+        <div>
+          <p><b>Free shipping</b> with a second lock.</p>
+          <div class="pick" role="radiogroup" aria-label="Finish of the second lock">
+            <button type="button" role="radio" data-pick="steel" aria-checked="true" style="--c:#C9CDCF"><span class="visually-hidden">Steel</span></button>
+            <button type="button" role="radio" data-pick="copper" aria-checked="false" style="--c:#B9774F"><span class="visually-hidden">Copper</span></button>
+            <button type="button" role="radio" data-pick="black" aria-checked="false" style="--c:#2A2D2E"><span class="visually-hidden">Black</span></button>
+            <span class="pick__name" id="offer-second-fin">Steel</span>
+          </div>
+        </div>
+        <button class="addon__btn" type="button" data-add="lock">Add · €129</button>
+      </div>
+    </div>
+
+    <div class="cart__sum">
+      <dl class="sums">
+        <div><dt>Subtotal</dt><dd data-subtotal>€0</dd></div>
+        <div><dt>Shipping <small>free over €250</small></dt><dd data-shipping>€0</dd></div>
+        <div class="sums__total"><dt>Total <small>incl. VAT</small></dt><dd data-total>€0</dd></div>
+      </dl>
+      <a class="pill-btn cart__go" href="checkout-v2.html" data-checkout>Check out</a>
+      <p class="cart__fine">57-day returns · Prepaid return label in the box</p>
+      <ul class="paywall cart__pay" aria-label="Accepted payment methods"><li><img src="images/icons/mobilepay-mark.svg" alt="MobilePay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/applepay.svg" alt="Apple Pay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/googlepay.svg" alt="Google Pay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/klarna.svg" alt="Klarna" width="38" height="24" loading="lazy"></li><li><img src="images/icons/visa.svg" alt="Visa" width="38" height="24" loading="lazy"></li><li><img src="images/icons/mastercard.svg" alt="Mastercard" width="38" height="24" loading="lazy"></li></ul>
+    </div>
+    </section>
   </div>
 
   <footer class="foot">
     <div class="foot__grid">
       <a href="index.html" aria-label="LAAS, home"><svg class="foot__logo" viewBox="0 0 343.43 88.44" aria-hidden="true"><use href="#laas-mark"/></svg></a>
       <p class="foot__contact label"><a href="mailto:support@laaslocks.com">support@laaslocks.com</a><a href="tel:+4540853099">+45 40 85 30 99</a></p>
-      <a class="foot__buy label" href="buy.html"><span>Buy</span><span>€129</span></a>
     </div>
-    <p class="foot__legal"><span>LAAS ApS · CVR 40942491 · Copenhagen · © 2026</span><span>Apple, the Apple logo, and Find My are trademarks of Apple Inc.</span></p>
+    <p class="foot__legal"><span>LAAS ApS · Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · © 2026</span><span>Apple, the Apple logo, and Find My are trademarks of Apple Inc.</span></p>
   </footer>
 </main>
-
-<!-- phones: the total and Checkout, always in reach -->
-<div class="paybar" data-full hidden>
-  <p class="paybar__sum"><span>Total</span><b data-total>€0</b></p>
-  <a class="pill-btn" href="checkout-v2.html" data-checkout>Check out</a>
-</div>
 
 <p class="visually-hidden" id="status" role="status" aria-live="polite"></p>
 <script src="shop-v2.js" defer></script>

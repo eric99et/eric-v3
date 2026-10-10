@@ -14,13 +14,6 @@
 <link rel="stylesheet" href="darkroom.css">
 <link rel="stylesheet" href="buy.css">
 <link rel="stylesheet" href="shop-v2.css">
-<script>
-  // Danish visitors go to the Danish checkout (kroner, its own cart); ?lang=en keeps this page
-  (function () {
-    var l = new URLSearchParams(location.search).get('lang');
-    try { if (l) localStorage.setItem('laas-lang', l); if (!l) l = localStorage.getItem('laas-lang'); } catch (e) {}
-  })();
-</script>
 </head>
 <body class="buy-page shop-page co-page" data-shop>
 <a class="skip label" href="#co-h">Skip to content</a>
@@ -50,8 +43,6 @@
       <a href="mailto:support@laaslocks.com">Support</a>
     </nav>
     <div class="nav__end">
-      <p class="lang label" role="group" aria-label="Language"><a href="?lang=en" data-lang="en" hreflang="en" aria-current="true">EN</a><i aria-hidden="true">/</i><a href="?lang=da" data-lang="da" hreflang="da">DA</a></p>
-      <a class="ghost nav__cart nav__cart--always" href="cart-v2.html"><span>Cart</span><b data-cart-n>0</b></a>
       <button class="ghost label nav__menu" id="menu-open" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
     </div>
   </div>
@@ -64,67 +55,46 @@
     <a class="display" href="index.html#shipping"><span class="label">03</span>Shipping</a>
     <a class="display" href="mailto:support@laaslocks.com"><span class="label">04</span>Support</a>
   </nav>
-  <p class="lang lang--menu label" role="group" aria-label="Language"><a href="?lang=en" data-lang="en" aria-current="true">EN</a><i aria-hidden="true">/</i><a href="?lang=da" data-lang="da">DA</a></p>
 </div>
 
-<main id="top" class="shop">
-  <div class="shop__head">
-    <p class="void__index label"><a href="cart-v2.html" class="crumb">Cart</a> <b>Checkout</b></p>
-    <h1 class="heading shop__title" id="co-h" tabindex="-1">Checkout.</h1>
-    <p class="body shop__lead">Prices include VAT. Shipping is shown before you pay, not after.</p>
-  </div>
+<main id="top" class="shop cart co2">
+  <!-- the checkout, in the cart's narrow column: the order, then one card with contact, delivery, payment and Pay.
+       BUILD NOTE: still a shell. It validates the form, then says plainly that payment is not connected; it takes
+       no card details and sends nothing anywhere. -->
+  <div class="cart__wrap">
+    <p class="co2__crumb"><a href="cart-v2.html" class="link">← Cart</a></p>
+    <h1 class="cart__h" id="co-h" tabindex="-1">Checkout <span class="cart__n" data-count>0 items</span></h1>
 
-  <div class="card empty" data-empty hidden>
-    <img src="images/scenes/finish-steel.webp" width="800" height="800" alt="" class="empty__pic">
-    <div>
-      <h2 class="empty__h">Your cart is empty.</h2>
-      <p class="empty__p">Pick a finish first, then come back here.</p>
-      <a class="pill-btn" href="buy.html">See the Ring-Lock</a>
+    <div class="item item--empty" data-empty hidden>
+      <span class="item__pic"><img src="images/scenes/finish-steel.webp" width="800" height="800" alt=""></span>
+      <div class="item__what">
+        <p class="item__name">Your cart is empty.</p>
+        <p class="item__meta">Pick a finish first, then come back here.</p>
+      </div>
+      <a class="item__go" href="buy.html">See the Ring-Lock</a>
     </div>
-  </div>
 
-  <!-- BUILD NOTE (as in checkout.html): a checkout shell. It reads the same cart, collects contact and delivery
-       details and lays out the payment order, but it takes no card details and sends nothing anywhere. Pay
-       validates the form and then says plainly that payment is not connected. -->
-  <form class="shop__grid co" id="checkout-form" novalidate data-full>
-    <aside class="shop__side co__side" aria-labelledby="os-h">
-      <details class="card summary co-sum" id="co-summary" open>
-        <summary class="co-sum__toggle"><span class="summary__h" id="os-h">Your order</span><span class="co-sum__peek"><span data-count>0 items</span> · <b data-total>€0</b></span><i aria-hidden="true"></i></summary>
+    <form class="cart__box co2__box" id="checkout-form" novalidate data-full>
+      <!-- the order -->
+      <section class="co2__sec" aria-labelledby="os-h">
+        <h2 class="co2__h" id="os-h">Your order <a class="link co2__edit" href="cart-v2.html">Edit</a></h2>
         <ul class="lines lines--ro" data-lines="read"></ul>
-        <p class="co-sum__edit"><a class="link" href="cart-v2.html">Change your cart</a></p>
+        <dl class="sums">
+          <div><dt>Subtotal</dt><dd data-subtotal>€0</dd></div>
+          <div><dt>Shipping <small>ships in 1–2 working days</small></dt><dd data-shipping>€0</dd></div>
+          <div class="sums__total"><dt>Total <small>incl. VAT</small></dt><dd data-total>€0</dd></div>
+        </dl>
         <details class="co-promo">
           <summary>Have a discount code?</summary>
           <div class="co-promo__row"><input type="text" aria-label="Discount code" placeholder="Discount code" autocomplete="off"><button type="button" class="ghost" data-promo>Apply</button></div>
           <p class="fine" id="promo-msg" hidden></p>
         </details>
-        <dl class="sums">
-          <div><dt>Subtotal</dt><dd data-subtotal>€0</dd></div>
-          <div><dt>Shipping</dt><dd data-shipping>€0</dd></div>
-          <div class="sums__total"><dt>Total</dt><dd data-total>€0</dd></div>
-        </dl>
-        <p class="fine summary__fine">Paid in full today. Day 57 is your last day to return it, online with the label in the box or in store, and get your money back.</p>
-      </details>
-    </aside>
+      </section>
 
-    <div class="shop__main co__main">
-      <fieldset class="card co-block">
-        <legend class="co-block__h">Express checkout</legend>
-        <div class="express">
-          <button class="express__btn" type="button" data-express>MobilePay</button>
-          <button class="express__btn" type="button" data-express>Apple&nbsp;Pay</button>
-          <button class="express__btn" type="button" data-express>Shop&nbsp;Pay</button>
-        </div>
-      </fieldset>
-      <p class="or-line"><span>or fill in your details</span></p>
-
-      <fieldset class="card co-block">
-        <legend class="co-block__h">Contact</legend>
+      <!-- contact and delivery -->
+      <section class="co2__sec" aria-labelledby="del-h">
+        <h2 class="co2__h" id="del-h">Delivery</h2>
         <div class="field"><label for="co-email">Email</label><input id="co-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
-        <label class="check"><input type="checkbox" name="news"><span>News once a month, at most</span></label>
-      </fieldset>
-
-      <fieldset class="card co-block">
-        <legend class="co-block__h">Delivery</legend>
         <div class="row2">
           <div class="field"><label for="co-first">First name</label><input id="co-first" name="first" autocomplete="given-name" required></div>
           <div class="field"><label for="co-last">Last name</label><input id="co-last" name="last" autocomplete="family-name" required></div>
@@ -134,61 +104,41 @@
           <div class="field"><label for="co-post">Postal code</label><input id="co-post" name="postal" autocomplete="postal-code" inputmode="numeric" required></div>
           <div class="field"><label for="co-city">City</label><input id="co-city" name="city" autocomplete="address-level2" required></div>
         </div>
-        <div class="field"><label for="co-country">Country</label>
-          <select id="co-country" name="country" autocomplete="country"><option value="DK" selected>Denmark</option><option value="SE">Sweden</option><option value="DE">Germany</option><option value="NL">Netherlands</option><option value="BE">Belgium</option><option value="AT">Austria</option><option value="FI">Finland</option><option value="FR">France</option></select>
+        <div class="row2">
+          <div class="field"><label for="co-country">Country</label>
+            <select id="co-country" name="country" autocomplete="country"><option value="DK" selected>Denmark</option><option value="SE">Sweden</option><option value="DE">Germany</option><option value="NL">Netherlands</option><option value="BE">Belgium</option><option value="AT">Austria</option><option value="FI">Finland</option><option value="FR">France</option></select>
+          </div>
+          <div class="field"><label for="co-phone">Phone <span>optional</span></label><input id="co-phone" name="phone" type="tel" autocomplete="tel"></div>
         </div>
-        <div class="field"><label for="co-phone">Phone <span>for delivery updates by SMS, optional</span></label><input id="co-phone" name="phone" type="tel" autocomplete="tel"></div>
-        <p class="fine">€9 flat rate, free over €250. Leaves Copenhagen in 1–2 working days.</p>
-      </fieldset>
+        <label class="check"><input type="checkbox" name="news"><span>News once a month, at most</span></label>
+      </section>
 
-      <fieldset class="card co-block">
-        <legend class="co-block__h">Payment method</legend>
-        <div class="methods">
-          <label class="method"><input type="radio" name="method" value="card" checked><span class="method__name">Card</span><span class="method__marks"><img src="images/icons/visa.svg" alt="Visa" width="38" height="24"><img src="images/icons/mastercard.svg" alt="Mastercard" width="38" height="24"></span></label>
-          <label class="method"><input type="radio" name="method" value="mobilepay"><span class="method__name">MobilePay</span><span class="method__marks"><img src="images/icons/mobilepay-mark.svg" alt="" width="38" height="24"></span></label>
-          <label class="method"><input type="radio" name="method" value="klarna"><span class="method__name">Klarna</span><span class="method__marks method__marks--klarna"><img src="images/icons/klarna.svg" alt="" width="38" height="24"></span></label>
-          <label class="method"><input type="radio" name="method" value="googlepay"><span class="method__name">Google Pay</span><span class="method__marks"><img src="images/icons/googlepay.svg" alt="" width="38" height="24"></span></label>
+      <!-- payment: one row of small tabs -->
+      <section class="co2__sec" aria-labelledby="pay-h">
+        <h2 class="co2__h" id="pay-h">Payment</h2>
+        <div class="paytabs" role="radiogroup" aria-labelledby="pay-h">
+          <label><input type="radio" name="method" value="card" checked aria-label="Card"><span><svg class="paytabs__card" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.75" y="5.75" width="18.5" height="12.5" rx="2.25"/><path d="M2.75 10h18.5M6.5 14.5h3"/></svg>Card</span></label>
+          <label><input type="radio" name="method" value="mobilepay" aria-label="MobilePay"><span><img class="paytabs__mp" src="images/icons/mobilepay-mark.svg" alt="" width="38" height="24">MobilePay</span></label>
+          <label><input type="radio" name="method" value="applepay" aria-label="Apple Pay"><span><img src="images/icons/applepay.svg" alt="" width="38" height="24"></span></label>
+          <label><input type="radio" name="method" value="googlepay" aria-label="Google Pay"><span><img src="images/icons/googlepay.svg" alt="" width="38" height="24"></span></label>
+          <label><input type="radio" name="method" value="klarna" aria-label="Klarna"><span><img class="paytabs__klarna" src="images/icons/klarna.svg" alt="" width="38" height="24"></span></label>
         </div>
-        <p class="fine" id="method-note">You enter your card on the secure payment page after you press Pay. Nothing is stored here.</p>
-      </fieldset>
-
-      <div class="co-pay">
-        <button class="pill-btn pill-btn--wide" type="submit" data-pay-btn disabled>Pay</button>
+        <p class="fine co2__note" id="method-note">You enter your card on the secure payment page after you press Pay. Nothing is stored here.</p>
+        <button class="pill-btn cart__go" type="submit" data-pay-btn disabled>Pay</button>
         <p class="co-msg" id="co-msg" role="status" aria-live="polite" hidden></p>
-        <p class="fine">By pressing Pay you accept the terms of sale. You have 57 days to return it, online or in store. Secure checkout, no account needed.</p>
-        <ul class="trust-row" aria-label="What you are covered by">
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>57-day returns</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Return online or in store</li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>2-year warranty</li>
-        </ul>
-      </div>
-    </div>
-  </form>
-
-  <section class="after" aria-labelledby="after-h" data-full>
-    <p class="void__index label"><b>Next</b> After you pay</p>
-    <h2 class="heading after__h" id="after-h">What happens next.</h2>
-    <ol class="after__steps">
-      <li><span class="label">01</span><h3>A confirmation, immediately</h3><p>With your order number and what you chose. If it does not arrive in ten minutes, check spam, then write to us.</p></li>
-      <li><span class="label">02</span><h3>It leaves Copenhagen in 1–2 working days</h3><p>You get a tracking link when it does.</p></li>
-      <li><span class="label">03</span><h3>Your 57 days start on delivery</h3><p>Not today. Send it back within 57 days, online or in store, and your money is back within 14 days.</p></li>
-    </ol>
-  </section>
+        <p class="cart__fine">By pressing Pay you accept the terms of sale. 57 days from delivery to return it with the prepaid label in the box.</p>
+      </section>
+    </form>
+  </div>
 
   <footer class="foot">
     <div class="foot__grid">
       <a href="index.html" aria-label="LAAS, home"><svg class="foot__logo" viewBox="0 0 343.43 88.44" aria-hidden="true"><use href="#laas-mark"/></svg></a>
       <p class="foot__contact label"><a href="mailto:support@laaslocks.com">support@laaslocks.com</a><a href="tel:+4540853099">+45 40 85 30 99</a></p>
     </div>
-    <p class="foot__legal"><span>LAAS ApS · CVR 40942491 · Copenhagen · © 2026</span><span>Apple, the Apple logo, and Find My are trademarks of Apple Inc.</span></p>
+    <p class="foot__legal"><span>LAAS ApS · Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · © 2026</span><span>Apple, the Apple logo, and Find My are trademarks of Apple Inc.</span></p>
   </footer>
 </main>
-
-<!-- phones: the total and Pay, always in reach -->
-<div class="paybar" data-full hidden>
-  <p class="paybar__sum"><span>Total</span><b data-total>€0</b></p>
-  <button class="pill-btn" type="submit" form="checkout-form" data-pay-btn disabled>Pay</button>
-</div>
 
 <p class="visually-hidden" id="status" role="status" aria-live="polite"></p>
 <script src="shop-v2.js" defer></script>

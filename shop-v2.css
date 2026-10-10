@@ -229,3 +229,179 @@
   .paybar .pill-btn { min-height: 50px; padding: 0 24px; font-size: 16px; }
   html:not(.is-empty) .shop-page .foot { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
 }
+
+/* =====================================================================
+   The cart (cart-v2.html): one narrow column. Each thing is its own white
+   card with Ink type, the lock on a Chalk tile, Pale Teal only as the small accent on the tag (the lock on a light tile, name, finish, price, a tag, − n +);
+   the sum and the one button sit in a white card below.
+   ===================================================================== */
+.cart__wrap { max-width: 520px; margin: 0 auto; padding: 112px var(--gutter) clamp(56px, 6vw, 96px); display: grid; gap: 12px; }
+.cart__h { display: flex; align-items: baseline; gap: 12px; margin: 0 0 6px; font: 600 clamp(28px, 2.6vw, 34px)/1.1 var(--display); letter-spacing: -0.03em; }
+.cart__h:focus { outline: none; }
+.cart__n { font: 500 14px/1 var(--body); letter-spacing: 0; color: var(--muted); }
+.items { display: grid; gap: 12px; }
+
+.item { display: grid; grid-template-columns: 84px minmax(0, 1fr) auto; align-items: center; gap: 16px; padding: 14px 16px 14px 14px; border-radius: 26px; background: #FFFFFF; color: #202F30; box-shadow: 0 1px 1px rgba(32, 47, 48, .04), 0 18px 40px -26px rgba(32, 47, 48, .35); }
+.item__pic { width: 84px; aspect-ratio: 1; border-radius: 18px; background: #ECECEA; display: grid; place-items: center; overflow: hidden; }
+.item__pic img { width: 88%; height: 88%; object-fit: contain; }
+.item__name { font: 600 18px/1.15 var(--display); letter-spacing: -0.02em; margin-bottom: 4px; }
+.item__meta { font: 500 14px/1.45 var(--body); color: #606A74; font-variant-numeric: tabular-nums; }
+.item__tag { display: inline-block; margin-top: 8px; padding: 5px 11px; border-radius: 999px; background: #9BCDD0; font: 600 12px/1 var(--display); color: #202F30; }
+.item__qty { display: flex; align-items: center; gap: 6px; }
+.item__qty button { width: 38px; height: 38px; border-radius: 12px; background: #ECECEA; color: #202F30; font: 500 20px/1 var(--display); display: grid; place-items: center; position: relative; transition: background-color .2s; }
+.item__qty button::before { content: ""; position: absolute; inset: -3px; }   /* a 44 px target */
+.item__qty button:hover { background: #9BCDD0; }
+.item__qty button:disabled { opacity: .4; cursor: default; background: #ECECEA; }
+.item__qty svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.item__qty span { min-width: 22px; text-align: center; font: 600 17px/1 var(--display); font-variant-numeric: tabular-nums; }
+.item--empty .item__name { font-size: 16px; }
+.item__go { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; background: #1D5F63; color: #FFFFFF; font: 600 14px/1 var(--display); white-space: nowrap; }
+.item__go:hover { background: #164A4D; }
+
+/* the Flex Mount: one quiet line */
+.addon { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 10px 10px 12px; border-radius: 18px; background: #FFFFFF; box-shadow: inset 0 0 0 1px rgba(32, 47, 48, .06); }
+.addon img { width: 40px; height: 40px; border-radius: 10px; object-fit: cover; }
+.addon p { font-size: 13px; line-height: 1.4; color: var(--muted); }
+.addon b { color: var(--ink); font-weight: 600; }
+.addon .link { white-space: nowrap; }
+.addon__btn { min-height: 36px; padding: 0 14px; border-radius: 999px; background: #ECECEA; color: var(--ink); font: 600 13px/1 var(--display); white-space: nowrap; transition: background-color .2s; }
+.addon__btn:hover { background: #D6D9D9; }
+
+/* the sum and the button */
+.cart .cart__card { padding: 18px 20px 20px; border-radius: 22px; }
+.cart .sums div { padding: 5px 0; font-size: 14px; }
+.cart .sums small { margin-left: 6px; font-size: 12px; color: var(--muted); opacity: .8; }
+.cart .sums .sums__total { margin-top: 6px; padding-top: 12px; }
+.cart .sums__total dt, .cart .sums__total dd { font-size: 18px; }
+.cart .sums__total small { font: 400 12px/1 var(--body); letter-spacing: 0; }
+.cart__go { width: 100%; min-height: 52px; margin-top: 14px; font-size: 16px; }
+.cart__fine { margin-top: 12px; text-align: center; font-size: 12.5px; color: var(--muted); }
+.cart .cart__pay { justify-content: center; margin-top: 10px !important; gap: 6px; }
+.cart__pay li { width: 40px; height: 26px; padding: 4px 6px; }
+
+@media (max-width: 760px) {
+  .cart__wrap { padding-top: 84px; gap: 10px; }
+  .item { grid-template-columns: 68px minmax(0, 1fr) auto; gap: 12px; padding: 12px; border-radius: 22px; }
+  .item__pic { width: 68px; border-radius: 15px; }
+  .item__name { font-size: 16px; }
+  .item__meta { font-size: 13px; }
+  .item__qty { gap: 4px; }
+  .item__qty button { width: 34px; height: 34px; border-radius: 10px; font-size: 18px; }
+  .item__qty button::before { inset: -5px; }
+  .item--empty { grid-template-columns: 68px minmax(0, 1fr); }
+  .item--empty .item__go { grid-column: 1 / -1; justify-content: center; }
+  .addon { grid-template-columns: 40px minmax(0, 1fr); }
+  .addon__btn { grid-column: 1 / -1; min-height: 44px; }
+  html:not(.is-empty) .cart-page .foot { padding-bottom: 0; }
+}
+
+/* all of it in one white card: the lines, the Flex Mount, the sum and the button */
+.cart__box { background: #FFFFFF; border-radius: 26px; padding: 6px 20px 20px; box-shadow: 0 1px 1px rgba(32, 47, 48, .04), 0 24px 60px -36px rgba(32, 47, 48, .3); }
+.cart__box .items { gap: 0; }
+.cart__box .item { background: none; box-shadow: none; border-radius: 0; padding: 16px 0; border-bottom: var(--dash); }
+.cart__box .addon { margin-top: 14px; background: #ECECEA; box-shadow: none; }
+.cart__box .addon__btn { background: #FFFFFF; }
+.cart__sum { margin-top: 10px; }
+@media (max-width: 760px) { .cart__box { padding: 4px 14px 16px; border-radius: 22px; } .cart__box .item { padding: 14px 0; } }
+
+/* the two offers, half and half (one alone takes the whole width) */
+.addons { display: flex; gap: 10px; margin-top: 14px; }
+.addons:not(:has(.addon:not([hidden]))) { display: none; }
+.cart__box .addons .addon { flex: 1 1 0; min-width: 0; margin: 0; grid-template-columns: 36px minmax(0, 1fr); grid-template-rows: auto auto; align-items: start; gap: 10px; padding: 12px; }
+.addons .addon img { width: 36px; height: 36px; border-radius: 9px; object-fit: cover; background: #FFFFFF; }
+#offer-second img { object-fit: contain; padding: 2px; }
+.addons .addon p { font-size: 12.5px; }
+.addons .addon__btn { grid-column: 1 / -1; width: 100%; min-height: 40px; }
+@media (max-width: 760px) { .addons .addon__btn { min-height: 44px; } }
+
+/* the second lock's finish: three small dots, as on the buy page */
+.pick { display: flex; align-items: center; gap: 2px; margin: 6px 0 0 -6px; }
+.pick button { position: relative; width: 32px; height: 32px; border-radius: 50%; }
+.pick button::before { content: ""; position: absolute; inset: 7px; border-radius: 50%; background: var(--c); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1); }
+.pick button::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; box-shadow: 0 0 0 1px #202F30; opacity: 0; transition: opacity .2s; }
+.pick button[aria-checked="true"]::after { opacity: 1; }
+.pick__name { margin-left: 4px; font: 600 10.5px/1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+@media (max-width: 760px) { .pick button { width: 36px; height: 36px; } .pick button::before { inset: 9px; } .pick button::after { inset: 5px; } }
+/* the two offers line up: same height, the Add buttons on one line at the bottom */
+.addons { align-items: stretch; }
+.cart__box .addons .addon { grid-template-rows: 1fr auto; }
+.addons .addon__btn { align-self: end; }
+/* the dots: one size, a thin ring on the picked one, the focus ring tight to it */
+.pick { gap: 4px; margin: 8px 0 0 -4px; }
+.pick button, .pick button:hover { width: 28px; height: 28px; transform: none; }
+.pick button::before { inset: 6px; }
+.pick button::after { inset: 2px; box-shadow: 0 0 0 1.5px #202F30; }
+.pick button:focus-visible { outline: 2px solid #1D5F63; outline-offset: 1px; }
+@media (max-width: 760px) { .pick button { width: 32px; height: 32px; } .pick button::before { inset: 8px; } .pick button::after { inset: 4px; } }
+/* the dots never squeeze: always round, the name gives way instead */
+.pick { flex-wrap: nowrap; min-width: 0; }
+.pick button { flex: none; aspect-ratio: 1; }
+.pick__name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* =====================================================================
+   The checkout (checkout-v2.html): the cart's narrow column and one white
+   card: the order, express pay, delivery, payment tabs and Pay.
+   ===================================================================== */
+.co2__crumb { margin: 0 0 -4px; font-size: 13px; }
+.co2__box { padding: 4px 20px 20px; }
+.co2__sec { padding: 18px 0; border-top: var(--dash); display: grid; gap: 12px; }
+.co2__sec:first-child { border-top: 0; }
+.co2__sec:last-child { padding-bottom: 0; }
+.co2__h { display: flex; align-items: baseline; justify-content: space-between; font: 600 16px/1.2 var(--display); letter-spacing: -0.01em; }
+.co2__edit { font: 500 13px/1 var(--body); }
+.co2 .lines--ro .line { grid-template-columns: 48px minmax(0, 1fr) auto; gap: 12px; padding: 8px 0; border: 0; }
+.co2 .lines--ro .line__pic { width: 48px; border-radius: 10px; }
+.co2 .lines--ro .line__pic img { object-fit: contain; }
+.co2 .lines--ro .line__name { font-size: 14px; }
+.co2 .lines--ro .line__meta { font-size: 12.5px; margin-top: 1px; }
+.co2 .lines--ro .line__sum { font-size: 14px; }
+.co2 .sums { margin-top: 0; padding-top: 4px; }
+.co2 .co-promo { border: 0; }
+.co2 .co-promo summary { min-height: 32px; font-size: 13px; }
+
+/* express: three light pills */
+.express2 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.express2 button { display: flex; align-items: center; justify-content: center; gap: 6px; height: 44px; border-radius: 12px; background: #ECECEA; font: 600 13px/1 var(--display); color: #202F30; transition: background-color .2s; }
+.express2 button:hover { background: #D6D9D9; }
+.express2 img { width: 34px; height: 20px; object-fit: contain; }
+.express2 button:first-child img { width: 18px; }
+.co2 .or-line { font-size: 12px; }
+
+/* the fields: compact */
+.co2 .field label { font-size: 12.5px; }
+.co2 .field input, .co2 .field select { height: 46px; border-radius: 12px; font-size: 15px; padding: 0 14px; }
+.co2 .row2 { gap: 10px; }
+.co2 .check { min-height: 32px; font-size: 13.5px; }
+
+/* payment: one row of small tabs */
+.paytabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.paytabs label { position: relative; cursor: pointer; }
+.paytabs input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.paytabs span { display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px; background: #ECECEA; font: 600 13px/1 var(--display); color: #202F30; transition: background-color .2s, color .2s; }
+.paytabs label:hover span { background: #D6D9D9; }
+.paytabs input:checked + span { background: #1D5F63; color: #FFFFFF; }
+.paytabs input:focus-visible + span { outline: 2px solid #9BCDD0; outline-offset: 0; }
+.co2__note { font-size: 12.5px; margin-top: -2px; }
+.co2 .co-msg { font-size: 13.5px; padding: 12px 14px; }
+
+@media (max-width: 760px) {
+  .co2__box { padding: 2px 14px 16px; }
+  .express2 button:first-child { font-size: 0; }
+  .express2 button:first-child img { width: 22px; }
+  html:not(.is-empty) .co-page .foot { padding-bottom: 0; }
+}
+
+/* the payment tabs carry the marks; the picked one turns white with a Deep Teal ring, so every mark stays legible */
+.paytabs span { gap: 7px; height: 40px; padding: 0 14px; background: #ECECEA; box-shadow: inset 0 0 0 1.5px transparent; }
+.paytabs img { width: 36px; height: 22px; object-fit: contain; }
+.paytabs span img + img { margin-left: -4px; }
+.paytabs .paytabs__mp { width: 18px; }
+.paytabs .paytabs__klarna { width: 50px; height: 26px; border-radius: 6px; }
+.paytabs__card { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.paytabs input:checked + span { background: #FFFFFF; color: #202F30; box-shadow: inset 0 0 0 2px #1D5F63; }
+.paytabs label:hover input:not(:checked) + span { background: #D6D9D9; }
+.paytabs { display: grid; grid-template-columns: repeat(5, auto); justify-content: start; gap: 6px; }
+.paytabs span { width: 100%; justify-content: center; }
+.paytabs label:has(.paytabs__klarna) span { background: #FFB3C7; }
+.paytabs label:has(.paytabs__klarna) input:checked + span { background: #FFB3C7; }
+@media (max-width: 560px) { .paytabs { grid-template-columns: repeat(6, 1fr); } .paytabs label { grid-column: span 2; } .paytabs label:nth-child(n+4) { grid-column: span 3; } }

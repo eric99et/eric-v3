@@ -26,49 +26,55 @@ scrollTo(0, 0);
 /* ------------------------------------------------------------- language */
 // English is written in the page; Danish replaces each text node (and a few labels) before anything else runs.
 const DA = {
-  'Skip to content': 'Spring til indhold', 'Polishing the copper': 'Vi polerer stålet', 'Ring-Lock · Copenhagen': 'Ring-Lock · København',
-  'The Ring-Lock · Silver': 'Ring-Lock · Sølv', 'The Ring-Lock, on the rear wheel': 'Ring-Lock, på baghjulet',
-  'Keyless': 'Nøglefri', 'Will it fit?': 'Passer den?', 'Fit': 'Passer', 'Buy': 'Køb', 'Buy the Ring-Lock': 'Køb Ring-Lock', 'FAQ': 'FAQ',
-  'KEYLESS · APPLE FIND MY · VAREFAKTA-APPROVED · FITS MOST BIKES · €129 ·': 'NØGLEFRI · APPLE FIND MY · VAREFAKTA-GODKENDT · PASSER TIL DE FLESTE CYKLER · €129 ·',
-  '57-day returns': '57 dages returret', 'Return online or in store': 'Returnér online eller i butik', '2-year warranty': '2 års garanti', 'Nørrebro · Now': 'Nørrebro · Nu', 'Nørrebro · Now ·': 'Nørrebro · Nu ·', 'Directions': 'Rutevejledning', 'Share': 'Del', 'Play Sound': 'Afspil lyd', 'Off': 'Fra',
-  'VAREFAKTA · VF 5029:4 · VK 37868 · APPROVED JULY 2025 · DENMARK ·': 'VAREFAKTA · VF 5029:4 · VK 37868 · GODKENDT JULI 2025 · DANMARK ·',
-  '106 mm opening': '106 mm åbning', 'Ring-Lock · Silver · €129': 'Ring-Lock · Sølv · €129', 'Bestseller · Silver': 'Bestseller · Sølv',
-  'The keyless ring lock that lives on your bike. Opens with your phone, shows up in Apple Find My, approved by Danish insurers.': 'Den nøglefri ringlås, der bor på din cykel. Åbner med din telefon, vises i Apple Find My og er godkendt af danske forsikringsselskaber.',
-  'Buy in Silver · €129': 'Køb i sølv · €129', 'See how it works': 'Se hvordan den virker',
-  'The lock that lives on your bike.': 'Låsen, der bor på din cykel.', 'One ring of stainless steel. No key, no cable, nothing to forget.': 'Én ring af rustfrit stål. Ingen nøgle, intet kabel, intet at glemme.',
-  'Opens with your phone': 'Åbner med din telefon', 'In Apple Find My': 'I Apple Find My', 'Insurance-approved': 'Forsikringsgodkendt', 'Fits most bikes': 'Passer til de fleste cykler',
+  'Skip to content': 'Spring til indhold', 'Scroll down': 'Rul ned', 'Scroll': 'Rul', 'Menu': 'Menu', 'Close': 'Luk',
+  'Keyless': 'Nøglefri', 'Find My': 'Find My', 'Varefakta': 'Varefakta', 'Will it fit?': 'Passer den?', 'Fit': 'Pasform', 'Buy': 'Køb', 'FAQ': 'FAQ',
+  'Ring-Lock': 'Ring-Lock', 'Shipping': 'Fragt', 'Support': 'Support', 'Yours': 'Din',
+  // the orbit and the seal
+  'KEYLESS · INSURANCE-APPROVED IN DENMARK · FITS MOST BIKES · €129 ·': 'NØGLEFRI · FORSIKRINGSGODKENDT I DANMARK · PASSER TIL DE FLESTE CYKLER · 999 KR ·',
+  'VAREFAKTA · VK 37868 · VF 5029:4 · INSURANCE-APPROVED IN DENMARK ·': 'VAREFAKTA · VK 37868 · VF 5029:4 · FORSIKRINGSGODKENDT I DANMARK ·',
+  '63 mm clearance': '63 mm frigang', 'Ring-Lock · Steel · €129': 'Ring-Lock · Steel · 999 kr',
+  // the poster
+  'No key.': 'Ingen nøgle.', 'No cable.': 'Intet kabel.', 'No key. No cable. One ring of stainless steel that stays on your bike.': 'Ingen nøgle. Intet kabel. Én ring af rustfrit stål, der bliver på din cykel.',
+  'One ring of stainless steel that stays on your bike. Nothing to carry, nothing to forget.': 'Én ring af rustfrit stål, der bliver på din cykel. Intet at bære på, intet at glemme.',
+  'Opens with your phone': 'Åbner med din telefon', 'Insurance-approved in Denmark': 'Forsikringsgodkendt i Danmark', 'Fits most bikes': 'Passer til de fleste cykler', '57 days to return it': '57 dage til at returnere den',
+  // 01 keyless
   'Your phone is the key.': 'Din telefon er nøglen.',
   'One tap in the LAAS app and the 9 mm hardened-steel bolt slides open. Push it home and it clicks locked.': 'Ét tryk i LAAS-appen, og den 9 mm hærdede stålbolt glider op. Skub den i, og den klikker låst.',
   'Near': 'Tæt på', 'Locked': 'Låst', 'Unlocked': 'Låst op', 'Tap to unlock': 'Tryk for at låse op', 'Tap to lock': 'Tryk for at låse', 'One-time key · Bluetooth': 'Engangsnøgle · Bluetooth',
-  'Where is your bike? “Find My” knows.': 'Hvor er din cykel? “Find My” ved det.',
-  'Find My is Apple’s own app for finding lost things. It is already on every iPhone, iPad and Mac. Your bike shows up in it, right next to your AirPods.': 'Find My er Apples egen app til at finde ting, du har mistet. Den er allerede på alle iPhones, iPads og Macs. Din cykel vises i den lige ved siden af dine AirPods.',
-  'Works with': 'Virker med', 'LAAS never sees where it is. The location stays in Apple’s encrypted network.': 'LAAS ser aldrig, hvor den er. Placeringen bliver i Apples krypterede netværk.',
+  // 02 find my (Apple's approved wording only)
+  'Apple Find My': 'Apple Find My', 'Works with Apple Find My.': 'Virker med Apple Find My.', 'Works with': 'Virker med',
+  'Nørrebro · Now': 'Nørrebro · Nu', 'Nørrebro · Now ·': 'Nørrebro · Nu ·', 'Directions': 'Rutevejledning', 'Play Sound': 'Afspil lyd', 'Off': 'Fra',
+  // 03 varefakta
   'Insurance‑approved in Denmark.': 'Forsikrings­godkendt i Danmark.',
-  'Danish insurers ask for an approved lock before they pay out for a stolen bike. The Ring-Lock is the first electronic ring lock to hold the Varefakta approval.': 'Danske forsikringsselskaber kræver en godkendt lås, før de udbetaler for en stjålet cykel. Ring-Lock er den første elektroniske ringlås med Varefakta-godkendelse.',
-  'Certificate': 'Certifikat', 'Registration': 'Registrering', 'Approved': 'Godkendt', 'July 2025': 'Juli 2025',
-  'Lock certificate': 'Låsecertifikat', 'Lock': 'Lås', 'Key no.': 'Nøgle nr.', 'Frame no.': 'Stel nr.', 'Approval': 'Godkendelse', 'In the box, and in the app': 'I æsken og i appen',
-  'Fit': 'Pasform', 'Will it fit my bike?': 'Passer den til min cykel?', 'Road': 'Racer', 'City': 'Bycykel', 'E-bike': 'Elcykel', 'Cargo': 'Ladcykel', 'Fat bike': 'Fatbike',
-  'No frame holes? The Flex Mount, €9.99. And 57 days to send it back.': 'Ingen huller i stellet? Flex Mount, €9,99. Og 57 dage til at sende den retur.',
-  'Yours': 'Din', 'Silver. Copper. Black.': 'Sølv. Kobber. Sort.', 'Same lock, same price, three finishes. Pick the one that suits your bike.': 'Samme lås, samme pris, tre finish. Vælg den, der passer til din cykel.',
-  'Drag to turn': 'Træk for at dreje', 'Silver': 'Sølv', 'Copper': 'Kobber', 'Black': 'Sort', 'Intro price': 'Introduktionspris', 'Regular price': 'Normalpris',
-  '57 days': '57 dage', 'to change your mind': 'til at fortryde', 'Two-year': 'To års', 'warranty, from Copenhagen': 'garanti, fra København', 'Ships': 'Sendes', 'in 1–2 working days': 'inden for 1–2 hverdage',
+  'The only electronic app-controlled ring lock on': 'Den eneste elektroniske app-styrede ringlås på', 'Varefakta’s public list': 'Varefaktas offentlige liste', '(VK 37868). The certificate is in the box.': '(VK 37868). Certifikatet ligger i æsken.',
+  'Listing': 'Liste', 'Certificate': 'Certifikat',
+  'Lock certificate': 'Låsecertifikat', 'Lock': 'Lås', 'Key no.': 'Nøgle nr.', 'Frame no.': 'Stel nr.', 'In the box, and in the app': 'I æsken og i appen',
+  // 04 fit
+  'Will it fit my bike?': 'Passer den til min cykel?', 'Road': 'Racer', 'City': 'Bycykel', 'E-bike': 'Elcykel', 'Cargo': 'Ladcykel', 'Fat bike': 'Fatbike',
+  'It fits.': 'Den passer.', 'Not this one.': 'Ikke denne.', 'Tyres up to 60 mm. The mounting screws are in the box.': 'Dæk op til 60 mm. Monteringsskruerne ligger i æsken.',
+  'Fat-bike tyres are too wide for the ring.': 'Fatbike-dæk er for brede til ringen.', 'mm tyre': 'mm dæk',
+  'No frame holes? The Flex Mount, €9.99. And 57 days to send it back.': 'Ingen huller i stellet? Flex Mount, 75 kr. Og 57 dage til at sende den retur.',
+  // 05 buy (the finish names stay Steel, Copper and Black, as in the Drive copy)
+  'Steel. Copper. Black.': 'Steel. Copper. Black.', 'Same lock, same price, three finishes. Pick the one that suits your bike.': 'Samme lås, samme pris, tre finish. Vælg den, der passer til din cykel.',
+  'Drag to turn': 'Træk for at dreje', 'Regular price': 'Normalpris', 'Intro price until 31 Dec 2026': 'Introduktionspris til 31. dec. 2026',
+  '57-day returns': '57 dages returret', 'Prepaid return label in the box': 'Forudbetalt returlabel i æsken', 'Two-year right to complain': '2 års reklamationsret',
+  // 06 faq
   'Questions, answered.': 'Spørgsmål og svar.', 'Not here? Call us on': 'Ikke her? Ring til os på', '. We pick up.': '. Vi tager den.',
   'Will my insurance accept it?': 'Godkender mit forsikringsselskab den?',
-  'In Denmark, yes. Varefakta VF 5029:4, VK 37868, approved July 2025. Outside Denmark, check what your policy asks for first.': 'I Danmark, ja. Varefakta VF 5029:4, VK 37868, godkendt juli 2025. Uden for Danmark: tjek først, hvad din police kræver.',
-  'Most bikes, cargo bikes and e-bikes too, but not fat bikes. Frame holes? Two screws in the box. No holes? The Flex Mount, €9.99.': 'De fleste cykler, også ladcykler og elcykler, men ikke fatbikes. Huller i stellet? To skruer i æsken. Ingen huller? Flex Mount, €9,99.',
+  'In Denmark, the Ring-Lock is insurance-approved: Varefakta VK 37868. Most Danish insurers ask for a Varefakta-approved lock and a lock certificate, and the certificate is in the box. Check your own policy. Outside Denmark, check what your policy asks for first.': 'I Danmark er Ring-Lock forsikringsgodkendt: Varefakta VK 37868. De fleste danske forsikringsselskaber kræver en Varefakta-godkendt lås og et låsecertifikat, og certifikatet ligger i æsken. Tjek din egen police. Uden for Danmark: tjek først, hvad din police kræver.',
+  'Most bikes, cargo bikes and e-bikes too: tyres up to 60 mm, mount spacing 75 to 100 mm. Not fat bikes. Frame holes? The mounting screws are in the box. No holes? The Flex Mount, €9.99.': 'De fleste cykler, også ladcykler og elcykler: dæk op til 60 mm, monteringsafstand 75 til 100 mm. Ikke fatbikes. Huller i stellet? Monteringsskruerne ligger i æsken. Ingen huller? Flex Mount, 75 kr.',
   'What if my phone or the battery dies?': 'Hvad hvis min telefon eller batteriet dør?',
-  'Six months per charge, about an hour on USB-C. Flat? Unlock while it charges from a power bank. Phone gone? Anyone you shared a key with can still open it.': 'Seks måneder pr. opladning, cirka en time med USB-C. Fladt? Lås op, mens den lader fra en powerbank. Telefonen væk? Alle, du har delt en nøgle med, kan stadig åbne den.',
-  'Does it work with Android?': 'Virker den med Android?', 'Yes. Apple Find My itself needs an Apple device; an old iPhone or iPad will do.': 'Ja. Apple Find My kræver selv en Apple-enhed; en gammel iPhone eller iPad er nok.',
+  'About six months per charge. A full charge over USB-C takes 90 minutes. Phone gone? Anyone you shared a key with can still open it.': 'Cirka seks måneder pr. opladning. En fuld opladning via USB-C tager 90 minutter. Telefonen væk? Alle, du har delt en nøgle med, kan stadig åbne den.',
+  'Does it work with Android?': 'Virker den med Android?', 'Yes. The LAAS app works on Android and on iPhone.': 'Ja. LAAS-appen virker på Android og på iPhone.',
   'How secure is it?': 'Hvor sikker er den?',
-  '9 mm of hardened steel. Every unlock uses a one-time key over encrypted Bluetooth. Your bike’s position stays in Apple’s encrypted Find My network, never with us.': '9 mm hærdet stål. Hver oplåsning bruger en engangsnøgle over krypteret Bluetooth. Din cykels position bliver i Apples krypterede Find My-netværk, aldrig hos os.',
-  'How do returns and the warranty work?': 'Hvordan fungerer returnering og garanti?', 'Ring-Lock': 'Ring-Lock', 'Shipping': 'Fragt', 'Support': 'Support', 'How fast does it ship, and what does it cost?': 'Hvor hurtigt sendes den, og hvad koster det?',
-  '57 days to send it back, online or in store, and your money is back within 14 days. After that, a two-year warranty from Copenhagen.': '57 dage til at sende den retur, online eller i butik, og du har pengene igen inden for 14 dage. Derefter to års garanti fra København.',
-  'Shipping': 'Fragt', 'Apple, the Apple logo, and Find My are trademarks of Apple Inc.': 'Apple, Apple-logoet og Find My er varemærker tilhørende Apple Inc.', 'LAAS ApS · CVR 40942491 · Copenhagen · © 2026': 'LAAS ApS · CVR 40942491 · København · © 2026',
-  'The keyless bike lock that works with Apple Find My.': 'Den nøglefri cykellås, der virker med Apple Find My.', 'Scroll down': 'Rul ned', 'Scroll': 'Rul',
-  'Help': 'Hjælp', 'Shipping & returns': 'Fragt og returnering', 'Our story': 'Vores historie',
-  'Apple, the Apple logo and Apple Find My are trademarks of Apple Inc., registered in the U.S. and other countries and regions.': 'Apple, Apple-logoet og Apple Find My er varemærker tilhørende Apple Inc., registreret i USA og andre lande og regioner.',
-  'It fits.': 'Den passer.', 'Not this one.': 'Ikke denne.', 'mm to spare either side. Two screws, about four minutes.': 'mm til overs i hver side. To skruer, cirka fire minutter.',
-  'Fat-bike tyres are too wide for the ring. Every other bike is fine.': 'Fatbike-dæk er for brede til ringen. Alle andre cykler passer.', 'mm tyre': 'mm dæk', 'Buy in': 'Køb i',
+  '9 mm of hardened steel. Every unlock uses a one-time key over Bluetooth, so a recorded signal cannot be replayed.': '9 mm hærdet stål. Hver oplåsning bruger en engangsnøgle via Bluetooth, så et optaget signal ikke kan afspilles igen.',
+  'How fast does it ship, and what does it cost?': 'Hvor hurtigt sendes den, og hvad koster det?',
+  'It ships in 1–2 working days. Shipping is €9, and free on orders over €250. Questions about an order? Write to': 'Den sendes inden for 1–2 hverdage. Fragten koster 75 kr. Spørgsmål om en ordre? Skriv til',
+  'How do returns and the right to complain work?': 'Hvordan fungerer returnering og reklamationsret?',
+  'Hand it to the carrier with the prepaid return label by day 57, and your money is back within 14 days. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery.': 'Aflever den til fragtfirmaet med den forudbetalte returlabel senest dag 57, og du har pengene igen inden for 14 dage. Du har også to års reklamationsret efter dansk lov, regnet fra levering.',
+  // the footer
+  'LAAS ApS · Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · © 2026': 'LAAS ApS · Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · © 2026',
+  'Apple, the Apple logo, and Find My are trademarks of Apple Inc.': 'Apple, Apple-logoet og Find My er varemærker tilhørende Apple Inc.',
 };
 const lang = (() => { const q = new URLSearchParams(location.search).get('lang'); try { if (q) localStorage.setItem('laas-lang', q); return q || localStorage.getItem('laas-lang') || 'en'; } catch { return q || 'en'; } })();
 const t = en => (lang === 'da' && DA[en]) || en;
@@ -77,9 +83,10 @@ if (lang === 'da') {
   const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   const nodes = []; let n; while ((n = w.nextNode())) if (!n.parentElement.closest('script,style')) nodes.push(n);
   nodes.forEach(n => { const key = n.nodeValue.replace(/ /g, ' ').replace(/\s+/g, ' ').trim(); if (DA[key]) n.nodeValue = n.nodeValue.replace(n.nodeValue.trim(), DA[key]); });
-  // the shop in Danish
-  
-  $$('a[href="help.html"],a[href="shipping-returns.html"],a[href="our-story.html"],a[href="insurance-guide.html"]').forEach(a => a.setAttribute('href', 'da/' + a.getAttribute('href')));
+  // prices in kroner: the buy pill in the nav and the one in the footer
+  $$('.nav__price, .price-line strong').forEach(el => { el.textContent = '999 kr'; });
+  // the struck regular price has no kroner amount yet: it is left out on the Danish page
+  $$('.price-line s').forEach(el => el.remove());
 }
 $$('.lang a').forEach(a => a.setAttribute('aria-current', String(a.dataset.lang === lang)));
 
@@ -128,7 +135,11 @@ function reveal() {
   root.classList.remove('is-loading'); root.classList.add('is-loaded');
   scrollTo(0, 0);
   intro.t = performance.now() + 200;
-  // arriving from another page with #faq or #shipping: go straight there (a question opens)
+  goToHash();
+}
+// arriving from another page with #faq or #shipping: go straight there (a question opens). Runs from reveal(), and
+// from the 9 s safety net when the loader never finished
+function goToHash() {
   const target = location.hash && document.getElementById(location.hash.slice(1));
   if (target && target.closest('main')) {
     if (target.matches('details')) target.open = true;
@@ -291,7 +302,7 @@ const FILES = { steel: 'ring-lock-silver.glb', copper: 'ring-lock-copper.glb', b
 const gltfLoader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
 const models = {};
 function load(f, onProgress) {
-  return models[f] || (models[f] = new Promise((res, rej) => gltfLoader.load('images/3d/' + FILES[f] + '?v=8e8a3912', res, e => onProgress?.(e.total ? e.loaded / e.total : clamp(e.loaded / 1.18e6)), rej)).then(gltf => {
+  return models[f] || (models[f] = new Promise((res, rej) => gltfLoader.load('images/3d/' + FILES[f] + '?v=7f891b83', res, e => onProgress?.(e.total ? e.loaded / e.total : clamp(e.loaded / 1.67e6)), rej)).then(gltf => {
     const group = new THREE.Group(), model = gltf.scene;
     group.add(model);
     const box = new THREE.Box3().setFromObject(model);
@@ -588,6 +599,8 @@ function frameChrome(m) {
   const nav = s.dataset.navSection;
   if (nav !== lastNav) {
     lastNav = nav;
+    // in the buy chapter the Buy pill in the nav would only repeat the button on the page
+    root.classList.toggle('in-buy', nav === 'buy');
     navLinks.forEach(a => a.setAttribute('aria-current', String(a.dataset.nav === nav)));
     railLinks.forEach(a => a.setAttribute('aria-current', String(a.dataset.rail === nav)));
     menuLinks.forEach(a => a.setAttribute('aria-current', String(a.getAttribute('href') === '#' + nav)));
@@ -601,7 +614,7 @@ function frameChrome(m) {
       P.mx = (sr.left + sr.width / 2 - W / 2) / H;
       // once the chapter scrolls past its stop, the lock goes up with its window instead of hanging over the type
       P.my = (sr.top - r.top + sr.height / 2 - H / 2 + Math.min(0, r.top)) / H;
-      const sec = sections[i], k = sec.matches('.void--macro') ? [0.8, 0.78] : sec.matches('.void--seal') ? [0.6, 0.56] : sec.matches('.void--fit') ? [0.56, 0.5] : sec.matches('.void--intro') ? [0.8, 0.62] : [0.92, 0.86];
+      const sec = sections[i], k = sec.matches('.void--macro') ? [0.8, 0.78] : sec.matches('.void--seal') ? [0.6, 0.56] : sec.matches('.void--fit') ? [0.56, 0.5] : sec.matches('.void--intro') ? [0.92, 0.72] : [0.92, 0.86];
       P.mpx = Math.min(sr.height * k[0], W * k[1]);
     } else P.mpx = Math.min(W * 0.84, H * 0.47) * ((P.msize ?? P.size) / 0.44);
   });
@@ -682,7 +695,7 @@ function loop(now) {
   glideTick(now);
   tickLoader(dt);
   // the 9 s safety net opened the page without the loader: start the entrance anyway
-  if (intro.t < 0 && root.classList.contains('is-loaded')) { progress.done = true; intro.t = now; }
+  if (intro.t < 0 && root.classList.contains('is-loaded')) { progress.done = true; intro.t = now; goToHash(); }
 
   const M = measure(), rects = M.rects;
   frameChrome(M);
@@ -897,13 +910,14 @@ const fitg = $('#fitg'), verdict = $('#verdict'), vHead = $('#verdict-head'), vB
 const fitState = { bike: 'city', mm: 42 };
 function renderFit() {
   const { bike, mm } = fitState;
-  const no = bike === 'fat', spare = Math.round((106 - mm) / 2);
+  // the box: tyres up to 60 mm through the ring's 63 mm clearance; fat bikes do not fit
+  const no = mm > 60;
   verdict.dataset.state = no ? 'no' : 'yes'; fitg.dataset.state = no ? 'no' : 'yes';
   vHead.textContent = t(no ? 'Not this one.' : 'It fits.');
-  vBody.textContent = no ? t('Fat-bike tyres are too wide for the ring. Every other bike is fine.') : `${spare} ${t('mm to spare either side. Two screws, about four minutes.')}`;
+  vBody.textContent = t(no ? 'Fat-bike tyres are too wide for the ring.' : 'Tyres up to 60 mm. The mounting screws are in the box.');
   verdict.classList.remove('is-swap'); void verdict.offsetWidth; verdict.classList.add('is-swap');
-  // the tyre, to scale, through the ring's 106 mm opening
-  fitg.style.setProperty('--tw', Math.min(1, mm / 106).toFixed(3));
+  // the tyre, to scale: the drawn hole is the ring's 105 mm inside (v8 model); the 63 mm clearance sits between the mounts
+  fitg.style.setProperty('--tw', Math.min(1, mm / 105).toFixed(3));
   fitDim.textContent = (no ? '100+' : '~' + mm) + ' ' + t('mm tyre');
 }
 $$('#bike .chip').forEach(b => b.addEventListener('click', () => {
@@ -914,26 +928,44 @@ renderFit();
 
 /* ------------------------------------------- finishes: one sliding outline */
 // António's buy block: the dots name the finish, the quantity sets the price on the button
-const FIN_NAME = lang === 'da' ? { steel: 'Sølv', copper: 'Kobber', black: 'Sort' } : { steel: 'Silver', copper: 'Copper', black: 'Black' };
+const FIN_NAME = { steel: 'Steel', copper: 'Copper', black: 'Black' };
 let qty = 1;
-const priceText = () => (lang === 'da' ? 'Køb' : 'Buy') + ' · €' + (129 * qty);
+const priceText = () => lang === 'da' ? 'Køb · ' + (999 * qty).toLocaleString('da-DK') + ' kr' : 'Buy · €' + (129 * qty);
 function renderBuy() {
   $('#qty-value').textContent = qty;
   $('#buy-label').textContent = priceText();
   // Buy takes the chosen finish and quantity to the buy page
   $('#buy-label').href = `buy.html?finish=${finish}&qty=${qty}`;
   $('#finish-name').textContent = FIN_NAME[finish];
-  $('#stock').textContent = (lang === 'da' ? '1.000+ på lager i ' + FIN_NAME[finish].toLowerCase() : '1,000+ available in ' + FIN_NAME[finish]);
 }
-$$('[data-qty]').forEach(b => b.addEventListener('click', () => { qty = clamp(qty + +b.dataset.qty, 1, 9); renderBuy(); }));
+$$('[data-qty]').forEach(b => b.addEventListener('click', () => { qty = clamp(qty + +b.dataset.qty, 1, 15); renderBuy(); }));
 renderBuy();
-$$('[data-finish]').forEach(btn => btn.addEventListener('click', () => {
-  const f = btn.dataset.finish;
-  if (f === finish) return;
-  $$('[data-finish]').forEach(b => b.setAttribute('aria-checked', String(b === btn)));
-  if (!reduce) { swap.from = user.spin; user.goal += Math.PI * 2; swap.sweep = 1; }
-  show(f); renderBuy();
-}));
+// Buy puts the locks in the cart right here (cart-nav.js); the link to buy.html is only the fallback
+$('#buy-label').addEventListener('click', e => {
+  if (!window.LAAS_CART || window.LAAS_CART.add(finish, qty) === false) return;
+  e.preventDefault();
+});
+// the finish dots are one radio group (as on buy.html): one tab stop, the arrow keys move and pick
+const dots = $$('[data-finish]');
+const syncDots = () => dots.forEach(b => { b.tabIndex = b.getAttribute('aria-checked') === 'true' ? 0 : -1; });
+dots.forEach((btn, i) => {
+  btn.addEventListener('click', () => {
+    const f = btn.dataset.finish;
+    if (f === finish) return;
+    dots.forEach(b => b.setAttribute('aria-checked', String(b === btn)));
+    syncDots();
+    if (!reduce) { swap.from = user.spin; user.goal += Math.PI * 2; swap.sweep = 1; }
+    show(f); renderBuy();
+  });
+  btn.addEventListener('keydown', e => {
+    const d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+    if (!d) return;
+    e.preventDefault();
+    const n = dots[(i + d + dots.length) % dots.length];
+    n.focus(); n.click();
+  });
+});
+syncDots();
 
 /* ---------------------------------------------------------- buy: drag */
 const zone = $('#dragzone');
@@ -986,14 +1018,14 @@ if (fine && !reduce) addEventListener('pointermove', e => { user.px = e.clientX 
 /* ------------------------------------------------------------------ menu */
 const menu = $('#menu'), menuBtn = $('#menu-open');
 function openMenu() {
-  menu.hidden = false; menuBtn.setAttribute('aria-expanded', 'true'); menuBtn.textContent = 'Close';
+  menu.hidden = false; menuBtn.setAttribute('aria-expanded', 'true'); menuBtn.textContent = t('Close');
   requestAnimationFrame(() => menu.classList.add('is-open'));
   $('main').inert = true;
   setTimeout(() => menu.querySelector('a')?.focus(), 50);
 }
 function closeMenu() {
   if (menu.hidden) return;
-  menu.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.textContent = 'Menu';
+  menu.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.textContent = t('Menu');
   setTimeout(() => { if (!menu.classList.contains('is-open')) menu.hidden = true; }, reduce ? 0 : 700);
   $('main').inert = false;
   menuBtn.focus();
@@ -1049,7 +1081,8 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
   let ty = null, tx = null, used = false;
   addEventListener('touchstart', e => { ty = e.touches[0].clientY; tx = e.touches[0].clientX; used = false; }, { passive: true });
   addEventListener('touchmove', e => {
-    if (ty == null || insideScroller(e.target) || e.target.closest('#dragzone')) return;
+    // a sideways drag on the lock turns it (the line below leaves it alone); an up-and-down swipe there moves a chapter too
+    if (ty == null || insideScroller(e.target)) return;
     const d = ty - e.touches[0].clientY;
     if (Math.abs(e.touches[0].clientX - tx) > Math.abs(d)) return;
     e.preventDefault();
@@ -1060,7 +1093,9 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
     if (e.target.closest('input, textarea, select, [contenteditable]')) return;
     const k = e.key, down = k === 'ArrowDown' || k === 'PageDown' || (k === ' ' && !e.shiftKey), up = k === 'ArrowUp' || k === 'PageUp' || (k === ' ' && e.shiftKey);
     if (!down && !up) return;
-    if (e.target.closest('#dragzone') && (k === 'ArrowLeft' || k === 'ArrowRight')) return;
+    // the space bar presses a focused button, opens a question, follows a link; the arrows move inside a radio group
+    if (k === ' ' && e.target.closest('button, summary, a, [role="radio"], [role="button"], #dragzone')) return;
+    if ((k === 'ArrowUp' || k === 'ArrowDown') && e.target.closest('[role="radiogroup"]')) return;
     e.preventDefault();
     if (!busy()) intent(down ? 1 : -1);
   });
