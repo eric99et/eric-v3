@@ -1187,3 +1187,27 @@ html.no-engine .void--seal, html:not(.is-loading):not(.is-loaded) .void--seal { 
 /* on a phone the card stays the compact one: the lock button, its state, the action */
 @media (max-width: 760px) { .unlock .app__meta { display: contents; } .unlock .app__meta .phone__ble, .unlock .app__sep { display: none; } }
 @media (max-width: 760px) { .app__list { display: block; width: 100%; } .app__card--far { display: none; } }
+
+/* reviews: a quiet band of real Trustpilot reviews between buy and the questions, drifting right */
+.tpb { display: block; position: relative; z-index: 2; overflow: hidden; padding: 22px 0; background: #FFFFFF; border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2); color: var(--ink);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.tpb__list { display: flex; align-items: center; gap: 56px; width: max-content; padding-right: 56px; animation: tpb-drift 55s linear infinite; }
+.tpb:hover .tpb__list, .tpb:focus-visible .tpb__list { animation-play-state: paused; }
+@keyframes tpb-drift { from { translate: -50% 0; } to { translate: 0 0; } }
+.tpb__list li { display: flex; align-items: center; gap: 12px; white-space: nowrap; font-size: 15px; }
+.tpb__stars { display: inline-flex; gap: 2px; }
+.tpb__stars svg { width: 18px; height: 18px; }
+.tpb__stars rect { fill: #00B67A; } .tpb__stars svg.off rect { fill: rgba(32, 47, 48, .16); }
+.tpb__stars path { fill: #FFFFFF; }
+.tpb__logo { display: inline-flex; align-items: center; gap: 5px; font: 600 16px/1 var(--display); letter-spacing: -0.01em; }
+.tpb__logo svg { width: 20px; height: 20px; } .tpb__logo path { fill: #00B67A; }
+.tpb__sum b { font: 600 16px/1 var(--display); }
+.tpb__sum > span:last-child { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.tpb__q q { color: var(--ink); quotes: "“" "”"; }
+.tpb__q > span:last-child { color: var(--muted); font-size: 13px; }
+@media (max-width: 760px) { .tpb { padding: 16px 0; } .tpb__list { gap: 36px; padding-right: 36px; } .tpb__list li { font-size: 14px; } }
+@media (prefers-reduced-motion: reduce) { .tpb { overflow-x: auto; } .tpb__list { animation: none; } }
+
+/* the band sits at the very bottom of the buy chapter, edge to edge, so it is seen with the price */
+#buy > .tpb { position: absolute; left: 0; right: 0; bottom: 0; }
+#buy { padding-bottom: 96px; }
