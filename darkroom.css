@@ -1310,3 +1310,12 @@ html.no-engine .void--seal, html:not(.is-loading):not(.is-loaded) .void--seal { 
     -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 62%); mask-image: linear-gradient(to bottom, #000 30%, transparent 62%); }
 }
 @media (max-width: 760px) { .void--macro .void__right { pointer-events: auto; } }
+/* the app's lower half is cut by its own box, not by running past the section (that made the chapter a screen taller) */
+@media (max-width: 760px) {
+  .void--macro .void__right { bottom: 0; height: 31svh; overflow: hidden; align-content: start; }
+}
+@media (max-width: 760px) {
+  .void--macro .void__right { height: 36svh; -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%); mask-image: linear-gradient(to bottom, #000 72%, transparent 100%); }
+  .void--macro .slot { margin-bottom: 34svh; }
+}
+@media (max-width: 760px) { .void--macro .slot { flex: 1 1 auto; min-height: 22svh; margin-bottom: 33svh; } .void--macro .void__right { height: 35svh; } }
