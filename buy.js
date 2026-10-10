@@ -53,7 +53,8 @@
     const name = NAME[finish];
     $$('[data-finish]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.finish === finish)));
     $('#finish-name').textContent = name;
-    $('#buybar-finish').textContent = name + (qty > 1 ? ' · ' + qty : '');
+    // the bar's button just says Buy, so the price sits beside the finish
+    $('#buybar-finish').textContent = name + ' · ' + (qty > 1 ? qty + ' × ' : '') + I.money(I.P.lock);
     // once this finish is in the cart, the stepper shows and sets the cart, and the button goes to the checkout
     const n = inCart();
     $('#qty-value').textContent = n || qty;
@@ -62,7 +63,7 @@
     minus.classList.toggle('is-trash', n === 1);
     minus.setAttribute('aria-label', tr(n === 1 ? 'Remove from cart' : 'Decrease quantity'));
     $('.qty-row').classList.toggle('is-cart', !!n);
-    const label = n ? tr('Check out') + ' · ' + I.money(I.P.lock * n) : tr('Buy') + ' · ' + I.money(I.P.lock * qty);
+    const label = tr(n ? 'Check out' : 'Buy');
     $('#buy-btn').textContent = label;
     $('#buybar-btn').textContent = label;
     $('#buy').dataset.metal = finish;

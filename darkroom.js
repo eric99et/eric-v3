@@ -91,7 +91,7 @@ if (lang === 'da') {
   const nodes = []; let n; while ((n = w.nextNode())) if (!n.parentElement.closest('script,style')) nodes.push(n);
   nodes.forEach(n => { const key = n.nodeValue.replace(/ /g, ' ').replace(/\s+/g, ' ').trim(); if (DA[key]) n.nodeValue = n.nodeValue.replace(n.nodeValue.trim(), DA[key]); });
   // prices in kroner, as the Danish cart and checkout show them (i18n.js)
-  $$('.nav__price, .price-line strong').forEach(el => { el.textContent = '999 kr'; });
+  $$('.price-line strong').forEach(el => { el.textContent = '999 kr'; });
   $$('[aria-label]').forEach(el => { const v = DA[el.getAttribute('aria-label')]; if (v) el.setAttribute('aria-label', v); });
 }
 $$('.lang a').forEach(a => a.setAttribute('aria-current', String(a.dataset.lang === lang)));
@@ -654,15 +654,13 @@ radio('holes', b => { fitState.holes = b.dataset.holes === '1'; });
 renderFit();
 
 /* ------------------------------------------- finishes: one sliding outline */
-// António's buy block: the dots name the finish, the quantity sets the price on the button
+// António's buy block: the dots name the finish, the price stays above the button, the button just says Buy (owner, 10 Oct)
 const FIN_NAME = { steel: 'Steel', copper: 'Copper', black: 'Black' };
 let qty = 1;
-const priceText = () => t('Buy') + ' · ' + (lang === 'da' ? (999 * qty).toLocaleString('da-DK') + ' kr' : '€' + 129 * qty);
 // once this finish is in the cart (cart-nav.js), the stepper shows and sets the cart: the minus at 1 is a bin
 // and takes it out, and Buy becomes Check out
 const C = () => window.LAAS_CART;
 const inCart = () => (C() && C().qtyOf ? C().qtyOf(finish) : 0);
-const money = n => (lang === 'da' ? (999 * n).toLocaleString('da-DK') + ' kr' : '€' + 129 * n);
 function renderBuy() {
   const n = inCart();
   $('#qty-value').textContent = n || qty;
@@ -671,7 +669,7 @@ function renderBuy() {
   minus.classList.toggle('is-trash', n === 1);
   minus.setAttribute('aria-label', t(n === 1 ? 'Remove from cart' : 'Decrease quantity'));
   $('.qty-row').classList.toggle('is-cart', !!n);
-  $('#buy-label').textContent = n ? t('Check out') + ' · ' + money(n) : t('Buy') + ' · ' + money(qty);
+  $('#buy-label').textContent = t(n ? 'Check out' : 'Buy');
   // the link is the fallback when the cart script is missing: the buy page, with the choice
   $('#buy-label').href = n ? 'checkout-v2.html' : `buy.html?finish=${finish}&qty=${qty}`;
   $('#finish-name').textContent = FIN_NAME[finish];

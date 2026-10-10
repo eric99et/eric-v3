@@ -1367,3 +1367,7 @@ a.badge--57:hover, a.badge--kym:hover { opacity: .7; }
 .qty button.is-trash::before { position: absolute; inset: 0; margin: auto; }
 /* drawings that are not on screen are taken out of the page (no work while the lock or the mouse moves) */
 .stage.off-orbit .orbit, .stage.off-seal .seal, .stage.off-fit .fitg, .stage.off-radar .radar, .stage.off-radar .fmp { display: none; }
+
+/* the nav pill just says Buy: the price is on the page (owner, 10 Oct) */
+.nav__buy { padding: 0 22px; }
+@media (max-width: 760px) { .nav__buy { height: 44px; padding: 0 18px; } }
