@@ -51,7 +51,6 @@
       'senest 57 dage efter levering, og aflever låsen til fragtfirmaet med den forudbetalte returlabel. Du får pengene tilbage, inklusive fragt, inden for 14 dage efter din besked, når låsen er tilbage hos os. Du har også to års reklamationsret efter dansk lov, regnet fra levering.',
     'How fast does it ship, and what does it cost?': 'Hvor hurtigt sendes den, og hvad koster det?',
     'It ships in 1–2 working days. Shipping is €9, and free on orders over €250.': 'Den sendes inden for 1–2 hverdage. Fragten koster 75 kr. og er gratis ved køb over 1.900 kr.',
-    'Does it work with Android?': 'Virker den med Android?', 'Yes. The LAAS app is on the App Store and Google Play.': 'Ja. LAAS-appen findes i App Store og Google Play.',
     'Question not here? Call': 'Finder du ikke dit spørgsmål? Ring på', 'or write to': 'eller skriv til',
     // the cart
     'Your cart': 'Din kurv', 'Nothing here yet.': 'Her er ikke noget endnu.', 'Pick a finish and it lands here.': 'Vælg en udgave, så lander den her.', 'See the Ring-Lock': 'Se Ring-Lock',

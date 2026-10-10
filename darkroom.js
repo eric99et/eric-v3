@@ -66,7 +66,6 @@ const DA = {
   'Most bikes, cargo bikes and e-bikes too: tyres up to 60 mm, mount spacing 75 to 100 mm. Not fat bikes. Frame holes? The mounting screws are in the box. No holes? The Flex Mount, €9.99.': 'De fleste cykler, også ladcykler og elcykler: dæk op til 60 mm, monteringsafstand 75 til 100 mm. Ikke fatbikes. Huller i stellet? Monteringsskruerne ligger i æsken. Ingen huller? Flex Mount, 75 kr.',
   'What if the battery runs low?': 'Hvad hvis batteriet er ved at løbe tør?',
   'About six months per charge. A full charge over USB-C takes 90 minutes, and any USB-C cable works.': 'Cirka seks måneder pr. opladning. En fuld opladning via USB-C tager 90 minutter, og alle USB-C-kabler virker.',
-  'Does it work with Android?': 'Virker den med Android?', 'Yes. The LAAS app is on the App Store and Google Play.': 'Ja. LAAS-appen findes i App Store og Google Play.',
   'How secure is it?': 'Hvor sikker er den?',
   '9 mm of hardened steel. Every unlock uses a one-time key over Bluetooth, so a recorded signal cannot be replayed.': '9 mm hærdet stål. Hver oplåsning bruger en engangsnøgle via Bluetooth, så et optaget signal ikke kan afspilles igen.',
   'How fast does it ship, and what does it cost?': 'Hvor hurtigt sendes den, og hvad koster det?',
