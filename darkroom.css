@@ -1082,3 +1082,6 @@ html.no-engine .void--seal, html:not(.is-loading):not(.is-loaded) .void--seal { 
   .badge__tp { font-size: 14px; gap: 5px; } .badge__tp svg { width: 17px; height: 17px; }
   .badge--tp { justify-self: end; }
 }
+
+/* no "Steel. Copper. Black." heading over the buy block (owner, 10 Oct): it stays for screen readers only */
+#h5, .pdp__fins { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }
