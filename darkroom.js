@@ -34,7 +34,7 @@ const DA = {
   // 01 keyless
   'Your phone is the key.': 'Din telefon er nøglen.',
   'One tap in the LAAS app and the 9 mm hardened-steel bolt slides open. Push the bolt in and it locks with a click.': 'Ét tryk i LAAS-appen, og den 9 mm hærdede stålbolt glider op. Skub bolten i, så låser den med et klik.',
-  'Near': 'Tæt på', 'Locked': 'Låst', 'Unlocked': 'Låst op', 'Unlock': 'Lås op', 'Lock': 'Lås', 'My bikes': 'Mine cykler', 'Steel lock': 'Stållås', 'Copper lock': 'Kobberlås', 'Searching': 'Søger', 'One-time key · Bluetooth': 'Engangsnøgle · Bluetooth',
+  'Remove from cart': 'Fjern fra kurven', 'Check out': 'Gå til kassen', 'Decrease quantity': 'Færre', 'Near': 'Tæt på', 'Locked': 'Låst', 'Unlocked': 'Låst op', 'Unlock': 'Lås op', 'Lock': 'Lås', 'My bikes': 'Mine cykler', 'Steel lock': 'Stållås', 'Copper lock': 'Kobberlås', 'Searching': 'Søger', 'One-time key · Bluetooth': 'Engangsnøgle · Bluetooth',
   // 02 find my: Apple's trademarks are never translated (Apple Find My guidelines p.13)
   'After setup, you can locate your Ring-Lock in the Apple Find My app on your iPhone, iPad or Mac.': 'Når den er sat op, kan du finde din Ring-Lock i Apple Find My-appen på din iPhone, iPad eller Mac.',
   'To use the Apple Find My app to locate this item, the latest version of iOS, iPadOS, or macOS is recommended.': 'For at bruge Apple Find My-appen til at finde denne genstand anbefales den nyeste version af iOS, iPadOS eller macOS.',
@@ -644,20 +644,37 @@ renderFit();
 const FIN_NAME = { steel: 'Steel', copper: 'Copper', black: 'Black' };
 let qty = 1;
 const priceText = () => t('Buy') + ' · ' + (lang === 'da' ? (999 * qty).toLocaleString('da-DK') + ' kr' : '€' + 129 * qty);
+// once this finish is in the cart (cart-nav.js), the stepper shows and sets the cart: the minus at 1 is a bin
+// and takes it out, and Buy becomes Check out
+const C = () => window.LAAS_CART;
+const inCart = () => (C() && C().qtyOf ? C().qtyOf(finish) : 0);
+const money = n => (lang === 'da' ? (999 * n).toLocaleString('da-DK') + ' kr' : '€' + 129 * n);
 function renderBuy() {
-  $('#qty-value').textContent = qty;
-  $$('[data-qty]').forEach(b => { b.disabled = +b.dataset.qty < 0 ? qty <= 1 : qty >= 15; });
-  $('#buy-label').textContent = priceText();
-  // Buy takes the chosen finish and quantity to the buy page
-  $('#buy-label').href = `buy.html?finish=${finish}&qty=${qty}`;
+  const n = inCart();
+  $('#qty-value').textContent = n || qty;
+  const minus = $('[data-qty="-1"]'), plus = $('[data-qty="1"]');
+  minus.disabled = !n && qty <= 1; plus.disabled = (n || qty) >= 15;
+  minus.classList.toggle('is-trash', n === 1);
+  minus.setAttribute('aria-label', t(n === 1 ? 'Remove from cart' : 'Decrease quantity'));
+  $('.qty-row').classList.toggle('is-cart', !!n);
+  $('#buy-label').textContent = n ? t('Check out') + ' · ' + money(n) : t('Buy') + ' · ' + money(qty);
+  // the link is the fallback when the cart script is missing: the buy page, with the choice
+  $('#buy-label').href = n ? 'checkout-v2.html' : `buy.html?finish=${finish}&qty=${qty}`;
   $('#finish-name').textContent = FIN_NAME[finish];
 }
-$$('[data-qty]').forEach(b => b.addEventListener('click', () => { qty = clamp(qty + +b.dataset.qty, 1, 15); renderBuy(); }));
+$$('[data-qty]').forEach(b => b.addEventListener('click', () => {
+  const d = +b.dataset.qty, n = inCart();
+  if (n) C().setQty(finish, n + d); else qty = clamp(qty + d, 1, 15);
+  renderBuy();
+}));
 renderBuy();
-// Buy puts the locks in the cart right here (cart-nav.js); the link to buy.html is only the fallback
+addEventListener('laas-cart', renderBuy);
+addEventListener('storage', renderBuy);
+// Buy: one question (the Flex Mount), then the locks go in the cart right here; in the cart already, Check out
 $('#buy-label').addEventListener('click', e => {
-  if (!window.LAAS_CART || window.LAAS_CART.add(finish, qty) === false) return;
+  if (inCart() || !C() || !C().buy) return;
   e.preventDefault();
+  C().buy(finish, qty, () => { qty = 1; renderBuy(); });
 });
 // the finish dots are one radio group (as on buy.html): one tab stop, the arrow keys move and pick
 const dots = $$('[data-finish]');

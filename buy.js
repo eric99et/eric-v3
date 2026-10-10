@@ -150,14 +150,11 @@
   // Buy: the locks go in the cart, then the cart page
   // Buy puts the locks in the cart right here, no new page and no question on the way (the cart offers the
   // Flex Mount); cart-nav.js shows what was added, with Check out one tap away
-  // first one question: the Flex Mount, for frames without holes (asked once; not when it is in the cart already)
-  const ask = $('#flex-ask');
+  // first one question, the Flex Mount (cart-nav.js asks it, on every page that sells)
   const buy = () => {
     if (inCart()) { location.href = 'checkout-v2.html'; return; }
-    if (ask && ask.showModal && C() && C().hasFlex && !C().hasFlex()) { ask.returnValue = ''; ask.showModal(); return; }
-    put(false);
+    if (C() && C().ask) C().ask(put); else put(false);
   };
-  ask?.addEventListener('close', () => { const v = ask.returnValue; if (v === 'flex' || v === 'no') put(v === 'flex'); });
   const put = flex => {
     const ok = window.LAAS_CART ? window.LAAS_CART.add(finish, qty) : addLocks(finish, qty);
     if (flex && ok) C().addFlex(ok === true ? qty : ok);

@@ -117,7 +117,37 @@
     dispatchEvent(new Event('laas-cart'));
     return true;
   };
-  window.LAAS_CART = { add, qtyOf, setQty, hasFlex, addFlex };
+  // before locks go in the cart: one question, so nobody gets a lock they cannot mount. done(true) adds the Flex
+  // Mount too, done(false) not; closing it adds nothing. Not asked when a Flex Mount is in the cart already.
+  let dlg = null, onPick = null;
+  const ask = done => {
+    if (hasFlex() || !window.HTMLDialogElement) { done(false); return; }
+    const da = L().lang === 'da', flex = L().money(L().P.flex || 9.99);
+    if (!dlg) {
+      dlg = document.createElement('dialog');
+      dlg.className = 'flex-ask'; dlg.setAttribute('aria-labelledby', 'flex-ask-h');
+      document.body.append(dlg);
+      // the answer is taken from the click itself (the close event can lag); a tap on the backdrop closes it
+      dlg.addEventListener('click', e => {
+        const b = e.target.closest('button[value]');
+        if (!b) { if (e.target === dlg) dlg.close(); return; }
+        e.preventDefault(); dlg.close();
+        const cb = onPick; onPick = null;
+        if (cb && (b.value === 'flex' || b.value === 'no')) cb(b.value === 'flex');
+      });
+    }
+    dlg.innerHTML = `<form method="dialog"><img src="images/flexmount-install.webp" alt="" width="680" height="411">
+      <button class="flex-ask__x" value="cancel" aria-label="${da ? 'Luk' : 'Close'}"></button>
+      <div class="flex-ask__body"><p class="flex-ask__kicker label">${da ? 'Før den kommer i kurven' : 'Before it goes in the cart'}</p>
+      <h2 id="flex-ask-h">${da ? 'Har dit stel huller til en ringlås?' : 'Does your frame have holes for a frame lock?'}</h2>
+      <p>${da ? 'To små gevindhuller i stellet, på hver side af baghjulet. Ingen huller? Flex Mount holder låsen på et stel uden dem.' : 'Two small threaded holes on the frame, either side of the rear wheel. No holes? The Flex Mount holds the lock on a frame without them.'}</p>
+      <button class="buy-btn" value="flex">${da ? 'Tilføj Flex Mount' : 'Add the Flex Mount'} · ${flex}</button>
+      <button class="flex-ask__no" value="no">${da ? 'Ja, mit stel har huller' : 'Yes, my frame has holes'}</button></div></form>`;
+    onPick = done; dlg.returnValue = ''; dlg.showModal();
+  };
+  // the whole Buy: ask, then put the locks (and the Flex Mount) in the cart; then(n) after
+  const buy = (finish, qty, then) => ask(flex => { const n = add(finish, qty); if (flex && n) addFlex(n === true ? qty : n); then && then(n); });
+  window.LAAS_CART = { add, qtyOf, setQty, hasFlex, addFlex, ask, buy };
 })();
 
 // the footer's entrance (after 21st.dev "Footer section 1"): once, when it comes into view
