@@ -175,7 +175,8 @@ const RING = { cx: 0.4997, cy: 0.5093, r: 0.4314 };
 // every other view: the centre and half the largest extent of the lock in its frame, so each angle stands as big
 const GEO = { '00': { cx: 0.5128, cy: 0.4881, r: 0.3787 }, '01': RING, '02': { cx: 0.4844, cy: 0.4878, r: 0.3803 },
   '03': { cx: 0.5228, cy: 0.4872, r: 0.3972 }, '04': { cx: 0.5109, cy: 0.4866, r: 0.3884 }, '05': { cx: 0.4862, cy: 0.48, r: 0.3912 } };
-const ANGLES = ['00', '01', '02', '03', '04', '05'];
+// in turning order (front, a little turned, hero, side, from behind, from above), starting on the hero view
+const ANGLES = ['00', '03', '04', '05', '01', '02'];
 const lockEl = document.createElement('div');
 lockEl.className = 'lockimg';
 lockEl.innerHTML = '<img alt="" decoding="async" draggable="false"><img alt="" decoding="async" draggable="false">';

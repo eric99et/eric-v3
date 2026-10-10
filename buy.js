@@ -110,7 +110,8 @@
   // The real Ring-Lock as on the landing page: the v8 studio renders (images/lock), six angles per finish.
   // A sideways drag steps through the angles (one per 50 px), as do the arrows and the arrow keys.
   const lock3d = (() => {
-    const ANGLES = ['00', '01', '02', '03', '04', '05'];
+    // in turning order (front, a little turned, hero, side, from behind, from above), starting on the hero view
+    const ANGLES = ['00', '03', '04', '05', '01', '02'];
     const res = () => stage.clientWidth * Math.min(devicePixelRatio || 1, 2) > 900 ? 1600 : 800;
     const src = (f, a) => `images/lock/${f}-${a}-${res()}.webp`;
     const cache = new Map();
