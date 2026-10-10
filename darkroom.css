@@ -1372,38 +1372,14 @@ a.badge--57:hover, a.badge--kym:hover { opacity: .7; }
 .nav__buy { padding: 0 22px; }
 @media (max-width: 760px) { .nav__buy { height: 44px; padding: 0 18px; } }
 
-/* keyless: a soft Bluetooth signal from the lock to the phone. Flat Deep Teal arcs, transform and opacity only,
-   paused when the chapter is off screen (.is-live from darkroom.js), still with reduced motion */
-.ble { position: absolute; z-index: 1; width: 92px; height: 92px; pointer-events: none; }
-.ble i { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid transparent; opacity: 0; transform: scale(.3);
-  animation: ble-wave 2.7s cubic-bezier(.25, .6, .35, 1) infinite; animation-play-state: paused; }
-.ble i:nth-child(2) { animation-delay: .9s; }
-.ble i:nth-child(3) { animation-delay: 1.8s; }
-.void--macro.is-live .ble i { animation-play-state: running; }
-@keyframes ble-wave { 0% { opacity: 0; transform: scale(.3); } 18% { opacity: .5; } 100% { opacity: 0; transform: scale(1); } }
-/* wide: above the phone, leaning from the lock's side, the arcs travel down into the phone */
 /* wide: the phone spans both grid rows (it sat in a second row, which made the chapter 897 px tall on a 720 px laptop) */
-@media (min-width: 761px) { .void--macro .void__right { position: relative; grid-row: 1 / span 2; align-self: end; } .void--macro .void__left { align-self: start; } }
-.ble--m { display: none; }
-.ble--d { left: calc(50% - 16px); top: -82px; rotate: 24deg; }
-.ble--d i { border-bottom-color: var(--green); }
-/* phone: under the lock, the arcs travel down toward the app */
-@media (max-width: 760px) {
-  .ble--d { display: none; }
-  .ble--m { display: block; left: 50%; bottom: calc(35svh - 2px); width: 84px; height: 84px; margin-left: -42px; }
-  .ble--m i { border-bottom-color: var(--green); }
-}
+@media (min-width: 761px) { .void--macro .void__right { grid-row: 1 / span 2; align-self: end; } .void--macro .void__left { align-self: start; } }
 /* the Near dot breathes with a small ring */
 .phone__ble i { position: relative; animation: none; }
 .phone__ble i::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--green); opacity: 0; animation: near-ping 2.7s ease-out infinite; animation-play-state: paused; }
 .void--macro.is-live .phone__ble i::after { animation-play-state: running; }
 @keyframes near-ping { 0% { opacity: .45; transform: scale(1); } 70%, 100% { opacity: 0; transform: scale(2.8); } }
-@media (prefers-reduced-motion: reduce) {
-  .ble i { animation: none; opacity: .28; transform: scale(.75); }
-  .ble i:nth-child(2) { transform: scale(.55); opacity: .4; }
-  .ble i:nth-child(3) { display: none; }
-  .phone__ble i::after { animation: none; }
-}
+@media (prefers-reduced-motion: reduce) { .phone__ble i::after { animation: none; } }
 
 /* fit, on a phone: the text block calm and aligned (owner, 10 Oct). The column takes the full width between the
    16 px gutters (it shrank to the chip row before), five equal bike chips, Yes/No in the same style, an even rhythm,
