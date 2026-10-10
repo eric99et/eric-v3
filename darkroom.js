@@ -35,8 +35,9 @@ const DA = {
   'Your phone is the key.': 'Din telefon er nøglen.',
   'One tap in the LAAS app and the 9 mm hardened-steel bolt slides open. Push the bolt in and it locks with a click.': 'Ét tryk i LAAS-appen, og den 9 mm hærdede stålbolt glider op. Skub bolten i, så låser den med et klik.',
   'Near': 'Tæt på', 'Locked': 'Låst', 'Unlocked': 'Låst op', 'Tap to unlock': 'Tryk for at låse op', 'Tap to lock': 'Tryk for at låse', 'One-time key · Bluetooth': 'Engangsnøgle · Bluetooth',
-  // 02 find my: 'Works with Apple Find My' is Apple's wording and stays in English (the app is called Find in Danish)
-  'See where your bike is in the Find My app on your iPhone, iPad or Mac.': 'Se, hvor din cykel er, i appen Find på din iPhone, iPad eller Mac.',
+  // 02 find my: Apple's trademarks are never translated (Apple Find My guidelines p.13)
+  'After setup, you can locate your Ring-Lock in the Apple Find My app on your iPhone, iPad or Mac.': 'Når den er sat op, kan du finde din Ring-Lock i Apple Find My-appen på din iPhone, iPad eller Mac.',
+  'To use the Apple Find My app to locate this item, the latest version of iOS, iPadOS, or macOS is recommended.': 'For at bruge Apple Find My-appen til at finde denne genstand anbefales den nyeste version af iOS, iPadOS eller macOS.',
   'Nørrebro · Now': 'Nørrebro · Nu', 'Nørrebro · Now ·': 'Nørrebro · Nu ·',
   // 03 varefakta
   'Insurance‑approved in Denmark.': 'Forsikrings­godkendt i Danmark.',
@@ -70,7 +71,7 @@ const DA = {
   'Terms of sale': 'Handelsbetingelser', 'Privacy': 'Privatliv',
   // the footer
   '© 2026 LAAS ApS · Designed in Copenhagen': '© 2026 LAAS ApS · Designet i København',
-  'Apple and Find My are trademarks of Apple Inc., registered in the U.S. and other countries and regions.': 'Apple og Find My er varemærker tilhørende Apple Inc., registreret i USA og andre lande og områder.',
+  'Apple, Find My, iPhone, iPad, iPadOS, Mac and macOS are trademarks of Apple Inc., registered in the U.S. and other countries and regions. IOS is a trademark or registered trademark of Cisco in the U.S. and other countries and is used under license.': 'Apple, Find My, iPhone, iPad, iPadOS, Mac og macOS er varemærker tilhørende Apple Inc., registreret i USA og andre lande og områder. IOS er et varemærke eller registreret varemærke tilhørende Cisco i USA og andre lande og bruges under licens.',
   // labels a screen reader reads out
   'Turn left': 'Drej til venstre', 'Turn right': 'Drej til højre', 'Decrease quantity': 'Færre', 'Increase quantity': 'Flere', 'Accepted payment methods': 'Betalingsmetoder',
   'What you are covered by': 'Det er du dækket af', 'Your bike': 'Din cykel', 'Chapters': 'Kapitler', 'Sections': 'Sektioner', 'Language': 'Sprog', 'LAAS, back to the top': 'LAAS, til toppen',
