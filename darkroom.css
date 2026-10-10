@@ -1149,9 +1149,9 @@ html.no-engine .void--seal, html:not(.is-loading):not(.is-loaded) .void--seal { 
 /* find my: Apple's own badge, small, under the copy, with clear space round it (guidelines: >= 30px, 0.25x clear space) */
 .fm__badge { display: block; height: 40px; width: auto; margin: 26px 0 10px; }
 
-/* keyless: the drawn phone shows the LAAS app as it looks: a list of your locks as cards, a teal Unlock pill, a + below */
-.app__bar, .app__list, .app__tabs, .app__head, .app__meta { display: none; }
-@media (min-width: 761px) {
+/* keyless: the drawn phone shows the LAAS app as it looks: a list of your locks as cards, a teal Unlock pill, a + below
+   (on every screen; on a phone it sits quietly behind the lock) */
+@media all {
   .phone__screen { background: #F7F5F4; grid-template-rows: auto 1fr auto; padding: 46px 12px 14px; gap: 14px; }
   .app__bar { display: grid; grid-template-columns: 20px 1fr 20px; align-items: center; color: var(--ink); }
   .app__bar svg { width: 17px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; }
@@ -1185,8 +1185,6 @@ html.no-engine .void--seal, html:not(.is-loading):not(.is-loaded) .void--seal { 
 @keyframes pill-nudge { 0%, 100% { box-shadow: 0 0 0 0 rgba(29, 95, 99, .35); } 50% { box-shadow: 0 0 0 6px rgba(29, 95, 99, 0); } }
 @media (prefers-reduced-motion: reduce) { .unlock.is-nudge .unlock__cta, .app__seek i { animation: none; } }
 /* on a phone the card stays the compact one: the lock button, its state, the action */
-@media (max-width: 760px) { .unlock .app__meta { display: contents; } .unlock .app__meta .phone__ble, .unlock .app__sep { display: none; } }
-@media (max-width: 760px) { .app__list { display: block; width: 100%; } .app__card--far { display: none; } }
 
 /* reviews: a quiet band of real Trustpilot reviews between buy and the questions, drifting right */
 .tpb { display: block; position: relative; z-index: 2; overflow: hidden; padding: 22px 0; background: #FFFFFF; border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2); color: var(--ink);
@@ -1283,3 +1281,24 @@ html.no-engine .void--seal, html:not(.is-loading):not(.is-loaded) .void--seal { 
 .flex-ask img { aspect-ratio: 680 / 411; }
 .flex-ask .buy-btn { white-space: normal; text-align: center; line-height: 1.2; }
 .flex-ask .buy-btn { gap: .3em; }
+
+/* keyless on a phone: no card to tap; the app is drawn quietly behind the lock, as a hint of how it opens */
+@media (max-width: 760px) {
+  .void--macro { z-index: 0; }
+  .void--macro .void__right { position: absolute; left: 50%; bottom: calc(28px + env(safe-area-inset-bottom, 0px)); translate: -50% 0; margin: 0; opacity: .38; pointer-events: none; }
+  .void--macro .slot { flex: 1 0 40svh; }
+  .phone { width: auto; height: min(54svh, 430px); aspect-ratio: 9 / 18.5; padding: 8px; border: 0; border-radius: 38px; background: var(--ink); box-shadow: none; }
+  .phone__screen { height: 100%; border-radius: 31px; background: #F7F5F4; display: grid; grid-template-columns: none; grid-template-rows: auto 1fr auto; align-content: stretch; padding: 40px 10px 12px; gap: 12px; }
+  .phone__screen::before { display: block; }
+  .unlock { display: grid; grid-template-columns: none; grid-template-rows: none; justify-items: stretch; text-align: left; column-gap: 0; row-gap: 4px; width: 100%; }
+  .unlock__cta { min-width: 0; text-align: center; }
+}
+
+/* the turn arrows: transparent, just a thin ring */
+.turn, .ghost.turn { background: transparent !important; box-shadow: inset 0 0 0 1px rgba(32, 47, 48, .18) !important; }
+.turn:hover { box-shadow: inset 0 0 0 1px var(--ink) !important; }
+
+/* hero → intro: the light page rises as one sheet, rounded at the top, behind the lock (stage) and the text */
+.sheet { position: fixed; inset: 0; z-index: 0; pointer-events: none; display: none; clip-path: inset(var(--st, 100vh) 0 0 0 round 28px 28px 0 0); }
+.sheet.is-on { display: block; }
+@media (prefers-reduced-motion: reduce) { .sheet { display: none !important; } }

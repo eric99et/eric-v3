@@ -169,7 +169,7 @@ function goToHash() {
 setTimeout(() => { progress.img = 1; progress.glb = 1; }, 7000);
 
 /* --------------------------------------------------------------- the lock */
-const stage = $('#stage');
+const stage = $('#stage'), sheetEl = $('#sheet');
 // the render's own geometry (measured on the front view): the ring's centre and outer radius as shares of the frame
 const RING = { cx: 0.4997, cy: 0.5093, r: 0.4314 };
 // every other view: the centre and half the largest extent of the lock in its frame, so each angle stands as big
@@ -442,9 +442,14 @@ function frameChrome(m) {
   hero.on = hr.bottom > 0 && hero.p < 1;
   setVar(stage, '--hg', clamp(1 - hd * 1.4).toFixed(3));
   if (hd > 0 && hd < 1) {
+    // the page stays Ink; the next chapter's colour rises with its top edge, as a sheet behind the lock
     root.classList.add('bg-live');
-    setVar(root, '--bg', mixHex(heroSec.dataset.bg, sections[1].dataset.bg, smooth(hd)));
+    setVar(root, '--bg', heroSec.dataset.bg);
+    sheetEl.style.background = sections[1].dataset.bg;
+    setVar(sheetEl, '--st', Math.max(0, rects[1].top).toFixed(1) + 'px');
+    sheetEl.classList.add('is-on');
   } else {
+    sheetEl.classList.remove('is-on');
     root.classList.remove('bg-live');
     setVar(root, '--bg', hd >= 1 ? s.dataset.bg || '#ECECEA' : heroSec.dataset.bg);
   }
