@@ -54,8 +54,15 @@
     $$('[data-finish]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.finish === finish)));
     $('#finish-name').textContent = name;
     $('#buybar-finish').textContent = name + (qty > 1 ? ' · ' + qty : '');
-    $('#qty-value').textContent = qty;
-    const label = tr('Buy') + ' · ' + I.money(I.P.lock * qty);
+    // once this finish is in the cart, the stepper shows and sets the cart, and the button goes to the checkout
+    const n = inCart();
+    $('#qty-value').textContent = n || qty;
+    const minus = $('[data-qty="-1"]'), plus = $('[data-qty="1"]');
+    minus.disabled = !n && qty <= 1; plus.disabled = (n || qty) >= 15;
+    minus.classList.toggle('is-trash', n === 1);
+    minus.setAttribute('aria-label', tr(n === 1 ? 'Remove from cart' : 'Decrease quantity'));
+    $('.qty-row').classList.toggle('is-cart', !!n);
+    const label = n ? tr('Check out') + ' · ' + I.money(I.P.lock * n) : tr('Buy') + ' · ' + I.money(I.P.lock * qty);
     $('#buy-btn').textContent = label;
     $('#buybar-btn').textContent = label;
     $('#buy').dataset.metal = finish;
@@ -87,7 +94,17 @@
     });
   });
   function syncTabs() { dots.forEach(b => (b.tabIndex = b.dataset.finish === finish ? 0 : -1)); }
-  $$('[data-qty]').forEach(b => b.addEventListener('click', () => { qty = clamp(qty + +b.dataset.qty, 1, 15); render(false); }));
+  const C = () => window.LAAS_CART;
+  const inCart = () => (C() && C().qtyOf ? C().qtyOf(finish) : 0);
+  $$('[data-qty]').forEach(b => b.addEventListener('click', () => {
+    const d = +b.dataset.qty, n = inCart();
+    if (n) {
+      const left = C().setQty(finish, n + d);
+      $('#buy-status').textContent = left ? left + ' × Ring-Lock, ' + NAME[finish] + ' ' + tr('in your cart.') : 'Ring-Lock, ' + NAME[finish] + ' ' + tr('removed from your cart.');
+      render(true); return;
+    }
+    qty = clamp(qty + d, 1, 15); render(false);
+  }));
 
   /* --------------------------------------------- the lock: the studio renders */
   // The real Ring-Lock as on the landing page: the v8 studio renders (images/lock), six angles per finish.
@@ -133,15 +150,27 @@
   // Buy: the locks go in the cart, then the cart page
   // Buy puts the locks in the cart right here, no new page and no question on the way (the cart offers the
   // Flex Mount); cart-nav.js shows what was added, with Check out one tap away
+  // first one question: the Flex Mount, for frames without holes (asked once; not when it is in the cart already)
+  const ask = $('#flex-ask');
   const buy = () => {
+    if (inCart()) { location.href = 'checkout-v2.html'; return; }
+    if (ask && ask.showModal && C() && C().hasFlex && !C().hasFlex()) { ask.returnValue = ''; ask.showModal(); return; }
+    put(false);
+  };
+  ask?.addEventListener('close', () => { const v = ask.returnValue; if (v === 'flex' || v === 'no') put(v === 'flex'); });
+  const put = flex => {
     const ok = window.LAAS_CART ? window.LAAS_CART.add(finish, qty) : addLocks(finish, qty);
+    if (flex && ok) C().addFlex(ok === true ? qty : ok);
     if (ok === 0) { $('#buy-status').textContent = tr('Your cart already has 15 locks, the most in one order.'); return; }
     if (ok === false) { $('#buy-status').textContent = tr('Your browser blocked the cart. Allow site data for this page and try again.'); return; }
     $('#buy-status').textContent = (n => n + ' × Ring-Lock, ' + NAME[finish] + ', ' + tr('added to your cart.'))(ok === true ? qty : ok);
+    qty = 1;
     ['#buy-btn', '#buybar-btn'].forEach(sel => {
       const btn = $(sel); btn.classList.add('is-added'); btn.textContent = tr('Added');
       setTimeout(() => { btn.classList.remove('is-added'); render(true); }, 1600);
     });
+    render(true);
+    ['#buy-btn', '#buybar-btn'].forEach(sel => { $(sel).textContent = tr('Added'); });
   };
   $('#buy-btn').addEventListener('click', buy);
   $('#buybar-btn').addEventListener('click', buy);
@@ -153,7 +182,7 @@
   /* ------------------------------------------------------- the cart link */
   // the bag in the nav (cart-nav.js) listens for this
   function paintCart() { dispatchEvent(new Event('laas-cart')); }
-  addEventListener('storage', e => { if (e.key === CART_KEY) paintCart(); });
+  addEventListener('storage', e => { if (e.key === CART_KEY) { paintCart(); render(true); } });
 
   /* ------------------------------------------------- the nav capsule */
   {

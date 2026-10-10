@@ -94,7 +94,30 @@
     show(finish, qty, note);
     return qty;
   };
-  window.LAAS_CART = { add };
+  // what is in the cart for one finish, and setting it straight from the buy page's stepper (0 takes it out)
+  const lineOf = (items, finish) => items.find(i => i && i.name === 'Ring-Lock' && (i.finish === NAME[finish] || (finish === 'steel' && i.finish === 'Silver')));
+  const qtyOf = finish => { const l = lineOf(read(), finish); return l ? (+l.qty || 1) : 0; };
+  const setQty = (finish, n) => {
+    const items = read(), line = lineOf(items, finish);
+    if (!line) return false;
+    const others = items.reduce((m, i) => m + (i && i !== line && /^Ring-Lock/.test(i.name) ? (+i.qty || 1) : 0), 0);
+    n = Math.max(0, Math.min(n | 0, MAX_LOCKS - others));
+    if (n) line.qty = n; else items.splice(items.indexOf(line), 1);
+    // no locks left: the Flex Mount goes with them
+    if (!items.some(i => i && /^Ring-Lock/.test(i.name))) { const f = items.findIndex(i => i && /Flex/.test(i.name)); if (f > -1) items.splice(f, 1); }
+    try { localStorage.setItem(KEY, JSON.stringify(items)); } catch { return false; }
+    dispatchEvent(new Event('laas-cart'));
+    return n;
+  };
+  const hasFlex = () => read().some(i => i && /Flex/.test(i.name));
+  const addFlex = n => {
+    const items = read(), f = items.find(i => i && /Flex/.test(i.name));
+    if (f) f.qty = Math.max(+f.qty || 1, n); else items.push({ name: 'Flex Mount', finish: '', unit: 9.99, qty: Math.max(1, n | 0), img: 'images/flexmount.jpg' });
+    try { localStorage.setItem(KEY, JSON.stringify(items)); } catch { return false; }
+    dispatchEvent(new Event('laas-cart'));
+    return true;
+  };
+  window.LAAS_CART = { add, qtyOf, setQty, hasFlex, addFlex };
 })();
 
 // the footer's entrance (after 21st.dev "Footer section 1"): once, when it comes into view

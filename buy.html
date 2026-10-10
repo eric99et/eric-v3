@@ -192,6 +192,20 @@
 </div>
 
 <p class="visually-hidden" id="buy-status" role="status" aria-live="polite"></p>
+<!-- before the locks go in the cart: one question, so nobody gets a lock they cannot mount -->
+<dialog class="flex-ask" id="flex-ask" aria-labelledby="flex-ask-h">
+  <form method="dialog">
+    <img src="images/flexmount-install.webp" alt="" width="680" height="411">
+    <button class="flex-ask__x" value="cancel" aria-label="Close"></button>
+    <div class="flex-ask__body">
+      <p class="flex-ask__kicker label">Before it goes in the cart</p>
+      <h2 id="flex-ask-h">Does your frame have holes for a frame lock?</h2>
+      <p>Two small threaded holes on the frame, either side of the rear wheel. No holes? The Flex Mount holds the lock on a frame without them.</p>
+      <button class="buy-btn" value="flex">Add the Flex Mount · <span data-price="flex">€9.99</span></button>
+      <button class="flex-ask__no" value="no">Yes, my frame has holes</button>
+    </div>
+  </form>
+</dialog>
 
 <script src="i18n.js"></script>
 <script src="buy.js" defer></script>
