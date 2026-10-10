@@ -1033,9 +1033,9 @@ html.in-buy .nav__buy { display: none; }
 
 .added__pic { background: none; padding: 0; }
 
-/* will it fit: no tinted disc in the hole (it never sat true in the ring), and a lighter tyre so the dark,
-   floor-lit shackle reads in front of it */
-.fitg__hole { display: none; }
+/* will it fit: the tinted disc sits true in the ring's hole (v8 model: hole radius 52.7 mm against the 78.5 mm
+   outer radius, its centre 4 mm below the model's centre), and a lighter tyre so the dark, floor-lit shackle reads */
+.fitg__hole { width: calc(var(--lr, 200px) * 2 * 52.7 / 78.5); top: calc(50% + var(--lr, 200px) * 4 / 78.5); clip-path: none; opacity: .8; }
 .fitg__tyre { background:
     repeating-linear-gradient(135deg, transparent 0 9px, rgba(32, 47, 48, .14) 9px 15px) left top / 50.5% 100% no-repeat,
     repeating-linear-gradient(45deg, transparent 0 9px, rgba(32, 47, 48, .14) 9px 15px) right top / 50.5% 100% no-repeat,
