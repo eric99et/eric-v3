@@ -705,3 +705,5 @@ main.shop.legal { max-width: none; font: inherit; letter-spacing: normal; }
 .sh__end i { display: none; }
 .sh__end--a { left: 0; top: auto; bottom: -4px; }
 .sh__end--b { right: 0; top: auto; bottom: 8px; }
+/* the content fills the first screen, so the dark footer never peeks in as a strip at the bottom */
+main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
