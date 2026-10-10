@@ -72,22 +72,25 @@
 <main id="top">
 
   <!-- the product: the real lock, in 3D, on the left (on top on a phone); title, price and the buy card beside it -->
-  <section class="pdp" id="buy" data-metal="steel" aria-labelledby="pdp-h">
+  <!-- the product, laid out as the landing page's buy chapter: the finishes as the heading, the real lock in 3D in the
+       middle with its turn buttons, the white buy card beside it -->
+  <section class="pdp pdp--v2" id="buy" data-metal="steel" aria-labelledby="pdp-h">
+    <div class="pdp__head">
+      <p class="void__index label"><b>LAAS</b> Ring-Lock</p>
+      <h1 class="heading pdp__fins" id="pdp-h"><span class="visually-hidden">The LAAS Ring-Lock in </span><span data-fin="steel">Steel.</span> <span data-fin="copper">Copper.</span> <span data-fin="black">Black.</span></h1>
+      <p class="pdp__sub">Same lock, same price, three finishes. Keyless, and <a class="link" href="https://varefakta.dk/cykellaase/" target="_blank" rel="noopener">insurance-approved in Denmark</a> (Varefakta VK 37868).</p>
+    </div>
+
     <div class="pdp__stage">
       <div class="lock3d" id="lock3d" tabindex="0" role="group" aria-roledescription="3D view" aria-label="The Ring-Lock in Steel. Drag, or use the arrow keys, to turn it.">
         <img class="lock3d__still" id="lock-still" src="images/scenes/finish-steel.webp" width="800" height="800" alt="" fetchpriority="high" decoding="async">
         <i class="lock3d__floor" aria-hidden="true"></i>
       </div>
-      <p class="lock3d__hint label" id="lock-hint" aria-hidden="true">Drag to turn</p>
+      <p class="pdp__turn"><button class="ghost turn" type="button" data-turn="-1" aria-label="Turn left"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button><span class="label lock3d__hint" id="lock-hint" aria-hidden="true">Drag to turn</span><button class="ghost turn" type="button" data-turn="1" aria-label="Turn right"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button></p>
     </div>
 
     <div class="pdp__col">
-      <h1 class="heading pdp__title" id="pdp-h">The Ring-Lock.</h1>
-      <p class="pdp__price"><strong>€129</strong><s><span class="visually-hidden">Regular price </span>€149</s><span class="label pdp__intro">Intro price until 31 Dec 2026</span></p>
-      <p class="pdp__sub">Keyless. <a class="link" href="https://varefakta.dk/cykellaase/" target="_blank" rel="noopener">Insurance-approved in Denmark</a>, Varefakta VK 37868. Fits most bikes.</p>
-
-      <!-- António's buy block (as on index.html #buy): three finish dots, the chosen one ringed and named; quantity and Buy;
-           what you are covered by; how you can pay -->
+      <!-- António's buy block, the same card as on index.html #buy -->
       <div class="buybox">
         <div class="finishes" role="radiogroup" aria-label="Finish">
           <button type="button" role="radio" data-finish="steel" aria-checked="true" style="--c:#C9CDCF"><span class="visually-hidden">Steel</span></button>
@@ -95,6 +98,7 @@
           <button type="button" role="radio" data-finish="black" aria-checked="false" style="--c:#2A2D2E"><span class="visually-hidden">Black</span></button>
           <span class="finishes__name label" id="finish-name" aria-hidden="true">Steel</span>
         </div>
+        <p class="price-line"><strong>€129</strong><s><span class="visually-hidden">Regular price </span>€149</s><span class="label">Intro price until 31 Dec 2026</span></p>
         <div class="qty-row">
           <div class="qty">
             <button type="button" data-qty="-1" aria-label="Decrease quantity">−</button>
@@ -110,7 +114,7 @@
         </ul>
         <ul class="paywall" aria-label="Accepted payment methods"><li><img src="images/icons/mobilepay-mark.svg" alt="MobilePay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/applepay.svg" alt="Apple Pay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/googlepay.svg" alt="Google Pay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/klarna.svg" alt="Klarna" width="38" height="24" loading="lazy"></li><li><img src="images/icons/visa.svg" alt="Visa" width="38" height="24" loading="lazy"></li><li><img src="images/icons/mastercard.svg" alt="Mastercard" width="38" height="24" loading="lazy"></li></ul>
       </div>
-      <p class="fine pdp__ship">Ships in 1–2 working days. Shipping €9, free on orders over €250. Prices include VAT. No frame holes? The Flex Mount, €9.99, is in your cart, one tap away.</p>
+      <p class="fine pdp__ship">Ships in 1–2 working days. Shipping €9, free on orders over €250. Prices include VAT.</p>
     </div>
   </section>
 

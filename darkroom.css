@@ -1030,3 +1030,5 @@ html.in-buy .nav__buy { display: none; }
   .foot2__band { height: 48px; }
   .foot2__legal span { font-size: 14px; }
 }
+
+.added__pic { background: none; padding: 0; }

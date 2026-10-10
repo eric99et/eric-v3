@@ -122,6 +122,8 @@
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
       e.preventDefault(); touched(); user.goal += (e.key === 'ArrowRight' ? 1 : -1) * 0.5; api.wake?.();
     });
+    // the turn buttons under the lock (as on the landing page's buy chapter)
+    $$('[data-turn]').forEach(btn => btn.addEventListener('click', () => { touched(); user.goal += +btn.dataset.turn * 0.6; api.wake?.(); }));
 
     const T = 'https://cdn.jsdelivr.net/npm/three@0.170.0/';
     Promise.all([import(T + '+esm'), import(T + 'examples/jsm/loaders/GLTFLoader.js/+esm'), import(T + 'examples/jsm/libs/meshopt_decoder.module.js/+esm')]).then(([THREE, { GLTFLoader }, { MeshoptDecoder }]) => {
@@ -243,18 +245,18 @@
         if (!user.dragging) {
           user.goal += user.vel; user.vel *= 0.93;
           if (Math.abs(user.vel) < 1e-4) user.vel = 0;
-          // untouched, it sways slowly either side of the three-quarter view (never edge-on)
-          if (user.auto) user.goal = Math.sin((now - t0) / 1000 * 0.45) * 0.75;
+          // untouched, it sways gently either side of a near-front view (as the landing page's buy chapter)
+          if (user.auto) user.goal = Math.sin((now - t0) / 1000 * 0.45) * 0.35;
         }
         user.spin = user.dragging || reduce ? user.goal : user.spin + (user.goal - user.spin) * (1 - Math.exp(-6 * dt));
         sweep *= Math.exp(-2.5 * dt);
         const time = (now - t0) / 1000;
         const bob = reduce ? 0 : Math.sin(time * 0.31) * 0.03;
-        // the landing page's buy pose: three-quarter, a little from above
-        model.group.rotation.set(-0.16 + bob, -0.62 + user.spin, 0.1, 'XYZ');
+        // the landing page's buy pose: near the front, a little from above, upright
+        model.group.rotation.set(-0.12 + bob, -0.3 + user.spin, 0, 'XYZ');
         scene.environmentRotation.y = envRot + sweep * 1.2 + (reduce ? 0 : Math.sin(time * 0.35) * 0.08);
         // the ring's diameter: about 62% of the width on a phone, a little less on a desktop
-        const px = phone() ? Math.min(W * 0.62, H * 0.74) : Math.min(W * 0.56, H * 0.66);
+        const px = phone() ? Math.min(W * 0.72, H * 0.8) : Math.min(W * 0.8, H * 0.8);
         const tan = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
         const dist = model.radius * H / (tan * px);
         camera.position.set(0, 0, dist); camera.near = dist / 30; camera.far = dist * 6;

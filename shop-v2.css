@@ -411,3 +411,8 @@
 /* an empty cart or checkout: the small card sits in the middle of the space above the footer */
 html.is-empty .shop-page .cart__wrap { flex: 1; width: 100%; align-content: center; padding-bottom: 96px; }
 .pick__name { letter-spacing: .08em; font-size: 10px; overflow: visible; }
+
+/* the lock thumbnails: rendered straight on, on a transparent ground, so no tile behind them */
+.item__pic, .cart-page .line__pic, .co2 .lines--ro .line__pic, .lines--ro .line__pic, .addons #offer-second img { background: none; box-shadow: none; }
+.item__pic img, .line__pic img { width: 100%; height: 100%; object-fit: contain; }
+#offer-second img { padding: 0; }

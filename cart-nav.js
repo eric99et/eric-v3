@@ -50,7 +50,7 @@
       card.addEventListener('pointerleave', () => { timer = setTimeout(hide, 4000); });
       addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
     }
-    card.querySelector('.added__pic').src = 'images/scenes/finish-' + finish + '.webp';
+    card.querySelector('.added__pic').src = 'images/scenes/thumb-' + finish + '.webp';
     card.querySelector('.added__h').textContent = qty ? 'Added to your cart' : 'Your cart is full';
     card.querySelector('.added__p').textContent = (qty ? `Ring-Lock, ${NAME[finish]}${qty > 1 ? ' × ' + qty : ''} · €${PRICE * qty}` : '') + (note ? (qty ? '. ' : '') + note : '');
     card.hidden = false;
