@@ -227,3 +227,27 @@ html { scroll-snap-type: none; scroll-behavior: smooth; scroll-padding-top: 96px
 /* the details without a photo: one column, the width of the reviews */
 .details { display: block; }
 .details__text { max-width: 760px; }
+
+/* questions: one calm column the width of the details above, the heading with a link to the whole FAQ, smaller
+   questions in the faq.html voice, and the two ways to ask as small rows (owner, 10 Oct) */
+.details { padding-bottom: clamp(48px, 5vw, 72px); }
+.pdp-faq { display: block; max-width: 1200px; padding-bottom: clamp(72px, 8vw, 112px); }
+.pdp-faq > * { max-width: 760px; }
+.pdp-faq__head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 10px; }
+.pdp-faq__head .details__h { margin: 0; }
+.pdp-faq__all { font-size: 14px; white-space: nowrap; }
+.pdp-faq__all::after { content: " →"; }
+.pdp-faq .qa summary { gap: 16px; min-height: 56px; padding: 14px 0; font: 500 18px/1.35 var(--display); letter-spacing: -0.01em; }
+.pdp-faq .qa summary i { width: 28px; height: 28px; }
+.pdp-faq .qa summary i::before, .pdp-faq .qa summary i::after { width: 11px; }
+.pdp-faq .qa p { padding-bottom: 18px; font-size: 15px; }
+.pdp-faq__ask { list-style: none; margin: 20px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pdp-faq__ask a { display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 10px 16px; border-radius: 16px; background: #FFFFFF; color: var(--ink); font: 500 15px/1.25 var(--display); transition: box-shadow .2s, translate .2s var(--ease); box-shadow: inset 0 0 0 1px rgba(32, 47, 48, .08); }
+.pdp-faq__ask a:hover { box-shadow: inset 0 0 0 1px var(--ink); }
+.pdp-faq__ask a:active { translate: 0 1px; }
+.pdp-faq__ask svg { flex: none; width: 20px; height: 20px; fill: none; stroke: var(--green); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.pdp-faq__ask small { display: block; margin-bottom: 2px; font: 400 12px/1.2 var(--body); color: var(--muted); }
+@media (max-width: 760px) {
+  .pdp-faq .qa summary { font-size: 16px; min-height: 52px; padding: 12px 0; }
+  .pdp-faq__ask { grid-template-columns: 1fr; }
+}

@@ -38,7 +38,7 @@
     'Fitting': 'Montering', 'The mounting screws are in the box': 'Monteringsskruerne ligger i æsken', 'In the box': 'I æsken',
     'Ring-Lock, mounting screws, certificates, return label. No charging cable and no hex key in the box: any USB-C cable works, and you need a hex key for the M5 screws.':
       'Ring-Lock, monteringsskruer, certifikater og returlabel. Der er ikke ladekabel eller unbrakonøgle i æsken: alle USB-C-kabler virker, og du skal bruge en unbrakonøgle til M5-skruerne.',
-    'Questions': 'Spørgsmål', 'Will it fit my bike?': 'Passer den til min cykel?',
+    'Questions': 'Spørgsmål', 'See all questions': 'Se alle spørgsmål', 'Ask us': 'Spørg os', 'Call us': 'Ring til os', 'Write to us': 'Skriv til os', 'Will it fit my bike?': 'Passer den til min cykel?',
     'Most bikes, cargo bikes and e-bikes too: tyres up to 60 mm, mount spacing 75 to 100 mm. Not fat bikes. Frame holes? The mounting screws are in the box. No holes? The Flex Mount, €9.99.':
       'De fleste cykler, også ladcykler og elcykler: dæk op til 60 mm, monteringsafstand 75 til 100 mm. Ikke fatbikes. Huller i stellet? Monteringsskruerne ligger i æsken. Ingen huller? Flex Mount, 75 kr.',
     'Will my insurance accept it?': 'Godkender mit forsikringsselskab den?',
