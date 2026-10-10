@@ -1137,3 +1137,6 @@ html.no-engine .void--seal, html:not(.is-loading):not(.is-loaded) .void--seal { 
 .badge__tp svg { flex: none; }
 .badge__tp, .badge--tp > span:last-child { white-space: nowrap; }
 .paywall img { max-height: 18px; width: auto !important; max-width: 100%; }
+/* find my: the map stays inside the screen of the drawn phone (its round street ends no longer spill over the bezel) */
+.fmp .map { overflow: hidden; clip-path: inset(0 round calc(var(--h) * .064)); }
+.fmp__sheet { overflow: hidden; }
