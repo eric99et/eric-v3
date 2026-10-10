@@ -562,3 +562,46 @@ main.shop.legal { max-width: none; font: inherit; letter-spacing: normal; }
 .sh__feats b { font: 600 16px/1.2 var(--display); letter-spacing: -0.01em; color: var(--ink); }
 .sh__feats li > span:last-child { font-size: 14px; line-height: 1.45; color: var(--muted); }
 @media (max-width: 860px) { .sh__feats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } .sh__feats li { padding: 18px 12px; } }
+
+/* FAQ, crisper: a search, popular shortcuts, smaller type, slimmer rows, pictures where they explain */
+.fq__top .cart__h { font-size: clamp(30px, 3.4vw, 44px); }
+.fq__search { position: relative; display: block; margin-top: 18px; max-width: 560px; }
+.fq__search svg { position: absolute; left: 18px; top: 50%; translate: 0 -50%; width: 19px; height: 19px; fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-linecap: round; }
+.fq__search input { width: 100%; height: 52px; padding: 0 18px 0 48px; border: 0; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px var(--line-2); font: 400 16px/1 var(--body); color: var(--ink); }
+.fq__search input:focus { outline: none; box-shadow: inset 0 0 0 1.5px var(--green); }
+.pr .fq__pop { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 14px 0 0; font-size: 14px; color: var(--muted); }
+.fq__pop a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.fq__pop a:hover { text-decoration-color: var(--ink); }
+.pr .fq__none { margin: 18px 0 0; font-size: 15px; }
+.fq { grid-template-columns: 210px minmax(0, 1fr); gap: 32px; margin-top: 28px; }
+.fq__tab { min-height: 40px; padding: 0 12px; gap: 10px; border-radius: 12px; font-size: 14px; }
+.fq__tab svg { width: 18px; height: 18px; }
+.fq__tab em { margin-left: auto; font: 500 12px/1 var(--body); font-style: normal; color: var(--muted); }
+.fq__help { display: grid; gap: 4px; margin-top: 18px; padding: 16px 14px; border-radius: 16px; background: #FFFFFF; font-size: 13px; line-height: 1.45; color: var(--muted); }
+.fq__help b { font: 600 15px/1.2 var(--display); color: var(--ink); }
+.fq__help a { width: max-content; color: var(--ink); }
+.fq__h { margin: 0 0 8px !important; font: 500 12px/1 var(--display) !important; letter-spacing: .12em !important; text-transform: uppercase; color: var(--muted) !important; }
+.fq__panel { gap: 2px; }
+.fq.is-search .fq__panel + .fq__panel .fq__h { margin-top: 18px !important; }
+.fq__q { border-radius: 16px; }
+.fq__q[hidden] { display: none; }
+.fq__q summary { padding: 15px 18px; font-size: 16px; font-weight: 600; }
+.fq__q summary i { width: 8px; height: 8px; }
+.fq__a { padding: 0 18px 16px; }
+.pr .fq__a p { font-size: 15px; line-height: 1.55; }
+.fq__img { display: block; width: 100%; max-height: 260px; margin-top: 14px; border-radius: 14px; object-fit: cover; background: #ECECEA; }
+.fq__img[src$="varefakta-badge.jpg"] { width: 96px; height: 96px; object-fit: contain; background: none; }
+.pr .fq__a .fq__rate { align-items: center; gap: 6px; margin-top: 12px; font-size: 13px; color: var(--muted); }
+.fq__rate span { margin-right: 4px; }
+.fq__rate button { min-height: 30px; padding: 0 12px; border-radius: 999px; font-size: 13px; }
+.pr .fq__a .fq__thanks { margin-top: 12px; font-size: 13px; }
+@media (max-width: 760px) {
+  .fq { gap: 12px; margin-top: 20px; }
+  .fq__help { display: none; }
+  .fq__tab em { display: none; }
+  .fq__search input { height: 48px; font-size: 16px; }
+  .fq__q summary { padding: 14px 14px; font-size: 15px; }
+  .fq__a { padding: 0 14px 14px; }
+  .fq__img { max-height: 200px; }
+}
+.fq__img { max-height: 220px; }
