@@ -1100,3 +1100,40 @@ html.no-engine .void--seal, html:not(.is-loading):not(.is-loaded) .void--seal { 
 @media (min-width: 761px) { #buy .void__left { align-self: start; padding-top: 4px; } }
 /* the drawn certificate needs a wide screen beside the seal; narrower, the seal stands alone */
 @media (max-width: 1199px) { .paper { display: none; } }
+
+/* ---------------- the buy card, tidied (index #buy and buy.html .buybox): one rhythm, one column, even rows */
+.void--product .void__right, .buybox { gap: 18px !important; }
+.void--product .void__right > *, .buybox > * { width: 100%; }
+/* the finishes, the price and its tag on one baseline */
+.finishes { margin: 0 0 0 -6px !important; }
+.price-line { display: flex; flex-wrap: nowrap; align-items: center; gap: 12px; margin: 0 !important; }
+.price-line strong { font-size: clamp(28px, 2.4vw, 34px); }
+.price-line .label { padding: 6px 10px; font-size: 10.5px; letter-spacing: .08em; white-space: nowrap; }
+/* quantity and Buy: the same height, the button takes the rest */
+.qty-row { display: grid; grid-template-columns: auto 1fr; gap: 10px; width: 100% !important; }
+.qty { height: 54px; padding: 0 4px; }
+.qty button { width: 42px; height: 42px; }
+.buy-btn { min-height: 54px; }
+.trust-row { justify-content: flex-start; font-size: 14px; }
+/* the ways to pay: one row of equal tiles */
+.paywall { display: grid !important; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; margin: 0 !important; }
+.paywall li { width: auto !important; height: 34px !important; display: grid; place-items: center; padding: 6px !important; }
+/* the three promises: three equal columns, each centred, a hairline between */
+.badges { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: center; gap: 0 !important; padding-top: 18px; }
+.badges > .badge { justify-items: center; justify-self: stretch; text-align: center; padding: 0 8px; }
+.badges > .badge + .badge { border-left: 1px dashed var(--line); }
+.badge--57 b { font-size: 34px; }
+.badge--kym b { max-width: none; font-size: 13px; }
+.badge--kym i { width: 56px; margin: 6px auto 5px; }
+.badge--tp { align-content: center; }
+.badge__tp { font-size: 14px; }
+.badge--tp > span:last-child { font-size: 11.5px; }
+@media (max-width: 760px) {
+  .badges { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .badge--tp { justify-self: stretch !important; }
+  .price-line .label { font-size: 10px; }
+}
+.badges { grid-template-columns: .8fr 1fr 1.25fr !important; }
+.badge__tp svg { flex: none; }
+.badge__tp, .badge--tp > span:last-child { white-space: nowrap; }
+.paywall img { max-height: 18px; width: auto !important; max-width: 100%; }
