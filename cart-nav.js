@@ -201,7 +201,8 @@
 // shipping, Check out and View cart. Only where there is a mouse; on a phone the bag simply opens the cart.
 (() => {
   const bag = document.querySelector('.nav__bag');
-  if (!bag || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  // not on the cart or the checkout themselves: the whole cart is already on the page
+  if (!bag || /(cart|checkout)-v2\.html$/.test(location.pathname) || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   const KEY = 'laas.cart.v1.en';
   const I = () => window.LAAS_I18N || { lang: 'en', P: { lock: 129, flex: 9.99, ship: 9, free: 250 }, money: n => '€' + n };
   const read = () => { try { const v = JSON.parse(localStorage.getItem(KEY)); return Array.isArray(v) ? v.filter(Boolean) : []; } catch { return []; } };
@@ -230,12 +231,13 @@
   };
   let t = 0;
   const place = () => { const r = bag.getBoundingClientRect(); pop.style.top = (r.bottom + 10) + 'px'; pop.style.right = Math.max(12, innerWidth - r.right - 8) + 'px'; };
-  const open = () => { clearTimeout(t); if (!pop.hidden) return; render(); place(); pop.hidden = false; requestAnimationFrame(() => pop.classList.add('is-on')); };
-  const close = () => { clearTimeout(t); t = setTimeout(() => { pop.classList.remove('is-on'); setTimeout(() => { if (!pop.classList.contains('is-on')) pop.hidden = true; }, 250); }, 220); };
+  const open = () => { clearTimeout(t); if (!pop.hidden) { pop.classList.add('is-on'); return; } render(); place(); pop.hidden = false; requestAnimationFrame(() => pop.classList.add('is-on')); };
+  const close = () => { clearTimeout(t); t = setTimeout(() => { if (pop.matches(':hover') || bag.matches(':hover')) return; pop.classList.remove('is-on'); setTimeout(() => { if (!pop.classList.contains('is-on')) pop.hidden = true; }, 250); }, 300); };
   bag.addEventListener('pointerenter', open); bag.addEventListener('pointerleave', close);
   pop.addEventListener('pointerenter', () => clearTimeout(t)); pop.addEventListener('pointerleave', close);
   bag.addEventListener('focus', open); bag.addEventListener('blur', e => { if (!pop.contains(e.relatedTarget)) close(); });
-  pop.addEventListener('focusout', e => { if (!pop.contains(e.relatedTarget) && e.relatedTarget !== bag) close(); });
+  // a click on − or + redraws the line and drops focus for a moment: that is not leaving, so it stays open
+  pop.addEventListener('focusout', e => { if (!e.relatedTarget || pop.contains(e.relatedTarget) || e.relatedTarget === bag || pop.matches(':hover')) return; close(); });
   addEventListener('keydown', e => { if (e.key === 'Escape' && !pop.hidden) { pop.classList.remove('is-on'); pop.hidden = true; } });
   addEventListener('laas-cart', () => { if (!pop.hidden) render(); });
   // − and + on each line change the cart right here; − at 1 (a bin) takes the line out, and the last lock takes the Flex Mount with it

@@ -1356,3 +1356,10 @@ a.badge--57:hover, a.badge--kym:hover { opacity: .7; }
 .minicart__qty button.is-bin::before { content: ""; width: 15px; height: 15px; background: currentColor;
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 7h15M9.5 7V4.5h5V7M6.5 7l.9 12a1.5 1.5 0 0 0 1.5 1.4h6.2a1.5 1.5 0 0 0 1.5-1.4l.9-12M10 11v5.5M14 11v5.5'/%3E%3C/svg%3E") center / contain no-repeat;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 7h15M9.5 7V4.5h5V7M6.5 7l.9 12a1.5 1.5 0 0 0 1.5 1.4h6.2a1.5 1.5 0 0 0 1.5-1.4l.9-12M10 11v5.5M14 11v5.5'/%3E%3C/svg%3E") center / contain no-repeat; }
+/* a bridge over the gap between the bag and the preview, so moving the mouse down never closes it */
+.minicart::after { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
+/* the bin sits dead centre in its round button */
+.qty button.is-trash { position: relative; }
+.qty button.is-trash::before { position: absolute; inset: 0; margin: auto; }
+/* drawings that are not on screen are taken out of the page (no work while the lock or the mouse moves) */
+.stage.off-orbit .orbit, .stage.off-seal .seal, .stage.off-fit .fitg, .stage.off-radar .radar, .stage.off-radar .fmp { display: none; }

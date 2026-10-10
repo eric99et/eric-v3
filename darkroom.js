@@ -559,7 +559,13 @@ function loop(now) {
   lockEl.style.opacity = shown.toFixed(3);
   // the drawings wait until the bike has gone (the ring of words never hangs round a bike)
   const nobike = smooth(clamp((0.3 - cur.bike) / 0.3));
-  ['orbit', 'radar', 'seal', 'fit'].forEach(kk => setVar(stage, '--' + kk, (cur[kk] * alpha * nobike).toFixed(3)));
+  ['orbit', 'radar', 'seal', 'fit'].forEach(kk => {
+    const v = cur[kk] * alpha * nobike;
+    setVar(stage, '--' + kk, v.toFixed(3));
+    // a drawing that is not shown leaves the page entirely, so moving the lock (or the mouse) never recalculates it
+    const off = v < 0.002, f = '_off-' + kk;
+    if (stage[f] !== off) { stage[f] = off; stage.classList.toggle('off-' + kk, off); }
+  });
   const tilt = findIdx < 0 ? 0 : (1 - smooth(clamp(+(sections[findIdx]['_--r'] || 0)))) * 20;
   setVar(stage, '--ft', tilt.toFixed(2) + 'deg');
   setVar(stage, '--sh', (alpha * (1 - cur.hide) * (1 - cur.radar) * (1 - cur.logo) * (1 - cur.fit) * (1 - cur.seal) * (1 - cur.bike)).toFixed(3));
