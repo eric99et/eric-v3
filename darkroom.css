@@ -1302,3 +1302,11 @@ html.no-engine .void--seal, html:not(.is-loading):not(.is-loaded) .void--seal { 
 .sheet { position: fixed; inset: 0; z-index: 0; pointer-events: none; display: none; clip-path: inset(var(--st, 100vh) 0 0 0 round 28px 28px 0 0); }
 .sheet.is-on { display: block; }
 @media (prefers-reduced-motion: reduce) { .sheet { display: none !important; } }
+/* keyless on a phone, composed: the lock above, the app rising from the bottom edge under it (top half, fading out) */
+@media (max-width: 760px) {
+  .void--macro { overflow: hidden; }
+  .void--macro .slot { flex: 1 0 30svh; margin-bottom: 30svh; }
+  .void--macro .void__right { bottom: calc(-1 * (min(54svh, 430px) - 31svh)); opacity: .9;
+    -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 62%); mask-image: linear-gradient(to bottom, #000 30%, transparent 62%); }
+}
+@media (max-width: 760px) { .void--macro .void__right { pointer-events: auto; } }
