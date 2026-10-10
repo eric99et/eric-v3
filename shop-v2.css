@@ -227,7 +227,6 @@
   .paybar__sum span { font-size: 12px; color: var(--muted); }
   .paybar__sum b { font: 600 20px/1 var(--display); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
   .paybar .pill-btn { min-height: 50px; padding: 0 24px; font-size: 16px; }
-  html:not(.is-empty) .shop-page .foot { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
 }
 
 /* =====================================================================
@@ -292,7 +291,6 @@
   .item--empty .item__go { grid-column: 1 / -1; justify-content: center; }
   .addon { grid-template-columns: 40px minmax(0, 1fr); }
   .addon__btn { grid-column: 1 / -1; min-height: 44px; }
-  html:not(.is-empty) .cart-page .foot { padding-bottom: 0; }
 }
 
 /* all of it in one white card: the lines, the Flex Mount, the sum and the button */
@@ -388,7 +386,6 @@
   .co2__box { padding: 2px 14px 16px; }
   .express2 button:first-child { font-size: 0; }
   .express2 button:first-child img { width: 22px; }
-  html:not(.is-empty) .co-page .foot { padding-bottom: 0; }
 }
 
 /* the payment tabs carry the marks; the picked one turns white with a Deep Teal ring, so every mark stays legible */
