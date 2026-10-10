@@ -47,14 +47,14 @@ const DA = {
   // 04 fit
   'Will it fit my bike?': 'Passer den til min cykel?', 'Road': 'Racer', 'City': 'Bycykel', 'E-bike': 'Elcykel', 'Cargo': 'Ladcykel', 'Fat bike': 'Fatbike',
   'Two things decide it: your tyre, and whether your frame has holes for a frame lock.': 'To ting afgør det: dit dæk, og om dit stel har huller til en ringlås.', 'Your bike': 'Din cykel',
-  'Tyres up to 60 mm wide fit. Not sure? The width is printed on the side of the tyre: in 42-622, the 42.': 'Dæk op til 60 mm passer. I tvivl? Bredden står på siden af dækket: i 42-622 er det 42.',
+  'Tyres up to 60 mm fit.': 'Dæk op til 60 mm passer.', 'The width is on the side of the tyre: in 42-622, the 42.': 'Bredden står på siden af dækket: i 42-622 er det 42.',
   'Tyre width': 'Dækbredde', 'Up to 35 mm': 'Op til 35 mm', 'Over 60 mm': 'Over 60 mm', 'tyre': 'dæk', 'Holes for a frame lock?': 'Huller til en ringlås?', 'Yes': 'Ja', 'No': 'Nej',
   'It is printed on the side of the tyre: in 42-622, the 42 is the width in mm.': 'Det står på siden af dækket: i 42-622 er 42 bredden i mm.',
   'Two small threaded holes on the frame, either side of the rear wheel, just below the saddle.': 'To små gevindhuller i stellet, på hver side af baghjulet, lige under sadlen.',
   'It fits.': 'Den passer.', 'Too wide.': 'For bredt.', 'It fits, with the Flex Mount.': 'Den passer, med Flex Mount.',
-  "Your tyre goes through the ring's 63 mm opening, and the M5 mounting screws are in the box.": 'Dit dæk går gennem ringens 63 mm åbning, og M5-monteringsskruerne ligger i æsken.',
-  'The ring takes tyres up to 60 mm, so fat-bike tyres will not go through.': 'Ringen tager dæk op til 60 mm, så fatbike-dæk kan ikke komme igennem.',
-  'Your tyre goes through the 63 mm opening. The Flex Mount (€9.99) holds the lock on a frame without holes; add it in the basket.': 'Dit dæk går gennem den 63 mm åbning. Flex Mount (75 kr.) holder låsen på et stel uden huller; tilføj den i kurven.',
+  'The screws are in the box.': 'Skruerne ligger i æsken.',
+  'The ring takes tyres up to 60 mm.': 'Ringen tager dæk op til 60 mm.',
+  'Add the Flex Mount (€9.99) in the basket. It holds the lock on a frame without holes.': 'Tilføj Flex Mount (75 kr.) i kurven. Den holder låsen på et stel uden huller.',
   // 05 buy (the finish names stay Steel, Copper and Black, as in the Drive copy)
   'Steel. Copper. Black.': 'Steel. Copper. Black.', 'Same lock, same price, three finishes. Pick the one that suits your bike.': 'Samme lås, samme pris, tre udgaver. Vælg den, der passer til din cykel.',
   'Drag to turn': 'Træk for at dreje', 'Intro price until 31 Dec 2026': 'Introduktionspris til 31. dec. 2026',
@@ -621,9 +621,9 @@ function renderFit() {
   const no = mm > 60;
   verdict.dataset.state = no ? 'no' : 'yes'; fitg.dataset.state = no ? 'no' : 'yes';
   vHead.textContent = t(no ? 'Too wide.' : holes ? 'It fits.' : 'It fits, with the Flex Mount.');
-  vBody.textContent = no ? t('The ring takes tyres up to 60 mm, so fat-bike tyres will not go through.')
-    : holes ? t("Your tyre goes through the ring's 63 mm opening, and the M5 mounting screws are in the box.")
-    : t('Your tyre goes through the 63 mm opening. The Flex Mount (€9.99) holds the lock on a frame without holes; add it in the basket.');
+  vBody.textContent = no ? t('The ring takes tyres up to 60 mm.')
+    : holes ? t('The screws are in the box.')
+    : t('Add the Flex Mount (€9.99) in the basket. It holds the lock on a frame without holes.');
   verdict.classList.remove('is-swap'); void verdict.offsetWidth; verdict.classList.add('is-swap');
   // the tyre, to scale: the drawn hole is the ring's 105 mm inside (v8 model); the 63 mm clearance sits between the mounts
   fitg.style.setProperty('--tw', Math.min(1, mm / 105).toFixed(3));

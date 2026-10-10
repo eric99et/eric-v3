@@ -1252,3 +1252,6 @@ html.no-engine .void--seal, html:not(.is-loading):not(.is-loaded) .void--seal { 
   html[data-tone="dark"] .nav .nav__menu { color: transparent; }
   html[data-tone="dark"] .ghost.nav__menu::before, html[data-tone="dark"] .ghost.nav__menu::after { background: #ECECEA; }
 }
+/* varefakta on a phone: the seal takes the spare room, so nothing hangs empty under the text */
+@media (max-width: 760px) { .void--seal .slot { flex: 1 0 38svh; } .void--seal { padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px)); } }
+@media (max-width: 760px) { .fitq__more { display: none; } }
