@@ -215,3 +215,19 @@ html { scroll-snap-type: none; scroll-behavior: smooth; scroll-padding-top: 96px
 .rv__meta { margin: 2px 0 12px; font-size: 13px; color: var(--muted); }
 .rv__text { margin: 14px 0 0; font-size: 15px; line-height: 1.55; color: var(--ink-2); }
 @media (max-width: 860px) { .rv__list { grid-template-columns: 1fr; } .rv__count { margin-left: 10px; } }
+/* the reviews as a band that drifts to the right, small cards, twice over so it never ends; it stops under the
+   pointer and for reduced motion (then it scrolls by hand) */
+.rv__band { overflow: hidden; margin: 0 calc(-1 * var(--gutter)); -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.rv__list { display: flex !important; gap: 12px; width: max-content; padding: 0 var(--gutter); animation: rv-drift 60s linear infinite; }
+.rv__band:hover .rv__list, .rv__band:focus-within .rv__list { animation-play-state: paused; }
+@keyframes rv-drift { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+.rv__card { width: 280px; flex: none; align-items: flex-start; text-align: left; padding: 18px 20px 20px; border-radius: 20px; }
+.rv__who { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.rv__face { width: 36px; height: 36px; font-size: 12px; flex: none; }
+.rv__card .rv__name { margin: 0; font-size: 14px; }
+.rv__card .rv__meta { margin: 1px 0 0; font-size: 12px; }
+.rv__card .rv__stars svg { width: 13px; height: 12px; }
+.rv__card .rv__text { margin-top: 8px; font-size: 13.5px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.rv__card:nth-child(6n+4) .rv__face { background: #606A74; } .rv__card:nth-child(6n+5) .rv__face { background: var(--green); } .rv__card:nth-child(6n) .rv__face { background: #458A8E; }
+@media (prefers-reduced-motion: reduce) { .rv__band { overflow-x: auto; } .rv__list { animation: none; } }
+@media (max-width: 860px) { .rv__card { width: 240px; } }

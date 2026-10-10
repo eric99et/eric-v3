@@ -62,7 +62,7 @@
     stage.setAttribute('aria-label', tr('The LAAS Ring-Lock in') + ' ' + name + '. ' + tr('Drag, or use the arrow keys, to turn it.'));
     syncTabs();
     if (first) {
-      photo.src = 'images/lock/' + finish + '-05-800.webp'; photo.alt = tr('The LAAS Ring-Lock in') + ' ' + name;
+      if (photo) { photo.src = 'images/lock/' + finish + '-05-800.webp'; photo.alt = tr('The LAAS Ring-Lock in') + ' ' + name; }
     } else {
       swapImg(photo, 'images/lock/' + finish + '-05-800.webp', tr('The LAAS Ring-Lock in') + ' ' + name);
       // keep the choice in the address, so a reload or a shared link opens on it
