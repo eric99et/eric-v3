@@ -1404,3 +1404,24 @@ a.badge--57:hover, a.badge--kym:hover { opacity: .7; }
   .ble i:nth-child(3) { display: none; }
   .phone__ble i::after { animation: none; }
 }
+
+/* fit, on a phone: the text block calm and aligned (owner, 10 Oct). The column takes the full width between the
+   16 px gutters (it shrank to the chip row before), five equal bike chips, Yes/No in the same style, an even rhythm,
+   and a quieter verdict with its mark on the first line */
+@media (max-width: 760px) {
+  .void--fit .void__left { align-self: stretch; width: 100%; }
+  .void--fit .void__index { margin-bottom: 10px; }
+  .void--fit .heading { font-size: clamp(28px, 8.4vw, 34px); line-height: 1.05; }
+  .void--fit .fitq { margin-top: 18px; }
+  .void--fit .fitq + .fitq { margin-top: 16px; }
+  .void--fit .fitq__h { gap: 10px; font: 500 15px/1.2 var(--display); }
+  .void--fit .fitq__h b { width: 22px; height: 22px; font-size: 11px; }
+  .void--fit .fitq .pickrow { margin-top: 10px; gap: 6px; flex-wrap: nowrap; }
+  .void--fit .fitq .chip { flex: 1 1 0; min-width: 0; min-height: 44px; padding: 0 4px; font-size: 13px; white-space: nowrap; }
+  .void--fit #holes .chip { flex: 0 0 calc((100% - 24px) / 5); }
+  .void--fit .fitq__hint { margin-top: 8px; font-size: 12px; line-height: 1.4; }
+  .void--fit .verdict { margin-top: 18px; padding-top: 0; border-top: 0; }
+  .void--fit .verdict__head { align-items: flex-start; gap: 10px; font-size: 19px; line-height: 1.25; letter-spacing: -0.02em; }
+  .void--fit .verdict__mark { width: 22px; height: 22px; margin-top: 1px; background-size: 14px !important; }
+  .void--fit .verdict__body { margin-top: 4px; padding-left: 32px; font-size: 14px; line-height: 1.45; color: var(--muted); }
+}
