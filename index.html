@@ -20,7 +20,8 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/inter-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.170.0/+esm">
+<link rel="preload" href="images/lock/steel-00-800.webp" as="image" type="image/webp" media="(max-width: 900px)">
+<link rel="preload" href="images/lock/steel-00-1600.webp" as="image" type="image/webp" media="(min-width: 901px)">
 <link rel="stylesheet" href="darkroom.css">
 <script>
   // the loader only exists when scripts run; if the 3D engine never arrives, the page still opens
@@ -174,7 +175,7 @@
 
   <!-- 0 · the opening: the wordmark, in pixels, fills the screen; scrolling, the pixels are pulled into the laser-marked
        logo on the lock itself, and that lock then comes with you for the rest of the page -->
-  <section class="hero hero--px" data-nav-section="intro" data-tone="dark" data-bg="#202F30" data-key='{"logo":1,"size":0.5,"free":1,"msize":0.6}' aria-label="LAAS Ring-Lock">
+  <section class="hero hero--px" data-nav-section="intro" data-tone="dark" data-bg="#202F30" data-key='{"img":"00","logo":1,"size":0.5,"free":1,"msize":0.6}' aria-label="LAAS Ring-Lock">
     <!-- one stop: the pixel wordmark; from there one scroll carries you through the lock to the next chapter -->
     <i class="hero__stop hero__stop--a" aria-hidden="true"></i>
     <div class="hero__pin">
@@ -192,7 +193,7 @@
 
   <!-- 0b · the whole lock, as a poster: two big words bracket the ring (never over it), the four things it does run
        along the bottom as a drawn spec strip -->
-  <section class="void void--intro" id="intro" data-nav-section="intro" data-bg="#ECECEA" data-key='{"yaw":-0.42,"pitch":0.2,"size":0.46,"msize":0.62,"my":-0.04}' aria-labelledby="h0">
+  <section class="void void--intro" id="intro" data-nav-section="intro" data-bg="#ECECEA" data-key='{"img":"00","yaw":-0.42,"pitch":0.2,"size":0.46,"msize":0.62,"my":-0.04}' aria-labelledby="h0">
     <h2 class="visually-hidden" id="h0">No key. No cable. One ring of stainless steel that stays on your bike.</h2>
     <div class="void__left">
       <p class="void__index label"><b>LAAS</b> Ring-Lock</p>
@@ -212,7 +213,7 @@
   </section>
 
   <!-- 1 · keyless -->
-  <section class="void void--macro" id="keyless" data-nav-section="keyless" data-keyless data-bg="#FFFFFF" data-key='{"yaw":0.1,"pitch":0.05,"roll":-1.6,"mroll":0,"size":0.74,"x":0.52,"y":0.05,"free":1,"msize":0.62,"mx":0.2,"my":-0.06}' aria-labelledby="h1">
+  <section class="void void--macro" id="keyless" data-nav-section="keyless" data-keyless data-bg="#FFFFFF" data-key='{"img":"01","yaw":0.1,"pitch":0.05,"roll":-1.6,"mroll":0,"size":0.74,"x":0.52,"y":0.05,"free":1,"msize":0.62,"mx":0.2,"my":-0.06}' aria-labelledby="h1">
     <div class="void__left">
       <p class="void__index label"><b>01</b> Keyless</p>
       <h2 class="heading split" id="h1">Your phone is the&nbsp;key.</h2>
@@ -236,7 +237,7 @@
   </section>
 
   <!-- 2 · find my: the bike on a phone, lying on the map, seen from above -->
-  <section class="void void--map" id="findmy" data-nav-section="findmy" data-bg="#ECECEA" data-key='{"yaw":0,"pitch":0,"roll":0,"size":0.12,"radar":1,"free":1,"hide":1}' aria-labelledby="h2">
+  <section class="void void--map" id="findmy" data-nav-section="findmy" data-bg="#ECECEA" data-key='{"img":"01","yaw":0,"pitch":0,"roll":0,"size":0.12,"radar":1,"free":1,"hide":1}' aria-labelledby="h2">
     <div class="void__left">
       <p class="void__index label"><b>02</b> Apple Find My</p>
       <h2 class="heading split" id="h2">Works with Apple Find&nbsp;My.</h2>
@@ -248,7 +249,7 @@
   </section>
 
   <!-- 3 · varefakta: the certificate, and the ring at the centre of its seal -->
-  <section class="void void--seal" id="approved" data-nav-section="approved" data-tone="dark" data-bg="#1D5F63" data-key='{"yaw":0,"pitch":0,"roll":0,"size":0.34,"x":0.24,"y":-0.04,"seal":1,"free":1,"msize":0.5,"mx":0,"my":-0.12}' aria-labelledby="h3">
+  <section class="void void--seal" id="approved" data-nav-section="approved" data-tone="dark" data-bg="#1D5F63" data-key='{"img":"01","yaw":0,"pitch":0,"roll":0,"size":0.34,"x":0.24,"y":-0.04,"seal":1,"free":1,"msize":0.5,"mx":0,"my":-0.12}' aria-labelledby="h3">
     <div class="void__left">
       <p class="void__index label"><b>03</b> Varefakta</p>
       <h2 class="heading split" id="h3">Insurance&#8209;approved in&nbsp;Denmark.</h2>
@@ -276,7 +277,7 @@
   </section>
 
   <!-- 4 · will it fit my bike -->
-  <section class="void void--fit" id="fit" data-nav-section="fit" data-bg="#FFFFFF" data-key='{"yaw":0,"pitch":0,"roll":0,"size":0.36,"x":0.25,"y":-0.03,"fit":1,"free":1,"msize":0.4,"mx":0,"my":-0.16}' aria-labelledby="h4">
+  <section class="void void--fit" id="fit" data-nav-section="fit" data-bg="#FFFFFF" data-key='{"img":"01","yaw":0,"pitch":0,"roll":0,"size":0.36,"x":0.25,"y":-0.03,"fit":1,"free":1,"msize":0.4,"mx":0,"my":-0.16}' aria-labelledby="h4">
     <div class="void__left">
       <p class="void__index label"><b>04</b> Fit</p>
       <h2 class="heading split" id="h4">Will it fit my&nbsp;bike?</h2>
@@ -297,7 +298,7 @@
   </section>
 
   <!-- 5 · buy -->
-  <section class="void void--product" id="buy" data-metal="steel" data-nav-section="buy" data-bg="#ECECEA" data-key='{"yaw":-0.3,"pitch":-0.12,"roll":0,"size":0.42,"msize":0.5,"my":-0.04,"drag":1}' aria-labelledby="h5">
+  <section class="void void--product" id="buy" data-metal="steel" data-nav-section="buy" data-bg="#ECECEA" data-key='{"img":"00","yaw":-0.3,"pitch":-0.12,"roll":0,"size":0.42,"msize":0.5,"my":-0.04,"drag":1}' aria-labelledby="h5">
     <div class="void__left">
       <p class="void__index label"><b>05</b> Yours</p>
       <h2 class="heading split" id="h5">Steel. Copper. Black.</h2>
@@ -331,7 +332,7 @@
   </section>
 
   <!-- 6 · questions -->
-  <section class="void void--faq" id="faq" data-nav-section="faq" data-bg="#FFFFFF" data-key='{"yaw":-0.3,"pitch":-0.12,"size":0.42,"fade":1}' aria-labelledby="h6">
+  <section class="void void--faq" id="faq" data-nav-section="faq" data-bg="#FFFFFF" data-key='{"img":"00","yaw":-0.3,"pitch":-0.12,"size":0.42,"fade":1}' aria-labelledby="h6">
     <div class="void__left">
       <p class="void__index label"><b>06</b> FAQ</p>
       <h2 class="heading split" id="h6">Questions, answered.</h2>
@@ -348,7 +349,7 @@
     </div>
   </section>
 
-  <footer class="foot" data-nav-section="faq" data-tone="dark" data-bg="#ECECEA" data-key='{"yaw":-0.3,"pitch":-0.12,"roll":0,"size":0.42,"msize":0.5,"my":-0.04,"fade":1}'>
+  <footer class="foot" data-nav-section="faq" data-tone="dark" data-bg="#ECECEA" data-key='{"img":"00","yaw":-0.3,"pitch":-0.12,"roll":0,"size":0.42,"msize":0.5,"my":-0.04,"fade":1}'>
     <!-- after 21st.dev "Footer section 1": the mark, one row of links, the socials, a hatched band, the copyright -->
     <div class="foot2">
       <div class="foot2__top">

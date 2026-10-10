@@ -1,14 +1,8 @@
 // LAAS · Ring-Lock
-// One fixed canvas holds the real Ring-Lock (images/3d, Marcus's v8 model
-// with its Lock animation). The page opens inside the logo that is laser-
-// marked on the lock, and the first scroll steps back until the whole ring
-// is in view. Every section carries a pose in data-key and the scroll
-// blends from one to the next; the drawings in the stage (orbit, radar,
-// seal, the tyre) are centred on the lock and fade in with their pose.
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/+esm';
-import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/GLTFLoader.js/+esm';
-import { MeshoptDecoder } from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/libs/meshopt_decoder.module.js/+esm';
-
+// The lock on this page is the studio render of the real Ring-Lock (Drive · Website material, v8, 4500 px):
+// six angles in each of the three finishes (images/lock). One lock, fixed behind everything that scrolls,
+// moves from chapter to chapter: every section carries its place, size, tilt and angle in data-key, and the
+// scroll blends from one to the next. The drawings in the stage (the seal, the tyre, the map) are centred on it.
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const root = document.documentElement;
@@ -167,267 +161,39 @@ function goToHash() {
 // never hold anyone back: show the page after 7 s whatever has arrived
 setTimeout(() => { progress.img = 1; progress.glb = 1; }, 7000);
 
-/* --------------------------------------------------------------- the scene */
+/* --------------------------------------------------------------- the lock */
 const stage = $('#stage');
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
-renderer.setPixelRatio(Math.min(devicePixelRatio || 1, phone() ? 1.75 : 2));
-// Khronos PBR Neutral: true product colour, no orange shift in the copper
-renderer.toneMapping = THREE.NeutralToneMapping;
-renderer.toneMappingExposure = 1.0;
-renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.setClearColor(0, 0);
-stage.prepend(renderer.domElement);
-const canvas = renderer.domElement;
-
-// a bright studio (dome + softboxes) for a light page, with one cool rim
-function studio(rim = true, low = false) {
-  const scene = new THREE.Scene();
-  const ss = (a, b, x) => { const u = clamp((x - a) / (b - a)); return u * u * (3 - 2 * u); };
-  const dome = new THREE.SphereGeometry(10, 96, 48), pos = dome.attributes.position, cols = [];
-  for (let i = 0; i < pos.count; i++) {
-    const y = pos.getY(i) / 10;
-    let v = 0.3 + 0.78 * ss(0, 0.9, y);
-    v *= 1 - 0.7 * (ss(-0.26, -0.08, y) * (1 - ss(-0.04, 0.06, y)));
-    if (y < -0.26) v = 0.2 - 0.12 * ss(-0.4, -1, y);
-    cols.push(v, v, v);
-  }
-  dome.setAttribute('color', new THREE.Float32BufferAttribute(cols, 3));
-  scene.add(new THREE.Mesh(dome, new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.BackSide })));
-  const panel = (w, h, c, at) => {
-    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: c, side: THREE.DoubleSide }));
-    m.position.set(...at); m.lookAt(0, 0, 0); scene.add(m);
-  };
-  const grey = v => new THREE.Color(v === 0 ? 0.08 : v * 1.3, v === 0 ? 0.08 : v * 1.3, v === 0 ? 0.08 : v * 1.3);
-  panel(7, 4.5, grey(2.2), [-1, 7.2, 1.5]); panel(4.5, 4.5, grey(3.2), [-5.5, 4, 5]); panel(1.2, 7.5, grey(5), [-7.4, 1, 1]); panel(0.6, 7, grey(3), [3.2, 2, 7.6]);
-  panel(6, 9, grey(0), [8, 0, 1.5]); panel(3, 9, grey(0), [4.5, -1, 7]); panel(2.2, 8.5, grey(0), [-7.8, 0.5, -4.5]); panel(3, 2, grey(1.2), [0, 2.5, -8.5]);
-  if (rim) panel(1.3, 8, new THREE.Color(0.72 * 3, 0.87 * 3, 0.82 * 3), [6.6, 4.4, -4]);
-  panel(0.28, 10, grey(9), [-4.2, 6.5, 5.2]);
-  if (low) { panel(1.6, 6, new THREE.Color(0.72 * 2.2, 0.87 * 2.2, 0.82 * 2.2), [-6.4, -2.4, -4.5]); panel(0.5, 7, new THREE.Color(2.4, 2.6, 2.5), [5.8, -1.5, -5]); }
-  return scene;
-}
-const scene = new THREE.Scene();
-let envTint, envNeutral, envBlack;
-{
-  const pm = new THREE.PMREMGenerator(renderer);
-  envTint = pm.fromScene(studio(true), 0).texture; envNeutral = pm.fromScene(studio(false), 0).texture; envBlack = pm.fromScene(studio(true, true), 0).texture;
-  scene.environment = envTint;
-  scene.environmentIntensity = 0.9;
-  pm.dispose();
-}
-const camera = new THREE.PerspectiveCamera(22, 1, 0.01, 50);
-
-/* ---------------------------------------------------------------- the bike */
-// A city bike, built here in metres, so the real lock can sit on it in the
-// opening frame and then leave it. x runs forward, y up, z to the right.
-const bike = (() => {
-  const g = new THREE.Group(), V = (x, y, z = 0) => new THREE.Vector3(x, y, z);
-  const mats = [];
-  const M = (o) => { const m = new THREE.MeshPhysicalMaterial({ transparent: true, ...o }); mats.push(m); return m; };
-  const paint = M({ color: '#1D5F63', metalness: 0.15, roughness: 0.32, clearcoat: 1, clearcoatRoughness: 0.12 });
-  const chrome = M({ color: '#d9dcdc', metalness: 1, roughness: 0.18 });
-  const alloy = M({ color: '#b9bdbd', metalness: 1, roughness: 0.32 });
-  const rubber = M({ color: '#1b1f1f', metalness: 0, roughness: 0.82 });
-  const tan = M({ color: '#b98d62', metalness: 0, roughness: 0.7 });
-  const leather = M({ color: '#7a4b31', metalness: 0, roughness: 0.55, clearcoat: 0.4, clearcoatRoughness: 0.4 });
-  const dark = M({ color: '#2a3132', metalness: 0.3, roughness: 0.5 });
-  // the frame (everything but the rear wheel and its stays) lives in its own group, so it can fade in after the close-up
-  const frame = new THREE.Group(), fmats = new Map(); let P = g;
-  const fm = m => P === g ? m : (fmats.get(m) || (fmats.set(m, m.clone()), fmats.get(m)));
-  const tube = (a, b, r, mat, cap = true) => {
-    mat = fm(mat);
-    const d = new THREE.Vector3().subVectors(b, a), m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, d.length(), 20), mat);
-    m.position.copy(a).addScaledVector(d, 0.5); m.quaternion.setFromUnitVectors(V(0, 1), d.clone().normalize()); P.add(m);
-    if (cap) [a, b].forEach(p => { const k = new THREE.Mesh(new THREE.SphereGeometry(r, 16, 12), mat); k.position.copy(p); P.add(k); });
-  };
-  const curve = (pts, r, mat) => P.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 48, r, 14), fm(mat)));
-  const wheel = (c, fender = true) => {
-    const w = new THREE.Group(); w.position.copy(c); g.add(w);
-    const add = (geo, mat, z = 0) => { const m = new THREE.Mesh(geo, mat); m.position.z = z; w.add(m); return m; };
-    add(new THREE.TorusGeometry(0.331, 0.021, 20, 96), rubber);
-    add(new THREE.TorusGeometry(0.321, 0.0075, 10, 96), tan, 0.014); add(new THREE.TorusGeometry(0.321, 0.0075, 10, 96), tan, -0.014);
-    add(new THREE.TorusGeometry(0.305, 0.011, 12, 96), chrome);
-    add(new THREE.TorusGeometry(0.296, 0.006, 8, 96), alloy);
-    [0.03, -0.03].forEach(z => add(new THREE.CylinderGeometry(0.03, 0.03, 0.004, 24), alloy, z).rotation.x = Math.PI / 2);
-    const valve = add(new THREE.CylinderGeometry(0.003, 0.003, 0.03, 8), chrome); valve.position.set(0, -0.29, 0);
-    add(new THREE.CylinderGeometry(0.022, 0.022, 0.1, 20), alloy).rotation.x = Math.PI / 2;
-    for (let k = 0; k < 32; k++) {
-      const a = k / 32 * Math.PI * 2, side = k % 2 ? 1 : -1, hub = V(Math.cos(a + 0.2 * side) * 0.02, Math.sin(a + 0.2 * side) * 0.02, side * 0.035), rim = V(Math.cos(a) * 0.298, Math.sin(a) * 0.298, 0);
-      const d = new THREE.Vector3().subVectors(rim, hub), m = new THREE.Mesh(new THREE.CylinderGeometry(0.0012, 0.0012, d.length(), 5), chrome);
-      m.position.copy(hub).addScaledVector(d, 0.5); m.quaternion.setFromUnitVectors(V(0, 1), d.normalize()); w.add(m);
-    }
-    // a fender over the top of the wheel
-    if (fender) { const f = add(new THREE.CylinderGeometry(0.362, 0.362, 0.052, 64, 1, true, 0, Math.PI * 1.05), paint); f.rotation.x = Math.PI / 2; f.rotation.y = -0.1; f.material.side = THREE.DoubleSide; }
-    return w;
-  };
-  const R = V(0, 0.35), F = V(1.09, 0.35), rearNoFender = true, BB = V(0.44, 0.29), ST = V(0.3, 0.84), STj = V(0.316, 0.77), HTt = V(0.99, 0.87), HTb = V(1.03, 0.72);
-  wheel(R, !rearNoFender);
-  // the stays carry the lock, so they stay in the close-up
-  [1, -1].forEach(s => { tube(V(0, 0.35, s * 0.068), V(0.44, 0.29, s * 0.025), 0.0095, paint); tube(V(0, 0.35, s * 0.07), V(0.31, 0.775, s * 0.03), 0.0085, paint); });
-  // dropouts where the stays meet the axle
-  [1, -1].forEach(s => { const d = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.03, 0.006), paint); d.position.set(0.012, 0.36, s * 0.069); d.rotation.z = 0.5; g.add(d); });
-  g.add(frame); P = frame;
-  wheel(F);
-  // frame
-  tube(BB, ST, 0.016, paint); tube(STj, HTt, 0.016, paint); tube(BB, HTb, 0.019, paint); tube(HTt.clone().add(V(0, 0.03)), HTb.clone().add(V(0.012, -0.05)), 0.022, paint);
-  [1, -1].forEach(s => {
-    curve([HTb.clone().add(V(0.01, -0.04, s * 0.03)), V(1.06, 0.55, s * 0.05), V(1.095, 0.4, s * 0.052), V(1.09, 0.35, s * 0.052)], 0.011, paint);
-  });
-  // seatpost and saddle
-  tube(ST, V(0.285, 0.93), 0.0125, chrome);
-  const saddle = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 16), fm(leather)); saddle.scale.set(0.135, 0.032, 0.085); saddle.position.set(0.27, 0.955, 0); P.add(saddle);
-  // stem and swept-back city bars
-  tube(HTt.clone().add(V(0, 0.03)), V(0.975, 0.99), 0.013, chrome);
-  curve([V(0.86, 1.01, -0.27), V(0.93, 1.0, -0.22), V(0.99, 0.99, -0.08), V(1.0, 0.99, 0), V(0.99, 0.99, 0.08), V(0.93, 1.0, 0.22), V(0.86, 1.01, 0.27)], 0.011, chrome);
-  [1, -1].forEach(s => tube(V(0.86, 1.01, s * 0.27), V(0.77, 1.02, s * 0.29), 0.017, leather));
-  // a lamp on the head tube
-  const lamp = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.026, 0.05, 20), fm(dark)); lamp.rotation.z = Math.PI / 2; lamp.position.set(1.07, 0.8, 0); P.add(lamp);
-  const lens = new THREE.Mesh(new THREE.CircleGeometry(0.021, 20), new THREE.MeshBasicMaterial({ color: '#fbf6e8', transparent: true })); lens.rotation.y = Math.PI / 2; lens.position.set(1.096, 0.8, 0); P.add(lens); mats.push(lens.material);
-  // drivetrain
-  const ring = new THREE.Mesh(new THREE.TorusGeometry(0.095, 0.005, 10, 64), fm(alloy)); ring.position.set(0.44, 0.29, 0.065); P.add(ring);
-  for (let k = 0; k < 5; k++) { const a = k / 5 * Math.PI * 2, arm = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.012, 0.004), fm(alloy)); arm.position.set(0.44 + Math.cos(a) * 0.045, 0.29 + Math.sin(a) * 0.045, 0.065); arm.rotation.z = a; P.add(arm); }
-  tube(V(0.44, 0.29, 0.075), V(0.5, 0.13, 0.085), 0.011, alloy); tube(V(0.44, 0.29, -0.075), V(0.38, 0.45, -0.085), 0.011, alloy);
-  [[V(0.5, 0.13, 0.12), 1], [V(0.38, 0.45, -0.12), -1]].forEach(([p]) => { const pd = new THREE.Mesh(new THREE.CapsuleGeometry(0.012, 0.06, 4, 10), fm(dark)); pd.rotation.x = Math.PI / 2; pd.position.copy(p); P.add(pd); });
-  curve([V(0.44, 0.385, 0.065), V(0.2, 0.37, 0.065), V(0.02, 0.37, 0.065), V(0.0, 0.33, 0.065), V(0.2, 0.2, 0.065), V(0.44, 0.195, 0.065)], 0.0035, dark);
-  // a soft contact shadow under the wheels
-  const cv = document.createElement('canvas'); cv.width = 256; cv.height = 64;
-  const cx = cv.getContext('2d'), gr = cx.createRadialGradient(128, 32, 4, 128, 32, 128);
-  gr.addColorStop(0, 'rgba(20,30,30,.22)'); gr.addColorStop(1, 'rgba(20,30,30,0)'); cx.fillStyle = gr; cx.fillRect(0, 0, 256, 64);
-  const sh = new THREE.Mesh(new THREE.PlaneGeometry(1.9, 0.5), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, depthWrite: false }));
-  sh.rotation.x = -Math.PI / 2; sh.position.set(0.55, 0.0, 0); g.add(sh); mats.push(sh.material);
-  g.visible = false; scene.add(g);
-  // where the Ring-Lock sits (as on the product photos): around the tyre, just behind the seat stays, its band
-  // close over the tread and the laser-marked logo on top of the arc, facing out; the stays never pass through it
-  const Q = new URLSearchParams(location.search), qn = (k, d) => (Q.has(k) ? +Q.get(k) : d);
-  const dir = V(0.31, 0.775).sub(R).normalize();
-  const mx = V(0, 0, 1), my = dir.clone(), mz = new THREE.Vector3().crossVectors(mx, my);
-  const at = R.clone().addScaledVector(dir, qn('mrad', 0.312)).addScaledVector(mz, qn('moff', 0.026));
-  const mount = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(mx, my, mz))
-    .multiply(new THREE.Quaternion().setFromAxisAngle(V(0, 1), qn('mflip', 1) * Math.PI))
-    .multiply(new THREE.Quaternion().setFromAxisAngle(V(0, 0, 1), THREE.MathUtils.degToRad(qn('mrot', 100))));
-  // the frame centres between the bike and its lock, so the lock is the hero and the front wheel can run off the edge
-  // looking down the tyre: the ring face-on, the wheel running through it (the close-up the card opens on)
-  const face = mount.clone().invert();
-  return { g, mats, frameMats: [...fmats.values()], at, mount, face, body: V(0.56, 0.6), length: 1.9 };
-})();
-const QS = new URLSearchParams(location.search);
-const BIKE_YAW = +(QS.get('yaw') || 0.72), CARD_YAW = +(QS.get('cyaw') ?? -0.45), CARD_PITCH = +(QS.get('cpitch') ?? 0.08);
-const qCard = new THREE.Quaternion();
-const _qy = new THREE.Quaternion(), _q34 = new THREE.Quaternion(), _ax = new THREE.Vector3(), bikeC = new THREE.Vector3(), qBike = new THREE.Quaternion(), qMountW = new THREE.Quaternion(), _b = new THREE.Vector3();
-const _v = new THREE.Vector3();
-
-const FILES = { steel: 'ring-lock-silver.glb', copper: 'ring-lock-copper.glb', black: 'ring-lock-black.glb' };
-const gltfLoader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
-const models = {};
-function load(f, onProgress) {
-  return models[f] || (models[f] = new Promise((res, rej) => gltfLoader.load('images/3d/' + FILES[f] + '?v=7f891b83', res, e => onProgress?.(e.total ? e.loaded / e.total : clamp(e.loaded / 1.67e6)), rej)).then(gltf => {
-    const group = new THREE.Group(), model = gltf.scene;
-    group.add(model);
-    const box = new THREE.Box3().setFromObject(model);
-    model.position.sub(box.getCenter(new THREE.Vector3()));
-    const size = box.getSize(new THREE.Vector3());
-    model.traverse(o => {
-      if (!o.isMesh) return;
-      o.frustumCulled = false;
-      if (f === 'black') {
-        // the steel rivets stay steel (they are on the product), but satin, so they do not glint like dead pixels
-        const mats = [].concat(o.material).map(m => {
-          if (!/satin steel/i.test(m.name)) return m;
-          const c = m.clone(); c.roughness = 0.58; c.envMapIntensity = 0.45; c.color.multiplyScalar(0.7); return c;
-        });
-        o.material = mats.length === 1 ? mats[0] : mats;
-      }
-      if (f !== 'steel') [].concat(o.material).forEach(m => { if (m.metalness > 0.6 && !/shackle/i.test(m.name)) m.roughness = Math.min(m.roughness, 0.28); });
-      if (f === 'steel') [].concat(o.material).forEach(m => { if (/shackle/i.test(m.name)) m.roughness = 0.05; else if (/brushed|satin steel/i.test(m.name)) { m.roughness = 0.24; } });
-    });
-    const clip = gltf.animations.find(a => a.name === 'Lock');
-    let mixer = null, dur = 0;
-    if (clip) { mixer = new THREE.AnimationMixer(model); mixer.clipAction(clip).play(); dur = clip.duration - 1e-4; mixer.setTime(dur); }
-    group.updateMatrixWorld(true);
-    // a few hundred real surface points, so the floor shadow can find the ring's true lowest point
-    let pts = [];
-    model.traverse(o => { if (!o.isMesh) return; const pa = o.geometry.attributes.position; for (let i = 0; i < pa.count; i++) pts.push([o, i]); });
-    const stp = Math.max(1, Math.floor(pts.length / 600));
-    pts = pts.filter((_, i) => i % stp === 0).map(([o, i]) => [o, new THREE.Vector3().fromBufferAttribute(o.geometry.attributes.position, i)]);
-    const logo = logoFrame(model, size);
-    group.visible = false; scene.add(group);
-    // compile now so the first frame on screen does not stutter
-    renderer.compile(scene, camera);
-    return { group, mixer, dur, pts, logo, radius: Math.max(size.x, size.y, size.z) * 0.5 };
-  }));
-}
-// where the laser-marked logo sits, which way it reads, and how wide it is
-function logoFrame(model, size) {
-  let node = null;
-  model.traverse(o => { if (!node && /laas.2026.logo/i.test(o.name || '')) node = o; });
-  if (!node) return null;
-  const P = [], N = new THREE.Vector3(), nm = new THREE.Matrix3();
-  node.traverse(o => {
-    if (!o.isMesh) return;
-    const pa = o.geometry.attributes.position, na = o.geometry.attributes.normal;
-    nm.getNormalMatrix(o.matrixWorld);
-    for (let i = 0; i < pa.count; i++) {
-      P.push(new THREE.Vector3().fromBufferAttribute(pa, i).applyMatrix4(o.matrixWorld));
-      if (na) N.add(new THREE.Vector3().fromBufferAttribute(na, i).applyMatrix3(nm).normalize());
-    }
-  });
-  if (!P.length) return null;
-  const c = P.reduce((a, p) => a.add(p), new THREE.Vector3()).multiplyScalar(1 / P.length);
-  // the ring's axis is its thinnest dimension
-  const ax = size.x <= size.y && size.x <= size.z ? 'x' : size.y <= size.z ? 'y' : 'z';
-  const axis = new THREE.Vector3(); axis[ax] = 1;
-  const radial = c.clone(); radial[ax] = 0; radial.normalize();
-  // the mark faces the way its surface does (the tube is round, so not just along the axis)
-  let n = N.lengthSq() > 1e-6 ? N.normalize() : axis.clone().multiplyScalar(Math.sign(c[ax]) || 1);
-  if (n.dot(c.clone().sub(radial.clone().multiplyScalar(c.dot(radial)))) < 0 && N.lengthSq() < 1e-6) n.negate();
-  // the text runs round the ring; its letters stand toward the outer edge
-  const tang = new THREE.Vector3().crossVectors(axis, radial);
-  const u = tang.sub(n.clone().multiplyScalar(tang.dot(n))).normalize();
-  let v = new THREE.Vector3().crossVectors(n, u);
-  if (v.dot(radial) * LOGO_UP < 0) { u.negate(); v.negate(); }
-  // centre on the mark's bounding box, not its vertices (the S has far more of them than the L)
-  let u0 = Infinity, u1 = -Infinity, v0 = Infinity, v1 = -Infinity;
-  P.forEach(p => { const d = p.clone().sub(c), a = d.dot(u), b = d.dot(v); u0 = Math.min(u0, a); u1 = Math.max(u1, a); v0 = Math.min(v0, b); v1 = Math.max(v1, b); });
-  c.addScaledVector(u, (u0 + u1) / 2).addScaledVector(v, (v0 + v1) / 2);
-  const w = (u1 - u0) / 2, h = (v1 - v0) / 2;
-  const basis = new THREE.Matrix4().makeBasis(u, v, n);
-  const q = new THREE.Quaternion().setFromRotationMatrix(basis).invert();
-  return { c, q, w: w * 2, h: h * 2, u, v };
-}
-const LOGO_UP = +(new URLSearchParams(location.search).get('up') || -1);
-
-let model = null, finish = 'steel';
+// the render's own geometry (measured on the front view): the ring's centre and outer radius as shares of the frame
+const RING = { cx: 0.4997, cy: 0.5093, r: 0.4314 };
+// every other view: the centre and half the largest extent of the lock in its frame, so each angle stands as big
+const GEO = { '00': { cx: 0.5128, cy: 0.4881, r: 0.3787 }, '01': RING, '02': { cx: 0.4844, cy: 0.4878, r: 0.3803 },
+  '03': { cx: 0.5228, cy: 0.4872, r: 0.3972 }, '04': { cx: 0.5109, cy: 0.4866, r: 0.3884 }, '05': { cx: 0.4862, cy: 0.48, r: 0.3912 } };
+const ANGLES = ['00', '01', '02', '03', '04', '05'];
+const lockEl = document.createElement('div');
+lockEl.className = 'lockimg';
+lockEl.innerHTML = '<img alt="" decoding="async" draggable="false"><img alt="" decoding="async" draggable="false">';
+stage.prepend(lockEl);
+const layers = $$('img', lockEl).map(img => ({ img, src: '' }));
+let res = Math.min(innerWidth, innerHeight) * Math.min(devicePixelRatio || 1, 2) > 900 ? 1600 : 800;
+const srcOf = (f, a) => `images/lock/${f}-${a}-${res}.webp`;
+const cache = new Map();
+const fetchImg = src => cache.get(src) || (cache.set(src, new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(src); i.onerror = no; i.src = src; })), cache.get(src));
+let finish = 'steel', lockReady = false;
 const intro = { t: -1 };
-// light per metal: how strong the studio reflects
-const METAL = { steel: { env: 1.15, exp: 0.98, rot: 0.9 }, copper: { env: 1.1, exp: 1.0, rot: 0 }, black: { env: 1.4, exp: 1.3, rot: 2.4 } };
-let envRot = 0;
-const swap = { pending: null, from: 0, sweep: 0 };
-function setModel(m, f) {
-  if (model) model.group.visible = false;
-  m.group.visible = true; model = m;
-  scene.environmentIntensity = METAL[f].env;
-  renderer.toneMappingExposure = METAL[f].exp;
-  envRot = METAL[f].rot;
-  stage.dataset.metal = f;
-  scene.environment = f === 'steel' ? envNeutral : f === 'black' ? envBlack : envTint;
-  $('#buy').dataset.metal = f;
-}
+const swap = { sweep: 0 };
 function show(f) {
   finish = f;
-  return load(f).then(m => {
-    if (finish !== f) return;
-    if (!model || reduce) setModel(m, f);
-    else swap.pending = { m, f };      // the loop changes it when the ring is edge-on
-  });
+  stage.dataset.metal = f; $('#buy').dataset.metal = f;
+  // the angles in view first, then the rest of the turn
+  return Promise.all(['00', '01'].map(a => fetchImg(srcOf(f, a)))).then(() => { ANGLES.forEach(a => fetchImg(srcOf(f, a)).catch(() => {})); });
 }
-// silver first: it is the bestseller and the one the page opens on
-load('steel', p => { progress.glb = p; }).then(() => { progress.glb = 1; return show('steel'); }).catch(() => { progress.glb = 1; canvas.remove(); });
-// copper and black (3.3 MB together) wait until someone is near the buy chapter, or reaches for a finish dot
-let othersAsked = false;
-const loadOthers = () => { if (othersAsked) return; othersAsked = true; models.steel.then(() => { load('copper').catch(() => {}); load('black').catch(() => {}); }, () => {}); };
-if ('IntersectionObserver' in window) {
-  const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { loadOthers(); io.disconnect(); } }, { rootMargin: '0px 0px 100% 0px' });
-  io.observe($('#fit'));
-} else loadOthers();
+// steel first: it is the bestseller and the one the page opens on
+{
+  let n = 0;
+  const first = ['00', '01'].map(a => fetchImg(srcOf('steel', a)).then(() => { progress.glb = ++n / 2; }));
+  Promise.all(first).then(() => { lockReady = true; progress.glb = 1; show('steel'); }, () => { progress.glb = 1; lockEl.remove(); });
+}
+const loadOthers = () => ['copper', 'black'].forEach(f => fetchImg(srcOf(f, '00')).catch(() => {}));
 $$('[data-finish]').forEach(b => ['pointerenter', 'focus', 'touchstart'].forEach(ev => b.addEventListener(ev, loadOthers, { passive: true })));
 
 /* ---------------------------------------------------------------- the poses */
@@ -445,14 +211,13 @@ function flash() {
   const el = $('#click'); if (!el) return;
   el.classList.remove('is-on'); void el.offsetWidth; el.classList.add('is-on');
 }
-const user = { taught: false, spin: 0, goal: 0, vel: 0, dragging: false, lockWant: 1, lock: 1, roll: 0, px: 0, py: 0, mx: 0, my: 0 };
+const user = { angle: 0, taught: false, spin: 0, goal: 0, vel: 0, dragging: false, lockWant: 1, lock: 1, roll: 0, px: 0, py: 0, mx: 0, my: 0 };
 
 let W = innerWidth, H = innerHeight;
 function resize() {
   W = innerWidth; H = innerHeight;
-  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, phone() ? 1.75 : 2));
-  renderer.setSize(W, H, false);
-  camera.aspect = W / H; camera.updateProjectionMatrix();
+  // 1600 px renders once the lock can be drawn larger than about 800 device pixels
+  res = Math.min(W, H) * Math.min(devicePixelRatio || 1, 2) > 900 ? 1600 : 800;
 }
 addEventListener('resize', resize); resize();
 // where the route ends inside the drawn phone (the lock is placed there)
@@ -656,7 +421,7 @@ function frameChrome(m) {
     const sr = m.slotR[productIdx], r = rects[productIdx];
     poses[productIdx].x = (sr.left + sr.width / 2 - W / 2) / H;
     poses[productIdx].y = (sr.top - r.top + sr.height * 0.46 - H / 2) / H;
-    poses[productIdx].size = Math.min(0.4, sr.width * 0.78 / (Math.min(W * 0.95, H * 1.32) * 0.88));
+    poses[productIdx].size = Math.min(0.56, sr.width * 0.96 / (Math.min(W * 0.95, H * 1.32) * 0.88));
   }
   const hr = rects[0], extra = Math.max(1, hr.height - H);
   // the window opens over the first part of the hero (--hp), then the hero leaves (--hd)
@@ -712,7 +477,6 @@ function frameChrome(m) {
 /* --------------------------------------------------------------- the loop */
 let last = performance.now(), keylessSince = 0, autoOpened = false, userTouchedLock = false, lastSY = scrollY;
 const t0 = performance.now();
-const qPose = new THREE.Quaternion(), qLogo = new THREE.Quaternion(), qTmp = new THREE.Quaternion(), eTmp = new THREE.Euler();
 function loop(now) {
   requestAnimationFrame(loop);
   const dt = Math.min(0.05, (now - last) / 1000); last = now;
@@ -723,7 +487,7 @@ function loop(now) {
 
   const M = measure(), rects = M.rects;
   frameChrome(M);
-  if (!model) { drawPixels(now); return; }
+  if (!lockReady) { drawPixels(now); return; }
   const mid = H / 2;
   const centers = M.centers.slice();
   // the footer can never reach the middle: land its pose as the page ends
@@ -758,12 +522,8 @@ function loop(now) {
 
   // buy: your own turn, kept while you are there, given back as you leave
   const wp = productIdx < 0 ? 0 : clamp(1 - Math.abs(centers[productIdx] - mid) / (H * 0.6));
-  if (wp > 0.8 && !user.taught && !reduce) { user.taught = true; user.vel = 0.05; }
-  if (!user.dragging) {
-    user.goal += user.vel; user.vel *= 0.92;
-    if (wp < 0.2) user.goal = Math.round(user.goal / (Math.PI * 2)) * Math.PI * 2;
-  }
-  user.spin = user.dragging || reduce ? user.goal : damp(user.spin, user.goal, 3.2, dt);
+  // leaving the buy chapter, the turn goes back to the first view
+  if (wp < 0.2) user.angle = 0;
 
   // the page's own speed leans the ring a little, like something with weight
   const v = (scrollY - lastSY) / Math.max(dt, 1e-3) / 60; lastSY = scrollY;
@@ -774,7 +534,6 @@ function loop(now) {
   // follow, with weight (snappier for the macro, so the logo never smears)
   const k = reduce ? 1e3 : 7;
   KEYS.forEach(key => { cur[key] = damp(cur[key], target[key], k, dt); });
-  if (swap.pending && Math.abs(user.spin - swap.from) > Math.PI * 0.5) { setModel(swap.pending.m, swap.pending.f); swap.pending = null; }
   swap.sweep = damp(swap.sweep, 0, 2.2, dt);
 
   // the entrance: the macro drifts in from a little closer and settles
@@ -782,7 +541,7 @@ function loop(now) {
   const alpha = clamp(1 - cur.fade) * (intro.t < 0 ? 0 : clamp((now - intro.t) / 400)) * (hero.on ? hero.lock : 1);
   // find my shows the bike as a pin on the map instead: the lock steps out of the way, its drawings stay
   const shown = alpha * (1 - smooth(clamp(cur.hide)));
-  canvas.style.opacity = shown.toFixed(3);
+  lockEl.style.opacity = shown.toFixed(3);
   // the drawings wait until the bike has gone (the ring of words never hangs round a bike)
   const nobike = smooth(clamp((0.3 - cur.bike) / 0.3));
   ['orbit', 'radar', 'seal', 'fit'].forEach(kk => setVar(stage, '--' + kk, (cur[kk] * alpha * nobike).toFixed(3)));
@@ -792,124 +551,41 @@ function loop(now) {
   if (alpha < 0.005 && !hero.on) { drawPixels(now); return; }
 
   const time = (now - t0) / 1000;
-  const sway = reduce ? 0 : Math.sin(time * 0.42) * 0.09;
-  const bob = reduce ? 0 : Math.sin(time * 0.31) * 0.03;
-  // flat-on chapters hold still: the seal and the tyre are drawn round a face-on ring
-  const still = Math.max(cur.seal, cur.fit);
-  eTmp.set(cur.pitch + (bob + user.my * 0.06) * (1 - still), cur.yaw + (sway + user.mx * 0.1) * (1 - still) + user.spin, cur.roll + user.roll * (1 - still), 'XYZ');
-  qPose.setFromEuler(eTmp);
-  if (tilt > 0.01 && cur.radar > 0.01) qPose.premultiply(qTmp.setFromAxisAngle(_ax.set(1, 0, 0), -THREE.MathUtils.degToRad(tilt) * cur.radar));
-
-  // the macro: the logo faces you and fills the frame
-  const L = model.logo, wl = L ? smooth(clamp(cur.logo)) : 0;
-  const wRot = smooth(clamp((wl - 0.12) / 0.88));
-  if (L && wl > 0) {
-    // the band rises a few degrees to the right, a diagonal between the two lines of type
-    eTmp.set(user.my * 0.03 + (1 - ie) * -0.05, user.mx * 0.05 + (1 - ie) * 0.12, -0.07, 'XYZ');
-    qLogo.setFromEuler(eTmp).multiply(L.q);
-    qTmp.copy(qPose).slerp(qLogo, wRot);
-    model.group.quaternion.copy(qTmp);
-  } else model.group.quaternion.copy(qPose);
-  model.group.scale.setScalar(1);
-  // the logo's centre is brought to the middle of the frame
-  if (L && wl > 0) model.group.position.copy(L.c).applyQuaternion(model.group.quaternion).multiplyScalar(-wl);
-  else model.group.position.set(0, 0, 0);
-
-  // the opening frame: the lock sits on a bike; scrolling, it leaves the bike and comes with you
-  const wb = smooth(clamp(cur.bike)), wbr = smooth(clamp((cur.bike - 0.15) / 0.85));
-  bike.g.visible = wb > 0.002;
-  if (bike.g.visible) {
-    // three-quarters from behind, so the lock on the rear wheel faces you
-    eTmp.set(0.16 + user.my * 0.02, BIKE_YAW + (reduce ? 0 : Math.sin(time * 0.25) * 0.04) + user.mx * 0.06, 0, 'XYZ');
-    qBike.setFromEuler(eTmp);
-    // as a card, the close-up of the product photo: from beside the seat tube, the stay crossing in front of the ring
-    eTmp.set(CARD_PITCH + user.my * 0.02, CARD_YAW + user.mx * 0.05, 0, 'XYZ');
-    qCard.setFromEuler(eTmp);
-    qBike.slerp(qCard, (1 - hero.e) * wb);
-    // as a card, the window looks straight down the tyre at the ring; opening, it turns to the three-quarter view
-    qMountW.copy(qBike).multiply(bike.mount);
-    // the bike's centre sits at the middle of the frame; the lock is where it is mounted
-    // while the window is a card it is centred on the lock; opened, on the bike
-    bikeC.copy(bike.body).lerp(bike.at, lerp(1, 0.42, hero.e));
-    _b.copy(bike.at).sub(bikeC).applyQuaternion(qBike);
-    model.group.quaternion.slerp(qMountW, wbr);
-    model.group.position.copy(_b).multiplyScalar(wb);
-    bike.g.quaternion.copy(qBike);
-    bike.g.position.copy(bikeC).applyQuaternion(qBike).negate().add(new THREE.Vector3(0, (1 - wb) * 0.5, 0));
-    const bo = smooth(clamp((wb - 0.62) / 0.3));
-    bike.mats.forEach(m => { m.opacity = bo; });
-    // the frame comes in as the card opens, so the close-up is just the ring, the tyre and the stays
-    const fo = bo;
-    bike.frameMats.forEach(m => { m.opacity = fo; m.depthWrite = fo > 0.98; });
-  }
-
-  // the reflections travel through the metal as the page moves
-  scene.environmentRotation.y = envRot + (scrollY / H) * 0.35 + user.mx * 0.15 + (1 - ie) * 1.2 + swap.sweep * 2.2 + (reduce ? 0 : Math.sin(time * 0.35) * 0.15 * wl);
-  if (model.mixer) model.mixer.setTime(model.dur * lock);
-  setVar(stage, '--sw', Math.max(0.35, Math.cos(cur.pitch)).toFixed(3));
-
-  // size: the ring's diameter as a share of the screen
+  // size: the ring's diameter on screen
   let px = phone() ? (cur.mpx || Math.min(W * 0.84, H * 0.47) * (cur.size / 0.44)) : Math.min(W * 0.95, H * 1.32) * cur.size * 0.88;
   if (!phone()) {
     const sw = lerp(M.widths[i] || W, M.widths[Math.min(i + 1, slots.length - 1)] || W, t);
     px = Math.min(px, lerp(sw * 1.02, px, clamp(cur.free + cur.logo)));
   }
-  const tan = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-  let dist = model.radius * H / (tan * px), logoPx = 0;
-  if (L && wl > 0) {
-    // the logo spans most of the width (a phone sees a little more of the ring around it)
-    const want = phone() ? W * 0.8 : W * 0.46;
-    logoPx = want;
-    const dl = L.w * H / (2 * tan * want) * (1 + (1 - ie) * 0.08);
-    dist = Math.exp(lerp(Math.log(dist), Math.log(dl), wl));
-  }
-  if (wb > 0.001) {
-    // the whole bike in frame, as wide as the screen allows (the room is measured with the hero in place)
-    const room = Math.max(160, M.heroCopyTop - 76);
-    const open = phone() ? Math.min(W * 1.2, room * 1.45) : Math.min(W * 0.94, H * 1.86);
-    // as a card, the window shows the rear wheel and the lock close up
-    const want = Math.exp(lerp(Math.log(card0.w * 0.95 * bike.length / 0.157), Math.log(open), hero.e));
-    dist = Math.exp(lerp(Math.log(dist), Math.log(bike.length * H / (2 * tan * want)), wb));
-  }
-  camera.position.set(0, 0, dist);
-  camera.near = dist / 30; camera.far = dist * 6;
-  // the band sits on the cover type; any spare room goes above it, under the nav
-  const bandY = H / 2;
-  // the mark sits left of centre, so the tube's end cap runs off the right edge
-  // the card is centred; the offsets of the opened hero come in as it opens
-  const ho = lerp(1, hero.e, wb);
-  // while it is a card the lock sits in the middle of it, a little above the caption
-  const cw = (1 - hero.e) * wb, cardDX = cw * (card0.x - W / 2), cardDY = cw * (card0.y - H / 2 - card0.h * 0.05);
-  const dx = (cur.x * H * (1 - wl) - wl * W * 0) * ho + cardDX, dy = (cur.y * H * (1 - wl) + wl * (bandY - H / 2)) * ho + cardDY;
-  camera.setViewOffset(W, H, -dx, -dy, W, H);
-  camera.updateProjectionMatrix();
-  camera.lookAt(0, 0, 0);
+  // it breathes a little and leans with the page; the face-on chapters (the seal, the tyre) hold still
+  const still = Math.max(cur.seal, cur.fit);
+  const bob = reduce ? 0 : Math.sin(time * 0.8) * px * 0.006 * (1 - still);
+  const dx = cur.x * H + (reduce ? 0 : user.mx * 6 * (1 - still)), dy = cur.y * H + bob + (reduce ? 0 : user.my * 4 * (1 - still));
+  const roll = cur.roll + user.roll * (1 - still);
   setVar(stage, '--lx', dx.toFixed(1) + 'px'); setVar(stage, '--ly', dy.toFixed(1) + 'px'); setVar(stage, '--lr', (px / 2).toFixed(0) + 'px');
-  // the floor shadow sits under the ring's lowest point, wherever the pose puts it
-  if (+stage['_--sh'] > 0.01) {
-    model.group.updateMatrixWorld(true);
-    let lo = -Infinity;
-    for (const [o, vv] of model.pts) { _v.copy(vv).applyMatrix4(o.matrixWorld).project(camera); if (-_v.y > lo) lo = -_v.y; }
-    setVar(stage, '--fy', ((lo * 0.5 + 0.5) * H - H / 2 - px * 0.035 + 4).toFixed(1) + 'px');
-  }
-  if (wb > 0.01) {
-    _b.copy(model.group.position).project(camera);
-    setVar(stage, '--kx', ((_b.x * 0.5 + 0.5) * W).toFixed(1) + 'px'); setVar(stage, '--ky', ((-_b.y * 0.5 + 0.5) * H).toFixed(1) + 'px');
-  }
-  setVar(stage, '--kb', (smooth(clamp((cur.bike - 0.7) / 0.3)) * smooth(clamp((hero.p - 0.85) / 0.15))).toFixed(3));
-  // where the laser-marked logo is on screen, for the pixels to land on
-  if (L && wl > 0.5) {
-    model.group.updateMatrixWorld(true);
-    const pr = (vec) => { _v.copy(vec).applyMatrix4(model.group.matrixWorld).project(camera); return [(_v.x * 0.5 + 0.5) * W, (-_v.y * 0.5 + 0.5) * H]; };
-    const c0 = pr(L.c), u0 = pr(L.c.clone().addScaledVector(L.u, -L.w / 2)), u1 = pr(L.c.clone().addScaledVector(L.u, L.w / 2));
-    const v0 = pr(L.c.clone().addScaledVector(L.v, -L.h / 2)), v1 = pr(L.c.clone().addScaledVector(L.v, L.h / 2));
-    logoRect.cx = c0[0]; logoRect.cy = c0[1];
-    logoRect.w = Math.hypot(u1[0] - u0[0], u1[1] - u0[1]); logoRect.h = Math.hypot(v1[0] - v0[0], v1[1] - v0[1]);
-    logoRect.ang = Math.atan2(u1[1] - u0[1], u1[0] - u0[0]);
-    logoRect.ok = true;
-  }
-  if (shown > 0.004) renderer.render(scene, camera);
+  // the angle: each chapter names its view; in the buy chapter your own turn picks it; between two, a cross-fade
+  const angOf = (P, idx) => idx === productIdx ? ANGLES[((user.angle % 6) + 6) % 6] : (P.img || '00');
+  const aA = angOf(a, i), aB = angOf(b, Math.min(i + 1, poses.length - 1));
+  const mixB = aA === aB ? 0 : t;
+  const place = { W, H, dx, dy, px, roll };
+  paintLayer(layers[0], aA, 1 - mixB, place);
+  paintLayer(layers[1], aB, aA === aB ? 0 : mixB, place);
   drawPixels(now);
+}
+// one image layer: a new picture only once it has arrived, so nothing ever flashes empty
+// each view is placed by its own geometry: the ring's centre on the lock's place, its extent px wide
+function paintLayer(L, ang, op, p) {
+  const src = srcOf(finish, ang), g = GEO[ang] || RING, S = p.px / (2 * g.r);
+  const st = L.img.style;
+  st.width = st.height = S.toFixed(1) + 'px';
+  st.transformOrigin = `${g.cx * 100}% ${g.cy * 100}%`;
+  st.transform = `translate3d(${(p.W / 2 + p.dx - g.cx * S).toFixed(1)}px, ${(p.H / 2 + p.dy - g.cy * S).toFixed(1)}px, 0) rotate(${p.roll.toFixed(4)}rad)`;
+  if (L.src !== src) {
+    L.want = src;
+    fetchImg(src).then(() => { if (L.want === src) { L.img.src = src; L.src = src; } }, () => {});
+  }
+  const o = (L.src ? op : 0).toFixed(3);
+  if (L.op !== o) { L.op = o; L.img.style.opacity = o; }
 }
 requestAnimationFrame(loop);
 
@@ -917,7 +593,6 @@ requestAnimationFrame(loop);
 const unlockBtn = $('#unlock'), unlockState = $('#unlock-state'), unlockCta = $('#unlock-cta');
 function setLock(v, byUser) {
   user.lockWant = v;
-  swap.sweep = Math.max(swap.sweep, 0.55);
   const open = v === 0;
   unlockBtn.classList.toggle('is-open', open);
   unlockBtn.classList.remove('is-nudge');
@@ -980,8 +655,7 @@ dots.forEach((btn, i) => {
     if (f === finish) return;
     dots.forEach(b => b.setAttribute('aria-checked', String(b === btn)));
     syncDots();
-    if (!reduce) { swap.from = user.spin; user.goal += Math.PI * 2; swap.sweep = 1; }
-    loadOthers(); show(f).catch(() => {}); renderBuy();
+    show(f).catch(() => {}); renderBuy();
   });
   btn.addEventListener('keydown', e => {
     const d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
@@ -993,22 +667,23 @@ dots.forEach((btn, i) => {
 });
 syncDots();
 
-/* ---------------------------------------------------------- buy: drag */
+/* ---------------------------------------------------------- buy: turn */
+// the six studio angles: a sideways drag steps through them (one step per 60 px), so do the arrows and the keys
 const zone = $('#dragzone');
-let lastX = 0, lastT = 0;
-zone.addEventListener('pointerdown', e => { user.dragging = true; user.vel = 0; lastX = e.clientX; lastT = performance.now(); zone.setPointerCapture(e.pointerId); });
+let lastX = 0, acc = 0;
+const step = d => { user.angle += d; ANGLES.forEach(a2 => fetchImg(srcOf(finish, a2)).catch(() => {})); };
+zone.addEventListener('pointerdown', e => { user.dragging = true; lastX = e.clientX; acc = 0; zone.setPointerCapture(e.pointerId); });
 zone.addEventListener('pointermove', e => {
   if (!user.dragging) return;
-  const now = performance.now(), d = (e.clientX - lastX) * 0.011;
-  user.goal += d; user.vel = d / Math.max(8, now - lastT) * 16;
-  lastX = e.clientX; lastT = now;
+  acc += e.clientX - lastX; lastX = e.clientX;
+  while (Math.abs(acc) >= 60) { step(acc > 0 ? -1 : 1); acc -= Math.sign(acc) * 60; }
 });
 const endDrag = () => { user.dragging = false; };
 zone.addEventListener('pointerup', endDrag); zone.addEventListener('pointercancel', endDrag);
-$$('[data-turn]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); user.goal += +b.dataset.turn * 0.6; }));
+$$('[data-turn]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); step(+b.dataset.turn); }));
 $$('[data-turn]').forEach(b => b.addEventListener('pointerdown', e => e.stopPropagation()));
 zone.addEventListener('keydown', e => {
-  if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); user.goal += (e.key === 'ArrowRight' ? 1 : -1) * 0.5; }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); step(e.key === 'ArrowRight' ? 1 : -1); }
 });
 
 /* ------------------------------------------------------------- pointer */

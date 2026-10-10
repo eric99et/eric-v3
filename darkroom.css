@@ -1087,3 +1087,16 @@ html.no-engine .void--seal, html:not(.is-loading):not(.is-loaded) .void--seal { 
 #h5, .pdp__fins { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }
 /* the buy chapter has no words on the left: the lock and the card are enough (owner, 10 Oct) */
 #buy .void__index, #buy .product__sub { display: none !important; }
+
+/* the lock: the studio renders (v8), two layers that cross-fade between views; placed by darkroom.js */
+.lockimg { position: absolute; inset: 0; z-index: 1; opacity: 0; pointer-events: none; }
+.lockimg img { position: absolute; left: 0; top: 0; width: 0; height: 0; max-width: none; object-fit: contain; opacity: 0; will-change: transform; transition: opacity .25s linear; user-select: none; -webkit-user-select: none; }
+/* will it fit: the hole of the render (its radius 0.72 of the rim's, its centre 0.058 of the radius lower) */
+.fitg__hole { width: calc(var(--lr, 200px) * 2 * .722); top: calc(50% + var(--lr, 200px) * .058); }
+
+/* buy chapter: the chapter label at the top, as in the others; no line of copy under it (owner, 10 Oct) */
+#buy .void__index { display: flex !important; }
+#buy .product__sub { display: none !important; }
+@media (min-width: 761px) { #buy .void__left { align-self: start; padding-top: 4px; } }
+/* the drawn certificate needs a wide screen beside the seal; narrower, the seal stands alone */
+@media (max-width: 1199px) { .paper { display: none; } }

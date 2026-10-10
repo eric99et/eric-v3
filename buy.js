@@ -3,11 +3,9 @@
 // Buy writes, right here, the same line items the old product page writes (via cart-nav.js): localStorage 'laas.cart.v1.en', an array of
 // {name, finish, unit, qty, img}, merged by name + finish. No new page.
 // ?finish=steel|copper|black (silver also works) and ?qty=1..15 preselect.
-// The lock is the landing page's model (images/3d, three.js 0.170, the same studio
-// light, tone mapping and per-finish material tweaks as darkroom.js) on a transparent
-// canvas. It turns gently on its own until touched; a sideways drag turns it, with
-// inertia; an up-and-down swipe still scrolls the page. If WebGL or the model fails,
-// the transparent packshot stays.
+// The lock is the studio render of the real Ring-Lock (v8, images/lock), the same files as the landing page:
+// six angles per finish. A sideways drag, the arrows or the arrow keys step through them; an up-and-down swipe
+// still scrolls the page.
 (() => {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -63,7 +61,6 @@
     $('#buy').dataset.metal = finish;
     stage.setAttribute('aria-label', tr('The LAAS Ring-Lock in') + ' ' + name + '. ' + tr('Drag, or use the arrow keys, to turn it.'));
     syncTabs();
-    still.src = 'images/scenes/finish-' + finish + '.webp';
     if (first) {
       photo.src = 'images/lock-' + finish + '.webp'; photo.alt = tr('The LAAS Ring-Lock in') + ' ' + name + ' ' + tr('on the rear wheel of a bike');
     } else {
@@ -92,198 +89,45 @@
   function syncTabs() { dots.forEach(b => (b.tabIndex = b.dataset.finish === finish ? 0 : -1)); }
   $$('[data-qty]').forEach(b => b.addEventListener('click', () => { qty = clamp(qty + +b.dataset.qty, 1, 15); render(false); }));
 
-  /* ------------------------------------------------------- the lock, in 3D */
+  /* --------------------------------------------- the lock: the studio renders */
+  // The real Ring-Lock as on the landing page: the v8 studio renders (images/lock), six angles per finish.
+  // A sideways drag steps through the angles (one per 50 px), as do the arrows and the arrow keys.
   const lock3d = (() => {
-    const api = { show: () => {} };
-    const user = { spin: 0, goal: 0, vel: 0, auto: !reduce, dragging: false, touched: false };
-    let mode = null, sx = 0, sy = 0, lastX = 0, lastT = 0;
+    const ANGLES = ['00', '01', '02', '03', '04', '05'];
+    const res = () => stage.clientWidth * Math.min(devicePixelRatio || 1, 2) > 900 ? 1600 : 800;
+    const src = (f, a) => `images/lock/${f}-${a}-${res()}.webp`;
+    const cache = new Map();
+    const get = u => cache.get(u) || (cache.set(u, new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(u); im.onerror = no; im.src = u; })), cache.get(u));
+    let angle = 0, want = '';
     const hint = $('#lock-hint');
-    const touched = () => { if (!user.touched) { user.touched = true; user.auto = false; hint.classList.add('is-used'); } };
-    // a sideways drag turns the ring; an up-and-down swipe is left to the page (touch-action: pan-y)
-    stage.addEventListener('pointerdown', e => {
-      if (e.button > 0) return;
-      mode = 'maybe'; sx = lastX = e.clientX; sy = e.clientY; lastT = performance.now(); user.vel = 0;
-    });
+    const paint = () => {
+      const u = src(finish, ANGLES[((angle % 6) + 6) % 6]); want = u;
+      get(u).then(() => { if (want === u) still.src = u; }, () => {});
+    };
+    const warm = () => ANGLES.forEach(a => get(src(finish, a)).catch(() => {}));
+    const step = d => { angle += d; hint?.classList.add('is-used'); paint(); warm(); };
+    let down = null, lastX = 0, acc = 0;
+    stage.addEventListener('pointerdown', e => { if (e.button > 0) return; down = { x: e.clientX, y: e.clientY }; lastX = e.clientX; acc = 0; });
     stage.addEventListener('pointermove', e => {
-      if (!mode) return;
-      if (mode === 'maybe') {
-        const dx = Math.abs(e.clientX - sx), dy = Math.abs(e.clientY - sy);
+      if (!down) return;
+      if (down !== true) {
+        const dx = Math.abs(e.clientX - down.x), dy = Math.abs(e.clientY - down.y);
         if (dx < 6 && dy < 6) return;
-        if (dy > dx) { mode = null; return; }
-        mode = 'drag'; user.dragging = true; touched(); stage.classList.add('is-drag');
-        try { stage.setPointerCapture(e.pointerId); } catch {}
+        if (dy > dx) { down = null; return; }
+        down = true; stage.classList.add('is-drag'); try { stage.setPointerCapture(e.pointerId); } catch {}
       }
-      const now = performance.now(), d = (e.clientX - lastX) * 0.012;
-      user.goal += d; user.vel = d / Math.max(8, now - lastT) * 16;
-      lastX = e.clientX; lastT = now; api.wake?.();
+      acc += e.clientX - lastX; lastX = e.clientX;
+      while (Math.abs(acc) >= 50) { step(acc > 0 ? -1 : 1); acc -= Math.sign(acc) * 50; }
     });
-    const end = () => { mode = null; user.dragging = false; stage.classList.remove('is-drag'); };
+    const end = () => { down = null; stage.classList.remove('is-drag'); };
     stage.addEventListener('pointerup', end); stage.addEventListener('pointercancel', end); stage.addEventListener('lostpointercapture', end);
-    stage.addEventListener('keydown', e => {
-      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-      e.preventDefault(); touched(); user.goal += (e.key === 'ArrowRight' ? 1 : -1) * 0.5; api.wake?.();
-    });
-    // the turn buttons under the lock (as on the landing page's buy chapter)
-    $$('[data-turn]').forEach(btn => btn.addEventListener('click', () => { touched(); user.goal += +btn.dataset.turn * 0.6; api.wake?.(); }));
-
-    const T = 'https://cdn.jsdelivr.net/npm/three@0.170.0/';
-    Promise.all([import(T + '+esm'), import(T + 'examples/jsm/loaders/GLTFLoader.js/+esm'), import(T + 'examples/jsm/libs/meshopt_decoder.module.js/+esm')]).then(([THREE, { GLTFLoader }, { MeshoptDecoder }]) => {
-      let renderer;
-      try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' }); } catch { return; }
-      const phone = () => innerWidth <= 760;
-      renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
-      // Khronos PBR Neutral: true product colour, no orange shift in the copper (as darkroom.js)
-      renderer.toneMapping = THREE.NeutralToneMapping;
-      renderer.toneMappingExposure = 1.0;
-      renderer.outputColorSpace = THREE.SRGBColorSpace;
-      renderer.setClearColor(0, 0);
-      const canvas = renderer.domElement;
-      canvas.setAttribute('aria-hidden', 'true');
-      stage.prepend(canvas);
-      const cl = (x) => Math.min(1, Math.max(0, x));
-
-      // darkroom.js studio(): a bright studio (dome + softboxes) for a light page, with one cool rim
-      function studio(rim = true, low = false) {
-        const scene = new THREE.Scene();
-        const ss = (a, b, x) => { const u = cl((x - a) / (b - a)); return u * u * (3 - 2 * u); };
-        const dome = new THREE.SphereGeometry(10, 96, 48), pos = dome.attributes.position, cols = [];
-        for (let i = 0; i < pos.count; i++) {
-          const y = pos.getY(i) / 10;
-          let v = 0.3 + 0.78 * ss(0, 0.9, y);
-          v *= 1 - 0.7 * (ss(-0.26, -0.08, y) * (1 - ss(-0.04, 0.06, y)));
-          if (y < -0.26) v = 0.2 - 0.12 * ss(-0.4, -1, y);
-          cols.push(v, v, v);
-        }
-        dome.setAttribute('color', new THREE.Float32BufferAttribute(cols, 3));
-        scene.add(new THREE.Mesh(dome, new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.BackSide })));
-        const panel = (w, h, c, at) => {
-          const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: c, side: THREE.DoubleSide }));
-          m.position.set(...at); m.lookAt(0, 0, 0); scene.add(m);
-        };
-        const grey = v => new THREE.Color(v === 0 ? 0.08 : v * 1.3, v === 0 ? 0.08 : v * 1.3, v === 0 ? 0.08 : v * 1.3);
-        panel(7, 4.5, grey(2.2), [-1, 7.2, 1.5]); panel(4.5, 4.5, grey(3.2), [-5.5, 4, 5]); panel(1.2, 7.5, grey(5), [-7.4, 1, 1]); panel(0.6, 7, grey(3), [3.2, 2, 7.6]);
-        panel(6, 9, grey(0), [8, 0, 1.5]); panel(3, 9, grey(0), [4.5, -1, 7]); panel(2.2, 8.5, grey(0), [-7.8, 0.5, -4.5]); panel(3, 2, grey(1.2), [0, 2.5, -8.5]);
-        if (rim) panel(1.3, 8, new THREE.Color(0.72 * 3, 0.87 * 3, 0.82 * 3), [6.6, 4.4, -4]);
-        panel(0.28, 10, grey(9), [-4.2, 6.5, 5.2]);
-        if (low) { panel(1.6, 6, new THREE.Color(0.72 * 2.2, 0.87 * 2.2, 0.82 * 2.2), [-6.4, -2.4, -4.5]); panel(0.5, 7, new THREE.Color(2.4, 2.6, 2.5), [5.8, -1.5, -5]); }
-        return scene;
-      }
-      const scene = new THREE.Scene();
-      const pm = new THREE.PMREMGenerator(renderer);
-      const envTint = pm.fromScene(studio(true), 0).texture, envNeutral = pm.fromScene(studio(false), 0).texture, envBlack = pm.fromScene(studio(true, true), 0).texture;
-      pm.dispose();
-      scene.environment = envNeutral;
-      const camera = new THREE.PerspectiveCamera(22, 1, 0.01, 50);
-
-      // darkroom.js load(): the same files, the same material tweaks per finish
-      const FILES = { steel: 'ring-lock-silver.glb', copper: 'ring-lock-copper.glb', black: 'ring-lock-black.glb' };
-      const METAL = { steel: { env: 1.15, exp: 0.98, rot: 0.9 }, copper: { env: 1.1, exp: 1.0, rot: 0 }, black: { env: 1.4, exp: 1.3, rot: 2.4 } };
-      const gltfLoader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
-      const models = {};
-      const load = f => models[f] || (models[f] = new Promise((res, rej) => gltfLoader.load('images/3d/' + FILES[f] + '?v=7f891b83', res, undefined, rej)).then(gltf => {
-        const group = new THREE.Group(), model = gltf.scene;
-        group.add(model);
-        const box = new THREE.Box3().setFromObject(model);
-        model.position.sub(box.getCenter(new THREE.Vector3()));
-        const size = box.getSize(new THREE.Vector3());
-        model.traverse(o => {
-          if (!o.isMesh) return;
-          o.frustumCulled = false;
-          if (f === 'black') {
-            const mats = [].concat(o.material).map(m => {
-              if (!/satin steel/i.test(m.name)) return m;
-              const c = m.clone(); c.roughness = 0.58; c.envMapIntensity = 0.45; c.color.multiplyScalar(0.7); return c;
-            });
-            o.material = mats.length === 1 ? mats[0] : mats;
-          }
-          if (f !== 'steel') [].concat(o.material).forEach(m => { if (m.metalness > 0.6 && !/shackle/i.test(m.name)) m.roughness = Math.min(m.roughness, 0.28); });
-          if (f === 'steel') [].concat(o.material).forEach(m => { if (/shackle/i.test(m.name)) m.roughness = 0.05; else if (/brushed|satin steel/i.test(m.name)) { m.roughness = 0.24; } });
-        });
-        // the Lock animation, held at its end: the bolt closed, as on the landing page's buy chapter
-        const clip = gltf.animations.find(a => a.name === 'Lock');
-        if (clip) { const mixer = new THREE.AnimationMixer(model); mixer.clipAction(clip).play(); mixer.setTime(clip.duration - 1e-4); }
-        group.visible = false; scene.add(group);
-        renderer.compile(scene, camera);
-        return { group, radius: Math.max(size.x, size.y, size.z) * 0.5 };
-      }));
-
-      let model = null, envRot = 0, want = finish, sweep = 0;
-      const setModel = (m, f) => {
-        if (model) model.group.visible = false;
-        m.group.visible = true; model = m;
-        scene.environmentIntensity = METAL[f].env;
-        renderer.toneMappingExposure = METAL[f].exp;
-        envRot = METAL[f].rot;
-        scene.environment = f === 'steel' ? envNeutral : f === 'black' ? envBlack : envTint;
-      };
-      api.show = f => {
-        want = f;
-        load(f).then(m => {
-          if (want !== f) return;
-          if (!reduce) { user.goal += Math.PI * 0.5; sweep = 1; }   // a quarter turn as the metal changes
-          setModel(m, f); api.wake();
-        }, () => {});
-      };
-
-      // size and the floor shadow
-      let W = 0, H = 0;
-      const resize = () => {
-        W = stage.clientWidth; H = stage.clientHeight;
-        if (!W || !H) return;
-        renderer.setSize(W, H, false);
-        camera.aspect = W / H; camera.updateProjectionMatrix();
-        api.wake();
-      };
-      new ResizeObserver(resize).observe(stage);
-
-      // the loop: runs while the lock is on screen and moving
-      let raf = 0, last = performance.now(), visible = true, shown = false;
-      const t0 = last;
-      const frame = now => {
-        raf = 0;
-        const dt = Math.min(0.05, (now - last) / 1000); last = now;
-        if (!model || !W) return;
-        if (!user.dragging) {
-          user.goal += user.vel; user.vel *= 0.93;
-          if (Math.abs(user.vel) < 1e-4) user.vel = 0;
-          // untouched, it sways gently either side of a near-front view (as the landing page's buy chapter)
-          if (user.auto) user.goal = Math.sin((now - t0) / 1000 * 0.45) * 0.35;
-        }
-        user.spin = user.dragging || reduce ? user.goal : user.spin + (user.goal - user.spin) * (1 - Math.exp(-6 * dt));
-        sweep *= Math.exp(-2.5 * dt);
-        const time = (now - t0) / 1000;
-        const bob = reduce ? 0 : Math.sin(time * 0.31) * 0.03;
-        // the landing page's buy pose: near the front, a little from above, upright
-        model.group.rotation.set(-0.12 + bob, -0.3 + user.spin, 0, 'XYZ');
-        scene.environmentRotation.y = envRot + sweep * 1.2 + (reduce ? 0 : Math.sin(time * 0.35) * 0.08);
-        // the ring's diameter: about 62% of the width on a phone, a little less on a desktop
-        const px = phone() ? Math.min(W * 0.72, H * 0.8) : Math.min(W * 0.8, H * 0.8);
-        const tan = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-        const dist = model.radius * H / (tan * px);
-        camera.position.set(0, 0, dist); camera.near = dist / 30; camera.far = dist * 6;
-        camera.lookAt(0, 0, 0);
-        stage.style.setProperty('--fy', (H / 2 + px * 0.56) + 'px');
-        stage.style.setProperty('--fw', (px * 0.9) + 'px');
-        renderer.render(scene, camera);
-        if (!shown) { shown = true; stage.classList.add('is-3d'); }
-        // the slow bob keeps it alive; with reduced motion it only draws while it moves
-        const moving = !reduce || user.dragging || Math.abs(user.goal - user.spin) > 1e-3 || user.vel !== 0;
-        if (visible && moving) raf = requestAnimationFrame(frame);
-      };
-      api.wake = () => { if (!raf && visible) { last = performance.now(); raf = requestAnimationFrame(frame); } };
-      new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) api.wake(); }).observe(stage);
-
-      // the chosen finish first, then the other two
-      load(finish).then(m => {
-        setModel(m, finish); resize(); api.wake();
-        // the other two finishes (1.67 MB each) come when a finish dot is reached for, or a moment later on a computer
-        let asked = false; const others = () => { if (asked) return; asked = true; ['steel', 'copper', 'black'].forEach(f => f !== finish && load(f).catch(() => {})); };
-        document.querySelectorAll('.finishes [data-finish]').forEach(d => ['pointerenter', 'touchstart', 'focus'].forEach(ev => d.addEventListener(ev, others, { passive: true })));
-        if (innerWidth > 760) setTimeout(others, 2500);
-      })
-        .catch(() => { canvas.remove(); });
-    }).catch(() => { /* no 3D: the packshot stays */ });
-    return api;
+    stage.addEventListener('keydown', e => { if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return; e.preventDefault(); step(e.key === 'ArrowRight' ? 1 : -1); });
+    $$('[data-turn]').forEach(btn => btn.addEventListener('click', () => step(+btn.dataset.turn)));
+    paint();
+    // the rest of the turn once the first view is in; the other finishes when a finish dot is reached for
+    get(src(finish, '00')).then(warm, () => {});
+    $$('.finishes [data-finish]').forEach(d => ['pointerenter', 'touchstart', 'focus'].forEach(ev => d.addEventListener(ev, () => get(src(d.dataset.finish, ANGLES[((angle % 6) + 6) % 6])).catch(() => {}), { passive: true })));
+    return { show: () => { paint(); warm(); } };
   })();
 
   // Buy: the locks go in the cart, then the cart page

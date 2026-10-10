@@ -181,3 +181,6 @@ html { scroll-snap-type: none; scroll-behavior: smooth; scroll-padding-top: 96px
 @media (max-width: 760px) { .pdp--v2 .lock3d { --ring: 72%; } .pdp--v2 .pdp__turn { margin-top: -8px; } }
 @media (max-width: 760px) { .pdp--v2 .pdp__col { width: 100%; } .pdp--v2 .buybox { width: 100%; } }
 @media (max-width: 760px) { .pdp--v2 .lock3d { height: auto; width: 100%; aspect-ratio: 1 / .9; } }
+/* the studio renders carry a margin round the ring: the picture fills the stage */
+.pdp--v2 .lock3d { --ring: 100%; }
+@media (max-width: 760px) { .pdp--v2 .lock3d { --ring: 100%; } }
