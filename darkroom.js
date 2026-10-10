@@ -73,6 +73,8 @@ const DA = {
   'How do returns and the right to complain work?': 'Hvordan fungerer returnering og reklamationsret?',
   'Hand it to the carrier with the prepaid return label by day 57, and your money is back within 14 days. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery.': 'Aflever den til fragtfirmaet med den forudbetalte returlabel senest dag 57, og du har pengene igen inden for 14 dage. Du har også to års reklamationsret efter dansk lov, regnet fra levering.',
   // the footer
+  '© 2026 LAAS ApS, all rights reserved': '© 2026 LAAS ApS, alle rettigheder forbeholdes',
+  '· Apple, the Apple logo, and Find My are trademarks of Apple Inc.': '· Apple, Apple-logoet og Find My er varemærker tilhørende Apple Inc.',
   'LAAS ApS · Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · © 2026': 'LAAS ApS · Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · © 2026',
   'Apple, the Apple logo, and Find My are trademarks of Apple Inc.': 'Apple, Apple-logoet og Find My er varemærker tilhørende Apple Inc.',
 };

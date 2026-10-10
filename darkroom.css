@@ -1004,3 +1004,29 @@ html.in-buy .nav__buy { display: none; }
 .foot2.is-in .foot2__band { transition-delay: .45s; translate: 0 0; } .foot2.is-in .foot2__legal { transition-delay: .55s; }
 @media (prefers-reduced-motion: reduce) { .foot2.is-ready * { opacity: 1 !important; translate: none !important; transition: none !important; animation: none !important; } }
 @media (max-width: 560px) { .foot:has(.foot2) { padding-top: 44px; } .foot2__top { gap: 20px; padding-bottom: 32px; } .foot2__nav a { padding: 0 11px; font-size: 14px; } }
+
+/* footer, closer to the 21st.dev original: a bigger mark, big airy links, the socials, a wider band */
+.foot:has(.foot2) { padding: 88px 0 calc(40px + env(safe-area-inset-bottom, 0px)); }
+.foot2__top { gap: 44px; padding-bottom: 64px; }
+.foot2__logo { width: 168px; }
+.foot2__nav { gap: 6px 26px; }
+.foot2__nav a { min-height: 48px; padding: 0 16px; font: 500 19px/1 var(--display); letter-spacing: -0.01em; }
+.foot2__social { display: flex; justify-content: center; gap: 10px; }
+.foot2__social a { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; color: #ECECEA; transition: background-color .25s, scale .25s; }
+.foot2__social a:hover { background: rgba(236, 236, 234, .1); scale: 1.08; }
+.foot2__social svg { width: 26px; height: 26px; fill: currentColor; }
+.foot2__band { height: 64px; border-block-color: rgba(236, 236, 234, .14); background-image: repeating-linear-gradient(315deg, rgba(236, 236, 234, .16) 0 1px, transparent 0 50%); }
+.foot2__legal { gap: 10px; padding-top: 32px; }
+.foot2__legal span { font: 400 16px/1.4 var(--body); color: rgba(236, 236, 234, .78); }
+.foot2__legal small { max-width: 52em; font-size: 12px; line-height: 1.6; color: rgba(236, 236, 234, .5); }
+.foot2__legal a { color: inherit; }
+.foot2.is-in .foot2__top > :nth-child(3) { transition-delay: .2s; }
+@media (max-width: 560px) {
+  .foot:has(.foot2) { padding-top: 64px; }
+  .foot2__top { gap: 32px; padding-bottom: 48px; }
+  .foot2__logo { width: 132px; }
+  .foot2__nav { gap: 0 4px; }
+  .foot2__nav a { font-size: 16px; padding: 0 12px; }
+  .foot2__band { height: 48px; }
+  .foot2__legal span { font-size: 14px; }
+}
