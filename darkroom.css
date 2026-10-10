@@ -1294,9 +1294,13 @@ html.no-engine .void--seal, html:not(.is-loading):not(.is-loaded) .void--seal { 
   .unlock__cta { min-width: 0; text-align: center; }
 }
 
-/* the turn arrows: transparent, just a thin ring */
-.turn, .ghost.turn { background: transparent !important; box-shadow: inset 0 0 0 1px rgba(32, 47, 48, .18) !important; }
-.turn:hover { box-shadow: inset 0 0 0 1px var(--ink) !important; }
+/* the turn arrows: just the chevron, no circle (owner, 10 Oct); the 44 px hit area and a focus ring stay */
+.turn, .ghost.turn { min-width: 44px; min-height: 44px; background: transparent !important; box-shadow: none !important; border: 0 !important; color: var(--ink); transition: translate .25s var(--ease), opacity .2s; }
+.turn svg { width: 16px; stroke-width: 1.6; }
+.turn:hover { box-shadow: none !important; opacity: .7; }
+.turn[data-turn="-1"]:hover, .turn:first-child:hover { translate: -2px 0; }
+.turn[data-turn="1"]:hover, .turn:last-child:hover { translate: 2px 0; }
+.turn:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; border-radius: 12px; }
 
 /* hero → intro: the light page rises as one sheet, rounded at the top, behind the lock (stage) and the text */
 .sheet { position: fixed; inset: 0; z-index: 0; pointer-events: none; display: none; clip-path: inset(var(--st, 100vh) 0 0 0 round 28px 28px 0 0); }
