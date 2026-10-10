@@ -188,3 +188,30 @@ html { scroll-snap-type: none; scroll-behavior: smooth; scroll-padding-top: 96px
 .details__photo { background: #FFFFFF; display: grid; place-items: center; }
 .details__photo img { width: 86%; height: 86%; object-fit: contain; }
 @media (max-width: 760px) { .details__photo { aspect-ratio: 1; } }
+
+/* reviews (after 21st.dev's testimonial cards): real Trustpilot reviews, the score as Trustpilot shows it */
+.rv { max-width: 1200px; margin: 0 auto; padding: 0 var(--gutter) clamp(72px, 8vw, 120px); }
+.rv__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; margin-bottom: 28px; }
+.rv__top .details__h { margin: 0; }
+.rv__sum { display: flex; align-items: center; gap: 0; color: var(--ink); }
+.rv__faces { display: flex; padding-right: 14px; margin-right: 14px; border-right: 1px solid var(--line); }
+.rv__faces i, .rv__face { display: grid; place-items: center; border-radius: 50%; background: var(--ink); color: #ECECEA; font: 600 13px/1 var(--display); font-style: normal; letter-spacing: .02em; }
+.rv__faces i { width: 40px; height: 40px; border: 2px solid var(--paper); margin-left: -10px; transition: translate .2s var(--ease); }
+.rv__faces i:first-child { margin-left: 0; }
+.rv__faces i:nth-child(2) { background: var(--green); } .rv__faces i:nth-child(3) { background: #458A8E; } .rv__faces i:nth-child(4) { background: #606A74; }
+.rv__sum:hover .rv__faces i { translate: 0 -2px; }
+.rv__score { display: inline-flex; align-items: center; gap: 8px; }
+.rv__score b { font: 600 16px/1 var(--display); }
+.rv__count { margin-left: 14px; font-size: 14px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.rv__count b { color: var(--ink); font-weight: 600; }
+.rv__stars { display: inline-flex; gap: 3px; margin: 0; }
+.rv__stars svg { width: 16px; height: 15px; fill: #00B67A; }
+.rv__stars svg.off { fill: rgba(32, 47, 48, .18); }
+.rv__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.rv__card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 36px 28px 32px; border-radius: 24px; background: #FFFFFF; }
+.rv__face { width: 64px; height: 64px; font-size: 18px; }
+.rv__card:nth-child(2) .rv__face { background: var(--green); } .rv__card:nth-child(3) .rv__face { background: #458A8E; }
+.rv__name { margin: 12px 0 0; font: 600 17px/1.2 var(--display); color: var(--ink); }
+.rv__meta { margin: 2px 0 12px; font-size: 13px; color: var(--muted); }
+.rv__text { margin: 14px 0 0; font-size: 15px; line-height: 1.55; color: var(--ink-2); }
+@media (max-width: 860px) { .rv__list { grid-template-columns: 1fr; } .rv__count { margin-left: 10px; } }

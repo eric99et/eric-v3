@@ -29,7 +29,7 @@
     'insurance-approved in Denmark': 'forsikringsgodkendt i Danmark', 'Turn left': 'Drej til venstre', 'Turn right': 'Drej til højre', 'Drag to turn': 'Træk for at dreje',
     'Finish': 'Udgave', 'Intro price until 31 Dec 2026': 'Introduktionspris til 31. dec. 2026', 'Decrease quantity': 'Færre', 'Increase quantity': 'Flere',
     'What you are covered by': 'Det er du dækket af', '57-day returns': '57 dages returret', 'Prepaid return label in the box': 'Forudbetalt returlabel i æsken',
-    'Two-year right to complain': '2 års reklamationsret', 'Day trial': 'dages prøvetid', 'Promise': 'Løfte', 'Read our reviews': 'Læs vores anmeldelser', 'Accepted payment methods': 'Betalingsmetoder', 'Card': 'Kort',
+    'Two-year right to complain': '2 års reklamationsret', 'Day trial': 'dages prøvetid', 'Promise': 'Løfte', 'Read our reviews': 'Læs vores anmeldelser', 'Reviews': 'Anmeldelser', '6 reviews': '6 anmeldelser', 'on Trustpilot': 'på Trustpilot', 'Germany': 'Tyskland', 'Switzerland': 'Schweiz', 'United Kingdom': 'Storbritannien', '3.8 out of 5': '3,8 ud af 5', '5 out of 5': '5 ud af 5', '4 out of 5': '4 ud af 5', 'Accepted payment methods': 'Betalingsmetoder', 'Card': 'Kort',
     'Ships from Copenhagen in 1–2 working days. Shipping €9, free on orders over €250. Prices include VAT.': 'Sendes fra København inden for 1–2 hverdage. Fragt 75 kr., gratis ved køb over 1.900 kr. Alle priser er inkl. moms.',
     'Details': 'Detaljer', 'Fit': 'Pasform', 'Tyres up to 60 mm. Mount spacing 75 to 100 mm. Not for fat bikes.': 'Dæk op til 60 mm. Monteringsafstand 75 til 100 mm. Ikke til fatbikes.',
     'Bolt': 'Bolt', '9 mm hardened steel': '9 mm hærdet stål', 'Weight': 'Vægt', 'Battery': 'Batteri',
