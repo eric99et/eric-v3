@@ -45,6 +45,8 @@
   const T = new Proxy({}, { get: (_, k) => TT(L().lang === 'da')[k] });
   let card = null, timer = 0;
   const show = (finish, qty, note) => {
+    // the cart preview is open: it already shows what was added, so no second card on top of it
+    if (document.querySelector('.minicart.is-on')) return;
     if (!card) {
       card = document.createElement('div');
       card.className = 'added'; card.setAttribute('role', 'status'); card.setAttribute('aria-live', 'polite');
@@ -231,7 +233,10 @@
   };
   let t = 0;
   const place = () => { const r = bag.getBoundingClientRect(); pop.style.top = (r.bottom + 10) + 'px'; pop.style.right = Math.max(12, innerWidth - r.right - 8) + 'px'; };
-  const open = () => { clearTimeout(t); if (!pop.hidden) { pop.classList.add('is-on'); return; } render(); place(); pop.hidden = false; requestAnimationFrame(() => pop.classList.add('is-on')); };
+  const open = () => { clearTimeout(t); if (!pop.hidden) { pop.classList.add('is-on'); return; }
+    // one card at a time: the 'Added to your cart' card steps aside for the preview
+    const added = document.querySelector('.added.is-on'); if (added) { added.classList.remove('is-on'); setTimeout(() => { if (!added.classList.contains('is-on')) added.hidden = true; }, 300); }
+    render(); place(); pop.hidden = false; requestAnimationFrame(() => pop.classList.add('is-on')); };
   const close = () => { clearTimeout(t); t = setTimeout(() => { if (pop.matches(':hover') || bag.matches(':hover')) return; pop.classList.remove('is-on'); setTimeout(() => { if (!pop.classList.contains('is-on')) pop.hidden = true; }, 250); }, 300); };
   bag.addEventListener('pointerenter', open); bag.addEventListener('pointerleave', close);
   pop.addEventListener('pointerenter', () => clearTimeout(t)); pop.addEventListener('pointerleave', close);
