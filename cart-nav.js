@@ -196,3 +196,45 @@
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
   els.forEach(e => io.observe(e));
 })();
+
+// hovering the bag (or focusing it) shows a small preview of the cart: the lines, the subtotal, how far it is to free
+// shipping, Check out and View cart. Only where there is a mouse; on a phone the bag simply opens the cart.
+(() => {
+  const bag = document.querySelector('.nav__bag');
+  if (!bag || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const KEY = 'laas.cart.v1.en';
+  const I = () => window.LAAS_I18N || { lang: 'en', P: { lock: 129, flex: 9.99, ship: 9, free: 250 }, money: n => '€' + n };
+  const read = () => { try { const v = JSON.parse(localStorage.getItem(KEY)); return Array.isArray(v) ? v.filter(Boolean) : []; } catch { return []; } };
+  const W = da => da ? { cart: 'Din kurv', empty: 'Din kurv er tom.', shop: 'Se Ring-Lock', sub: 'Subtotal', left: n => `${n} til gratis fragt`, free: 'Gratis fragt', go: 'Gå til kassen', view: 'Se kurven', items: n => n === 1 ? '1 vare' : n + ' varer' }
+    : { cart: 'Your cart', empty: 'Your cart is empty.', shop: 'See the Ring-Lock', sub: 'Subtotal', left: n => `${n} to free shipping`, free: 'Free shipping', go: 'Check out', view: 'View cart', items: n => n === 1 ? '1 item' : n + ' items' };
+  const pop = document.createElement('div');
+  pop.className = 'minicart'; pop.hidden = true; pop.setAttribute('role', 'dialog'); pop.setAttribute('aria-label', 'Cart');
+  document.body.append(pop);
+  const render = () => {
+    const { lang, P, money } = I(), w = W(lang === 'da'), items = read();
+    const isFlex = i => /Flex/.test(i.name);
+    const unit = i => isFlex(i) ? (P.flex ?? 9.99) : P.lock;
+    const n = items.reduce((s, i) => s + (+i.qty || 1), 0);
+    const sub = items.reduce((s, i) => s + unit(i) * (+i.qty || 1), 0);
+    if (!items.length) { pop.innerHTML = `<p class="minicart__h">${w.cart}</p><p class="minicart__empty">${w.empty}</p><a class="buy-btn minicart__go" href="buy.html">${w.shop}</a>`; return; }
+    const free = P.free ?? 250, pct = Math.min(1, sub / free);
+    pop.innerHTML = `<p class="minicart__h">${w.cart} <span>${w.items(n)}</span></p><ul class="minicart__lines">` + items.map(i => {
+      const fin = (i.finish || '').toLowerCase().replace('silver', 'steel');
+      const img = isFlex(i) ? 'images/flexmount-thumb.webp' : `images/scenes/thumb-${fin || 'steel'}.webp`;
+      return `<li><img src="${img}" alt="" width="48" height="48"><span><b>${isFlex(i) ? 'Flex Mount' : 'Ring-Lock'}</b>${isFlex(i) ? '' : `<small>${i.finish}</small>`}</span><em>${+i.qty || 1} × ${money(unit(i))}</em></li>`;
+    }).join('') + `</ul><p class="minicart__sub"><span>${w.sub}</span><b>${money(sub)}</b></p>`
+      + `<p class="minicart__ship"><span>${pct >= 1 ? w.free : w.left(money(Math.round((free - sub) * 100) / 100))}</span><i style="--p:${pct}"></i></p>`
+      + `<div class="minicart__btns"><a class="buy-btn minicart__go" href="checkout-v2.html">${w.go}</a><a class="minicart__view" href="cart-v2.html">${w.view}</a></div>`;
+  };
+  let t = 0;
+  const place = () => { const r = bag.getBoundingClientRect(); pop.style.top = (r.bottom + 10) + 'px'; pop.style.right = Math.max(12, innerWidth - r.right - 8) + 'px'; };
+  const open = () => { clearTimeout(t); if (!pop.hidden) return; render(); place(); pop.hidden = false; requestAnimationFrame(() => pop.classList.add('is-on')); };
+  const close = () => { clearTimeout(t); t = setTimeout(() => { pop.classList.remove('is-on'); setTimeout(() => { if (!pop.classList.contains('is-on')) pop.hidden = true; }, 250); }, 220); };
+  bag.addEventListener('pointerenter', open); bag.addEventListener('pointerleave', close);
+  pop.addEventListener('pointerenter', () => clearTimeout(t)); pop.addEventListener('pointerleave', close);
+  bag.addEventListener('focus', open); bag.addEventListener('blur', e => { if (!pop.contains(e.relatedTarget)) close(); });
+  pop.addEventListener('focusout', e => { if (!pop.contains(e.relatedTarget) && e.relatedTarget !== bag) close(); });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !pop.hidden) { pop.classList.remove('is-on'); pop.hidden = true; } });
+  addEventListener('laas-cart', () => { if (!pop.hidden) render(); });
+  addEventListener('scroll', () => { if (!pop.hidden) place(); }, { passive: true });
+})();
