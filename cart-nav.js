@@ -79,7 +79,9 @@
     setTimeout(() => { if (!card.classList.contains('is-on')) card.hidden = true; }, reduce ? 0 : 400);
   }
 
-  // the same line items the cart reads: {name, finish, unit, qty, img}, merged by name + finish, at most 15 locks
+  // the same line items the cart reads: {id, name, finish, unit, qty, img}. The stored unit is the euro list price for
+// reference only: every page prices a line from its kind and LAAS_I18N.P, so a cart filled in English reads in
+// kroner on the Danish pages and the other way round, merged by name + finish, at most 15 locks
   const add = (finish, qty) => {
     if (!NAME[finish]) finish = 'steel';
     const items = read(), name = 'Ring-Lock', fin = NAME[finish];
@@ -90,7 +92,7 @@
     if (!qty) { show(finish, 0, T.have(MAX_LOCKS)); return 0; }
     const same = items.find(i => i && i.name === name && (i.finish === fin || (fin === 'Steel' && i.finish === 'Silver')));
     if (same) { same.finish = fin; same.qty = (+same.qty || 1) + qty; }
-    else items.push({ name, finish: fin, unit: PRICE, qty, img: 'images/lock-' + finish + '-render.jpg' });
+    else items.push({ id: 'ring-lock', name, finish: fin, unit: PRICE, qty, img: 'images/lock-' + finish + '-render.jpg' });
     try { localStorage.setItem(KEY, JSON.stringify(items)); } catch { return false; }
     dispatchEvent(new Event('laas-cart'));
     show(finish, qty, note);
@@ -114,7 +116,7 @@
   const hasFlex = () => read().some(i => i && /Flex/.test(i.name));
   const addFlex = n => {
     const items = read(), f = items.find(i => i && /Flex/.test(i.name));
-    if (f) f.qty = Math.max(+f.qty || 1, n); else items.push({ name: 'Flex Mount', finish: '', unit: 9.99, qty: Math.max(1, n | 0), img: 'images/flexmount.jpg' });
+    if (f) f.qty = Math.max(+f.qty || 1, n); else items.push({ id: 'flex-mount', name: 'Flex Mount', finish: '', unit: 9.99, qty: Math.max(1, n | 0), img: 'images/flexmount.jpg' });
     try { localStorage.setItem(KEY, JSON.stringify(items)); } catch { return false; }
     dispatchEvent(new Event('laas-cart'));
     return true;

@@ -32,8 +32,8 @@
         .replace(/^O-Lock/, 'Ring-Lock');
       delete i.trial; delete i.trialFlex;
       // the stored unit stays in euro (what the shop is priced in); the page prices from unitOf()
-      if (/^Ring-Lock/.test(i.name)) i.unit = 129;
-      if (/Flex/.test(i.name)) i.unit = 9.99;
+      if (/^Ring-Lock/.test(i.name)) { i.unit = 129; i.id = 'ring-lock'; }
+      if (/Flex/.test(i.name)) { i.unit = 9.99; i.id = 'flex-mount'; }
       // the finish is Steel (as in the Drive copy); carts from before say Silver
       if (/^(Silver|Sølv|Stål)$/.test(i.finish || '')) i.finish = 'Steel';
       i.qty = Math.min(MAX, Math.max(1, parseInt(i.qty, 10) || 1));
@@ -212,14 +212,14 @@
         const locks = items.filter(isLock).reduce((n, i) => n + i.qty, 0);
         const fm = items.find(isFlex);
         if (fm) fm.qty = Math.min(MAX, fm.qty + 1);
-        else items.push({ name: 'Flex Mount', finish: '', unit: 9.99, qty: Math.min(MAX, Math.max(1, locks)), img: 'images/flexmount.jpg' });
+        else items.push({ id: 'flex-mount', name: 'Flex Mount', finish: '', unit: 9.99, qty: Math.min(MAX, Math.max(1, locks)), img: 'images/flexmount.jpg' });
         write(items); say(tr('Flex Mount added.'));
       } else {
         const fin = secondFin || 'steel', name = Object.keys(FIN).find(k => FIN[k] === fin);
         if (lockCount(items) < MAX) {
           const same = items.find(i => isLock(i) && i.finish === name);
           if (same) same.qty += 1;
-          else items.push({ name: 'Ring-Lock', finish: name, unit: 129, qty: 1, img: 'images/lock-' + fin + '-render.jpg' });
+          else items.push({ id: 'ring-lock', name: 'Ring-Lock', finish: name, unit: 129, qty: 1, img: 'images/lock-' + fin + '-render.jpg' });
           write(items); say(tr('A second Ring-Lock added.') + ' ' + name);
         }
       }
