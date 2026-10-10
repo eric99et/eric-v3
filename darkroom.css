@@ -1032,3 +1032,12 @@ html.in-buy .nav__buy { display: none; }
 }
 
 .added__pic { background: none; padding: 0; }
+
+/* will it fit: no tinted disc in the hole (it never sat true in the ring), and a lighter tyre so the dark,
+   floor-lit shackle reads in front of it */
+.fitg__hole { display: none; }
+.fitg__tyre { background:
+    repeating-linear-gradient(135deg, transparent 0 9px, rgba(32, 47, 48, .14) 9px 15px) left top / 50.5% 100% no-repeat,
+    repeating-linear-gradient(45deg, transparent 0 9px, rgba(32, 47, 48, .14) 9px 15px) right top / 50.5% 100% no-repeat,
+    #8E9798; }
+@media (max-width: 760px) { .fitg__tyre { background: #8E9798; } }
