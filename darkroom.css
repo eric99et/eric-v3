@@ -1423,3 +1423,70 @@ a.badge--57:hover, a.badge--kym:hover { opacity: .7; }
   .void--fit .verdict { margin-top: 18px; padding-top: 16px; }
   .void--map { padding-bottom: 56px; }
 }
+
+/* ---------------- Fit, polished (owner, 10 Oct): a crisp flat tyre that changes width with a transform, the 63 mm
+   lane it must pass through, brackets that draw in, a number that counts, a gliding chip pill and a result card */
+.fitg__stay { display: none; }
+.fitg__tyre { width: calc(var(--ir) * 2); top: 6%; bottom: 6%; border-radius: 999px; transform: scaleX(var(--tw)); transition: transform .7s var(--ease), background-color .4s;
+  background: #8B9396 repeating-linear-gradient(to bottom, transparent 0 12px, rgba(255, 255, 255, .22) 12px 20px) center / 22% 100% no-repeat; }
+.fitg[data-state="no"] .fitg__tyre { background-color: #B8957E; }
+@media (min-width: 761px) { .fitg__tyre { -webkit-mask-image: none; mask-image: none; } }
+.fitg__lane { position: absolute; top: calc(50% + var(--lr, 200px) * 4 / 78.5 - var(--lr, 200px) * .62); height: calc(var(--lr, 200px) * 1.24); width: 0; border-left: 1.5px dashed var(--green); opacity: .75; transition: border-color .4s; z-index: 1; }
+.fitg__lane--l { left: calc(50% - var(--ir) * 63 / 105); }
+.fitg__lane--r { left: calc(50% + var(--ir) * 63 / 105 - 1.5px); }
+.fitg[data-state="no"] .fitg__lane { border-color: var(--stop); opacity: 1; }
+/* the tyre's bracket: a fixed box; the line scales and the two ticks slide, so nothing is laid out again */
+.fitg__dim--tyre { width: calc(var(--ir) * 2); border-width: 0; transition: none; }
+.fitg__dim--tyre::before { transform: scaleX(var(--tw)); transition: transform .7s var(--ease), border-color .4s; }
+.fitg__t { position: absolute; left: 50%; top: 0; width: 1.5px; height: 14px; margin-left: -.75px; background: #1D5F63; transition: transform .7s var(--ease), background-color .4s; }
+.fitg__t--l { transform: translateX(calc(var(--ir) * var(--tw) * -1)); }
+.fitg__t--r { transform: translateX(calc(var(--ir) * var(--tw))); }
+.fitg[data-state="no"] .fitg__t { background: var(--stop); }
+.fitg__dim span { font-variant-numeric: tabular-nums; transition: background-color .4s, color .4s; }
+/* each time the drawing shows (the stage takes it out of the page when it is away), the brackets draw in */
+.fitg__dim::before { animation: fit-draw .8s var(--ease) .25s both; }
+.fitg__t, .fitg__dim--ring { animation: fit-fade .5s ease .2s both; }
+.fitg__dim span { animation: fit-fade .5s ease .7s both; }
+.fitg__lane { animation: fit-lane .7s var(--ease) .1s both; }
+@keyframes fit-draw { from { scale: 0 1; } }
+@keyframes fit-fade { from { opacity: 0; } }
+@keyframes fit-lane { from { opacity: 0; scale: 1 .4; } }
+
+/* the chips: one dark pill glides under the picked one; a press gives a little */
+.pickrow.has-pill { position: relative; isolation: isolate; }
+.pickrow__pill { position: absolute; left: 0; top: 0; z-index: -1; border-radius: 30px; background: var(--ink); pointer-events: none; }
+.pickrow.is-ready .pickrow__pill { transition: transform .45s cubic-bezier(.34, 1.3, .64, 1), width .45s cubic-bezier(.34, 1.3, .64, 1); }
+.pickrow.has-pill .chip[aria-checked="true"] { background: transparent; color: var(--paper); box-shadow: none; }
+.pickrow.has-pill .chip { background: transparent; transition: color .3s, box-shadow .25s; }
+
+/* the answer: a result card under the questions, its mark drawn in on every change */
+.verdict__mark { display: grid; place-items: center; background-image: none !important; }
+.verdict__mark svg { width: 62%; height: 62%; fill: none; stroke: #FFFFFF; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
+.verdict__yes { stroke-dasharray: 16; } .verdict__no { stroke-dasharray: 20; display: none; }
+.verdict[data-state="no"] .verdict__yes { display: none; } .verdict[data-state="no"] .verdict__no { display: inline; }
+.verdict.is-swap .verdict__yes { animation: fit-tick .5s var(--ease) .12s both; }
+.verdict.is-swap .verdict__no { animation: fit-cross .5s var(--ease) .12s both; }
+.verdict.is-swap .verdict__mark { animation: fit-pop .45s cubic-bezier(.34, 1.4, .64, 1); }
+@keyframes fit-tick { from { stroke-dashoffset: 16; } }
+@keyframes fit-cross { from { stroke-dashoffset: 20; } }
+@keyframes fit-pop { from { transform: scale(.6); } }
+.verdict { transition: background-color .4s, box-shadow .4s; }
+@media (min-width: 761px) {
+  .void--fit .verdict { max-width: 34em; margin-top: 24px; padding: 16px 18px; border-top: 0; border-radius: 18px; background: #FFFFFF; box-shadow: inset 0 0 0 1px var(--line-2); }
+  .void--fit .verdict[data-state="no"] { background: #F6EEE8; box-shadow: inset 0 0 0 1px rgba(176, 114, 73, .35); }
+  .void--fit .verdict__head { align-items: center; gap: 12px; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.2; letter-spacing: -0.02em; }
+  .void--fit .verdict__mark { width: 28px; height: 28px; }
+  .void--fit .verdict__body { margin-top: 6px; padding-left: 40px; font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+  .void--fit .fitq__hint { max-width: 46em; }
+}
+@media (min-width: 761px) and (max-height: 760px) { .void--fit .verdict { margin-top: 16px; padding: 12px 16px; } }
+
+/* the steps come in one after the other, once */
+.void--fit.fit-armed .fit__lede, .void--fit.fit-armed .fitq, .void--fit.fit-armed .verdict { opacity: 0; transform: translateY(14px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+.void--fit.fit-armed.fit-in .fit__lede, .void--fit.fit-armed.fit-in .fitq, .void--fit.fit-armed.fit-in .verdict { opacity: 1; transform: none; }
+.void--fit.fit-in .fitq { transition-delay: .12s; } .void--fit.fit-in .fitq + .fitq { transition-delay: .22s; } .void--fit.fit-in .verdict { transition-delay: .34s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fitg__tyre, .fitg__dim--tyre::before, .fitg__t, .pickrow.is-ready .pickrow__pill { transition: none !important; }
+  .fitg__dim::before, .fitg__t, .fitg__dim--ring, .fitg__dim span, .fitg__lane, .verdict.is-swap *, .verdict.is-swap .verdict__mark { animation: none !important; }
+}

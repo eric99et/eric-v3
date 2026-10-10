@@ -163,11 +163,12 @@
   </svg>
   <!-- will it fit: the wheel goes through the ring -->
   <div class="fitg" id="fitg">
-    <i class="fitg__stay fitg__stay--l"></i><i class="fitg__stay fitg__stay--r"></i>
     <div class="fitg__hole"></div>
+    <!-- the 63 mm the tyre has to pass between: two dashed lines through the ring, Copper when the tyre is too wide -->
+    <i class="fitg__lane fitg__lane--l"></i><i class="fitg__lane fitg__lane--r"></i>
     <div class="fitg__tyre"></div>
     <p class="fitg__dim fitg__dim--ring label"><span>63 mm clearance</span></p>
-    <p class="fitg__dim fitg__dim--tyre label"><span id="fit-dim">42 mm tyre</span></p>
+    <p class="fitg__dim fitg__dim--tyre label"><i class="fitg__t fitg__t--l"></i><i class="fitg__t fitg__t--r"></i><span id="fit-dim">42 mm tyre</span></p>
   </div>
   <!-- the opening frame: a marker on the lock while it is still on the bike -->
   <i class="click" id="click"></i>
@@ -310,10 +311,10 @@
           <button type="button" class="chip" role="radio" data-holes="1" aria-checked="true">Yes</button>
           <button type="button" class="chip" role="radio" data-holes="0" aria-checked="false">No</button>
         </div>
-        <p class="fitq__hint">Two small threaded holes on the frame, either side of the rear wheel, just below the saddle.</p>
+        <p class="fitq__hint">Two small threaded holes, either side of the rear wheel.</p>
       </div>
       <div class="verdict" id="verdict" aria-live="polite">
-        <p class="verdict__head"><i class="verdict__mark" aria-hidden="true"></i><span id="verdict-head">It fits.</span></p>
+        <p class="verdict__head"><i class="verdict__mark" aria-hidden="true"><svg viewBox="0 0 20 20"><path class="verdict__yes" d="M5 10.5l3.4 3.4L15 7"/><path class="verdict__no" d="M6.5 6.5l7 7M13.5 6.5l-7 7"/></svg></i><span id="verdict-head">It fits.</span></p>
         <p class="verdict__body" id="verdict-body">The screws are in the box.</p>
       </div>
     </div>

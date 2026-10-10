@@ -50,7 +50,7 @@ const DA = {
   'Tyres up to 60 mm fit.': 'Dæk op til 60 mm passer.', 'The width is on the side of the tyre: in 42-622, the 42.': 'Bredden står på siden af dækket: i 42-622 er det 42.',
   'Tyre width': 'Dækbredde', 'Up to 35 mm': 'Op til 35 mm', 'Over 60 mm': 'Over 60 mm', 'tyre': 'dæk', 'Holes for a frame lock?': 'Huller til en ringlås?', 'Yes': 'Ja', 'No': 'Nej',
   'It is printed on the side of the tyre: in 42-622, the 42 is the width in mm.': 'Det står på siden af dækket: i 42-622 er 42 bredden i mm.',
-  'Two small threaded holes on the frame, either side of the rear wheel, just below the saddle.': 'To små gevindhuller i stellet, på hver side af baghjulet, lige under sadlen.',
+  'Two small threaded holes, either side of the rear wheel.': 'To små gevindhuller, på hver side af baghjulet.',
   'It fits.': 'Den passer.', 'Too wide.': 'For bredt.', 'It fits, with the Flex Mount.': 'Den passer, med Flex Mount.',
   'The screws are in the box.': 'Skruerne ligger i æsken.',
   'The ring takes tyres up to 60 mm.': 'Ringen tager dæk op til 60 mm.',
@@ -646,7 +646,44 @@ function renderFit() {
   verdict.classList.remove('is-swap'); void verdict.offsetWidth; verdict.classList.add('is-swap');
   // the tyre, to scale: the drawn hole is the ring's 105 mm inside (v8 model); the 63 mm clearance sits between the mounts
   fitg.style.setProperty('--tw', Math.min(1, mm / 105).toFixed(3));
-  fitDim.textContent = (no ? '100+' : '~' + mm) + ' ' + t('mm tyre');
+  // the tyre's number counts to the new width as the tyre and its bracket glide there
+  const to = no ? 100 : mm, from = fitShown;
+  cancelAnimationFrame(fitTween);
+  const say = n => { fitDim.textContent = (no && n === to ? '100+' : '~' + n) + ' ' + t('mm tyre'); };
+  if (reduce || from === to) { fitShown = to; say(to); return; }
+  const t1 = performance.now();
+  const step = now => {
+    const p = Math.min(1, (now - t1) / 600), e = 1 - Math.pow(1 - p, 3);
+    fitShown = Math.round(from + (to - from) * e); say(fitShown);
+    if (p < 1) fitTween = requestAnimationFrame(step);
+  };
+  fitTween = requestAnimationFrame(step);
+}
+let fitShown = 42, fitTween = 0;
+// the picked chip sits on one dark pill that glides from chip to chip
+function pillRow(row) {
+  if (!row) return;
+  const pill = document.createElement('span');
+  pill.className = 'pickrow__pill'; pill.setAttribute('aria-hidden', 'true');
+  row.prepend(pill); row.classList.add('has-pill');
+  const place = () => {
+    const b = row.querySelector('.chip[aria-checked="true"]'); if (!b) return;
+    pill.style.width = b.offsetWidth + 'px'; pill.style.height = b.offsetHeight + 'px';
+    pill.style.transform = `translate(${b.offsetLeft}px, ${b.offsetTop}px)`;
+  };
+  place(); setTimeout(() => row.classList.add('is-ready'), 60);
+  row.addEventListener('click', () => requestAnimationFrame(place));
+  if ('ResizeObserver' in window) new ResizeObserver(place).observe(row);
+}
+pillRow($('#tyre')); pillRow($('#holes'));
+// the chapter's steps come in once, one after the other, when it first shows
+{
+  const fit = $('#fit');
+  if (fit && !reduce && 'IntersectionObserver' in window) {
+    fit.classList.add('fit-armed');
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { fit.classList.add('fit-in'); io.disconnect(); } }, { threshold: 0.35 });
+    io.observe(fit);
+  }
 }
 function radio(group, pick) {
   $$('#' + group + ' .chip').forEach(b => b.addEventListener('click', () => {
