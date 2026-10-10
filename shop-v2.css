@@ -405,3 +405,7 @@
 .paytabs label:has(.paytabs__klarna) span { background: #FFB3C7; }
 .paytabs label:has(.paytabs__klarna) input:checked + span { background: #FFB3C7; }
 @media (max-width: 560px) { .paytabs { grid-template-columns: repeat(6, 1fr); } .paytabs label { grid-column: span 2; } .paytabs label:nth-child(n+4) { grid-column: span 3; } }
+
+/* short pages (an empty cart): the footer still sits at the bottom of the screen, never halfway up */
+.shop-page main.shop { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; }
+.shop-page main.shop > .foot { margin-top: auto; }
