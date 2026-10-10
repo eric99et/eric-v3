@@ -1319,3 +1319,7 @@ html.no-engine .void--seal, html:not(.is-loading):not(.is-loaded) .void--seal { 
   .void--macro .slot { margin-bottom: 34svh; }
 }
 @media (max-width: 760px) { .void--macro .slot { flex: 1 1 auto; min-height: 22svh; margin-bottom: 33svh; } .void--macro .void__right { height: 35svh; } }
+
+/* the promise badges are links to promises.html */
+a.badge--57, a.badge--kym { text-decoration: none; transition: opacity .2s; }
+a.badge--57:hover, a.badge--kym:hover { opacity: .7; }

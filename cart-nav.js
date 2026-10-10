@@ -172,3 +172,10 @@
     btn.setAttribute('aria-expanded', String(open)); btn.textContent = (window.LAAS_I18N ? window.LAAS_I18N.t : x => x)(open ? 'Close' : 'Menu');
   });
 })();
+
+// the nav capsule floats (with its glass) once the page scrolls, on pages that have no script of their own for it
+(() => {
+  if (document.getElementById('stage') || document.querySelector('script[src="buy.js"], script[src="shop-v2.js"]')) return;
+  const root = document.documentElement, on = () => root.classList.toggle('nav-float', scrollY > 8);
+  addEventListener('scroll', on, { passive: true }); on();
+})();
