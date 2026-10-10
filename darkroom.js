@@ -625,6 +625,12 @@ function setLock(v, byUser) {
 }
 unlockBtn.addEventListener('click', () => { userTouchedLock = true; setLock(user.lockWant === 0 ? 1 : 0, true); });
 unlockBtn.classList.add('is-nudge');
+// the Bluetooth arcs and the Near dot only move while the chapter is on screen
+{
+  const kl = $('#keyless');
+  if (kl && 'IntersectionObserver' in window) new IntersectionObserver(([e]) => kl.classList.toggle('is-live', e.isIntersecting)).observe(kl);
+  else if (kl) kl.classList.add('is-live');
+}
 
 /* -------------------------------------------------------- will it fit */
 const fitg = $('#fitg'), verdict = $('#verdict'), vHead = $('#verdict-head'), vBody = $('#verdict-body'), fitDim = $('#fit-dim');
