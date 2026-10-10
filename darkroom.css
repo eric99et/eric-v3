@@ -1235,3 +1235,20 @@ html.no-engine .void--seal, html:not(.is-loading):not(.is-loaded) .void--seal { 
 @media (max-width: 760px) { .fitq .chip { flex: 1 1 auto; padding: 0 6px; font-size: 13px; white-space: nowrap; } .fitq .pickrow { gap: 5px; } #holes .chip { flex: 0 0 72px; } }
 @media (min-width: 761px) and (max-width: 1100px) { .fitq .pickrow { flex-wrap: wrap; } }
 @media (max-width: 760px) { #fq2 ~ .fitq__hint { display: none; } .void--fit .slot { flex: 1 0 24svh; min-height: 24svh; margin-bottom: 14px; } .void--fit .verdict { border-top: 0; padding-top: 0; } }
+
+/* mobile nav, lighter: logo, a slimmer Buy, and the menu as a round icon (the word stays for screen readers) */
+@media (max-width: 760px) {
+  .nav__shell, html.nav-float .nav__shell, html.nav-float.nav-compact .nav__shell { height: 56px; padding: 0 6px 0 14px; }
+  .nav__end { gap: 6px; }
+  .nav__buy { height: 40px; padding: 0 14px; gap: 5px; font-size: 14px; }
+  .nav__price, .nav__buy .nav__price { font-size: 14px; }
+  .nav__price::before { content: ""; }
+  .ghost.nav__menu { position: relative; width: 44px; min-width: 44px; height: 44px; min-height: 44px; padding: 0; border-radius: 50%; font-size: 0; color: transparent; }
+  .ghost.nav__menu::before, .ghost.nav__menu::after { content: ""; position: absolute; left: 50%; width: 16px; height: 1.5px; border-radius: 2px; background: var(--ink); translate: -50% 0; transition: rotate .3s var(--ease), top .3s var(--ease); }
+  .ghost.nav__menu::before { top: calc(50% - 3.5px); }
+  .ghost.nav__menu::after { top: calc(50% + 2.5px); }
+  .ghost.nav__menu[aria-expanded="true"]::before { top: calc(50% - .75px); rotate: 45deg; }
+  .ghost.nav__menu[aria-expanded="true"]::after { top: calc(50% - .75px); rotate: -45deg; }
+  html[data-tone="dark"] .nav .nav__menu { color: transparent; }
+  html[data-tone="dark"] .ghost.nav__menu::before, html[data-tone="dark"] .ghost.nav__menu::after { background: #ECECEA; }
+}
