@@ -63,9 +63,11 @@
       card.addEventListener('focusout', e => { if (!card.contains(e.relatedTarget)) timer = setTimeout(hide, 4000); });
       addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
     }
-    card.querySelector('.added__pic').src = 'images/scenes/thumb-' + finish + '.webp';
+    const flex = finish === 'flex';
+    card.querySelector('.added__pic').src = flex ? 'images/flexmount-thumb.webp' : 'images/scenes/thumb-' + finish + '.webp';
     card.querySelector('.added__h').textContent = qty ? T.added : T.full;
-    card.querySelector('.added__p').textContent = (qty ? `Ring-Lock, ${NAME[finish]}${qty > 1 ? ' × ' + qty : ''} · ${L().money(L().P.lock * qty)}` : '') + (note ? (qty ? '. ' : '') + note : '');
+    card.querySelector('.added__p').textContent = flex ? `Flex Mount${qty > 1 ? ' × ' + qty : ''} · ${L().money((L().P.flex || 9.99) * qty)}`
+      : (qty ? `Ring-Lock, ${NAME[finish]}${qty > 1 ? ' × ' + qty : ''} · ${L().money(L().P.lock * qty)}` : '') + (note ? (qty ? '. ' : '') + note : '');
     card.hidden = false;
     requestAnimationFrame(() => card.classList.add('is-on'));
     clearTimeout(timer); timer = setTimeout(hide, 7000);
@@ -107,8 +109,7 @@
     const others = items.reduce((m, i) => m + (i && i !== line && /^Ring-Lock/.test(i.name) ? (+i.qty || 1) : 0), 0);
     n = Math.max(0, Math.min(n | 0, MAX_LOCKS - others));
     if (n) line.qty = n; else items.splice(items.indexOf(line), 1);
-    // no locks left: the Flex Mount goes with them
-    if (!items.some(i => i && /^Ring-Lock/.test(i.name))) { const f = items.findIndex(i => i && /Flex/.test(i.name)); if (f > -1) items.splice(f, 1); }
+    // the Flex Mount is its own line: it stays when the last lock goes (owner, 10 Oct)
     try { localStorage.setItem(KEY, JSON.stringify(items)); } catch { return false; }
     dispatchEvent(new Event('laas-cart'));
     return n;
@@ -151,7 +152,18 @@
   };
   // the whole Buy: ask, then put the locks (and the Flex Mount) in the cart; then(n) after
   const buy = (finish, qty, then) => ask(flex => { const n = add(finish, qty); if (flex && n) addFlex(n === true ? qty : n); then && then(n); });
-  window.LAAS_CART = { add, qtyOf, setQty, hasFlex, addFlex, ask, buy };
+  // the Flex Mount on its own (the accessory on the buy page): n more, at most 15, no question first; the card says so
+  const addFlexOnly = n => {
+    const items = read(), f = items.find(i => i && /Flex/.test(i.name)), have = f ? (+f.qty || 1) : 0;
+    const q = Math.max(0, Math.min(Math.max(1, n | 0), MAX_LOCKS - have));
+    if (!q) return 0;
+    if (f) f.qty = have + q; else items.push({ id: 'flex-mount', name: 'Flex Mount', finish: '', unit: 9.99, qty: q, img: 'images/flexmount.jpg' });
+    try { localStorage.setItem(KEY, JSON.stringify(items)); } catch { return false; }
+    dispatchEvent(new Event('laas-cart'));
+    show('flex', q);
+    return q;
+  };
+  window.LAAS_CART = { add, qtyOf, setQty, hasFlex, addFlex, addFlexOnly, ask, buy };
 })();
 
 // the footer's entrance (after 21st.dev "Footer section 1"): once, when it comes into view
@@ -247,7 +259,7 @@
   pop.addEventListener('focusout', e => { if (!e.relatedTarget || pop.contains(e.relatedTarget) || e.relatedTarget === bag || pop.matches(':hover')) return; close(); });
   addEventListener('keydown', e => { if (e.key === 'Escape' && !pop.hidden) { pop.classList.remove('is-on'); pop.hidden = true; } });
   addEventListener('laas-cart', () => { if (!pop.hidden) render(); });
-  // − and + on each line change the cart right here; − at 1 (a bin) takes the line out, and the last lock takes the Flex Mount with it
+  // − and + on each line change the cart right here; − at 1 (a bin) takes the line out (the Flex Mount is its own line)
   pop.addEventListener('click', e => {
     const b = e.target.closest('[data-d]');
     if (!b) return;
@@ -258,7 +270,6 @@
     const q = (+it.qty || 1) + +b.dataset.d;
     if (+b.dataset.d > 0 && isLock(it) && locks >= 15) return;
     if (q < 1) items.splice(k, 1); else it.qty = Math.min(15, q);
-    if (!items.some(isLock)) { const f = items.findIndex(i => /Flex/.test(i.name)); if (f > -1) items.splice(f, 1); }
     try { localStorage.setItem(KEY, JSON.stringify(items)); } catch { return; }
     render();
     const again = pop.querySelector(`[data-line="${k}"] [data-d="${b.dataset.d}"]`); if (again) again.focus();

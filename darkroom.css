@@ -1490,3 +1490,13 @@ a.badge--57:hover, a.badge--kym:hover { opacity: .7; }
   .fitg__tyre, .fitg__dim--tyre::before, .fitg__t, .pickrow.is-ready .pickrow__pill { transition: none !important; }
   .fitg__dim::before, .fitg__t, .fitg__dim--ring, .fitg__dim span, .fitg__lane, .verdict.is-swap *, .verdict.is-swap .verdict__mark { animation: none !important; }
 }
+
+/* spec row icons keep their round shape: long Danish words (Forsikringsgodkendt) used to squeeze the icon
+   column into an oval (owner, 10 Oct) */
+.specs a { grid-template-columns: 40px minmax(0, 1fr); }
+.specs svg { min-width: 40px; aspect-ratio: 1; }
+.specs b { overflow-wrap: break-word; hyphens: auto; }
+@media (max-width: 760px) {
+  .specs a { grid-template-columns: 34px minmax(0, 1fr); }
+  .specs svg { min-width: 34px; }
+}

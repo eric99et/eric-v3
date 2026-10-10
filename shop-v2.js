@@ -176,10 +176,9 @@
       // − at 1 takes the line out
       if (i.qty + +step.dataset.d < 1) {
         const out = () => {
-          // the last lock takes the Flex Mount with it (no mount without a lock), as everywhere else
+          // only this line goes: the Flex Mount is its own line, with its own bin (owner, 10 Oct)
           const rest = read(); const k = rest.findIndex(x => x.name === i.name && x.finish === i.finish);
           if (k > -1) rest.splice(k, 1);
-          if (!rest.some(isLock)) { const f = rest.findIndex(isFlex); if (f > -1) rest.splice(f, 1); }
           write(rest); say(i.name + ' ' + tr('removed from your cart.'));
           ($('[data-step]') || $('#cart-h'))?.focus();
         };

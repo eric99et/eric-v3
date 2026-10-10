@@ -51,7 +51,7 @@ const DA = {
   'Tyre width': 'Dækbredde', 'Up to 35 mm': 'Op til 35 mm', 'Over 60 mm': 'Over 60 mm', 'tyre': 'dæk', 'Holes for a frame lock?': 'Huller til en ringlås?', 'Yes': 'Ja', 'No': 'Nej',
   'It is printed on the side of the tyre: in 42-622, the 42 is the width in mm.': 'Det står på siden af dækket: i 42-622 er 42 bredden i mm.',
   'Two small threaded holes, either side of the rear wheel.': 'To små gevindhuller, på hver side af baghjulet.',
-  'It fits.': 'Den passer.', 'Too wide.': 'For bredt.', 'It fits, with the Flex Mount.': 'Den passer, med Flex Mount.',
+  'It fits.': 'Den passer.', 'Too wide.': 'For bredt.', 'Need a Flex Mount?': 'Mangler du en Flex Mount?', 'It fits, with the Flex Mount.': 'Den passer, med Flex Mount.',
   'The screws are in the box.': 'Skruerne ligger i æsken.',
   'The ring takes tyres up to 60 mm.': 'Ringen tager dæk op til 60 mm.',
   'Add the Flex Mount (€9.99) in the basket. It holds the lock on a frame without holes.': 'Tilføj Flex Mount (75 kr.) i kurven. Den holder låsen på et stel uden huller.',
@@ -643,6 +643,8 @@ function renderFit() {
   vBody.textContent = no ? t('The ring takes tyres up to 60 mm.')
     : holes ? t('The screws are in the box.')
     : t('Add the Flex Mount (€9.99) in the basket. It holds the lock on a frame without holes.');
+  // no holes: a quiet way to the Flex Mount on its own (the buy page's accessory)
+  if (!no && !holes) { const a = document.createElement('a'); a.className = 'link verdict__more'; a.href = 'buy.html#flex-mount'; a.textContent = t('Need a Flex Mount?'); vBody.append(' ', a); }
   verdict.classList.remove('is-swap'); void verdict.offsetWidth; verdict.classList.add('is-swap');
   // the tyre, to scale: the drawn hole is the ring's 105 mm inside (v8 model); the 63 mm clearance sits between the mounts
   fitg.style.setProperty('--tw', Math.min(1, mm / 105).toFixed(3));
