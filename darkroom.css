@@ -1403,3 +1403,23 @@ a.badge--57:hover, a.badge--kym:hover { opacity: .7; }
   .void--fit .verdict__mark { width: 22px; height: 22px; margin-top: 1px; background-size: 14px !important; }
   .void--fit .verdict__body { margin-top: 4px; padding-left: 32px; font-size: 14px; line-height: 1.45; color: var(--muted); }
 }
+
+/* buy chapter on a phone: one screen (it was 902 px on a 375×812 phone, an extra snap stop). The payment marks step
+   out here (they are in the cart and the checkout), the card's rhythm is a little tighter, the band keeps its room */
+@media (max-width: 760px) {
+  #buy .void__right .paywall { display: none !important; }
+  #buy .void__right { gap: 14px !important; }
+  #buy.void--product { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important; }
+  #buy.void--product { height: 100vh; height: 100svh; }
+  #buy .slot { flex: 1 1 30svh; min-height: 22svh; }
+}
+
+/* low computer screens (a 720 px laptop): Fit and Find My stay one screen each (they ran 63 and 3 px over: an extra
+   snap stop). Fit drops its one-line lede (the two questions say it) and takes a little less room per step */
+@media (min-width: 761px) and (max-height: 760px) {
+  .void--fit .fit__lede { display: none; }
+  .void--fit .heading { font-size: clamp(34px, 3.4vw, 44px); }
+  .void--fit .fitq { margin-top: 18px; }
+  .void--fit .verdict { margin-top: 18px; padding-top: 16px; }
+  .void--map { padding-bottom: 56px; }
+}

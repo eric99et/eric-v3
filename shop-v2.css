@@ -854,3 +854,5 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
   .co-bar { transition: none; }
   .pill-btn.is-busy::before { animation-duration: 2.4s; }
 }
+/* FAQ: "Did this help? Yes No" wraps on a narrow phone (Danish ran 9 px past the edge) */
+.pr .fq__a .fq__rate { flex-wrap: wrap; row-gap: 6px; }
