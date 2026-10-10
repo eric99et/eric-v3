@@ -1143,3 +1143,47 @@ html.no-engine .void--seal, html:not(.is-loading):not(.is-loaded) .void--seal { 
 
 /* apple find my: the required compatibility line, small and quiet */
 .fm__fine { font-size: 12px; max-width: 30em; }
+
+/* find my: the drawn sheet sits exactly on the screen, so nothing of the map shows round its corners */
+.fmp__sheet { left: calc(var(--h) * .012); right: calc(var(--h) * .012); bottom: calc(var(--h) * .012); border-bottom-left-radius: calc(var(--h) * .064); border-bottom-right-radius: calc(var(--h) * .064); }
+/* find my: Apple's own badge, small, under the copy, with clear space round it (guidelines: >= 30px, 0.25x clear space) */
+.fm__badge { display: block; height: 40px; width: auto; margin: 26px 0 10px; }
+
+/* keyless: the drawn phone shows the LAAS app as it looks: a list of your locks as cards, a teal Unlock pill, a + below */
+.app__bar, .app__list, .app__tabs, .app__head, .app__meta { display: none; }
+@media (min-width: 761px) {
+  .phone__screen { background: #F7F5F4; grid-template-rows: auto 1fr auto; padding: 46px 12px 14px; gap: 14px; }
+  .app__bar { display: grid; grid-template-columns: 20px 1fr 20px; align-items: center; color: var(--ink); }
+  .app__bar svg { width: 17px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; }
+  .app__bar b { font: 500 14px/1 var(--display); text-align: center; letter-spacing: -0.01em; }
+  .app__head i, .app__bar i { justify-self: end; width: 14px; height: 4px; background: radial-gradient(circle, var(--muted) 1.4px, transparent 1.6px) 0 0 / 5px 4px repeat-x; }
+  .app__list { display: grid; align-content: start; gap: 10px; }
+  .app__card { display: grid; gap: 4px; width: 100%; padding: 12px 12px 12px; border-radius: 14px; background: #FFFFFF; box-shadow: 0 1px 0 rgba(32, 47, 48, .06), 0 6px 16px -10px rgba(32, 47, 48, .25); text-align: left; justify-items: stretch; }
+  .app__head { display: flex; justify-content: space-between; align-items: center; }
+  .app__head b { font: 500 14px/1.1 var(--display); color: var(--ink); letter-spacing: -0.01em; }
+  .app__meta { display: block; font: 400 11px/1.3 var(--body); color: var(--muted); }
+  .app__meta .phone__ble { gap: 5px; }
+  .unlock.app__card { align-self: start; justify-self: stretch; gap: 4px; }
+  .unlock .unlock__ring { display: none; }
+  .unlock__state { font: inherit; letter-spacing: 0; text-transform: none; color: inherit; }
+  .unlock__cta { margin-top: 8px; min-width: 0; height: 36px; border-radius: 18px; display: grid; place-items: center; background: var(--green); color: #FFFFFF; font: 500 13px/1 var(--display); letter-spacing: 0; transition: background-color .3s, color .3s, scale .3s var(--ease); }
+  .unlock:active .unlock__cta { scale: .97; }
+  .unlock.is-nudge .unlock__cta { animation: pill-nudge 2s var(--ease) infinite; }
+  .unlock.is-open .unlock__cta { background: #FFFFFF; color: var(--green); box-shadow: inset 0 0 0 1.5px var(--green); }
+  .unlock.is-open .unlock__state { color: var(--green); }
+  .app__card--far { opacity: .7; }
+  .app__seek { display: inline-flex; gap: 3px; margin-left: 4px; vertical-align: middle; }
+  .app__seek i { width: 3px; height: 3px; border-radius: 50%; background: var(--muted); animation: blink 1.4s ease-in-out infinite; }
+  .app__seek i:nth-child(2) { animation-delay: .2s; } .app__seek i:nth-child(3) { animation-delay: .4s; }
+  .app__tabs { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; color: var(--muted); padding: 0 6px; }
+  .app__tabs > svg { width: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
+  .app__tabs > svg:last-child { justify-self: end; }
+  .app__add { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--green); }
+  .app__add svg { width: 18px; fill: none; stroke: #FFFFFF; stroke-width: 1.5; stroke-linecap: round; }
+  .phone__foot { display: none; }
+}
+@keyframes pill-nudge { 0%, 100% { box-shadow: 0 0 0 0 rgba(29, 95, 99, .35); } 50% { box-shadow: 0 0 0 6px rgba(29, 95, 99, 0); } }
+@media (prefers-reduced-motion: reduce) { .unlock.is-nudge .unlock__cta, .app__seek i { animation: none; } }
+/* on a phone the card stays the compact one: the lock button, its state, the action */
+@media (max-width: 760px) { .unlock .app__meta { display: contents; } .unlock .app__meta .phone__ble, .unlock .app__sep { display: none; } }
+@media (max-width: 760px) { .app__list { display: block; width: 100%; } .app__card--far { display: none; } }

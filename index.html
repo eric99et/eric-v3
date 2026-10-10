@@ -221,16 +221,23 @@
     </div>
     <div class="slot" aria-hidden="true"></div>
     <div class="void__right">
-      <!-- a drawn phone: the app, one button -->
+      <!-- a drawn phone: the LAAS app as it looks, your locks as cards, one teal button -->
       <div class="phone">
         <div class="phone__screen">
-          <p class="phone__top label"><span>Ring-Lock</span><span class="phone__ble"><i></i>Near</span></p>
-          <button class="unlock" id="unlock" type="button" aria-pressed="false">
-            <span class="unlock__ring" aria-hidden="true"><svg class="unlock__icon" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path class="unlock__shackle" d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
-            <span class="label unlock__state" id="unlock-state">Locked</span>
-            <span class="unlock__cta" id="unlock-cta">Tap to unlock</span>
-          </button>
-          <p class="phone__foot label">One-time key · Bluetooth</p>
+          <p class="app__bar"><svg viewBox="0 0 24 24"><path d="M4.5 10.5 12 4.5l7.5 6V19a.5.5 0 0 1-.5.5h-4.5V14h-5v5.5H5a.5.5 0 0 1-.5-.5z"/></svg><b>My bikes</b><i></i></p>
+          <div class="app__list">
+            <button class="unlock app__card" id="unlock" type="button" aria-pressed="false">
+              <span class="app__head"><b>Steel lock</b><i></i></span>
+              <span class="app__meta"><span class="phone__ble"><i></i>Near</span><span class="app__sep"> · </span><span class="unlock__state" id="unlock-state">Locked</span></span>
+              <span class="unlock__ring" aria-hidden="true"><svg class="unlock__icon" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path class="unlock__shackle" d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+              <span class="unlock__cta" id="unlock-cta">Unlock</span>
+            </button>
+            <div class="app__card app__card--far">
+              <span class="app__head"><b>Copper lock</b><i></i></span>
+              <span class="app__meta">Searching <span class="app__seek"><i></i><i></i><i></i></span></span>
+            </div>
+          </div>
+          <p class="app__tabs"><svg viewBox="0 0 24 24"><path d="M9 7h10M9 12h10M9 17h10M5 7h.01M5 12h.01M5 17h.01"/></svg><span class="app__add"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></span><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 19.5c1.2-3.3 3.8-5 7-5s5.8 1.7 7 5"/></svg></p>
         </div>
       </div>
     </div>
@@ -242,6 +249,7 @@
       <p class="void__index label"><b>02</b> Apple Find My</p>
       <h2 class="heading split" id="h2">Works with Apple Find&nbsp;My.</h2>
       <p class="body">After setup, you can locate your Ring-Lock in the Apple Find My app on your iPhone, iPad or Mac.</p>
+      <img class="fm__badge" src="images/works-with-apple-find-my.svg" alt="Works with Apple Find My" height="40" onerror="this.remove()">
       <p class="fine fm__fine">To use the Apple Find My app to locate this item, the latest version of iOS, iPadOS, or macOS is recommended.</p>
     </div>
     <div class="slot fm-slot" aria-hidden="true">

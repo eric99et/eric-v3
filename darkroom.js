@@ -34,7 +34,7 @@ const DA = {
   // 01 keyless
   'Your phone is the key.': 'Din telefon er nøglen.',
   'One tap in the LAAS app and the 9 mm hardened-steel bolt slides open. Push the bolt in and it locks with a click.': 'Ét tryk i LAAS-appen, og den 9 mm hærdede stålbolt glider op. Skub bolten i, så låser den med et klik.',
-  'Near': 'Tæt på', 'Locked': 'Låst', 'Unlocked': 'Låst op', 'Tap to unlock': 'Tryk for at låse op', 'Tap to lock': 'Tryk for at låse', 'One-time key · Bluetooth': 'Engangsnøgle · Bluetooth',
+  'Near': 'Tæt på', 'Locked': 'Låst', 'Unlocked': 'Låst op', 'Unlock': 'Lås op', 'Lock': 'Lås', 'My bikes': 'Mine cykler', 'Steel lock': 'Stållås', 'Copper lock': 'Kobberlås', 'Searching': 'Søger', 'One-time key · Bluetooth': 'Engangsnøgle · Bluetooth',
   // 02 find my: Apple's trademarks are never translated (Apple Find My guidelines p.13)
   'After setup, you can locate your Ring-Lock in the Apple Find My app on your iPhone, iPad or Mac.': 'Når den er sat op, kan du finde din Ring-Lock i Apple Find My-appen på din iPhone, iPad eller Mac.',
   'To use the Apple Find My app to locate this item, the latest version of iOS, iPadOS, or macOS is recommended.': 'For at bruge Apple Find My-appen til at finde denne genstand anbefales den nyeste version af iOS, iPadOS eller macOS.',
@@ -599,7 +599,7 @@ function setLock(v, byUser) {
   unlockBtn.classList.remove('is-nudge');
   unlockBtn.setAttribute('aria-pressed', String(open));
   unlockState.textContent = t(open ? 'Unlocked' : 'Locked');
-  unlockCta.textContent = t(open ? 'Tap to lock' : 'Tap to unlock');
+  unlockCta.textContent = t(open ? 'Lock' : 'Unlock');
   if (byUser) navigator.vibrate?.(open ? [10, 40, 10] : 14);
   if (!open && !reduce) setTimeout(flash, 380);
 }
