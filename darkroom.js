@@ -241,7 +241,7 @@ addEventListener('resize', measurePin); measurePin();
 /* -------------------------------------------------------- chrome per frame */
 const navLinks = $$('[data-nav]'), railLinks = $$('[data-rail]'), menuLinks = $$('.menu nav a');
 const heroSec = $('.hero'), heroFront = $('.hero__pin'), heroCopy = $('.hero__pin'), heroTitle = $('.hero__pin'), rail = $('#rail');
-const hero = { p: 0, e: 0, lock: 1, on: false };
+const hero = { p: 0, e: 0, lock: 1, on: false, fadeIn: 0 };
 // the opening glide (see the end of the file): stepped from the render loop, before anything is measured
 const glider = { on: false, from: 0, to: 0, t0: 0, dur: 2600, coolUntil: 0 };
 // sine in-out: no lurch at the start, no rush in the middle
@@ -436,6 +436,8 @@ function frameChrome(m) {
   const hd = clamp((-hr.top - extra) / (H * 0.9));
   setVar(heroSec, '--hp', hero.p.toFixed(4)); setVar(root, '--hp', hero.p.toFixed(4)); setVar(heroSec, '--hq', smooth(clamp((hero.p - 0.82) / 0.18)).toFixed(3));
   setVar(heroSec, '--hd', hd.toFixed(3));
+  // the lock fades in, 0 → 100 %, as the hero leaves and the light page rises (it is not shown over the hero)
+  hero.fadeIn = reduce ? 1 : hr.bottom > 0 ? smooth(clamp(hd / 0.85)) : 1;
   setVar(stage, '--clip', 'none');
   // the lock appears as the pixels arrive on it
   hero.lock = reduce ? 1 : smooth(clamp((hero.p - 0.28) / 0.5));
@@ -550,7 +552,7 @@ function loop(now) {
 
   // the entrance: the macro drifts in from a little closer and settles
   const ip = intro.t < 0 ? 0 : clamp((now - intro.t) / 2200), ie = 1 - Math.pow(1 - ip, 4);
-  const alpha = clamp(1 - cur.fade) * (intro.t < 0 ? 0 : clamp((now - intro.t) / 400)) * (hero.on ? hero.lock : 1);
+  const alpha = clamp(1 - cur.fade) * (intro.t < 0 ? 0 : clamp((now - intro.t) / 400)) * (hero.fadeIn ?? 1);
   // find my shows the bike as a pin on the map instead: the lock steps out of the way, its drawings stay
   const shown = alpha * (1 - smooth(clamp(cur.hide)));
   lockEl.style.opacity = shown.toFixed(3);
