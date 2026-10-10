@@ -137,7 +137,7 @@
     $$('.nav__cart').forEach(a => { a.hidden = empty; a.setAttribute('aria-label', 'Cart, ' + t.count + (t.count === 1 ? ' item' : ' items')); });
 
     // checkout: the pay buttons carry the total
-    $$('[data-pay-btn]').forEach(b => { b.disabled = empty; b.textContent = empty ? 'Your cart is empty' : 'Pay ' + money(t.total); });
+    $$('[data-pay-btn]').forEach(b => { b.disabled = empty; b.textContent = empty ? 'Your cart is empty' : 'Pay ' + money(t.total) + ' and place order'; });
     $$('[data-checkout]').forEach(a => { a.setAttribute('aria-disabled', String(empty)); });
   }
 

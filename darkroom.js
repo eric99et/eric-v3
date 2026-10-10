@@ -26,69 +26,70 @@ scrollTo(0, 0);
 /* ------------------------------------------------------------- language */
 // English is written in the page; Danish replaces each text node (and a few labels) before anything else runs.
 const DA = {
-  'Skip to content': 'Spring til indhold', 'Scroll down': 'Rul ned', 'Scroll': 'Rul', 'Menu': 'Menu', 'Close': 'Luk',
+  'The keyless ring lock for your bike.': 'Den nøglefri ringlås til din cykel.', 'Skip to content': 'Spring til indhold', 'Scroll down': 'Rul ned', 'Scroll': 'Rul', 'Menu': 'Menu', 'Close': 'Luk',
   'Keyless': 'Nøglefri', 'Find My': 'Find My', 'Varefakta': 'Varefakta', 'Will it fit?': 'Passer den?', 'Fit': 'Pasform', 'Buy': 'Køb', 'FAQ': 'FAQ',
-  'Ring-Lock': 'Ring-Lock', 'Shipping': 'Fragt', 'Support': 'Support', 'Yours': 'Din', 'Returns': 'Returnering', 'Cart': 'Kurv',
+  'Ring-Lock': 'Ring-Lock', 'Shipping': 'Fragt', 'Support': 'Support', 'Yours': 'Din lås', 'Returns': 'Returnering', 'Cart': 'Kurv',
   // the orbit and the seal
-  'KEYLESS · INSURANCE-APPROVED IN DENMARK · FITS MOST BIKES · €129 ·': 'NØGLEFRI · FORSIKRINGSGODKENDT I DANMARK · PASSER TIL DE FLESTE CYKLER · 999 KR ·',
+  'KEYLESS · INSURANCE-APPROVED IN DENMARK · FITS MOST BIKES · €129 ·': 'NØGLEFRI · FORSIKRINGSGODKENDT I DANMARK · PASSER TIL DE FLESTE CYKLER · €129 ·',
   'VAREFAKTA · VK 37868 · VF 5029:4 · INSURANCE-APPROVED IN DENMARK ·': 'VAREFAKTA · VK 37868 · VF 5029:4 · FORSIKRINGSGODKENDT I DANMARK ·',
-  '63 mm clearance': '63 mm frigang', 'Ring-Lock · Steel · €129': 'Ring-Lock · Steel · 999 kr',
+  '63 mm clearance': '63 mm frigang',
   // the poster
   'No key.': 'Ingen nøgle.', 'No cable.': 'Intet kabel.', 'No key. No cable. One ring of stainless steel that stays on your bike.': 'Ingen nøgle. Intet kabel. Én ring af rustfrit stål, der bliver på din cykel.',
   'One ring of stainless steel that stays on your bike. Nothing to carry, nothing to forget.': 'Én ring af rustfrit stål, der bliver på din cykel. Intet at bære på, intet at glemme.',
   'Opens with your phone': 'Åbner med din telefon', 'Insurance-approved in Denmark': 'Forsikringsgodkendt i Danmark', 'Fits most bikes': 'Passer til de fleste cykler', '57 days to return it': '57 dage til at returnere den',
   // 01 keyless
   'Your phone is the key.': 'Din telefon er nøglen.',
-  'One tap in the LAAS app and the 9 mm hardened-steel bolt slides open. Push it home and it clicks locked.': 'Ét tryk i LAAS-appen, og den 9 mm hærdede stålbolt glider op. Skub den i, og den klikker låst.',
+  'One tap in the LAAS app and the 9 mm hardened-steel bolt slides open. Push the bolt in and it locks with a click.': 'Ét tryk i LAAS-appen, og den 9 mm hærdede stålbolt glider op. Skub bolten i, så låser den med et klik.',
   'Near': 'Tæt på', 'Locked': 'Låst', 'Unlocked': 'Låst op', 'Tap to unlock': 'Tryk for at låse op', 'Tap to lock': 'Tryk for at låse', 'One-time key · Bluetooth': 'Engangsnøgle · Bluetooth',
-  // 02 find my (Apple's approved wording only)
-  'Apple Find My': 'Apple Find My', 'Works with Apple Find My.': 'Virker med Apple Find My.', 'Works with': 'Virker med',
-  'Nørrebro · Now': 'Nørrebro · Nu', 'Nørrebro · Now ·': 'Nørrebro · Nu ·', 'Directions': 'Rutevejledning', 'Play Sound': 'Afspil lyd', 'Off': 'Fra',
+  // 02 find my: 'Works with Apple Find My' is Apple's wording and stays in English (the app is called Find in Danish)
+  'See where your bike is in the Find My app on your iPhone, iPad or Mac.': 'Se, hvor din cykel er, i appen Find på din iPhone, iPad eller Mac.',
+  'Nørrebro · Now': 'Nørrebro · Nu', 'Nørrebro · Now ·': 'Nørrebro · Nu ·',
   // 03 varefakta
   'Insurance‑approved in Denmark.': 'Forsikrings­godkendt i Danmark.',
   'The only electronic app-controlled ring lock on': 'Den eneste elektroniske app-styrede ringlås på', 'Varefakta’s public list': 'Varefaktas offentlige liste', '(VK 37868). The certificate is in the box.': '(VK 37868). Certifikatet ligger i æsken.',
   'Listing': 'Liste', 'Certificate': 'Certifikat',
-  'Lock certificate': 'Låsecertifikat', 'Lock': 'Lås', 'Key no.': 'Nøgle nr.', 'Frame no.': 'Stel nr.', 'In the box, and in the app': 'I æsken og i appen',
+  'Lock certificate': 'Låsecertifikat', 'Låseattest · Example': 'Låseattest · Eksempel', 'Lock': 'Lås', 'Lock ID': 'Låse-ID', 'Frame no.': 'Stel nr.', 'In the box': 'I æsken',
   // 04 fit
   'Will it fit my bike?': 'Passer den til min cykel?', 'Road': 'Racer', 'City': 'Bycykel', 'E-bike': 'Elcykel', 'Cargo': 'Ladcykel', 'Fat bike': 'Fatbike',
   'It fits.': 'Den passer.', 'Not this one.': 'Ikke denne.', 'Tyres up to 60 mm. The mounting screws are in the box.': 'Dæk op til 60 mm. Monteringsskruerne ligger i æsken.',
   'Fat-bike tyres are too wide for the ring.': 'Fatbike-dæk er for brede til ringen.', 'mm tyre': 'mm dæk',
-  'No frame holes? The Flex Mount, €9.99. And 57 days to send it back.': 'Ingen huller i stellet? Flex Mount, 75 kr. Og 57 dage til at sende den retur.',
+  'No holes in your frame? Add the Flex Mount for €9.99 and it fits anyway.': 'Ingen huller i stellet? Tilføj Flex Mount for €9,99, så passer den alligevel.',
   // 05 buy (the finish names stay Steel, Copper and Black, as in the Drive copy)
-  'Steel. Copper. Black.': 'Steel. Copper. Black.', 'Same lock, same price, three finishes. Pick the one that suits your bike.': 'Samme lås, samme pris, tre finish. Vælg den, der passer til din cykel.',
-  'Drag to turn': 'Træk for at dreje', 'Regular price': 'Normalpris', 'Intro price until 31 Dec 2026': 'Introduktionspris til 31. dec. 2026',
+  'Steel. Copper. Black.': 'Steel. Copper. Black.', 'Same lock, same price, three finishes. Pick the one that suits your bike.': 'Samme lås, samme pris, tre udgaver. Vælg den, der passer til din cykel.',
+  'Drag to turn': 'Træk for at dreje', 'Intro price until 31 Dec 2026': 'Introduktionspris til 31. dec. 2026',
   '57-day returns': '57 dages returret', 'Prepaid return label in the box': 'Forudbetalt returlabel i æsken', 'Two-year right to complain': '2 års reklamationsret',
   // 06 faq
-  'Questions, answered.': 'Spørgsmål og svar.', 'Not here? Call us on': 'Ikke her? Ring til os på', '. We pick up.': '. Vi tager den.',
+  'Questions, answered.': 'Spørgsmål og svar.', 'Question not here? Call us on': 'Finder du ikke dit spørgsmål? Ring til os på',
   'Will my insurance accept it?': 'Godkender mit forsikringsselskab den?',
   'In Denmark, the Ring-Lock is insurance-approved: Varefakta VK 37868. Most Danish insurers ask for a Varefakta-approved lock and a lock certificate, and the certificate is in the box. Check your own policy. Outside Denmark, check what your policy asks for first.': 'I Danmark er Ring-Lock forsikringsgodkendt: Varefakta VK 37868. De fleste danske forsikringsselskaber kræver en Varefakta-godkendt lås og et låsecertifikat, og certifikatet ligger i æsken. Tjek din egen police. Uden for Danmark: tjek først, hvad din police kræver.',
-  'Most bikes, cargo bikes and e-bikes too: tyres up to 60 mm, mount spacing 75 to 100 mm. Not fat bikes. Frame holes? The mounting screws are in the box. No holes? The Flex Mount, €9.99.': 'De fleste cykler, også ladcykler og elcykler: dæk op til 60 mm, monteringsafstand 75 til 100 mm. Ikke fatbikes. Huller i stellet? Monteringsskruerne ligger i æsken. Ingen huller? Flex Mount, 75 kr.',
-  'What if my phone or the battery dies?': 'Hvad hvis min telefon eller batteriet dør?',
-  'About six months per charge. A full charge over USB-C takes 90 minutes. Phone gone? Anyone you shared a key with can still open it.': 'Cirka seks måneder pr. opladning. En fuld opladning via USB-C tager 90 minutter. Telefonen væk? Alle, du har delt en nøgle med, kan stadig åbne den.',
-  'Does it work with Android?': 'Virker den med Android?', 'Yes. The LAAS app works on Android and on iPhone.': 'Ja. LAAS-appen virker på Android og på iPhone.',
+  'Most bikes, cargo bikes and e-bikes too: tyres up to 60 mm, mount spacing 75 to 100 mm. Not fat bikes. Frame holes? The mounting screws are in the box. No holes? The Flex Mount, €9.99.': 'De fleste cykler, også ladcykler og elcykler: dæk op til 60 mm, monteringsafstand 75 til 100 mm. Ikke fatbikes. Huller i stellet? Monteringsskruerne ligger i æsken. Ingen huller? Flex Mount, €9,99.',
+  'What if the battery runs low?': 'Hvad hvis batteriet er ved at løbe tør?',
+  'About six months per charge. A full charge over USB-C takes 90 minutes, and any USB-C cable works.': 'Cirka seks måneder pr. opladning. En fuld opladning via USB-C tager 90 minutter, og alle USB-C-kabler virker.',
   'How secure is it?': 'Hvor sikker er den?',
   '9 mm of hardened steel. Every unlock uses a one-time key over Bluetooth, so a recorded signal cannot be replayed.': '9 mm hærdet stål. Hver oplåsning bruger en engangsnøgle via Bluetooth, så et optaget signal ikke kan afspilles igen.',
   'How fast does it ship, and what does it cost?': 'Hvor hurtigt sendes den, og hvad koster det?',
-  'It ships in 1–2 working days. Shipping is €9, and free on orders over €250. Questions about an order? Write to': 'Den sendes inden for 1–2 hverdage. Fragten koster 75 kr. Spørgsmål om en ordre? Skriv til',
+  'It ships in 1–2 working days. Shipping is €9, and free on orders over €250. Questions about an order? Write to': 'Den sendes inden for 1–2 hverdage. Fragten koster €9 og er gratis ved køb over €250. Spørgsmål om en ordre? Skriv til',
   'How do returns and the right to complain work?': 'Hvordan fungerer returnering og reklamationsret?',
-  'Hand it to the carrier with the prepaid return label by day 57, and your money is back within 14 days. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery.': 'Aflever den til fragtfirmaet med den forudbetalte returlabel senest dag 57, og du har pengene igen inden for 14 dage. Du har også to års reklamationsret efter dansk lov, regnet fra levering.',
+  'Changed your mind? Tell us at': 'Fortryder du? Giv os besked på',
+  'within 57 days of delivery, then hand the lock to the carrier with the prepaid return label. You get your money back, shipping included, within 14 days of telling us, once the lock is back with us. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery.': 'senest 57 dage efter levering, og aflever låsen til fragtfirmaet med den forudbetalte returlabel. Du får pengene tilbage, inklusive fragt, inden for 14 dage efter din besked, når låsen er tilbage hos os. Du har også to års reklamationsret efter dansk lov, regnet fra levering.',
+  'Terms of sale': 'Handelsbetingelser', 'Privacy': 'Privatliv',
   // the footer
-  '© 2026 LAAS ApS, all rights reserved': '© 2026 LAAS ApS, alle rettigheder forbeholdes',
-  '· Apple, the Apple logo, and Find My are trademarks of Apple Inc.': '· Apple, Apple-logoet og Find My er varemærker tilhørende Apple Inc.',
-  'LAAS ApS · Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · © 2026': 'LAAS ApS · Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · © 2026',
-  'Apple, the Apple logo, and Find My are trademarks of Apple Inc.': 'Apple, Apple-logoet og Find My er varemærker tilhørende Apple Inc.',
+  '© 2026 LAAS ApS · Designed in Copenhagen': '© 2026 LAAS ApS · Designet i København',
+  'Apple and Find My are trademarks of Apple Inc., registered in the U.S. and other countries and regions.': 'Apple og Find My er varemærker tilhørende Apple Inc., registreret i USA og andre lande og områder.',
+  // labels a screen reader reads out
+  'Turn left': 'Drej til venstre', 'Turn right': 'Drej til højre', 'Decrease quantity': 'Færre', 'Increase quantity': 'Flere', 'Accepted payment methods': 'Betalingsmetoder',
+  'What you are covered by': 'Det er du dækket af', 'Your bike': 'Din cykel', 'Chapters': 'Kapitler', 'Sections': 'Sektioner', 'Language': 'Sprog', 'LAAS, back to the top': 'LAAS, til toppen',
+  'LAAS on Instagram': 'LAAS på Instagram', 'LAAS on Facebook': 'LAAS på Facebook', 'Turn the lock: drag, or use the arrow keys': 'Drej låsen: træk, eller brug piletasterne', 'Footer': 'Sidefod',
 };
 const lang = (() => { const q = new URLSearchParams(location.search).get('lang'); try { if (q) localStorage.setItem('laas-lang', q); return q || localStorage.getItem('laas-lang') || 'en'; } catch { return q || 'en'; } })();
 const t = en => (lang === 'da' && DA[en]) || en;
 if (lang === 'da') {
-  document.documentElement.lang = 'da'; document.title = 'LAAS Ring-Lock · Locks worth stealing.';
+  document.documentElement.lang = 'da'; document.title = 'LAAS Ring-Lock · Nøglefri cykellås';
   const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   const nodes = []; let n; while ((n = w.nextNode())) if (!n.parentElement.closest('script,style')) nodes.push(n);
   nodes.forEach(n => { const key = n.nodeValue.replace(/ /g, ' ').replace(/\s+/g, ' ').trim(); if (DA[key]) n.nodeValue = n.nodeValue.replace(n.nodeValue.trim(), DA[key]); });
-  // prices in kroner: the buy pill in the nav and the one in the footer
-  $$('.nav__price, .price-line strong').forEach(el => { el.textContent = '999 kr'; });
-  // the struck regular price has no kroner amount yet: it is left out on the Danish page
-  $$('.price-line s').forEach(el => el.remove());
+  // prices stay in euro, as in the cart and at checkout: a Danish page in kroner waits for a shop that also takes kroner
+  $$('[aria-label]').forEach(el => { const v = DA[el.getAttribute('aria-label')]; if (v) el.setAttribute('aria-label', v); });
 }
 $$('.lang a').forEach(a => a.setAttribute('aria-current', String(a.dataset.lang === lang)));
 
@@ -112,8 +113,10 @@ document.addEventListener('click', e => {
   e.preventDefault(); closeMenu();
   // a question linked by name (#shipping) opens, and the page glides to its chapter (the same glide as a scroll push)
   if (el.matches('details')) el.open = true;
-  const sec = id === 'top' ? null : (el.closest('main > section, main > footer') || el);
-  const to = sec ? Math.round(sec.getBoundingClientRect().top + scrollY) : 0;
+  const to = id === 'top' ? 0 : landing(el);
+  // the keyboard and a screen reader follow the link too (the skip link, Shipping, Returns)
+  const f = el.matches('details') ? el.querySelector('summary') : (el.closest('main > section, main > footer') || el);
+  if (f && f !== document.body) { if (!f.matches('summary, a, button')) f.tabIndex = -1; f.focus({ preventScroll: true }); }
   if (reduce) { scrollTo(0, to); return; }
   Object.assign(glider, { on: true, from: scrollY, to, t0: performance.now(), dur: Math.min(1600, 700 + Math.abs(to - scrollY) * 0.12) });
 });
@@ -139,14 +142,24 @@ function reveal() {
   intro.t = performance.now() + 200;
   goToHash();
 }
+// where a link lands: the top of the chapter, or, for a question in a chapter taller than the screen, low enough
+// that the question and its answer are in view
+function landing(el) {
+  const sec = el.closest('main > section, main > footer') || el;
+  const top = Math.round(sec.getBoundingClientRect().top + scrollY);
+  if (!el.matches('details')) return top;
+  const maxY = document.documentElement.scrollHeight - innerHeight;
+  const q = Math.round(el.getBoundingClientRect().top + scrollY) - 110;
+  return clamp(Math.max(top, q), 0, Math.min(maxY, top + Math.max(0, sec.offsetHeight - innerHeight)));
+}
 // arriving from another page with #faq or #shipping: go straight there (a question opens). Runs from reveal(), and
-// from the 9 s safety net when the loader never finished
+// from the 9 s safety net when the loader never finished; once now and once after the answer has opened
 function goToHash() {
   const target = location.hash && document.getElementById(location.hash.slice(1));
   if (target && target.closest('main')) {
     if (target.matches('details')) target.open = true;
-    const sec = target.closest('section, footer') || target;
-    requestAnimationFrame(() => scrollTo(0, Math.round(sec.getBoundingClientRect().top + scrollY)));
+    const go = () => scrollTo(0, landing(target));
+    go(); requestAnimationFrame(go); setTimeout(go, 520);
   }
 }
 // never hold anyone back: show the page after 7 s whatever has arrived
@@ -406,7 +419,14 @@ function show(f) {
 }
 // silver first: it is the bestseller and the one the page opens on
 load('steel', p => { progress.glb = p; }).then(() => { progress.glb = 1; return show('steel'); }).catch(() => { progress.glb = 1; canvas.remove(); });
-models.steel.then(() => { load('copper'); load('black'); }, () => {});
+// copper and black (3.3 MB together) wait until someone is near the buy chapter, or reaches for a finish dot
+let othersAsked = false;
+const loadOthers = () => { if (othersAsked) return; othersAsked = true; models.steel.then(() => { load('copper').catch(() => {}); load('black').catch(() => {}); }, () => {}); };
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { loadOthers(); io.disconnect(); } }, { rootMargin: '0px 0px 100% 0px' });
+  io.observe($('#fit'));
+} else loadOthers();
+$$('[data-finish]').forEach(b => ['pointerenter', 'focus', 'touchstart'].forEach(ev => b.addEventListener(ev, loadOthers, { passive: true })));
 
 /* ---------------------------------------------------------------- the poses */
 const DEF = { hide: 0, bike: 0, mpx: 0, yaw: 0, pitch: 0, roll: 0, size: 0.42, x: 0, y: 0, fade: 0, drag: 0, free: 0, logo: 0, orbit: 0, radar: 0, seal: 0, fit: 0 };
@@ -759,7 +779,8 @@ function loop(now) {
   const ip = intro.t < 0 ? 0 : clamp((now - intro.t) / 2200), ie = 1 - Math.pow(1 - ip, 4);
   const alpha = clamp(1 - cur.fade) * (intro.t < 0 ? 0 : clamp((now - intro.t) / 400)) * (hero.on ? hero.lock : 1);
   // find my shows the bike as a pin on the map instead: the lock steps out of the way, its drawings stay
-  canvas.style.opacity = (alpha * (1 - smooth(clamp(cur.hide)))).toFixed(3);
+  const shown = alpha * (1 - smooth(clamp(cur.hide)));
+  canvas.style.opacity = shown.toFixed(3);
   // the drawings wait until the bike has gone (the ring of words never hangs round a bike)
   const nobike = smooth(clamp((0.3 - cur.bike) / 0.3));
   ['orbit', 'radar', 'seal', 'fit'].forEach(kk => setVar(stage, '--' + kk, (cur[kk] * alpha * nobike).toFixed(3)));
@@ -885,7 +906,7 @@ function loop(now) {
     logoRect.ang = Math.atan2(u1[1] - u0[1], u1[0] - u0[0]);
     logoRect.ok = true;
   }
-  renderer.render(scene, camera);
+  if (shown > 0.004) renderer.render(scene, camera);
   drawPixels(now);
 }
 requestAnimationFrame(loop);
@@ -932,9 +953,10 @@ renderFit();
 // António's buy block: the dots name the finish, the quantity sets the price on the button
 const FIN_NAME = { steel: 'Steel', copper: 'Copper', black: 'Black' };
 let qty = 1;
-const priceText = () => lang === 'da' ? 'Køb · ' + (999 * qty).toLocaleString('da-DK') + ' kr' : 'Buy · €' + (129 * qty);
+const priceText = () => t('Buy') + ' · €' + (129 * qty);
 function renderBuy() {
   $('#qty-value').textContent = qty;
+  $$('[data-qty]').forEach(b => { b.disabled = +b.dataset.qty < 0 ? qty <= 1 : qty >= 15; });
   $('#buy-label').textContent = priceText();
   // Buy takes the chosen finish and quantity to the buy page
   $('#buy-label').href = `buy.html?finish=${finish}&qty=${qty}`;
@@ -957,7 +979,7 @@ dots.forEach((btn, i) => {
     dots.forEach(b => b.setAttribute('aria-checked', String(b === btn)));
     syncDots();
     if (!reduce) { swap.from = user.spin; user.goal += Math.PI * 2; swap.sweep = 1; }
-    show(f); renderBuy();
+    loadOthers(); show(f).catch(() => {}); renderBuy();
   });
   btn.addEventListener('keydown', e => {
     const d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
@@ -1047,7 +1069,7 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
     const maxY = document.documentElement.scrollHeight - innerHeight, out = [0];
     sections.forEach(sec => {
       if (sec === heroSec) return;
-      const top = Math.round(sec.getBoundingClientRect().top + scrollY), h = sec.offsetHeight;
+      const top = Math.round(sec.getBoundingClientRect().top + scrollY), h = Math.max(sec.offsetHeight, sec.scrollHeight);
       if (sec.matches('footer')) { out.push(maxY); return; }
       out.push(Math.min(top, maxY));
       if (h > innerHeight * 1.15) out.push(Math.min(top + h - innerHeight, maxY));
@@ -1071,9 +1093,9 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
     glide(to, opening ? 2600 : Math.min(1100, 650 + Math.abs(to - y) * 0.35));
     return true;
   };
-  const insideScroller = el => el && el.closest && el.closest('.menu, .qa p');
+  const insideScroller = el => el && el.closest && el.closest('.menu');
   addEventListener('wheel', e => {
-    if (e.ctrlKey || insideScroller(e.target)) return;
+    if (e.ctrlKey || insideScroller(e.target) || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
     e.preventDefault();
     if (busy()) { if (!glider.on) glider.coolUntil = performance.now() + 180; return; }
     if (Math.abs(e.deltaY) < 3) return;
@@ -1086,7 +1108,8 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
     // a sideways drag on the lock turns it (the line below leaves it alone); an up-and-down swipe there moves a chapter too
     if (ty == null || insideScroller(e.target)) return;
     const d = ty - e.touches[0].clientY;
-    if (Math.abs(e.touches[0].clientX - tx) > Math.abs(d)) return;
+    // a sideways drag on the lock is the lock's; anywhere else the page never drifts between two stops
+    if (Math.abs(e.touches[0].clientX - tx) > Math.abs(d) && e.target.closest('#dragzone')) return;
     e.preventDefault();
     if (used || busy() || Math.abs(d) < 12) return;
     used = true; intent(Math.sign(d));
@@ -1096,9 +1119,10 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
     const k = e.key, down = k === 'ArrowDown' || k === 'PageDown' || (k === ' ' && !e.shiftKey), up = k === 'ArrowUp' || k === 'PageUp' || (k === ' ' && e.shiftKey);
     if (!down && !up) return;
     // the space bar presses a focused button, opens a question, follows a link; the arrows move inside a radio group
-    if (k === ' ' && e.target.closest('button, summary, a, [role="radio"], [role="button"], #dragzone')) return;
+    if (k === ' ' && e.target.closest('button, summary, [role="radio"], [role="button"], #dragzone')) return;
     if ((k === 'ArrowUp' || k === 'ArrowDown') && e.target.closest('[role="radiogroup"]')) return;
     e.preventDefault();
     if (!busy()) intent(down ? 1 : -1);
   });
 }
+window.LAAS_UI = true;

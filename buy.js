@@ -273,7 +273,13 @@
       new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) api.wake(); }).observe(stage);
 
       // the chosen finish first, then the other two
-      load(finish).then(m => { setModel(m, finish); resize(); api.wake(); ['steel', 'copper', 'black'].forEach(f => f !== finish && load(f).catch(() => {})); })
+      load(finish).then(m => {
+        setModel(m, finish); resize(); api.wake();
+        // the other two finishes (1.67 MB each) come when a finish dot is reached for, or a moment later on a computer
+        let asked = false; const others = () => { if (asked) return; asked = true; ['steel', 'copper', 'black'].forEach(f => f !== finish && load(f).catch(() => {})); };
+        document.querySelectorAll('.finishes [data-finish]').forEach(d => ['pointerenter', 'touchstart', 'focus'].forEach(ev => d.addEventListener(ev, others, { passive: true })));
+        if (innerWidth > 760) setTimeout(others, 2500);
+      })
         .catch(() => { canvas.remove(); });
     }).catch(() => { /* no 3D: the packshot stays */ });
     return api;
@@ -285,8 +291,8 @@
   const buy = () => {
     const ok = window.LAAS_CART ? window.LAAS_CART.add(finish, qty) : addLocks(finish, qty);
     if (ok === 0) { $('#buy-status').textContent = 'Your cart already has 15 locks, the most in one order.'; return; }
-    if (ok === false) { $('#buy-status').textContent = 'Your browser blocked the cart. Turn off private mode and try again.'; return; }
-    $('#buy-status').textContent = (ok === true ? qty : ok) + ' Ring-Lock in ' + NAME[finish] + ' added to your cart.';
+    if (ok === false) { $('#buy-status').textContent = 'Your browser blocked the cart. Allow site data for this page and try again.'; return; }
+    $('#buy-status').textContent = (n => n + (n === 1 ? ' Ring-Lock' : ' Ring-Locks') + ' in ' + NAME[finish] + ' added to your cart.')(ok === true ? qty : ok);
     ['#buy-btn', '#buybar-btn'].forEach(sel => {
       const btn = $(sel); btn.classList.add('is-added'); btn.textContent = 'Added';
       setTimeout(() => { btn.classList.remove('is-added'); render(true); }, 1600);

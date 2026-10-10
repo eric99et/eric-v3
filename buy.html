@@ -10,7 +10,11 @@
 <meta property="og:type" content="product">
 <meta property="og:title" content="Buy the LAAS Ring-Lock · €129">
 <meta property="og:description" content="A keyless bike lock that opens with your phone. Insurance-approved in Denmark (Varefakta VK 37868).">
-<meta property="og:image" content="https://laas.me/images/og/home.jpg">
+<meta property="og:image" content="https://eric99et.github.io/eric-v3/images/og-ring-lock.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://eric99et.github.io/eric-v3/buy.html">
+<link rel="canonical" href="https://eric99et.github.io/eric-v3/buy.html">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -23,8 +27,8 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Product","name":"LAAS Ring-Lock","brand":{"@type":"Brand","name":"LAAS"},
  "description":"Keyless bike lock that opens with your phone. Insurance-approved in Denmark, Varefakta VK 37868 (certificate VF 5029:4).",
- "image":["images/scenes/finish-steel.webp","images/scenes/finish-copper.webp","images/scenes/finish-black.webp"],"color":"Steel, Copper, Black","weight":{"@type":"QuantitativeValue","value":504,"unitCode":"GRM"},
- "offers":{"@type":"Offer","price":"129","priceCurrency":"EUR","priceValidUntil":"2026-12-31","availability":"https://schema.org/InStock"}}
+ "url":"https://eric99et.github.io/eric-v3/buy.html","image":["https://eric99et.github.io/eric-v3/images/scenes/finish-steel.webp","https://eric99et.github.io/eric-v3/images/scenes/finish-copper.webp","https://eric99et.github.io/eric-v3/images/scenes/finish-black.webp"],"color":"Steel, Copper, Black","weight":{"@type":"QuantitativeValue","value":504,"unitCode":"GRM"},
+ "offers":{"@type":"Offer","url":"https://eric99et.github.io/eric-v3/buy.html","price":"129","priceCurrency":"EUR","priceValidUntil":"2026-12-31","availability":"https://schema.org/InStock","seller":{"@type":"Organization","name":"LAAS ApS"},"shippingDetails":{"@type":"OfferShippingDetails","shippingRate":{"@type":"MonetaryAmount","value":"9","currency":"EUR"},"shippingDestination":{"@type":"DefinedRegion","addressCountry":"DK"},"deliveryTime":{"@type":"ShippingDeliveryTime","handlingTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":2,"unitCode":"DAY"}}},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"DK","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow","merchantReturnDays":57,"returnMethod":"https://schema.org/ReturnByMail","returnFees":"https://schema.org/FreeReturn"}},"sku":"RL01","mpn":"RL01"}
 </script>
 </head>
 <body class="buy-page" data-shop>
@@ -60,7 +64,7 @@
   </div>
 </header>
 
-<div class="menu" id="menu" hidden>
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
   <nav aria-label="Menu">
     <a class="display" href="buy.html"><span class="label">01</span>Ring-Lock</a>
     <a class="display" href="index.html#faq"><span class="label">02</span>FAQ</a>
@@ -98,7 +102,7 @@
           <button type="button" role="radio" data-finish="black" aria-checked="false" style="--c:#2A2D2E"><span class="visually-hidden">Black</span></button>
           <span class="finishes__name label" id="finish-name" aria-hidden="true">Steel</span>
         </div>
-        <p class="price-line"><strong>€129</strong><s><span class="visually-hidden">Regular price </span>€149</s><span class="label">Intro price until 31 Dec 2026</span></p>
+        <p class="price-line"><strong>€129</strong><span class="label">Intro price until 31 Dec 2026</span></p>
         <div class="qty-row">
           <div class="qty">
             <button type="button" data-qty="-1" aria-label="Decrease quantity">−</button>
@@ -114,7 +118,7 @@
         </ul>
         <ul class="paywall" aria-label="Accepted payment methods"><li><img src="images/icons/mobilepay-mark.svg" alt="MobilePay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/applepay.svg" alt="Apple Pay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/googlepay.svg" alt="Google Pay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/klarna.svg" alt="Klarna" width="38" height="24" loading="lazy"></li><li><img src="images/icons/visa.svg" alt="Visa" width="38" height="24" loading="lazy"></li><li><img src="images/icons/mastercard.svg" alt="Mastercard" width="38" height="24" loading="lazy"></li></ul>
       </div>
-      <p class="fine pdp__ship">Ships in 1–2 working days. Shipping €9, free on orders over €250. Prices include VAT.</p>
+      <p class="fine pdp__ship">Ships from Copenhagen in 1–2 working days. Shipping €9, free on orders over €250. Prices include VAT.</p>
     </div>
   </section>
 
@@ -134,7 +138,7 @@
         <div><dt>Fitting</dt><dd>The mounting screws are in the box</dd></div>
       </dl>
       <h3 class="details__h details__h--box">In the box</h3>
-      <p class="details__box">Ring-Lock, mounting screws, certificates, return label. No charging cable in the box: any USB-C cable works.</p>
+      <p class="details__box">Ring-Lock, mounting screws, certificates, return label. No charging cable and no hex key in the box: any USB-C cable works, and you need a hex key for the M5 screws.</p>
     </div>
   </section>
 
@@ -144,10 +148,11 @@
     <div class="faq">
       <details class="qa" name="qa"><summary>Will it fit my bike?<i aria-hidden="true"></i></summary><p>Most bikes, cargo bikes and e-bikes too: tyres up to 60 mm, mount spacing 75 to 100 mm. Not fat bikes. Frame holes? The mounting screws are in the box. No holes? The Flex Mount, €9.99.</p></details>
       <details class="qa" name="qa"><summary>Will my insurance accept it?<i aria-hidden="true"></i></summary><p>In Denmark, the Ring-Lock is insurance-approved: Varefakta VK 37868. Most Danish insurers ask for a Varefakta-approved lock and a lock certificate, and the certificate is in the box. Check your own policy. Outside Denmark, check what your policy asks for first.</p></details>
-      <details class="qa" name="qa"><summary>What if the battery runs flat?<i aria-hidden="true"></i></summary><p>About six months per charge. A full charge over USB-C takes 90 minutes.</p></details>
-      <details class="qa" name="qa"><summary>How do returns and the right to complain work?<i aria-hidden="true"></i></summary><p>Hand it to the carrier with the prepaid return label by day 57, and your money is back within 14 days. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery.</p></details>
+      <details class="qa" name="qa"><summary>What if the battery runs low?<i aria-hidden="true"></i></summary><p>About six months per charge. A full charge over USB-C takes 90 minutes, and any USB-C cable works.</p></details>
+      <details class="qa" name="qa"><summary>How do returns and the right to complain work?<i aria-hidden="true"></i></summary><p>Changed your mind? Tell us at <a class="link" href="mailto:support@laaslocks.com">support@laaslocks.com</a> within 57 days of delivery, then hand the lock to the carrier with the prepaid return label. You get your money back, shipping included, within 14 days of telling us, once the lock is back with us. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery. <a class="link" href="terms.html">Terms of sale</a></p></details>
+      <details class="qa" name="qa"><summary>How fast does it ship, and what does it cost?<i aria-hidden="true"></i></summary><p>It ships in 1–2 working days. Shipping is €9, and free on orders over €250.</p></details>
     </div>
-    <p class="fine pdp-faq__more">Not here? Call <a class="link" href="tel:+4540853099">+45 40 85 30 99</a> or write to <a class="link" href="mailto:support@laaslocks.com">support@laaslocks.com</a>.</p>
+    <p class="fine pdp-faq__more">Question not here? Call <a class="link" href="tel:+4540853099">+45 40 85 30 99</a> or write to <a class="link" href="mailto:support@laaslocks.com">support@laaslocks.com</a>.</p>
   </section>
 
   <footer class="foot">
@@ -162,7 +167,7 @@
         </p>
       </div>
       <i class="foot2__band" aria-hidden="true"></i>
-      <p class="foot2__legal"><span>© 2026 LAAS ApS, all rights reserved</span><small>Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · <a href="tel:+4540853099">+45 40 85 30 99</a> · Apple, the Apple logo, and Find My are trademarks of Apple Inc.</small></p>
+      <p class="foot2__legal"><span>© 2026 LAAS ApS · Designed in Copenhagen</span><small>Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · <a href="tel:+4540853099">+45 40 85 30 99</a> · <a href="terms.html">Terms of sale</a> · <a href="privacy.html">Privacy</a></small></p>
     </div>
   </footer>
 </main>

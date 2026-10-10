@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://eric99et.github.io/eric-v3/sitemap.xml

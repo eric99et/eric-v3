@@ -3,15 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>LAAS Ring-Lock · Locks worth stealing.</title>
+<title>LAAS Ring-Lock · The keyless bike lock</title>
 <meta name="description" content="The LAAS Ring-Lock. A keyless bike lock that opens with your phone and lives on your bike. Insurance-approved in Denmark (Varefakta VK 37868).">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#ECECEA">
 <meta property="og:type" content="website">
-<meta property="og:title" content="LAAS Ring-Lock · Locks worth stealing.">
+<meta property="og:title" content="LAAS Ring-Lock · The keyless bike lock">
 <meta property="og:description" content="A keyless bike lock that opens with your phone. Insurance-approved in Denmark (Varefakta VK 37868).">
-<meta property="og:image" content="https://laas.me/images/og/home.jpg">
-<meta property="og:url" content="https://laas.me/">
+<meta property="og:image" content="https://eric99et.github.io/eric-v3/images/og-ring-lock.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://eric99et.github.io/eric-v3/">
+<link rel="canonical" href="https://eric99et.github.io/eric-v3/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -27,8 +30,11 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Product","name":"LAAS Ring-Lock","brand":{"@type":"Brand","name":"LAAS"},
  "description":"Keyless bike lock that opens with your phone. Insurance-approved in Denmark, Varefakta VK 37868 (certificate VF 5029:4).",
- "image":"images/lock-copper-wide.webp","color":"Steel, Copper, Black","weight":{"@type":"QuantitativeValue","value":504,"unitCode":"GRM"},
- "offers":{"@type":"Offer","price":"129","priceCurrency":"EUR","priceValidUntil":"2026-12-31","availability":"https://schema.org/InStock"}}
+ "url":"https://eric99et.github.io/eric-v3/","image":["https://eric99et.github.io/eric-v3/images/scenes/finish-steel.webp","https://eric99et.github.io/eric-v3/images/scenes/finish-copper.webp","https://eric99et.github.io/eric-v3/images/scenes/finish-black.webp"],"color":"Steel, Copper, Black","weight":{"@type":"QuantitativeValue","value":504,"unitCode":"GRM"},
+ "offers":{"@type":"Offer","url":"https://eric99et.github.io/eric-v3/buy.html","price":"129","priceCurrency":"EUR","priceValidUntil":"2026-12-31","availability":"https://schema.org/InStock","seller":{"@type":"Organization","name":"LAAS ApS"},"shippingDetails":{"@type":"OfferShippingDetails","shippingRate":{"@type":"MonetaryAmount","value":"9","currency":"EUR"},"shippingDestination":{"@type":"DefinedRegion","addressCountry":"DK"},"deliveryTime":{"@type":"ShippingDeliveryTime","handlingTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":2,"unitCode":"DAY"}}},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"DK","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow","merchantReturnDays":57,"returnMethod":"https://schema.org/ReturnByMail","returnFees":"https://schema.org/FreeReturn"}},"sku":"RL01","mpn":"RL01"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"LAAS ApS","url":"https://eric99et.github.io/eric-v3/","logo":"https://eric99et.github.io/eric-v3/apple-touch-icon.png","email":"support@laaslocks.com","telephone":"+45 40 85 30 99","address":{"@type":"PostalAddress","streetAddress":"Sankt Hans Gade 24, st.","postalCode":"2200","addressLocality":"København N","addressCountry":"DK"},"sameAs":["https://www.instagram.com/laaslocks/","https://www.facebook.com/laas"]}
 </script>
 </head>
 <body>
@@ -55,6 +61,7 @@
 </div>
 
 <canvas class="px" id="px" aria-hidden="true"></canvas>
+<p class="hero__tag" aria-hidden="true">The keyless ring lock for your bike.</p>
 <p class="hero__hint label" aria-hidden="true"><span>Scroll down</span><i></i></p>
 
 <!-- the nav: a plain bar at the top that becomes a floating glass capsule as you scroll (after 21st.dev's Morphing Scroll Navbar,
@@ -77,7 +84,7 @@
   </div>
 </header>
 
-<div class="menu" id="menu" hidden>
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
   <nav aria-label="Menu">
     <a class="display" href="buy.html"><span class="label">01</span>Ring-Lock</a>
     <a class="display" href="#faq"><span class="label">02</span>FAQ</a>
@@ -129,9 +136,6 @@
       <circle class="map__you-halo" cx="700" cy="1020.6" r="26"/>
       <circle class="map__you" cx="700" cy="1020.6" r="11"/>
     </svg>
-    <p class="fmp__status"><span>9:41</span><i></i></p>
-    <!-- the map's own buttons, top right, as in Find My -->
-    <p class="fmp__ctrl"><span><svg viewBox="0 0 24 24"><path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3z"/><path d="M9 4v13M15 7v13"/></svg></span><span><svg viewBox="0 0 24 24"><path d="M20 4L4 11l7 2 2 7z"/></svg></span></p>
     <!-- the bike, as a Find My pin where the route ends -->
     <span class="fmp__pin"><i><svg viewBox="0 0 32 32"><circle cx="8" cy="20" r="5.2"/><circle cx="24" cy="20" r="5.2"/><path d="M8 20l5-9h8l3 9M13 11l3 9h-8M16 20l5-9M11.5 8h3.5M19.5 8.5l1.5 2.5"/></svg></i></span>
     <div class="fmp__sheet">
@@ -139,12 +143,7 @@
       <div class="fmp__item">
         <span class="fmp__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.6"/><path d="M8.6 17.4l1.8-1.6M15.4 17.4l-1.8-1.6"/></svg></span>
         <span class="fmp__name"><b>Ring-Lock</b><span>Nørrebro · Now · <em id="chip-text">2.4&nbsp;km</em></span></span>
-        <i class="fmp__close" aria-hidden="true"></i>
-      </div>
-      <p class="fmp__btns">
-        <span><i class="fmp__glyph fmp__glyph--sound"><svg viewBox="0 0 24 24"><path d="M5 10v4h3l4 3.5v-11L8 10z"/><path d="M15.5 9.2a4 4 0 0 1 0 5.6M18 7a7 7 0 0 1 0 10" fill="none"/></svg></i><b>Play Sound</b><small>Off</small></span>
-        <span><i class="fmp__glyph fmp__glyph--dir"><svg viewBox="0 0 24 24"><path d="M12 4l7 15-7-4-7 4z"/></svg></i><b>Directions</b><small>8 min</small></span>
-      </p>
+              </div>
     </div>
   </div>
   <!-- find my: rings on the map -->
@@ -168,7 +167,6 @@
     <p class="fitg__dim fitg__dim--tyre label"><span id="fit-dim">42 mm tyre</span></p>
   </div>
   <!-- the opening frame: a marker on the lock while it is still on the bike -->
-  <div class="spot"><i></i><span class="label">Ring-Lock · Steel · €129</span></div>
   <i class="click" id="click"></i>
 </div>
 
@@ -180,7 +178,7 @@
     <!-- one stop: the pixel wordmark; from there one scroll carries you through the lock to the next chapter -->
     <i class="hero__stop hero__stop--a" aria-hidden="true"></i>
     <div class="hero__pin">
-      <h1 class="visually-hidden">LAAS Ring-Lock. Locks worth stealing.</h1>
+      <h1 class="visually-hidden">LAAS Ring-Lock. The keyless ring lock for your bike.</h1>
       <!-- a backer on his bike, a slow series, graded dark so the wordmark carries -->
       <div class="hero__shots" aria-hidden="true">
         <picture class="hero__shot"><source media="(max-width: 760px)" srcset="images/hero/rider-1-1000.webp"><img src="images/hero/rider-1-1920.webp" alt="" decoding="async" fetchpriority="high"></picture>
@@ -218,7 +216,7 @@
     <div class="void__left">
       <p class="void__index label"><b>01</b> Keyless</p>
       <h2 class="heading split" id="h1">Your phone is the&nbsp;key.</h2>
-      <p class="body">One tap in the LAAS app and the 9&nbsp;mm hardened-steel bolt slides open. Push it home and it clicks locked.</p>
+      <p class="body">One tap in the LAAS app and the 9&nbsp;mm hardened-steel bolt slides open. Push the bolt in and it locks with a click.</p>
     </div>
     <div class="slot" aria-hidden="true"></div>
     <div class="void__right">
@@ -242,7 +240,7 @@
     <div class="void__left">
       <p class="void__index label"><b>02</b> Apple Find My</p>
       <h2 class="heading split" id="h2">Works with Apple Find&nbsp;My.</h2>
-      <p class="fm-badge"><img src="images/find-my-app.png" width="56" height="56" alt=""><span>Works with<b>Apple Find My</b></span></p>
+      <p class="body">See where your bike is in the Find My app on your iPhone, iPad or Mac.</p>
     </div>
     <div class="slot fm-slot" aria-hidden="true">
       <div class="fm-ghost"></div>
@@ -265,14 +263,14 @@
     </div>
     <div class="slot vf-slot" aria-hidden="true">
       <div class="paper">
-        <p class="paper__head"><span class="label">Låseattest</span><span>Lock certificate</span></p>
+        <p class="paper__head"><span class="label">Låseattest · Example</span><span>Lock certificate</span></p>
         <dl class="paper__rows">
           <div><dt>Lock</dt><dd>LAAS Ring-Lock</dd></div>
-          <div><dt>Key no.</dt><dd>57992987</dd></div>
+          <div><dt>Lock ID</dt><dd>RL01 · ·&nbsp;·&nbsp;·</dd></div>
           <div><dt>Frame no.</dt><dd>WAW&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·</dd></div>
           <div><dt>Certificate</dt><dd>VF 5029:4</dd></div>
         </dl>
-        <p class="paper__sign"><i></i><span>In the box, and in the app</span></p>
+        <p class="paper__sign"><i></i><span>In the box</span></p>
       </div>
     </div>
   </section>
@@ -293,7 +291,7 @@
         <p class="verdict__head"><i class="verdict__mark" aria-hidden="true"></i><span id="verdict-head">It fits.</span></p>
         <p class="verdict__body" id="verdict-body">Tyres up to 60 mm. The mounting screws are in the box.</p>
       </div>
-      <p class="fine fit__fine">No frame holes? The Flex Mount, €9.99. And 57 days to send it back.</p>
+      <p class="fine fit__fine">No holes in your frame? Add the Flex Mount for €9.99 and it fits anyway.</p>
     </div>
     <div class="slot" aria-hidden="true"></div>
   </section>
@@ -315,7 +313,7 @@
         <button type="button" role="radio" data-finish="black" aria-checked="false" style="--c:#2A2D2E"><span class="visually-hidden">Black</span></button>
         <span class="finishes__name label" id="finish-name" aria-hidden="true">Steel</span>
       </div>
-      <p class="price-line"><strong>€129</strong><s><span class="visually-hidden">Regular price </span>€149</s><span class="label">Intro price until 31 Dec 2026</span></p>
+      <p class="price-line"><strong>€129</strong><span class="label">Intro price until 31 Dec 2026</span></p>
       <div class="qty-row">
         <div class="qty">
           <button type="button" data-qty="-1" aria-label="Decrease quantity">−</button>
@@ -338,16 +336,15 @@
     <div class="void__left">
       <p class="void__index label"><b>06</b> FAQ</p>
       <h2 class="heading split" id="h6">Questions, answered.</h2>
-      <p class="body">Not here? Call us on <a class="link" href="tel:+4540853099">+45 40 85 30 99</a>. We pick up.</p>
+      <p class="body">Question not here? Call us on <a class="link" href="tel:+4540853099">+45 40 85 30 99</a>.</p>
     </div>
     <div class="void__right faq">
-      <details class="qa" name="qa" open><summary>Will my insurance accept it?<i aria-hidden="true"></i></summary><p>In Denmark, the Ring-Lock is insurance-approved: Varefakta VK 37868. Most Danish insurers ask for a Varefakta-approved lock and a lock certificate, and the certificate is in the box. Check your own policy. Outside Denmark, check what your policy asks for first.</p></details>
+      <details class="qa" name="qa"><summary>Will my insurance accept it?<i aria-hidden="true"></i></summary><p>In Denmark, the Ring-Lock is insurance-approved: Varefakta VK 37868. Most Danish insurers ask for a Varefakta-approved lock and a lock certificate, and the certificate is in the box. Check your own policy. Outside Denmark, check what your policy asks for first.</p></details>
       <details class="qa" name="qa"><summary>Will it fit my bike?<i aria-hidden="true"></i></summary><p>Most bikes, cargo bikes and e-bikes too: tyres up to 60 mm, mount spacing 75 to 100 mm. Not fat bikes. Frame holes? The mounting screws are in the box. No holes? The Flex Mount, €9.99.</p></details>
-      <details class="qa" name="qa"><summary>What if my phone or the battery dies?<i aria-hidden="true"></i></summary><p>About six months per charge. A full charge over USB-C takes 90 minutes. Phone gone? Anyone you shared a key with can still open it.</p></details>
-      <details class="qa" name="qa"><summary>Does it work with Android?<i aria-hidden="true"></i></summary><p>Yes. The LAAS app works on Android and on iPhone.</p></details>
+      <details class="qa" name="qa"><summary>What if the battery runs low?<i aria-hidden="true"></i></summary><p>About six months per charge. A full charge over USB-C takes 90 minutes, and any USB-C cable works.</p></details>
       <details class="qa" name="qa"><summary>How secure is it?<i aria-hidden="true"></i></summary><p>9 mm of hardened steel. Every unlock uses a one-time key over Bluetooth, so a recorded signal cannot be replayed.</p></details>
       <details class="qa" name="qa" id="shipping"><summary>How fast does it ship, and what does it cost?<i aria-hidden="true"></i></summary><p>It ships in 1–2 working days. Shipping is €9, and free on orders over €250. Questions about an order? Write to <a class="link" href="mailto:support@laaslocks.com">support@laaslocks.com</a>.</p></details>
-      <details class="qa" name="qa" id="returns"><summary>How do returns and the right to complain work?<i aria-hidden="true"></i></summary><p>Hand it to the carrier with the prepaid return label by day 57, and your money is back within 14 days. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery.</p></details>
+      <details class="qa" name="qa" id="returns"><summary>How do returns and the right to complain work?<i aria-hidden="true"></i></summary><p>Changed your mind? Tell us at <a class="link" href="mailto:support@laaslocks.com">support@laaslocks.com</a> within 57 days of delivery, then hand the lock to the carrier with the prepaid return label. You get your money back, shipping included, within 14 days of telling us, once the lock is back with us. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery. <a class="link" href="terms.html">Terms of sale</a></p></details>
     </div>
   </section>
 
@@ -363,12 +360,12 @@
         </p>
       </div>
       <i class="foot2__band" aria-hidden="true"></i>
-      <p class="foot2__legal"><span>© 2026 LAAS ApS, all rights reserved</span><small>Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · <a href="tel:+4540853099">+45 40 85 30 99</a> · Apple, the Apple logo, and Find My are trademarks of Apple Inc.</small></p>
+      <p class="foot2__legal"><span>© 2026 LAAS ApS · Designed in Copenhagen</span><small>Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · <a href="tel:+4540853099">+45 40 85 30 99</a> · <a href="terms.html">Terms of sale</a> · <a href="privacy.html">Privacy</a><br>Apple and Find My are trademarks of Apple Inc., registered in the U.S. and other countries and regions.</small></p>
     </div>
   </footer>
 </main>
 
-<script type="module" src="darkroom.js"></script>
+<script type="module" src="darkroom.js" onerror="var h=document.documentElement;h.classList.remove('is-loading');h.classList.add('is-loaded','no-engine')"></script>
 <script src="cart-nav.js"></script>
 </body>
 </html>

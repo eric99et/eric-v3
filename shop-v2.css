@@ -26,7 +26,7 @@
 
 /* the one button */
 .pill-btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 56px; padding: 0 28px; border-radius: 999px; background: var(--green); color: #FFFFFF; font: 600 17px/1.2 var(--display); letter-spacing: -0.01em; white-space: nowrap; transition: background-color .25s; cursor: pointer; border: 0; }
-.pill-btn:hover { background: #164A4D; }
+.pill-btn:hover { background: var(--ink); }
 .pill-btn--wide { width: 100%; justify-content: space-between; padding: 0 8px 0 28px; }
 .pill-btn--wide b { padding: 11px 14px; border-radius: 30px; background: rgba(255, 255, 255, .16); font-weight: 600; font-variant-numeric: tabular-nums; }
 .pill-btn[aria-disabled="true"], .pill-btn:disabled { opacity: .5; cursor: not-allowed; }
@@ -60,7 +60,7 @@
 .offer__p { margin-top: 6px; font-size: 15px; line-height: 1.5; color: var(--muted); max-width: 40em; }
 .offer__add { min-height: 48px; padding: 0 6px 0 18px; gap: 10px; font: 500 15px/1 var(--display); background: #FFFFFF; }
 .offer__add b { padding: 9px 12px; border-radius: 30px; background: rgba(155, 205, 208, .45); font-weight: 500; }
-.offer__add:hover { border-color: var(--green); background: #F3F8F8; }
+.offer__add:hover { border-color: var(--green); background: #FFFFFF; }
 .offer--quiet { background: rgba(255, 255, 255, .55); box-shadow: inset 0 0 0 1px rgba(32, 47, 48, .08); }
 .offer--quiet .offer__pic { background: #FFFFFF; }
 
@@ -97,33 +97,33 @@
 .field label { font: 500 14px/1.3 var(--body); color: var(--ink-2); }
 .field label span { font-weight: 400; color: var(--muted); }
 .field input, .field select, .co-promo input {
-  width: 100%; min-width: 0; height: 52px; padding: 0 16px; border-radius: 14px; border: 1px solid #D6D9D9; background: #FFFFFF;
+  width: 100%; min-width: 0; height: 52px; padding: 0 16px; border-radius: 14px; border: 1px solid rgba(32, 47, 48, .32); background: #FFFFFF;
   font: 400 16px/1.2 var(--body); color: var(--ink); transition: border-color .2s, box-shadow .2s;
 }
 .field select { appearance: none; padding-right: 44px; background: #FFFFFF url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%23202F30' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") right 16px center / 16px no-repeat; }
-.field input::placeholder, .co-promo input::placeholder { color: #9AA3A8; }
+.field input::placeholder, .co-promo input::placeholder { color: var(--muted); }
 .field input:focus, .field select:focus, .co-promo input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(29, 95, 99, .16); }
-.was-checked .field input:invalid { border-color: #B4472E; background: #FFF8F6; }
+.was-checked .field input:invalid { border-color: var(--stop); background: #FFFFFF; }
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .row2--narrow { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); }
 .check { display: flex; align-items: center; gap: 12px; min-height: 44px; font-size: 15px; color: var(--ink-2); cursor: pointer; }
 .check input, .method input { flex: none; width: 20px; height: 20px; margin: 0; accent-color: var(--green); }
 .express { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .express__btn { min-height: 52px; padding: 0 10px; border-radius: 14px; background: var(--ink); color: var(--paper); font: 500 15px/1 var(--display); transition: background-color .2s; }
-.express__btn:hover { background: #2E4344; }
+.express__btn:hover { background: var(--ink); }
 .or-line { display: flex; align-items: center; gap: 14px; font-size: 13px; color: var(--muted); }
 .or-line::before, .or-line::after { content: ""; flex: 1; border-top: var(--dash); }
 .methods { display: grid; gap: 8px; }
-.method { display: flex; align-items: center; gap: 14px; min-height: 58px; padding: 0 14px 0 16px; border-radius: 14px; border: 1px solid #D6D9D9; cursor: pointer; transition: border-color .2s, background-color .2s, box-shadow .2s; }
+.method { display: flex; align-items: center; gap: 14px; min-height: 58px; padding: 0 14px 0 16px; border-radius: 14px; border: 1px solid rgba(32, 47, 48, .2); cursor: pointer; transition: border-color .2s, background-color .2s, box-shadow .2s; }
 .method:hover { border-color: rgba(32, 47, 48, .4); }
-.method:has(input:checked) { border-color: var(--green); background: #F3F8F8; box-shadow: inset 0 0 0 1px var(--green); }
+.method:has(input:checked) { border-color: var(--green); background: #FFFFFF; box-shadow: inset 0 0 0 1px var(--green); }
 .method:has(input:focus-visible) { outline: 2px solid var(--green); outline-offset: 2px; }
 .method__name { flex: 1; font: 500 15px/1.2 var(--display); }
 .method__marks { display: flex; gap: 6px; }
-.method__marks img { width: 44px; height: 30px; padding: 5px 6px; border-radius: 6px; border: 1px solid #D6D9D9; background: #FFFFFF; object-fit: contain; }
+.method__marks img { width: 44px; height: 30px; padding: 5px 6px; border-radius: 6px; border: 1px solid rgba(32, 47, 48, .13); background: #FFFFFF; object-fit: contain; }
 .method__marks--klarna img { background: #FFB3C7; border-color: #FFB3C7; }
 .co-pay { display: grid; gap: 14px; padding: 8px 0 0; }
-.co-msg { padding: 14px 16px; border-radius: 14px; background: rgba(176, 114, 73, .12); color: #5E3519; font-size: 15px; line-height: 1.45; }
+.co-msg { padding: 14px 16px; border-radius: 14px; background: rgba(176, 114, 73, .12); color: var(--ink); font-size: 15px; line-height: 1.45; }
 
 .co-sum { gap: 0; }
 .co-sum > * + * { margin-top: 16px; }
@@ -255,7 +255,7 @@
 .item__qty span { min-width: 22px; text-align: center; font: 600 17px/1 var(--display); font-variant-numeric: tabular-nums; }
 .item--empty .item__name { font-size: 16px; }
 .item__go { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; background: #1D5F63; color: #FFFFFF; font: 600 14px/1 var(--display); white-space: nowrap; }
-.item__go:hover { background: #164A4D; }
+.item__go:hover { background: var(--ink); }
 
 /* the Flex Mount: one quiet line */
 .addon { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 10px 10px 12px; border-radius: 18px; background: #FFFFFF; box-shadow: inset 0 0 0 1px rgba(32, 47, 48, .06); }
@@ -376,9 +376,9 @@
 .paytabs label { position: relative; cursor: pointer; }
 .paytabs input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
 .paytabs span { display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border-radius: 999px; background: #ECECEA; font: 600 13px/1 var(--display); color: #202F30; transition: background-color .2s, color .2s; }
-.paytabs label:hover span { background: #D6D9D9; }
+.paytabs label:hover span { background: rgba(32, 47, 48, .1); }
 .paytabs input:checked + span { background: #1D5F63; color: #FFFFFF; }
-.paytabs input:focus-visible + span { outline: 2px solid #9BCDD0; outline-offset: 0; }
+.paytabs input:focus-visible + span { outline: 2px solid #202F30; outline-offset: 2px; }
 .co2__note { font-size: 12.5px; margin-top: -2px; }
 .co2 .co-msg { font-size: 13.5px; padding: 12px 14px; }
 
@@ -393,14 +393,12 @@
 .paytabs img { width: 36px; height: 22px; object-fit: contain; }
 .paytabs span img + img { margin-left: -4px; }
 .paytabs .paytabs__mp { width: 18px; }
-.paytabs .paytabs__klarna { width: 50px; height: 26px; border-radius: 6px; }
+.paytabs .paytabs__klarna { width: 50px; height: 26px; border-radius: 6px; background: #FFB3C7; }
 .paytabs__card { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .paytabs input:checked + span { background: #FFFFFF; color: #202F30; box-shadow: inset 0 0 0 2px #1D5F63; }
-.paytabs label:hover input:not(:checked) + span { background: #D6D9D9; }
+.paytabs label:hover input:not(:checked) + span { background: rgba(32, 47, 48, .1); }
 .paytabs { display: grid; grid-template-columns: repeat(5, auto); justify-content: start; gap: 6px; }
 .paytabs span { width: 100%; justify-content: center; }
-.paytabs label:has(.paytabs__klarna) span { background: #FFB3C7; }
-.paytabs label:has(.paytabs__klarna) input:checked + span { background: #FFB3C7; }
 @media (max-width: 560px) { .paytabs { grid-template-columns: repeat(6, 1fr); } .paytabs label { grid-column: span 2; } .paytabs label:nth-child(n+4) { grid-column: span 3; } }
 
 /* short pages (an empty cart): the footer still sits at the bottom of the screen, never halfway up */
@@ -410,9 +408,20 @@
 
 /* an empty cart or checkout: the small card sits in the middle of the space above the footer */
 html.is-empty .shop-page .cart__wrap { flex: 1; width: 100%; align-content: center; padding-bottom: 96px; }
-.pick__name { letter-spacing: .08em; font-size: 10px; overflow: visible; }
+.pick__name { letter-spacing: .08em; font-size: 11px; }
+/* on a phone the ringed dot says which finish: the name would push the card wider than the screen */
+@media (max-width: 760px) { .addons .pick__name { display: none; } .addon { min-width: 0; overflow: hidden; } }
 
 /* the lock thumbnails: rendered straight on, on a transparent ground, so no tile behind them */
 .item__pic, .cart-page .line__pic, .co2 .lines--ro .line__pic, .lines--ro .line__pic, .addons #offer-second img { background: none; box-shadow: none; }
 .item__pic img, .line__pic img { width: 100%; height: 100%; object-fit: contain; }
 #offer-second img { padding: 0; }
+
+/* the terms of sale and the privacy policy: one narrow column of text on the page */
+.legal__wrap { max-width: 680px; margin: 0 auto; padding: 112px var(--gutter) clamp(56px, 6vw, 96px); }
+.legal__wrap h2 { margin: 40px 0 10px; font: 600 20px/1.25 var(--display); letter-spacing: -0.01em; color: var(--ink); }
+.legal__wrap p { margin: 0 0 12px; font: 400 16px/1.6 var(--body); color: var(--ink-2); }
+.legal__lead { font-size: 18px !important; color: var(--ink) !important; }
+.legal__form { margin-top: 12px; padding: 20px 22px; border-radius: 20px; background: #FFFFFF; }
+.legal__form p:last-child { margin: 0; line-height: 2; }
+@media (max-width: 760px) { .legal__wrap { padding-top: 84px; } }

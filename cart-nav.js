@@ -9,7 +9,7 @@
   const PRICE = 129, MAX_LOCKS = 15;
   const NAME = { steel: 'Steel', copper: 'Copper', black: 'Black' };
   const read = () => { try { const v = JSON.parse(localStorage.getItem(KEY)); return Array.isArray(v) ? v : []; } catch { return []; } };
-  const count = () => read().reduce((n, i) => n + ((i && i.qty) || 1), 0);
+  const count = () => read().reduce((n, i) => n + ((i && +i.qty) || 1), 0);
 
   const end = document.querySelector('.nav__end');
   const always = document.body.hasAttribute('data-shop');
@@ -35,6 +35,12 @@
 
   /* ---------------------------------------------------------- add to cart */
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // the landing page can be Danish (?lang=da); the card speaks the page's language
+  const da = document.documentElement.lang === 'da';
+  const T = da ? { added: 'Lagt i kurven', full: 'Din kurv er fuld', go: 'Gå til kassen', cart: 'Se kurven', close: 'Luk',
+    most: ' låse er det højeste antal i én ordre.', have: n => 'Der er ' + n + ' låse i kurven, det højeste antal i én ordre.' }
+    : { added: 'Added to your cart', full: 'Your cart is full', go: 'Check out', cart: 'View cart', close: 'Close',
+    most: ' locks is the most in one order.', have: n => 'You have ' + n + ' locks in it, the most in one order.' };
   let card = null, timer = 0;
   const show = (finish, qty, note) => {
     if (!card) {
@@ -42,16 +48,19 @@
       card.className = 'added'; card.setAttribute('role', 'status'); card.setAttribute('aria-live', 'polite');
       card.innerHTML = `<img class="added__pic" alt="" width="64" height="64">
         <div class="added__what"><p class="added__h"></p><p class="added__p"></p></div>
-        <button class="added__x" type="button" aria-label="Close"></button>
-        <div class="added__btns"><a class="buy-btn added__go" href="checkout-v2.html">Check out</a><a class="added__cart" href="cart-v2.html">View cart</a></div>`;
+        <button class="added__x" type="button" aria-label="${T.close}"></button>
+        <div class="added__btns"><a class="buy-btn added__go" href="checkout-v2.html">${T.go}</a><a class="added__cart" href="cart-v2.html">${T.cart}</a></div>`;
       document.body.append(card);
       card.querySelector('.added__x').addEventListener('click', hide);
       card.addEventListener('pointerenter', () => clearTimeout(timer));
-      card.addEventListener('pointerleave', () => { timer = setTimeout(hide, 4000); });
+      card.addEventListener('pointerleave', () => { if (!card.contains(document.activeElement)) timer = setTimeout(hide, 4000); });
+      // while the keyboard is in the card it stays; leaving it, the card goes a little later
+      card.addEventListener('focusin', () => clearTimeout(timer));
+      card.addEventListener('focusout', e => { if (!card.contains(e.relatedTarget)) timer = setTimeout(hide, 4000); });
       addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
     }
     card.querySelector('.added__pic').src = 'images/scenes/thumb-' + finish + '.webp';
-    card.querySelector('.added__h').textContent = qty ? 'Added to your cart' : 'Your cart is full';
+    card.querySelector('.added__h').textContent = qty ? T.added : T.full;
     card.querySelector('.added__p').textContent = (qty ? `Ring-Lock, ${NAME[finish]}${qty > 1 ? ' × ' + qty : ''} · €${PRICE * qty}` : '') + (note ? (qty ? '. ' : '') + note : '');
     card.hidden = false;
     requestAnimationFrame(() => card.classList.add('is-on'));
@@ -66,17 +75,17 @@
     setTimeout(() => { if (!card.classList.contains('is-on')) card.hidden = true; }, reduce ? 0 : 400);
   }
 
-  // the same line items the cart reads: {name, finish, unit, qty, img}, merged by name + finish, at most 9
+  // the same line items the cart reads: {name, finish, unit, qty, img}, merged by name + finish, at most 15 locks
   const add = (finish, qty) => {
     if (!NAME[finish]) finish = 'steel';
     const items = read(), name = 'Ring-Lock', fin = NAME[finish];
     const want = Math.max(1, qty | 0 || 1);
-    const locks = items.reduce((n, i) => n + (i && /^Ring-Lock/.test(i.name) ? (i.qty || 1) : 0), 0);
+    const locks = items.reduce((n, i) => n + (i && /^Ring-Lock/.test(i.name) ? (+i.qty || 1) : 0), 0);
     qty = Math.max(0, Math.min(want, MAX_LOCKS - locks));
-    const note = qty < want ? MAX_LOCKS + ' locks is the most in one order.' : '';
-    if (!qty) { show(finish, 0, 'You have ' + MAX_LOCKS + ' locks in it, the most in one order.'); return 0; }
+    const note = qty < want ? MAX_LOCKS + T.most : '';
+    if (!qty) { show(finish, 0, T.have(MAX_LOCKS)); return 0; }
     const same = items.find(i => i && i.name === name && (i.finish === fin || (fin === 'Steel' && i.finish === 'Silver')));
-    if (same) { same.finish = fin; same.qty = (same.qty || 1) + qty; }
+    if (same) { same.finish = fin; same.qty = (+same.qty || 1) + qty; }
     else items.push({ name, finish: fin, unit: PRICE, qty, img: 'images/lock-' + finish + '-render.jpg' });
     try { localStorage.setItem(KEY, JSON.stringify(items)); } catch { return false; }
     dispatchEvent(new Event('laas-cart'));
@@ -93,4 +102,18 @@
   f.classList.add('is-ready');
   const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { f.classList.add('is-in'); io.disconnect(); } }, { rootMargin: '0px 0px -60px 0px' });
   io.observe(f);
+})();
+
+// the menu on its own: on the terms and privacy pages, and on the landing page when darkroom.js never ran (the
+// three.js CDN failed), the Menu button still opens it
+(() => {
+  const btn = document.getElementById('menu-open'), menu = document.getElementById('menu');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', () => {
+    // buy, cart and checkout open it from their own scripts; the landing page from darkroom.js when it ran
+    if (window.LAAS_UI || document.querySelector('script[src="buy.js"], script[src="shop-v2.js"]')) return;
+    const open = menu.hidden;
+    menu.hidden = !open; menu.classList.toggle('is-open', open);
+    btn.setAttribute('aria-expanded', String(open)); btn.textContent = open ? 'Close' : 'Menu';
+  });
 })();

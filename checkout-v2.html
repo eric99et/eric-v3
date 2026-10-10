@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Checkout · LAAS</title>
-<meta name="description" content="Prices include VAT. Shipping is shown before you pay, not after.">
+<meta name="description" content="Prices include VAT. Shipping is shown before you pay.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#ECECEA">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -48,7 +48,7 @@
   </div>
 </header>
 
-<div class="menu" id="menu" hidden>
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
   <nav aria-label="Menu">
     <a class="display" href="buy.html"><span class="label">01</span>Ring-Lock</a>
     <a class="display" href="index.html#faq"><span class="label">02</span>FAQ</a>
@@ -101,7 +101,7 @@
         </div>
         <div class="field"><label for="co-addr">Street and number</label><input id="co-addr" name="address" autocomplete="street-address" required></div>
         <div class="row2 row2--narrow">
-          <div class="field"><label for="co-post">Postal code</label><input id="co-post" name="postal" autocomplete="postal-code" inputmode="numeric" required></div>
+          <div class="field"><label for="co-post">Postal code</label><input id="co-post" name="postal" autocomplete="postal-code" required></div>
           <div class="field"><label for="co-city">City</label><input id="co-city" name="city" autocomplete="address-level2" required></div>
         </div>
         <div class="row2">
@@ -110,7 +110,7 @@
           </div>
           <div class="field"><label for="co-phone">Phone <span>optional</span></label><input id="co-phone" name="phone" type="tel" autocomplete="tel"></div>
         </div>
-        <label class="check"><input type="checkbox" name="news"><span>News once a month, at most</span></label>
+        <label class="check"><input type="checkbox" name="news"><span>Yes, email me news from LAAS about the Ring-Lock, at most once a month. Unsubscribe at any time. <a class="link" href="privacy.html">Privacy policy</a></span></label>
       </section>
 
       <!-- payment: one row of small tabs -->
@@ -126,7 +126,7 @@
         <p class="fine co2__note" id="method-note">You enter your card on the secure payment page after you press Pay. Nothing is stored here.</p>
         <button class="pill-btn cart__go" type="submit" data-pay-btn disabled>Pay</button>
         <p class="co-msg" id="co-msg" role="status" aria-live="polite" hidden></p>
-        <p class="cart__fine">By pressing Pay you accept the terms of sale. 57 days from delivery to return it with the prepaid label in the box.</p>
+        <p class="cart__fine">By pressing Pay you place an order with an obligation to pay and accept our <a class="link" href="terms.html">terms of sale</a>. You have 57 days from delivery to change your mind: tell us at support@laaslocks.com, then hand the lock to the carrier with the prepaid label. <a class="link" href="privacy.html">How we handle your data</a></p>
       </section>
     </form>
   </div>
@@ -143,7 +143,7 @@
         </p>
       </div>
       <i class="foot2__band" aria-hidden="true"></i>
-      <p class="foot2__legal"><span>© 2026 LAAS ApS, all rights reserved</span><small>Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · <a href="tel:+4540853099">+45 40 85 30 99</a> · Apple, the Apple logo, and Find My are trademarks of Apple Inc.</small></p>
+      <p class="foot2__legal"><span>© 2026 LAAS ApS · Designed in Copenhagen</span><small>Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · <a href="tel:+4540853099">+45 40 85 30 99</a> · <a href="terms.html">Terms of sale</a> · <a href="privacy.html">Privacy</a></small></p>
     </div>
   </footer>
 </main>
