@@ -1056,3 +1056,5 @@ html.no-engine .void--seal, html:not(.is-loading):not(.is-loaded) .void--seal { 
 
 /* the finish dots need no caption: the renders say which finish, the heading marks the chosen one (owner, 10 Oct) */
 .finishes__name, .pick__name { display: none !important; }
+/* no "Drag to turn" between the arrows: the arrows and the lock itself say it (owner, 10 Oct) */
+.slot__hint, .lock3d__hint { display: none !important; }
