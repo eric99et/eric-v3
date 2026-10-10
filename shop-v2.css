@@ -553,3 +553,12 @@ main.shop.legal { max-width: none; font: inherit; letter-spacing: normal; }
   .fq__a { padding: 0 16px 16px; }
   .pr .fq__a p { font-size: 15px; }
 }
+
+/* shipping: four quick facts as cards, before the details */
+.sh__feats { list-style: none; margin: 0 0 20px; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.sh__feats li { display: grid; justify-items: center; align-content: start; gap: 6px; padding: 24px 16px 22px; border-radius: 22px; background: #FFFFFF; text-align: center; }
+.sh__ic { display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: 8px; border-radius: 50%; background: var(--paper, #ECECEA); color: var(--green); }
+.sh__ic svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.sh__feats b { font: 600 16px/1.2 var(--display); letter-spacing: -0.01em; color: var(--ink); }
+.sh__feats li > span:last-child { font-size: 14px; line-height: 1.45; color: var(--muted); }
+@media (max-width: 860px) { .sh__feats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; } .sh__feats li { padding: 18px 12px; } }
