@@ -1346,3 +1346,13 @@ a.badge--57:hover, a.badge--kym:hover { opacity: .7; }
 .minicart__go { width: 100%; height: 46px; justify-content: center; font-size: 15px; }
 .minicart__view { font-size: 14px; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { .minicart { transition: none; } }
+/* the preview's lines: − qty + (a bin at 1) */
+.minicart__lines li { grid-template-columns: 48px 1fr auto; }
+.minicart__lines span em { display: block; margin-top: 2px; font-size: 13px; color: var(--ink-2); }
+.minicart__qty { display: inline-flex; align-items: center; gap: 2px; padding: 3px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); }
+.minicart__qty b { min-width: 20px; text-align: center; font: 600 13px/1 var(--display); }
+.minicart__qty button { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; font: 500 16px/1 var(--display); color: var(--ink); transition: background-color .2s; }
+.minicart__qty button:hover { background: #ECECEA; }
+.minicart__qty button.is-bin::before { content: ""; width: 15px; height: 15px; background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 7h15M9.5 7V4.5h5V7M6.5 7l.9 12a1.5 1.5 0 0 0 1.5 1.4h6.2a1.5 1.5 0 0 0 1.5-1.4l.9-12M10 11v5.5M14 11v5.5'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 7h15M9.5 7V4.5h5V7M6.5 7l.9 12a1.5 1.5 0 0 0 1.5 1.4h6.2a1.5 1.5 0 0 0 1.5-1.4l.9-12M10 11v5.5M14 11v5.5'/%3E%3C/svg%3E") center / contain no-repeat; }

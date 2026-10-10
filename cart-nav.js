@@ -205,8 +205,8 @@
   const KEY = 'laas.cart.v1.en';
   const I = () => window.LAAS_I18N || { lang: 'en', P: { lock: 129, flex: 9.99, ship: 9, free: 250 }, money: n => '€' + n };
   const read = () => { try { const v = JSON.parse(localStorage.getItem(KEY)); return Array.isArray(v) ? v.filter(Boolean) : []; } catch { return []; } };
-  const W = da => da ? { cart: 'Din kurv', empty: 'Din kurv er tom.', shop: 'Se Ring-Lock', sub: 'Subtotal', left: n => `${n} til gratis fragt`, free: 'Gratis fragt', go: 'Gå til kassen', view: 'Se kurven', items: n => n === 1 ? '1 vare' : n + ' varer' }
-    : { cart: 'Your cart', empty: 'Your cart is empty.', shop: 'See the Ring-Lock', sub: 'Subtotal', left: n => `${n} to free shipping`, free: 'Free shipping', go: 'Check out', view: 'View cart', items: n => n === 1 ? '1 item' : n + ' items' };
+  const W = da => da ? { cart: 'Din kurv', empty: 'Din kurv er tom.', shop: 'Se Ring-Lock', sub: 'Subtotal', left: n => `${n} til gratis fragt`, free: 'Gratis fragt', go: 'Gå til kassen', view: 'Se kurven', items: n => n === 1 ? '1 vare' : n + ' varer', rm: 'Fjern', less: 'Færre', more: 'Flere' }
+    : { cart: 'Your cart', empty: 'Your cart is empty.', shop: 'See the Ring-Lock', sub: 'Subtotal', left: n => `${n} to free shipping`, free: 'Free shipping', go: 'Check out', view: 'View cart', items: n => n === 1 ? '1 item' : n + ' items', rm: 'Remove', less: 'Fewer', more: 'More' };
   const pop = document.createElement('div');
   pop.className = 'minicart'; pop.hidden = true; pop.setAttribute('role', 'dialog'); pop.setAttribute('aria-label', 'Cart');
   document.body.append(pop);
@@ -218,10 +218,12 @@
     const sub = items.reduce((s, i) => s + unit(i) * (+i.qty || 1), 0);
     if (!items.length) { pop.innerHTML = `<p class="minicart__h">${w.cart}</p><p class="minicart__empty">${w.empty}</p><a class="buy-btn minicart__go" href="buy.html">${w.shop}</a>`; return; }
     const free = P.free ?? 250, pct = Math.min(1, sub / free);
-    pop.innerHTML = `<p class="minicart__h">${w.cart} <span>${w.items(n)}</span></p><ul class="minicart__lines">` + items.map(i => {
+    pop.innerHTML = `<p class="minicart__h">${w.cart} <span>${w.items(n)}</span></p><ul class="minicart__lines">` + items.map((i, k) => {
       const fin = (i.finish || '').toLowerCase().replace('silver', 'steel');
       const img = isFlex(i) ? 'images/flexmount-thumb.webp' : `images/scenes/thumb-${fin || 'steel'}.webp`;
-      return `<li><img src="${img}" alt="" width="48" height="48"><span><b>${isFlex(i) ? 'Flex Mount' : 'Ring-Lock'}</b>${isFlex(i) ? '' : `<small>${i.finish}</small>`}</span><em>${+i.qty || 1} × ${money(unit(i))}</em></li>`;
+      const q = +i.qty || 1, name = isFlex(i) ? 'Flex Mount' : 'Ring-Lock';
+      return `<li data-line="${k}"><img src="${img}" alt="" width="48" height="48"><span><b>${name}</b>${isFlex(i) ? '' : `<small>${i.finish}</small>`}<em>${money(Math.round(unit(i) * q * 100) / 100)}</em></span>`
+        + `<span class="minicart__qty"><button type="button" data-d="-1" class="${q === 1 ? 'is-bin' : ''}" aria-label="${q === 1 ? w.rm : w.less} ${name}">${q === 1 ? '' : '−'}</button><b aria-live="polite">${q}</b><button type="button" data-d="1" aria-label="${w.more} ${name}">+</button></span></li>`;
     }).join('') + `</ul><p class="minicart__sub"><span>${w.sub}</span><b>${money(sub)}</b></p>`
       + `<p class="minicart__ship"><span>${pct >= 1 ? w.free : w.left(money(Math.round((free - sub) * 100) / 100))}</span><i style="--p:${pct}"></i></p>`
       + `<div class="minicart__btns"><a class="buy-btn minicart__go" href="checkout-v2.html">${w.go}</a><a class="minicart__view" href="cart-v2.html">${w.view}</a></div>`;
@@ -236,5 +238,22 @@
   pop.addEventListener('focusout', e => { if (!pop.contains(e.relatedTarget) && e.relatedTarget !== bag) close(); });
   addEventListener('keydown', e => { if (e.key === 'Escape' && !pop.hidden) { pop.classList.remove('is-on'); pop.hidden = true; } });
   addEventListener('laas-cart', () => { if (!pop.hidden) render(); });
+  // − and + on each line change the cart right here; − at 1 (a bin) takes the line out, and the last lock takes the Flex Mount with it
+  pop.addEventListener('click', e => {
+    const b = e.target.closest('[data-d]');
+    if (!b) return;
+    const items = read(), k = +b.closest('[data-line]').dataset.line, it = items[k];
+    if (!it) return;
+    const isLock = i => /^Ring-Lock/.test(i.name);
+    const locks = items.reduce((n, i) => n + (isLock(i) ? (+i.qty || 1) : 0), 0);
+    const q = (+it.qty || 1) + +b.dataset.d;
+    if (+b.dataset.d > 0 && isLock(it) && locks >= 15) return;
+    if (q < 1) items.splice(k, 1); else it.qty = Math.min(15, q);
+    if (!items.some(isLock)) { const f = items.findIndex(i => /Flex/.test(i.name)); if (f > -1) items.splice(f, 1); }
+    try { localStorage.setItem(KEY, JSON.stringify(items)); } catch { return; }
+    render();
+    const again = pop.querySelector(`[data-line="${k}"] [data-d="${b.dataset.d}"]`); if (again) again.focus();
+    dispatchEvent(new Event('laas-cart'));
+  });
   addEventListener('scroll', () => { if (!pop.hidden) place(); }, { passive: true });
 })();

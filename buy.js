@@ -181,6 +181,7 @@
   // the bag in the nav (cart-nav.js) listens for this
   function paintCart() { dispatchEvent(new Event('laas-cart')); }
   addEventListener('storage', e => { if (e.key === CART_KEY) { paintCart(); render(true); } });
+  addEventListener('laas-cart', () => render(true));
 
   /* ------------------------------------------------- the nav capsule */
   {
