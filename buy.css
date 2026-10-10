@@ -231,3 +231,6 @@ html { scroll-snap-type: none; scroll-behavior: smooth; scroll-padding-top: 96px
 .rv__card:nth-child(6n+4) .rv__face { background: #606A74; } .rv__card:nth-child(6n+5) .rv__face { background: var(--green); } .rv__card:nth-child(6n) .rv__face { background: #458A8E; }
 @media (prefers-reduced-motion: reduce) { .rv__band { overflow-x: auto; } .rv__list { animation: none; } }
 @media (max-width: 860px) { .rv__card { width: 240px; } }
+
+/* the first screen is the buy card alone: the reviews start below the fold */
+.pdp--v2 { min-height: 100vh; min-height: 100svh; }

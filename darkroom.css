@@ -1211,3 +1211,27 @@ html.no-engine .void--seal, html:not(.is-loading):not(.is-loaded) .void--seal { 
 /* the band sits at the very bottom of the buy chapter, edge to edge, so it is seen with the price */
 #buy > .tpb { position: absolute; left: 0; right: 0; bottom: 0; }
 #buy { padding-bottom: 96px; }
+#buy > .tpb { background: transparent; border-color: transparent; }
+
+/* will it fit: two plain questions, numbered, then the answer */
+.fit__lede { margin-top: 14px; max-width: 30em; color: var(--ink-2); }
+.fitq { margin-top: 26px; }
+.fitq + .fitq { margin-top: 20px; }
+.fitq__h { display: flex; align-items: center; gap: 10px; font: 500 16px/1.2 var(--display); color: var(--ink); }
+.fitq__h b { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: #FFFFFF; font: 600 12px/1 var(--display); }
+.fitq .pickrow { margin-top: 12px; }
+.fitq__hint { margin-top: 8px; max-width: 32em; font-size: 13px; line-height: 1.45; color: var(--muted); }
+.void--fit .verdict { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--line-2); }
+@media (max-width: 760px) {
+  .fit__lede { display: none; }
+  .fitq { margin-top: 14px; } .fitq + .fitq { margin-top: 12px; }
+  .fitq .pickrow { margin-top: 8px; }
+  .fitq__h { font-size: 15px; }
+  .fitq__hint { font-size: 12px; margin-top: 6px; }
+  .void--fit .verdict { margin-top: 14px; padding-top: 14px; }
+}
+.fitq .chip { min-height: 40px; padding: 0 14px; font-size: 14px; }
+.fitq .pickrow { flex-wrap: nowrap; gap: 6px; }
+@media (max-width: 760px) { .fitq .chip { flex: 1 1 auto; padding: 0 6px; font-size: 13px; white-space: nowrap; } .fitq .pickrow { gap: 5px; } #holes .chip { flex: 0 0 72px; } }
+@media (min-width: 761px) and (max-width: 1100px) { .fitq .pickrow { flex-wrap: wrap; } }
+@media (max-width: 760px) { #fq2 ~ .fitq__hint { display: none; } .void--fit .slot { flex: 1 0 24svh; min-height: 24svh; margin-bottom: 14px; } .void--fit .verdict { border-top: 0; padding-top: 0; } }

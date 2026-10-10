@@ -290,18 +290,30 @@
     <div class="void__left">
       <p class="void__index label"><b>04</b> Fit</p>
       <h2 class="heading split" id="h4">Will it fit my&nbsp;bike?</h2>
-      <div class="pickrow" id="bike" role="radiogroup" aria-label="Your bike">
-        <button type="button" class="chip" role="radio" data-bike="road" data-mm="28" aria-checked="false">Road</button>
-        <button type="button" class="chip" role="radio" data-bike="city" data-mm="42" aria-checked="true">City</button>
-        <button type="button" class="chip" role="radio" data-bike="ebike" data-mm="55" aria-checked="false">E-bike</button>
-        <button type="button" class="chip" role="radio" data-bike="cargo" data-mm="60" aria-checked="false">Cargo</button>
-        <button type="button" class="chip" role="radio" data-bike="fat" data-mm="100" aria-checked="false">Fat bike</button>
+      <p class="body fit__lede">Two things decide it: your tyre, and whether your frame has holes for a frame lock.</p>
+      <div class="fitq">
+        <p class="fitq__h" id="fq1"><b>1</b>Your bike</p>
+        <div class="pickrow" id="tyre" role="radiogroup" aria-labelledby="fq1">
+          <button type="button" class="chip" role="radio" data-mm="28" aria-checked="false">Road</button>
+          <button type="button" class="chip" role="radio" data-mm="42" aria-checked="true">City</button>
+          <button type="button" class="chip" role="radio" data-mm="55" aria-checked="false">E-bike</button>
+          <button type="button" class="chip" role="radio" data-mm="60" aria-checked="false">Cargo</button>
+          <button type="button" class="chip" role="radio" data-mm="100" aria-checked="false">Fat bike</button>
+        </div>
+        <p class="fitq__hint">Tyres up to 60 mm wide fit. Not sure? The width is printed on the side of the tyre: in 42-622, the 42.</p>
+      </div>
+      <div class="fitq">
+        <p class="fitq__h" id="fq2"><b>2</b>Holes for a frame lock?</p>
+        <div class="pickrow" id="holes" role="radiogroup" aria-labelledby="fq2">
+          <button type="button" class="chip" role="radio" data-holes="1" aria-checked="true">Yes</button>
+          <button type="button" class="chip" role="radio" data-holes="0" aria-checked="false">No</button>
+        </div>
+        <p class="fitq__hint">Two small threaded holes on the frame, either side of the rear wheel, just below the saddle.</p>
       </div>
       <div class="verdict" id="verdict" aria-live="polite">
         <p class="verdict__head"><i class="verdict__mark" aria-hidden="true"></i><span id="verdict-head">It fits.</span></p>
-        <p class="verdict__body" id="verdict-body">Tyres up to 60 mm. The mounting screws are in the box.</p>
+        <p class="verdict__body" id="verdict-body">Your tyre goes through the ring's 63 mm opening, and the M5 mounting screws are in the box.</p>
       </div>
-      <p class="fine fit__fine">No holes in your frame? Add the Flex Mount for €9.99 and it fits anyway.</p>
     </div>
     <div class="slot" aria-hidden="true"></div>
   </section>
