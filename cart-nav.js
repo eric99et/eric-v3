@@ -179,3 +179,9 @@
   const root = document.documentElement, on = () => root.classList.toggle('nav-float', scrollY > 8);
   addEventListener('scroll', on, { passive: true }); on();
 })();
+
+// bilingual pages: a link to #trial lands on #trial-da when the Danish text is the one shown
+(() => {
+  const h = decodeURIComponent(location.hash.slice(1)), el = h && document.getElementById(h);
+  if (el && el.closest('[hidden]')) { const da = document.getElementById(h + '-da'); if (da) da.scrollIntoView(); }
+})();

@@ -485,3 +485,32 @@ html.is-empty .shop-page .cart__wrap { flex: 1; width: 100%; align-content: cent
   .pr__steps h3 { margin-top: 3px; font-size: 15px; }
   .pr .pr__cta .buy-btn { width: 100%; justify-content: center; }
 }
+
+/* the FAQ page: topic chips, then one card per topic with its questions */
+.fq__chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 8px; }
+.fq__chips .chip { display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; font-size: 14px; color: var(--ink); text-decoration: none; }
+.fq__group { scroll-margin-top: 96px; }
+.fq__group h2 { margin: 0 0 6px !important; }
+.pr .fq__group .qa summary { font-size: 17px; padding: 16px 0; }
+.pr .fq__group .qa p { margin: 0 0 18px; max-width: 40em; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+.fq__group .qa:first-child { border-top: 0; }
+.fq__group .qa:last-child { border-bottom: 0; }
+/* the shipping table */
+.sh__table { width: 100%; margin-top: 20px; border-collapse: collapse; font-size: 15px; }
+.sh__table th { text-align: left; padding: 0 12px 10px 0; font: 500 12px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.sh__table td { padding: 14px 12px 14px 0; border-top: 1px solid var(--line-2); color: var(--ink); vertical-align: top; }
+.sh__table td:nth-child(2) { white-space: nowrap; }
+.sh__table .sh__free td { font-weight: 600; color: var(--green); }
+.pr__card h2 + .pr__sum { margin-top: 10px; }
+.pr #shipping h2, .pr #returns h2, .pr #damaged h2, .pr [id$="-da"] > h2 { margin: 0; }
+@media (max-width: 760px) {
+  .fq__chips { gap: 6px; } .fq__chips .chip { min-height: 36px; padding: 0 12px; font-size: 13px; }
+  .pr .fq__group .qa summary { font-size: 16px; }
+  .sh__table { font-size: 14px; } .sh__table td:last-child { white-space: nowrap; }
+}
+/* the promise, FAQ and shipping pages: the column is centred and full width up to its max */
+main.promise { display: block; width: 100%; }
+main.promise .legal__wrap { width: 100%; box-sizing: border-box; }
+.shop-page main.shop.promise { display: block; }
+.shop-page main.promise .legal__wrap { width: 100%; max-width: 860px; margin-left: auto; margin-right: auto; }
+main.shop.legal { max-width: none; font: inherit; letter-spacing: normal; }
