@@ -423,3 +423,8 @@
 
 /* an empty cart or checkout: the small card sits in the middle of the space above the footer */
 html.is-empty .shop-page .cart__wrap { flex: 1; width: 100%; align-content: center; padding-bottom: 96px; }
+/* a little more air than the first compact pass */
+.buy-page .foot { padding: 40px var(--gutter) calc(36px + env(safe-area-inset-bottom, 0px)); }
+.buy-page .foot__grid { padding-bottom: 24px; }
+.buy-page .foot__legal { padding-top: 20px; gap: 6px 24px; font-size: 12px; }
+@media (max-width: 560px) { .buy-page .foot { padding-top: 32px; padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px)); } }
