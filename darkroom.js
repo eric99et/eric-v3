@@ -57,7 +57,7 @@ const DA = {
   // 05 buy (the finish names stay Steel, Copper and Black, as in the Drive copy)
   'Steel. Copper. Black.': 'Steel. Copper. Black.', 'Same lock, same price, three finishes. Pick the one that suits your bike.': 'Samme lås, samme pris, tre udgaver. Vælg den, der passer til din cykel.',
   'Drag to turn': 'Træk for at dreje', 'Intro price until 31 Dec 2026': 'Introduktionspris til 31. dec. 2026',
-  '57-day returns': '57 dages returret', 'Prepaid return label in the box': 'Forudbetalt returlabel i æsken', 'Two-year right to complain': '2 års reklamationsret',
+  '57-day returns': '57 dages returret', 'Day trial': 'dages prøvetid', 'Promise': 'Løfte', 'Read our reviews': 'Læs vores anmeldelser', 'Prepaid return label in the box': 'Forudbetalt returlabel i æsken', 'Two-year right to complain': '2 års reklamationsret',
   // 06 faq
   'Questions, answered.': 'Spørgsmål og svar.', 'Question not here? Call us on': 'Finder du ikke dit spørgsmål? Ring til os på',
   'Will my insurance accept it?': 'Godkender mit forsikringsselskab den?',
