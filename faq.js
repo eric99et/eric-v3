@@ -12,7 +12,6 @@
       tabs.forEach((t, i) => { const on = t === tab; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; panels[i].hidden = !on; });
       if (focus) tab.focus();
       const panel = panels[tabs.indexOf(tab)];
-      if (!panel.querySelector('details[open]')) panel.querySelector('details')?.setAttribute('open', '');
     };
     tabs.forEach((t, i) => {
       t.addEventListener('click', () => { if (search) { search.value = ''; filter(); } pick(t); history.replaceState(null, '', '#' + t.dataset.key); });
