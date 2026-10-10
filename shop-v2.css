@@ -605,3 +605,103 @@ main.shop.legal { max-width: none; font: inherit; letter-spacing: normal; }
   .fq__img { max-height: 200px; }
 }
 .fq__img { max-height: 220px; }
+
+/* ---------- reveal: rise and fade in, once ---------- */
+.reveal-on [data-reveal]:not(.is-in) { opacity: 0; translate: 0 18px; }
+.reveal-on [data-reveal] { transition: opacity .7s var(--ease), translate .7s var(--ease); }
+.reveal-on .sh__feats:not(.is-in) li { opacity: 0; translate: 0 14px; }
+.sh__feats li { transition: opacity .6s var(--ease) calc(var(--i, 0) * 90ms), translate .6s var(--ease) calc(var(--i, 0) * 90ms), box-shadow .3s, translate .3s; }
+.reveal-on .sh__feats[data-reveal] { opacity: 1 !important; translate: none !important; }
+.sh__feats li:hover { box-shadow: 0 14px 30px -20px rgba(32, 47, 48, .35); }
+
+/* ---------- shipping: the route from Copenhagen to your door ---------- */
+.sh__route { position: relative; height: 120px; margin: 4px 0 18px; }
+.sh__route svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.sh__road { fill: none; stroke: var(--line); stroke-width: 2; stroke-dasharray: 2 8; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.sh__road--draw { stroke: var(--green); stroke-dasharray: 1; stroke-dashoffset: 1; animation: sh-draw 2.4s var(--ease) .3s forwards; }
+@keyframes sh-draw { to { stroke-dashoffset: 0; } }
+.sh__end { position: absolute; display: inline-flex; align-items: center; gap: 8px; font: 500 12px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); }
+.sh__end i { width: 12px; height: 12px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 5px rgba(29, 95, 99, .14); }
+.sh__end--a { left: 2%; top: 74%; }
+.sh__end--b { right: 2%; top: 32%; flex-direction: row-reverse; }
+.sh__end--b i { background: var(--copper, #B07249); box-shadow: 0 0 0 5px rgba(176, 114, 73, .16); }
+.sh__parcel { position: absolute; left: 0; top: 0; width: 40px; height: 40px; margin: -20px 0 0 -20px; display: grid; place-items: center; border-radius: 12px; background: #FFFFFF; box-shadow: 0 8px 20px -10px rgba(32, 47, 48, .45);
+  offset-path: path("M40 84 C 180 84, 200 30, 340 34 S 540 96, 680 60"); offset-rotate: 0deg; animation: sh-go 2.4s var(--ease) .3s both; }
+.sh__parcel svg { width: 20px; height: 20px; fill: none; stroke: var(--green); stroke-width: 1.5; stroke-linejoin: round; }
+@keyframes sh-go { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+.sh__route { container-type: inline-size; }
+@supports not (offset-path: path("M0 0")) { .sh__parcel { display: none; } }
+
+/* ---------- shipping: delivery times as bars over working days ---------- */
+.sh__bars { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 4px; }
+.sh__bars li { display: grid; grid-template-columns: minmax(0, 1.25fr) 52px minmax(0, 1.5fr) 132px; gap: 14px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line-2); font-size: 15px; color: var(--ink); }
+.sh__fee { font-weight: 600; }
+.sh__track { position: relative; height: 10px; border-radius: 99px; background: var(--paper, #ECECEA); overflow: hidden; }
+.sh__track i { position: absolute; top: 0; bottom: 0; left: calc(var(--a) / 7 * 100%); width: calc((var(--b) - var(--a)) / 7 * 100%); border-radius: 99px; background: var(--green); transform-origin: left; transition: scale .9s var(--ease) calc(.2s + var(--i, 0) * .12s); }
+.reveal-on .sh__bars:not(.is-in) .sh__track i { scale: 0 1; }
+.sh__days { color: var(--muted); font-size: 14px; text-align: right; }
+.sh__free { color: var(--green) !important; }
+.sh__free .sh__fee, .sh__free .sh__where { color: var(--green); font-weight: 600; }
+.sh__free .sh__track { background: none; }
+.sh__scale { display: grid; grid-template-columns: minmax(0, 1.25fr) 52px repeat(8, 1fr) 132px; margin: 6px 0 0; font-size: 11px; color: var(--muted); column-gap: 0; }
+.sh__scale span { grid-column: 3 / span 3; display: none; }
+.sh__scale i { font-style: normal; text-align: left; }
+.sh__scale i:first-of-type { grid-column: 3; }
+/* the scale sits under the bar column: 8 marks across it */
+.sh__scale { grid-template-columns: minmax(0, 1.25fr) 52px minmax(0, 1.5fr) 132px; column-gap: 14px; }
+.sh__scale i { display: none; }
+.sh__scale::after { content: ""; }
+.sh__scale span { display: block; grid-column: 3; text-align: center; }
+
+/* ---------- returns: four steps in a row, joined by a line ---------- */
+.pr__steps--line { position: relative; grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+.pr__steps--line::before { content: ""; position: absolute; left: 32px; right: 32px; top: 32px; height: 2px; background: repeating-linear-gradient(90deg, var(--green) 0 6px, transparent 6px 12px); opacity: .35; transform-origin: left; transition: scale 1.2s var(--ease) .2s; }
+.reveal-on .pr__steps--line:not(.is-in)::before { scale: 0 1; }
+.pr__steps--line li { position: relative; grid-template-columns: 1fr !important; background: transparent !important; padding: 0 !important; gap: 12px !important; }
+.pr__steps--line li > b { width: 40px !important; height: 40px !important; font-size: 15px !important; box-shadow: 0 0 0 6px #FFFFFF; transition: scale .5s var(--ease); }
+.pr__steps--line li { transition: opacity .6s var(--ease), translate .6s var(--ease); }
+.reveal-on .pr__steps--line:not(.is-in) li { opacity: 0; translate: 0 10px; }
+.pr__steps--line li:nth-child(2) { transition-delay: .12s; } .pr__steps--line li:nth-child(3) { transition-delay: .24s; } .pr__steps--line li:nth-child(4) { transition-delay: .36s; }
+
+/* ---------- FAQ: the illustration, smooth answers, a soft topic change ---------- */
+.fq__top { position: relative; }
+.fq__art { position: absolute; right: 0; top: -6px; width: 200px; height: auto; }
+.fq__art .b1 { fill: #FFFFFF; } .fq__art .b2 { fill: var(--green); }
+.fq__art text { font: 600 40px/1 var(--display); fill: var(--green); }
+.fq__art .ring { fill: none; stroke: #FFFFFF; stroke-width: 2; opacity: .5; }
+.fq__art .tick { fill: none; stroke: #FFFFFF; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 30; stroke-dashoffset: 30; animation: fq-tick .8s var(--ease) 1s forwards; }
+.fq__art .b1, .fq__art text { animation: fq-pop .7s var(--ease) .2s both; transform-box: fill-box; transform-origin: bottom left; }
+.fq__art .b2, .fq__art .ring { animation: fq-pop .7s var(--ease) .55s both; transform-box: fill-box; transform-origin: bottom right; }
+@keyframes fq-pop { from { opacity: 0; scale: .6; } }
+@keyframes fq-tick { to { stroke-dashoffset: 0; } }
+:root { interpolate-size: allow-keywords; }
+.fq__q::details-content { height: 0; overflow: clip; transition: height .35s var(--ease), content-visibility .35s allow-discrete; }
+.fq__q[open]::details-content { height: auto; }
+.fq__panel:not([hidden]) { animation: fq-in .4s var(--ease); }
+@keyframes fq-in { from { opacity: 0; translate: 8px 0; } }
+@media (max-width: 760px) {
+  .fq__art { display: none; }
+  .sh__route { height: 90px; }
+  .sh__bars li { grid-template-columns: 1fr auto; row-gap: 8px; }
+  .sh__track { grid-column: 1 / -1; grid-row: 2; }
+  .sh__days { grid-column: 1 / -1; grid-row: 3; text-align: left; }
+  .sh__scale { display: none; }
+  .pr__steps--line { grid-template-columns: 1fr !important; gap: 18px !important; }
+  .pr__steps--line::before { left: 19px; right: auto; top: 20px; bottom: 20px; width: 2px; height: auto; background: repeating-linear-gradient(180deg, var(--green) 0 6px, transparent 6px 12px); transform-origin: top; }
+  .reveal-on .pr__steps--line:not(.is-in)::before { scale: 1 0; }
+  .pr__steps--line li { grid-template-columns: 40px 1fr !important; }
+}
+@media (min-width: 761px) and (max-width: 980px) { .pr__steps--line { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } .pr__steps--line::before { display: none; } }
+@media (prefers-reduced-motion: reduce) { .sh__road--draw, .sh__parcel, .fq__art *, .fq__panel { animation: none !important; } .sh__road--draw { stroke-dashoffset: 0; } .sh__parcel { offset-distance: 100%; } .fq__art .tick { stroke-dashoffset: 0; } }
+/* the route, drawn in the SVG itself so it scales as one picture */
+.sh__route { height: auto; aspect-ratio: 6 / 1; max-height: 140px; }
+.sh__route svg { position: absolute; inset: 0; }
+.sh__road { vector-effect: none; stroke-width: 2.5; }
+.sh__dot--a { fill: var(--green); } .sh__dot--b { fill: #B07249; }
+.sh__parcel { position: static; width: auto; height: auto; margin: 0; offset-path: none; animation: none; background: none; box-shadow: none; }
+.sh__parcel rect { fill: #FFFFFF; filter: drop-shadow(0 6px 10px rgba(32, 47, 48, .25)); }
+.sh__parcel path { fill: none; stroke: var(--green); stroke-width: 1.8; stroke-linejoin: round; }
+.sh__end { font-size: 11px; }
+.sh__end i { display: none; }
+.sh__end--a { left: 0; top: auto; bottom: -4px; }
+.sh__end--b { right: 0; top: auto; bottom: 8px; }

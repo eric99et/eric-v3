@@ -185,3 +185,14 @@
   const h = decodeURIComponent(location.hash.slice(1)), el = h && document.getElementById(h);
   if (el && el.closest('[hidden]')) { const da = document.getElementById(h + '-da'); if (da) da.scrollIntoView(); }
 })();
+
+// [data-reveal]: things that rise into place as they come into view (once); nothing moves with reduced motion
+(() => {
+  const els = document.querySelectorAll('[data-reveal]');
+  if (!els.length) return;
+  const root = document.documentElement;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('is-in')); return; }
+  root.classList.add('reveal-on');
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+  els.forEach(e => io.observe(e));
+})();
