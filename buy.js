@@ -17,7 +17,8 @@
 
   /* ---------------------------------------------------------------- cart */
   const CART_KEY = 'laas.cart.v1.en';  // laas.js: 'laas.cart.v1.' + (DA ? 'da' : 'en')
-  const PRICE = 129;                    // laas.js LOCK / laas-pdp.js P.full, EUR
+  const PRICE = 129;                    // what the cart stores (euro); the page shows i18n.js's price
+  const I = window.LAAS_I18N || { P: { lock: 129 }, t: s => s, money: n => '€' + n }, tr = I.t;
   const NAME = { steel: 'Steel', copper: 'Copper', black: 'Black' };
   const readCart = () => {
     try { const v = JSON.parse(localStorage.getItem(CART_KEY)); return Array.isArray(v) ? v : []; } catch { return []; }
@@ -56,17 +57,17 @@
     $('#finish-name').textContent = name;
     $('#buybar-finish').textContent = name + (qty > 1 ? ' · ' + qty : '');
     $('#qty-value').textContent = qty;
-    const label = 'Buy · €' + PRICE * qty;
+    const label = tr('Buy') + ' · ' + I.money(I.P.lock * qty);
     $('#buy-btn').textContent = label;
     $('#buybar-btn').textContent = label;
     $('#buy').dataset.metal = finish;
-    stage.setAttribute('aria-label', 'The Ring-Lock in ' + name + '. Drag, or use the arrow keys, to turn it.');
+    stage.setAttribute('aria-label', tr('The LAAS Ring-Lock in') + ' ' + name + '. ' + tr('Drag, or use the arrow keys, to turn it.'));
     syncTabs();
     still.src = 'images/scenes/finish-' + finish + '.webp';
     if (first) {
-      photo.src = 'images/lock-' + finish + '.webp'; photo.alt = 'The Ring-Lock in ' + name + ' on the rear wheel of a bike';
+      photo.src = 'images/lock-' + finish + '.webp'; photo.alt = tr('The LAAS Ring-Lock in') + ' ' + name + ' ' + tr('on the rear wheel of a bike');
     } else {
-      swapImg(photo, 'images/lock-' + finish + '.webp', 'The Ring-Lock in ' + name + ' on the rear wheel of a bike');
+      swapImg(photo, 'images/lock-' + finish + '.webp', tr('The LAAS Ring-Lock in') + ' ' + name + ' ' + tr('on the rear wheel of a bike'));
       // keep the choice in the address, so a reload or a shared link opens on it
       const u = new URL(location.href);
       u.searchParams.set('finish', finish);
@@ -290,11 +291,11 @@
   // Flex Mount); cart-nav.js shows what was added, with Check out one tap away
   const buy = () => {
     const ok = window.LAAS_CART ? window.LAAS_CART.add(finish, qty) : addLocks(finish, qty);
-    if (ok === 0) { $('#buy-status').textContent = 'Your cart already has 15 locks, the most in one order.'; return; }
-    if (ok === false) { $('#buy-status').textContent = 'Your browser blocked the cart. Allow site data for this page and try again.'; return; }
-    $('#buy-status').textContent = (n => n + (n === 1 ? ' Ring-Lock' : ' Ring-Locks') + ' in ' + NAME[finish] + ' added to your cart.')(ok === true ? qty : ok);
+    if (ok === 0) { $('#buy-status').textContent = tr('Your cart already has 15 locks, the most in one order.'); return; }
+    if (ok === false) { $('#buy-status').textContent = tr('Your browser blocked the cart. Allow site data for this page and try again.'); return; }
+    $('#buy-status').textContent = (n => n + ' × Ring-Lock, ' + NAME[finish] + ', ' + tr('added to your cart.'))(ok === true ? qty : ok);
     ['#buy-btn', '#buybar-btn'].forEach(sel => {
-      const btn = $(sel); btn.classList.add('is-added'); btn.textContent = 'Added';
+      const btn = $(sel); btn.classList.add('is-added'); btn.textContent = tr('Added');
       setTimeout(() => { btn.classList.remove('is-added'); render(true); }, 1600);
     });
   };
@@ -342,14 +343,14 @@
   /* ------------------------------------------------------------------ menu */
   const menu = $('#menu'), menuBtn = $('#menu-open');
   function openMenu() {
-    menu.hidden = false; menuBtn.setAttribute('aria-expanded', 'true'); menuBtn.textContent = 'Close';
+    menu.hidden = false; menuBtn.setAttribute('aria-expanded', 'true'); menuBtn.textContent = tr('Close');
     requestAnimationFrame(() => menu.classList.add('is-open'));
     $('main').inert = true;
     setTimeout(() => menu.querySelector('a')?.focus(), 50);
   }
   function closeMenu(refocus = true) {
     if (menu.hidden) return;
-    menu.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.textContent = 'Menu';
+    menu.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.textContent = tr('Menu');
     setTimeout(() => { if (!menu.classList.contains('is-open')) menu.hidden = true; }, reduce ? 0 : 700);
     $('main').inert = false;
     if (refocus) menuBtn.focus();

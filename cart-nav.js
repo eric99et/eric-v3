@@ -8,6 +8,8 @@
   const KEY = 'laas.cart.v1.en';
   const PRICE = 129, MAX_LOCKS = 15;
   const NAME = { steel: 'Steel', copper: 'Copper', black: 'Black' };
+  // the language and the prices (i18n.js); the plain English fallback when it is missing
+  const L = () => window.LAAS_I18N || { lang: 'en', P: { lock: PRICE }, money: n => '€' + n, t: s => s };
   const read = () => { try { const v = JSON.parse(localStorage.getItem(KEY)); return Array.isArray(v) ? v : []; } catch { return []; } };
   const count = () => read().reduce((n, i) => n + ((i && +i.qty) || 1), 0);
 
@@ -26,7 +28,7 @@
     a.hidden = !always && n === 0;
     a.querySelector('b').textContent = n;
     a.querySelector('b').hidden = n === 0;
-    a.setAttribute('aria-label', n ? `Cart, ${n} ${n === 1 ? 'item' : 'items'}` : 'Cart, empty');
+    const tr = L().t; a.setAttribute('aria-label', n ? `${tr('Cart')}, ${n} ${tr(n === 1 ? 'item' : 'items')}` : tr('Cart, empty'));
   };
   paint();
   addEventListener('storage', e => { if (e.key === KEY) paint(); });
@@ -35,12 +37,12 @@
 
   /* ---------------------------------------------------------- add to cart */
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // the landing page can be Danish (?lang=da); the card speaks the page's language
-  const da = document.documentElement.lang === 'da';
-  const T = da ? { added: 'Lagt i kurven', full: 'Din kurv er fuld', go: 'Gå til kassen', cart: 'Se kurven', close: 'Luk',
+  // the card speaks the page's language (read when it is shown: the landing page turns Danish after this runs)
+  const TT = da => da ? { added: 'Lagt i kurven', full: 'Din kurv er fuld', go: 'Gå til kassen', cart: 'Se kurven', close: 'Luk',
     most: ' låse er det højeste antal i én ordre.', have: n => 'Der er ' + n + ' låse i kurven, det højeste antal i én ordre.' }
     : { added: 'Added to your cart', full: 'Your cart is full', go: 'Check out', cart: 'View cart', close: 'Close',
     most: ' locks is the most in one order.', have: n => 'You have ' + n + ' locks in it, the most in one order.' };
+  const T = new Proxy({}, { get: (_, k) => TT(L().lang === 'da')[k] });
   let card = null, timer = 0;
   const show = (finish, qty, note) => {
     if (!card) {
@@ -61,7 +63,7 @@
     }
     card.querySelector('.added__pic').src = 'images/scenes/thumb-' + finish + '.webp';
     card.querySelector('.added__h').textContent = qty ? T.added : T.full;
-    card.querySelector('.added__p').textContent = (qty ? `Ring-Lock, ${NAME[finish]}${qty > 1 ? ' × ' + qty : ''} · €${PRICE * qty}` : '') + (note ? (qty ? '. ' : '') + note : '');
+    card.querySelector('.added__p').textContent = (qty ? `Ring-Lock, ${NAME[finish]}${qty > 1 ? ' × ' + qty : ''} · ${L().money(L().P.lock * qty)}` : '') + (note ? (qty ? '. ' : '') + note : '');
     card.hidden = false;
     requestAnimationFrame(() => card.classList.add('is-on'));
     clearTimeout(timer); timer = setTimeout(hide, 7000);
@@ -114,6 +116,6 @@
     if (window.LAAS_UI || document.querySelector('script[src="buy.js"], script[src="shop-v2.js"]')) return;
     const open = menu.hidden;
     menu.hidden = !open; menu.classList.toggle('is-open', open);
-    btn.setAttribute('aria-expanded', String(open)); btn.textContent = open ? 'Close' : 'Menu';
+    btn.setAttribute('aria-expanded', String(open)); btn.textContent = (window.LAAS_I18N ? window.LAAS_I18N.t : x => x)(open ? 'Close' : 'Menu');
   });
 })();

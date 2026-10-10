@@ -13,10 +13,14 @@
 
   /* ---------------------------------------------------------------- store */
   const KEY = 'laas.cart.v1.en';
-  // at most 15 locks in one order (all finishes together), and so at most 15 Flex Mounts
-  const LOCK = 129, FLEX = 9.99, FLAT_SHIP = 9, FREE_SHIP = 250, MAX = 15;
+  // at most 15 locks in one order (all finishes together), and so at most 15 Flex Mounts.
+  // The prices come from i18n.js: euro in English, kroner in Danish. A line is priced by what it is, never by
+  // the number stored with it, so the same cart reads right in either language.
+  const I = window.LAAS_I18N || { lang: 'en', P: { lock: 129, flex: 9.99, ship: 9, free: 250 }, t: s => s, money: n => '€' + n };
+  const { t: tr, money } = I;
+  const LOCK = I.P.lock, FLEX = I.P.flex, FLAT_SHIP = I.P.ship, FREE_SHIP = I.P.free, MAX = 15;
   const FIN = { Steel: 'steel', Copper: 'copper', Black: 'black' };
-  const money = n => { const r = Math.round(n * 100) / 100; return '€' + (Number.isInteger(r) ? r : r.toFixed(2)); };
+  const unitOf = i => /^Ring-Lock/.test(i.name) ? LOCK : /Flex/.test(i.name) ? FLEX : (i.unit || 0);
   // laas.js migrate(): drop retired models, strip old trial names, reset prices, merge duplicates
   const migrate = items => {
     const out = [];
@@ -28,8 +32,9 @@
         .replace(/ (trial|prøve)$/, '')
         .replace(/^O-Lock/, 'Ring-Lock');
       delete i.trial; delete i.trialFlex;
-      if (/^Ring-Lock/.test(i.name)) i.unit = LOCK;
-      if (/Flex/.test(i.name)) i.unit = FLEX;
+      // the stored unit stays in euro (what the shop is priced in); the page prices from unitOf()
+      if (/^Ring-Lock/.test(i.name)) i.unit = 129;
+      if (/Flex/.test(i.name)) i.unit = 9.99;
       // the finish is Steel (as in the Drive copy); carts from before say Silver
       if (/^(Silver|Sølv|Stål)$/.test(i.finish || '')) i.finish = 'Steel';
       i.qty = Math.min(MAX, Math.max(1, parseInt(i.qty, 10) || 1));
@@ -42,7 +47,7 @@
   // laas-cart tells the bag in the nav (cart-nav.js) to recount
   const write = items => { try { localStorage.setItem(KEY, JSON.stringify(items)); } catch { /* private mode */ } paint(); dispatchEvent(new Event('laas-cart')); };
   const totals = items => {
-    const sub = items.reduce((n, i) => n + (i.unit || 0) * (i.qty || 1), 0);
+    const sub = items.reduce((n, i) => n + unitOf(i) * (i.qty || 1), 0);
     const ship = sub > FREE_SHIP || !sub ? 0 : FLAT_SHIP;
     return { sub, ship, total: sub + ship, count: items.reduce((n, i) => n + (i.qty || 1), 0) };
   };
@@ -66,7 +71,7 @@
   });
   const lockCount = items => items.reduce((n, i) => n + (isLock(i) ? i.qty || 1 : 0), 0);
   const full = (i, items) => isLock(i) ? lockCount(items) >= MAX : i.qty >= MAX;
-  const thumb = i => isFlex(i) ? 'images/flexmount.webp'
+  const thumb = i => isFlex(i) ? 'images/flexmount-thumb.webp'
     : FIN[i.finish] ? 'images/scenes/thumb-' + FIN[i.finish] + '.webp' : (i.img || 'images/scenes/thumb-steel.webp');
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
@@ -86,29 +91,29 @@
           <div class="item__what">
             <p class="item__name">${esc(i.name)}</p>
             ${i.finish ? `<p class="item__meta">${esc(i.finish)}</p>` : ''}
-            <p class="item__meta">${money(i.unit * i.qty)}</p>
-            <span class="item__tag">${isLock(i) ? 'Intro price' : 'No drilling'}</span>
+            <p class="item__meta">${money(unitOf(i) * i.qty)}</p>
+            <span class="item__tag">${tr(isLock(i) ? 'Intro price' : 'No drilling')}</span>
           </div>
-          <div class="item__qty" role="group" aria-label="Quantity, ${label(i)}">
-            <button type="button" data-step="${idx}" data-d="-1" aria-label="${i.qty <= 1 ? 'Remove ' + label(i) : 'One less'}">${i.qty <= 1 ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12"/></svg>' : '−'}</button>
+          <div class="item__qty" role="group" aria-label="${tr('Quantity')}, ${label(i)}">
+            <button type="button" data-step="${idx}" data-d="-1" aria-label="${i.qty <= 1 ? tr('Remove') + ' ' + label(i) : tr('One less')}">${i.qty <= 1 ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12"/></svg>' : '−'}</button>
             <span>${i.qty}</span>
-            <button type="button" data-step="${idx}" data-d="1" aria-label="${full(i, items) ? MAX + ' is the most in one order' : 'One more'}"${full(i, items) ? ' disabled' : ''}>+</button>
+            <button type="button" data-step="${idx}" data-d="1" aria-label="${full(i, items) ? MAX + ' ' + tr('is the most in one order') : tr('One more')}"${full(i, items) ? ' disabled' : ''}>+</button>
           </div>
         </li>`).join('') : items.map(i => `
         <li class="line">
           <span class="line__pic"><img src="${thumb(i)}" alt="" width="96" height="96" decoding="async"></span>
           <div class="line__what">
             <p class="line__name">${esc(i.name)}</p>
-            <p class="line__meta">${i.finish ? esc(i.finish) + ' · ' : ''}${money(i.unit)} × ${i.qty}</p>
+            <p class="line__meta">${i.finish ? esc(i.finish) + ' · ' : ''}${money(unitOf(i))} × ${i.qty}</p>
           </div>
-          <p class="line__sum">${money(i.unit * i.qty)}</p>
+          <p class="line__sum">${money(unitOf(i) * i.qty)}</p>
         </li>`).join('');
     });
 
     setText('[data-subtotal]', money(t.sub));
-    setText('[data-shipping]', !t.sub ? '€0' : t.ship ? money(t.ship) : 'Free');
+    setText('[data-shipping]', !t.sub ? money(0) : t.ship ? money(t.ship) : tr('Free'));
     setText('[data-total]', money(t.total));
-    setText('[data-count]', t.count ? t.count + (t.count === 1 ? ' item' : ' items') : '');
+    setText('[data-count]', t.count ? t.count + ' ' + tr(t.count === 1 ? 'item' : 'items') : '');
     $$('[data-empty]').forEach(el => { el.hidden = !empty; });
     $$('[data-full]').forEach(el => { el.hidden = empty; });
 
@@ -137,7 +142,7 @@
     $$('.nav__cart').forEach(a => { a.hidden = empty; a.setAttribute('aria-label', 'Cart, ' + t.count + (t.count === 1 ? ' item' : ' items')); });
 
     // checkout: the pay buttons carry the total
-    $$('[data-pay-btn]').forEach(b => { b.disabled = empty; b.textContent = empty ? 'Your cart is empty' : 'Pay ' + money(t.total) + ' and place order'; });
+    $$('[data-pay-btn]').forEach(b => { b.disabled = empty; b.textContent = empty ? tr('Your cart is empty') : tr('Pay') + ' ' + money(t.total) + ' ' + tr('and place order'); });
     $$('[data-checkout]').forEach(a => { a.setAttribute('aria-disabled', String(empty)); });
   }
 
@@ -149,7 +154,7 @@
       const items = read(), i = items[+step.dataset.step]; if (!i) return;
       // − at 1 takes the line out
       if (i.qty + +step.dataset.d < 1) {
-        items.splice(+step.dataset.step, 1); write(items); say(i.name + ' removed from your cart.');
+        items.splice(+step.dataset.step, 1); write(items); say(i.name + ' ' + tr('removed from your cart.'));
         ($('[data-step]') || $('#cart-h'))?.focus();
         return;
       }
@@ -164,7 +169,7 @@
     const rm = e.target.closest('[data-rm]');
     if (rm) {
       const items = read(), [gone] = items.splice(+rm.dataset.rm, 1);
-      write(items); if (gone) say(gone.name + ' removed from your cart.');
+      write(items); if (gone) say(gone.name + ' ' + tr('removed from your cart.'));
       ($('[data-rm]') || $('#cart-h'))?.focus();
       return;
     }
@@ -176,15 +181,15 @@
         const locks = items.filter(isLock).reduce((n, i) => n + i.qty, 0);
         const fm = items.find(isFlex);
         if (fm) fm.qty = Math.min(MAX, fm.qty + 1);
-        else items.push({ name: 'Flex Mount', finish: '', unit: FLEX, qty: Math.min(MAX, Math.max(1, locks)), img: 'images/flexmount.jpg' });
-        write(items); say('Flex Mount added.');
+        else items.push({ name: 'Flex Mount', finish: '', unit: 9.99, qty: Math.min(MAX, Math.max(1, locks)), img: 'images/flexmount.jpg' });
+        write(items); say(tr('Flex Mount added.'));
       } else {
         const fin = secondFin || 'steel', name = Object.keys(FIN).find(k => FIN[k] === fin);
         if (lockCount(items) < MAX) {
           const same = items.find(i => isLock(i) && i.finish === name);
           if (same) same.qty += 1;
-          else items.push({ name: 'Ring-Lock', finish: name, unit: LOCK, qty: 1, img: 'images/lock-' + fin + '-render.jpg' });
-          write(items); say('A second Ring-Lock in ' + name + ' added.');
+          else items.push({ name: 'Ring-Lock', finish: name, unit: 129, qty: 1, img: 'images/lock-' + fin + '-render.jpg' });
+          write(items); say(tr('A second Ring-Lock added.') + ' ' + name);
         }
       }
       $('#cart-h')?.focus();
@@ -202,7 +207,7 @@
     const msg = $('#co-msg');
     const notConnected = () => {
       msg.hidden = false;
-      msg.textContent = 'Payment is not connected yet. Nothing has been charged, and nothing you typed has been sent.';
+      msg.textContent = tr('Payment is not connected yet. Nothing has been charged, and nothing you typed has been sent.');
       msg.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
     };
     form.addEventListener('submit', e => {
@@ -210,7 +215,7 @@
       form.classList.add('was-checked');
       if (!form.checkValidity()) {
         const bad = form.querySelector('input:invalid, select:invalid, textarea:invalid');
-        msg.hidden = false; msg.textContent = 'Check the highlighted fields.';
+        msg.hidden = false; msg.textContent = tr('Check the highlighted fields.');
         bad?.focus(); return;
       }
       notConnected();
@@ -223,9 +228,9 @@
       klarna: 'Klarna opens after you press Pay, then brings you straight back here.',
       googlepay: 'Google Pay opens after you press Pay. No card number to type.',
     };
-    $$('input[name="method"]').forEach(r => r.addEventListener('change', () => { $('#method-note').textContent = notes[r.value]; }));
+    $$('input[name="method"]').forEach(r => r.addEventListener('change', () => { $('#method-note').textContent = tr(notes[r.value]); }));
     $('[data-promo]')?.addEventListener('click', () => {
-      const m = $('#promo-msg'); m.hidden = false; m.textContent = 'Codes are checked on the payment page, after you press Pay.';
+      const m = $('#promo-msg'); m.hidden = false; m.textContent = tr('Codes are checked on the payment page, after you press Pay.');
     });
     // the order summary: open on a desktop, folded on a phone
     const sum = $('#co-summary');
@@ -249,14 +254,14 @@
   }
   const menu = $('#menu'), menuBtn = $('#menu-open');
   const openMenu = () => {
-    menu.hidden = false; menuBtn.setAttribute('aria-expanded', 'true'); menuBtn.textContent = 'Close';
+    menu.hidden = false; menuBtn.setAttribute('aria-expanded', 'true'); menuBtn.textContent = tr('Close');
     requestAnimationFrame(() => menu.classList.add('is-open'));
     $('main').inert = true; $$('.paybar').forEach(p => { p.inert = true; });
     setTimeout(() => menu.querySelector('a')?.focus(), 50);
   };
   const closeMenu = (refocus = true) => {
     if (menu.hidden) return;
-    menu.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.textContent = 'Menu';
+    menu.classList.remove('is-open'); menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.textContent = tr('Menu');
     setTimeout(() => { if (!menu.classList.contains('is-open')) menu.hidden = true; }, reduce ? 0 : 700);
     $('main').inert = false; $$('.paybar').forEach(p => { p.inert = false; });
     if (refocus) menuBtn.focus();

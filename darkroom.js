@@ -30,7 +30,7 @@ const DA = {
   'Keyless': 'Nøglefri', 'Find My': 'Find My', 'Varefakta': 'Varefakta', 'Will it fit?': 'Passer den?', 'Fit': 'Pasform', 'Buy': 'Køb', 'FAQ': 'FAQ',
   'Ring-Lock': 'Ring-Lock', 'Shipping': 'Fragt', 'Support': 'Support', 'Yours': 'Din lås', 'Returns': 'Returnering', 'Cart': 'Kurv',
   // the orbit and the seal
-  'KEYLESS · INSURANCE-APPROVED IN DENMARK · FITS MOST BIKES · €129 ·': 'NØGLEFRI · FORSIKRINGSGODKENDT I DANMARK · PASSER TIL DE FLESTE CYKLER · €129 ·',
+  'KEYLESS · INSURANCE-APPROVED IN DENMARK · FITS MOST BIKES · €129 ·': 'NØGLEFRI · FORSIKRINGSGODKENDT I DANMARK · PASSER TIL DE FLESTE CYKLER · 999 KR ·',
   'VAREFAKTA · VK 37868 · VF 5029:4 · INSURANCE-APPROVED IN DENMARK ·': 'VAREFAKTA · VK 37868 · VF 5029:4 · FORSIKRINGSGODKENDT I DANMARK ·',
   '63 mm clearance': '63 mm frigang',
   // the poster
@@ -53,7 +53,7 @@ const DA = {
   'Will it fit my bike?': 'Passer den til min cykel?', 'Road': 'Racer', 'City': 'Bycykel', 'E-bike': 'Elcykel', 'Cargo': 'Ladcykel', 'Fat bike': 'Fatbike',
   'It fits.': 'Den passer.', 'Not this one.': 'Ikke denne.', 'Tyres up to 60 mm. The mounting screws are in the box.': 'Dæk op til 60 mm. Monteringsskruerne ligger i æsken.',
   'Fat-bike tyres are too wide for the ring.': 'Fatbike-dæk er for brede til ringen.', 'mm tyre': 'mm dæk',
-  'No holes in your frame? Add the Flex Mount for €9.99 and it fits anyway.': 'Ingen huller i stellet? Tilføj Flex Mount for €9,99, så passer den alligevel.',
+  'No holes in your frame? Add the Flex Mount for €9.99 and it fits anyway.': 'Ingen huller i stellet? Tilføj Flex Mount for 75 kr., så passer den alligevel.',
   // 05 buy (the finish names stay Steel, Copper and Black, as in the Drive copy)
   'Steel. Copper. Black.': 'Steel. Copper. Black.', 'Same lock, same price, three finishes. Pick the one that suits your bike.': 'Samme lås, samme pris, tre udgaver. Vælg den, der passer til din cykel.',
   'Drag to turn': 'Træk for at dreje', 'Intro price until 31 Dec 2026': 'Introduktionspris til 31. dec. 2026',
@@ -62,13 +62,14 @@ const DA = {
   'Questions, answered.': 'Spørgsmål og svar.', 'Question not here? Call us on': 'Finder du ikke dit spørgsmål? Ring til os på',
   'Will my insurance accept it?': 'Godkender mit forsikringsselskab den?',
   'In Denmark, the Ring-Lock is insurance-approved: Varefakta VK 37868. Most Danish insurers ask for a Varefakta-approved lock and a lock certificate, and the certificate is in the box. Check your own policy. Outside Denmark, check what your policy asks for first.': 'I Danmark er Ring-Lock forsikringsgodkendt: Varefakta VK 37868. De fleste danske forsikringsselskaber kræver en Varefakta-godkendt lås og et låsecertifikat, og certifikatet ligger i æsken. Tjek din egen police. Uden for Danmark: tjek først, hvad din police kræver.',
-  'Most bikes, cargo bikes and e-bikes too: tyres up to 60 mm, mount spacing 75 to 100 mm. Not fat bikes. Frame holes? The mounting screws are in the box. No holes? The Flex Mount, €9.99.': 'De fleste cykler, også ladcykler og elcykler: dæk op til 60 mm, monteringsafstand 75 til 100 mm. Ikke fatbikes. Huller i stellet? Monteringsskruerne ligger i æsken. Ingen huller? Flex Mount, €9,99.',
+  'Most bikes, cargo bikes and e-bikes too: tyres up to 60 mm, mount spacing 75 to 100 mm. Not fat bikes. Frame holes? The mounting screws are in the box. No holes? The Flex Mount, €9.99.': 'De fleste cykler, også ladcykler og elcykler: dæk op til 60 mm, monteringsafstand 75 til 100 mm. Ikke fatbikes. Huller i stellet? Monteringsskruerne ligger i æsken. Ingen huller? Flex Mount, 75 kr.',
   'What if the battery runs low?': 'Hvad hvis batteriet er ved at løbe tør?',
   'About six months per charge. A full charge over USB-C takes 90 minutes, and any USB-C cable works.': 'Cirka seks måneder pr. opladning. En fuld opladning via USB-C tager 90 minutter, og alle USB-C-kabler virker.',
+  'Does it work with Android?': 'Virker den med Android?', 'Yes. The LAAS app is on the App Store and Google Play.': 'Ja. LAAS-appen findes i App Store og Google Play.',
   'How secure is it?': 'Hvor sikker er den?',
   '9 mm of hardened steel. Every unlock uses a one-time key over Bluetooth, so a recorded signal cannot be replayed.': '9 mm hærdet stål. Hver oplåsning bruger en engangsnøgle via Bluetooth, så et optaget signal ikke kan afspilles igen.',
   'How fast does it ship, and what does it cost?': 'Hvor hurtigt sendes den, og hvad koster det?',
-  'It ships in 1–2 working days. Shipping is €9, and free on orders over €250. Questions about an order? Write to': 'Den sendes inden for 1–2 hverdage. Fragten koster €9 og er gratis ved køb over €250. Spørgsmål om en ordre? Skriv til',
+  'It ships in 1–2 working days. Shipping is €9, and free on orders over €250. Questions about an order? Write to': 'Den sendes inden for 1–2 hverdage. Fragten koster 75 kr. og er gratis ved køb over 1.900 kr. Spørgsmål om en ordre? Skriv til',
   'How do returns and the right to complain work?': 'Hvordan fungerer returnering og reklamationsret?',
   'Changed your mind? Tell us at': 'Fortryder du? Giv os besked på',
   'within 57 days of delivery, then hand the lock to the carrier with the prepaid return label. You get your money back, shipping included, within 14 days of telling us, once the lock is back with us. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery.': 'senest 57 dage efter levering, og aflever låsen til fragtfirmaet med den forudbetalte returlabel. Du får pengene tilbage, inklusive fragt, inden for 14 dage efter din besked, når låsen er tilbage hos os. Du har også to års reklamationsret efter dansk lov, regnet fra levering.',
@@ -88,7 +89,8 @@ if (lang === 'da') {
   const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   const nodes = []; let n; while ((n = w.nextNode())) if (!n.parentElement.closest('script,style')) nodes.push(n);
   nodes.forEach(n => { const key = n.nodeValue.replace(/ /g, ' ').replace(/\s+/g, ' ').trim(); if (DA[key]) n.nodeValue = n.nodeValue.replace(n.nodeValue.trim(), DA[key]); });
-  // prices stay in euro, as in the cart and at checkout: a Danish page in kroner waits for a shop that also takes kroner
+  // prices in kroner, as the Danish cart and checkout show them (i18n.js)
+  $$('.nav__price, .price-line strong').forEach(el => { el.textContent = '999 kr'; });
   $$('[aria-label]').forEach(el => { const v = DA[el.getAttribute('aria-label')]; if (v) el.setAttribute('aria-label', v); });
 }
 $$('.lang a').forEach(a => a.setAttribute('aria-current', String(a.dataset.lang === lang)));
@@ -953,7 +955,7 @@ renderFit();
 // António's buy block: the dots name the finish, the quantity sets the price on the button
 const FIN_NAME = { steel: 'Steel', copper: 'Copper', black: 'Black' };
 let qty = 1;
-const priceText = () => t('Buy') + ' · €' + (129 * qty);
+const priceText = () => t('Buy') + ' · ' + (lang === 'da' ? (999 * qty).toLocaleString('da-DK') + ' kr' : '€' + 129 * qty);
 function renderBuy() {
   $('#qty-value').textContent = qty;
   $$('[data-qty]').forEach(b => { b.disabled = +b.dataset.qty < 0 ? qty <= 1 : qty >= 15; });
