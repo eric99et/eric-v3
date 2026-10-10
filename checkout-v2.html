@@ -57,13 +57,20 @@
   </nav>
 </div>
 
-<main id="top" class="shop cart co2">
-  <!-- the checkout, in the cart's narrow column: the order, then one card with contact, delivery, payment and Pay.
-       BUILD NOTE: still a shell. It validates the form, then says plainly that payment is not connected; it takes
-       no card details and sends nothing anywhere. -->
-  <div class="cart__wrap">
-    <p class="co2__crumb"><a href="cart-v2.html" class="link">← Cart</a></p>
-    <h1 class="cart__h" id="co-h" tabindex="-1">Checkout <span class="cart__n" data-count>0 items</span></h1>
+<main id="top" class="shop cart co2 co3">
+  <!-- the checkout: the order beside (on a phone: above) three steps, contact, delivery and payment. Each step is
+       checked before the next opens. DEMO: there is no payment provider. Pay places a test order in this browser
+       only (checkout.js): no card details are asked for, and nothing is sent anywhere. -->
+  <div class="cart__wrap co3__wrap">
+    <div class="co3__head">
+      <p class="co2__crumb"><a href="cart-v2.html" class="link">← Cart</a></p>
+      <h1 class="cart__h" id="co-h" tabindex="-1">Checkout <span class="cart__n" data-count>0 items</span></h1>
+      <ol class="co-steps" aria-label="Checkout steps" data-full>
+        <li data-tab="contact"><b>1</b><span>Contact</span></li>
+        <li data-tab="delivery"><b>2</b><span>Delivery</span></li>
+        <li data-tab="payment"><b>3</b><span>Payment</span></li>
+      </ol>
+    </div>
 
     <div class="item item--empty" data-empty hidden>
       <span class="item__pic"><img src="images/scenes/thumb-steel.webp" width="320" height="320" alt=""></span>
@@ -74,61 +81,86 @@
       <a class="item__go" href="buy.html">See the Ring-Lock</a>
     </div>
 
-    <form class="cart__box co2__box" id="checkout-form" novalidate data-full>
-      <!-- the order -->
-      <section class="co2__sec" aria-labelledby="os-h">
-        <h2 class="co2__h" id="os-h">Your order <a class="link co2__edit" href="cart-v2.html">Edit</a></h2>
-        <ul class="lines lines--ro" data-lines="read"></ul>
-        <dl class="sums">
-          <div><dt>Subtotal</dt><dd data-subtotal>€0</dd></div>
-          <div><dt>Shipping <small>ships in 1–2 working days</small></dt><dd data-shipping>€0</dd></div>
-          <div class="sums__total"><dt>Total <small>incl. VAT</small></dt><dd data-total>€0</dd></div>
-        </dl>
-        <details class="co-promo">
-          <summary>Have a discount code?</summary>
-          <div class="co-promo__row"><input type="text" aria-label="Discount code" placeholder="Discount code" autocomplete="off"><button type="button" class="ghost" data-promo>Apply</button></div>
-          <p class="fine" id="promo-msg" hidden></p>
-        </details>
+    <!-- the order: beside the steps on a computer, above them on a phone -->
+    <aside class="cart__box co2__box co3__sum" aria-labelledby="os-h" data-full>
+      <h2 class="co2__h" id="os-h">Your order <a class="link co2__edit" href="cart-v2.html">Edit</a></h2>
+      <ul class="lines lines--ro" data-lines="read"></ul>
+      <dl class="sums">
+        <div><dt>Subtotal</dt><dd data-subtotal>€0</dd></div>
+        <div><dt>Shipping <small>ships in 1–2 working days</small></dt><dd data-shipping>€0</dd></div>
+        <div class="sums__total"><dt>Total <small>incl. VAT</small></dt><dd data-total>€0</dd></div>
+      </dl>
+      <details class="co-promo">
+        <summary>Have a discount code?</summary>
+        <div class="co-promo__row"><input type="text" aria-label="Discount code" placeholder="Discount code" autocomplete="off"><button type="button" class="ghost" data-promo>Apply</button></div>
+        <p class="fine" id="promo-msg" role="status" hidden></p>
+      </details>
+    </aside>
+
+    <form class="co3__form" id="checkout-form" novalidate data-full>
+      <!-- 1 · contact -->
+      <section class="cart__box co-step" data-step="contact" aria-labelledby="st1-h">
+        <h2 class="co-step__h"><b class="co-step__n" aria-hidden="true">1</b><span id="st1-h" tabindex="-1">Contact</span><button type="button" class="link co-step__edit" data-edit="contact" hidden>Edit</button></h2>
+        <p class="co-step__done" data-done></p>
+        <div class="co-step__body">
+          <div class="field"><label for="co-email">Email</label><input id="co-email" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="you@example.com" aria-describedby="co-email-err"><p class="field__err" id="co-email-err" aria-live="polite"></p></div>
+          <p class="fine co-step__why">For the order confirmation and the tracking link. Nothing else, unless you tick the box below.</p>
+          <label class="check"><input type="checkbox" name="news"><span>Yes, email me news from LAAS about the Ring-Lock, at most once a month. Unsubscribe at any time. <a class="link" href="privacy.html">Privacy policy</a></span></label>
+          <button class="pill-btn co-next" type="button" data-next>Continue to delivery</button>
+        </div>
       </section>
 
-      <!-- contact and delivery -->
-      <section class="co2__sec" aria-labelledby="del-h">
-        <h2 class="co2__h" id="del-h">Delivery</h2>
-        <div class="field"><label for="co-email">Email</label><input id="co-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
-        <div class="row2">
-          <div class="field"><label for="co-first">First name</label><input id="co-first" name="first" autocomplete="given-name" required></div>
-          <div class="field"><label for="co-last">Last name</label><input id="co-last" name="last" autocomplete="family-name" required></div>
-        </div>
-        <div class="field"><label for="co-addr">Street and number</label><input id="co-addr" name="address" autocomplete="street-address" required></div>
-        <div class="row2 row2--narrow">
-          <div class="field"><label for="co-post">Postal code</label><input id="co-post" name="postal" autocomplete="postal-code" required></div>
-          <div class="field"><label for="co-city">City</label><input id="co-city" name="city" autocomplete="address-level2" required></div>
-        </div>
-        <div class="row2">
-          <div class="field"><label for="co-country">Country</label>
-            <select id="co-country" name="country" autocomplete="country"><option value="DK" selected>Denmark</option><option value="SE">Sweden</option><option value="DE">Germany</option><option value="NL">Netherlands</option><option value="BE">Belgium</option><option value="AT">Austria</option><option value="FI">Finland</option><option value="FR">France</option></select>
+      <!-- 2 · delivery -->
+      <section class="cart__box co-step" data-step="delivery" aria-labelledby="st2-h">
+        <h2 class="co-step__h"><b class="co-step__n" aria-hidden="true">2</b><span id="st2-h" tabindex="-1">Delivery</span><button type="button" class="link co-step__edit" data-edit="delivery" hidden>Edit</button></h2>
+        <p class="co-step__done" data-done></p>
+        <div class="co-step__body">
+          <div class="row2">
+            <div class="field"><label for="co-first">First name</label><input id="co-first" name="first" autocomplete="given-name" required aria-describedby="co-first-err"><p class="field__err" id="co-first-err" aria-live="polite"></p></div>
+            <div class="field"><label for="co-last">Last name</label><input id="co-last" name="last" autocomplete="family-name" required aria-describedby="co-last-err"><p class="field__err" id="co-last-err" aria-live="polite"></p></div>
           </div>
-          <div class="field"><label for="co-phone">Phone <span>optional</span></label><input id="co-phone" name="phone" type="tel" autocomplete="tel"></div>
+          <div class="field"><label for="co-addr">Street and number</label><input id="co-addr" name="address" autocomplete="address-line1" required aria-describedby="co-addr-err"><p class="field__err" id="co-addr-err" aria-live="polite"></p></div>
+          <div class="field"><label for="co-addr2">Apartment, floor <span>optional</span></label><input id="co-addr2" name="address2" autocomplete="address-line2"></div>
+          <div class="row2 row2--narrow">
+            <div class="field"><label for="co-post">Postal code</label><input id="co-post" name="postal" autocomplete="postal-code" autocapitalize="characters" required aria-describedby="co-post-err"><p class="field__err" id="co-post-err" aria-live="polite"></p></div>
+            <div class="field"><label for="co-city">City</label><input id="co-city" name="city" autocomplete="address-level2" required aria-describedby="co-city-err"><p class="field__err" id="co-city-err" aria-live="polite"></p></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="co-country">Country</label>
+              <select id="co-country" name="country" autocomplete="country"><option value="DK" selected>Denmark</option><option value="SE">Sweden</option><option value="DE">Germany</option><option value="NL">Netherlands</option><option value="BE">Belgium</option><option value="AT">Austria</option><option value="FI">Finland</option><option value="FR">France</option></select>
+            </div>
+            <div class="field"><label for="co-phone">Phone <span>optional</span></label><input id="co-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="co-phone-err"><p class="field__err" id="co-phone-err" aria-live="polite"></p></div>
+          </div>
+          <p class="fine">Ships from Copenhagen in 1–2 working days, with a tracking link by email.</p>
+          <button class="pill-btn co-next" type="button" data-next>Continue to payment</button>
         </div>
-        <label class="check"><input type="checkbox" name="news"><span>Yes, email me news from LAAS about the Ring-Lock, at most once a month. Unsubscribe at any time. <a class="link" href="privacy.html">Privacy policy</a></span></label>
       </section>
 
-      <!-- payment: one row of small tabs -->
-      <section class="co2__sec" aria-labelledby="pay-h">
-        <h2 class="co2__h" id="pay-h">Payment</h2>
-        <div class="paytabs" role="radiogroup" aria-labelledby="pay-h">
-          <label><input type="radio" name="method" value="card" checked aria-label="Card"><span><svg class="paytabs__card" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.75" y="5.75" width="18.5" height="12.5" rx="2.25"/><path d="M2.75 10h18.5M6.5 14.5h3"/></svg>Card</span></label>
-          <label><input type="radio" name="method" value="mobilepay" aria-label="MobilePay"><span><img class="paytabs__mp" src="images/icons/mobilepay-mark.svg" alt="" width="38" height="24">MobilePay</span></label>
-          <label><input type="radio" name="method" value="applepay" aria-label="Apple Pay"><span><img src="images/icons/applepay.svg" alt="" width="38" height="24"></span></label>
-          <label><input type="radio" name="method" value="googlepay" aria-label="Google Pay"><span><img src="images/icons/googlepay.svg" alt="" width="38" height="24"></span></label>
-          <label><input type="radio" name="method" value="klarna" aria-label="Klarna"><span><img class="paytabs__klarna" src="images/icons/klarna.svg" alt="" width="38" height="24"></span></label>
+      <!-- 3 · payment (demo) -->
+      <section class="cart__box co-step" data-step="payment" aria-labelledby="st3-h">
+        <h2 class="co-step__h"><b class="co-step__n" aria-hidden="true">3</b><span id="st3-h" tabindex="-1">Payment</span></h2>
+        <div class="co-step__body">
+          <div class="paytabs" role="radiogroup" aria-labelledby="st3-h">
+            <label><input type="radio" name="method" value="card" checked aria-label="Card"><span><svg class="paytabs__card" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.75" y="5.75" width="18.5" height="12.5" rx="2.25"/><path d="M2.75 10h18.5M6.5 14.5h3"/></svg>Card</span></label>
+            <label><input type="radio" name="method" value="mobilepay" aria-label="MobilePay"><span><img class="paytabs__mp" src="images/icons/mobilepay-mark.svg" alt="" width="38" height="24">MobilePay</span></label>
+            <label><input type="radio" name="method" value="applepay" aria-label="Apple Pay"><span><img src="images/icons/applepay.svg" alt="" width="38" height="24"></span></label>
+            <label><input type="radio" name="method" value="googlepay" aria-label="Google Pay"><span><img src="images/icons/googlepay.svg" alt="" width="38" height="24"></span></label>
+            <label><input type="radio" name="method" value="klarna" aria-label="Klarna"><span><img class="paytabs__klarna" src="images/icons/klarna.svg" alt="" width="38" height="24"></span></label>
+          </div>
+          <p class="fine co2__note" id="method-note">You enter your card on the secure payment page after you press Pay. Nothing is stored here.</p>
+          <p class="co-demo"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span><b>Demo checkout.</b> No payment is taken and nothing you type leaves this browser. Pay places a test order.</span></p>
+          <button class="pill-btn cart__go co-pay-btn" type="submit" data-pay-btn disabled>Pay</button>
+          <p class="co-msg" id="co-msg" role="alert" hidden></p>
+          <p class="cart__fine">By pressing Pay you place an order with an obligation to pay and accept our <a class="link" href="terms.html">terms of sale</a>. You have 57 days from delivery to change your mind: tell us at support@laaslocks.com, then hand the lock to the carrier with the prepaid label. <a class="link" href="privacy.html">How we handle your data</a></p>
         </div>
-        <p class="fine co2__note" id="method-note">You enter your card on the secure payment page after you press Pay. Nothing is stored here.</p>
-        <button class="pill-btn cart__go" type="submit" data-pay-btn disabled>Pay</button>
-        <p class="co-msg" id="co-msg" role="status" aria-live="polite" hidden></p>
-        <p class="cart__fine">By pressing Pay you place an order with an obligation to pay and accept our <a class="link" href="terms.html">terms of sale</a>. You have 57 days from delivery to change your mind: tell us at support@laaslocks.com, then hand the lock to the carrier with the prepaid label. <a class="link" href="privacy.html">How we handle your data</a></p>
       </section>
     </form>
+  </div>
+
+  <!-- a phone: the next step (or Pay) stays in reach at the bottom while the step's own button is out of view -->
+  <div class="co-bar" id="co-bar" hidden>
+    <p class="co-bar__sum"><span>Total</span><b data-total>€0</b></p>
+    <button class="pill-btn co-bar__btn" type="button" data-bar-btn>Continue</button>
   </div>
 
   <footer class="foot">
@@ -152,5 +184,6 @@
 <script src="i18n.js"></script>
 <script src="shop-v2.js" defer></script>
 <script src="cart-nav.js"></script>
+<script src="checkout.js" defer></script>
 </body>
 </html>

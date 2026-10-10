@@ -707,3 +707,150 @@ main.shop.legal { max-width: none; font: inherit; letter-spacing: normal; }
 .sh__end--b { right: 0; top: auto; bottom: 8px; }
 /* the content fills the first screen, so the dark footer never peeks in as a strip at the bottom */
 main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
+
+/* =====================================================================
+   The checkout in three steps (checkout-v2.html + checkout.js): the order beside
+   the steps on a computer, above them on a phone. A finished step folds to a
+   short summary with Edit; the next one opens. Demo only: no payment provider.
+   ===================================================================== */
+.co3__wrap { max-width: 520px; }
+.co3__head { display: grid; gap: 10px; }
+.co3__form { display: grid; gap: 12px; }
+.co3__sum { padding: 18px 20px 20px; }
+@media (max-width: 760px) { .co3__sum { padding: 14px 14px 14px; } }
+@media (min-width: 961px) {
+  .co3__wrap { max-width: 1040px; grid-template-columns: minmax(0, 1fr) 380px; column-gap: 28px; align-items: start; }
+  .co3__head, .co3__wrap > .item--empty { grid-column: 1 / -1; }
+  .co3__form { grid-column: 1; grid-row: 2; }
+  .co3__sum { grid-column: 2; grid-row: 2; position: sticky; top: 96px; }
+  html.is-empty .co3__wrap { max-width: 520px; grid-template-columns: minmax(0, 1fr); }
+}
+
+/* the three steps, as a row of small marks under the heading */
+.co-steps { list-style: none; margin: 2px 0 6px; padding: 0; display: flex; align-items: center; gap: 8px; }
+.co-steps li { display: inline-flex; align-items: center; gap: 8px; font: 500 13px/1 var(--display); color: var(--muted); transition: color .3s; }
+.co-steps li + li::before { content: ""; width: 22px; height: 1px; margin-right: 2px; background: var(--line); }
+.co-steps b { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--line); font: 600 11px/1 var(--display); transition: background-color .3s, color .3s, box-shadow .3s; }
+.co-steps li.is-current { color: var(--ink); }
+.co-steps li.is-current b { background: var(--ink); color: #FFFFFF; box-shadow: none; }
+.co-steps li.is-done { color: var(--ink-2); cursor: pointer; }
+.co-steps li.is-done b { background: var(--green); color: transparent; box-shadow: none; position: relative; }
+.co-steps li.is-done b::after { content: ""; position: absolute; left: 50%; top: 45%; width: 8px; height: 4px; border-left: 1.5px solid #FFFFFF; border-bottom: 1.5px solid #FFFFFF; translate: -50% -50%; rotate: -45deg; }
+
+/* a step */
+.co-step { padding: 18px 20px 20px; transition: opacity .3s; }
+.co-step__h { display: flex; align-items: center; gap: 10px; margin: 0; font: 600 17px/1.2 var(--display); letter-spacing: -0.01em; color: var(--ink); }
+.co-step__h [tabindex]:focus { outline: none; }
+.co-step__h [tabindex]:focus-visible { outline: none; }
+.co-step__n { flex: none; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: #FFFFFF; font: 600 12px/1 var(--display); transition: background-color .3s; }
+.co-step__edit { margin-left: auto; font: 500 13px/1 var(--body); min-height: 32px; display: inline-flex; align-items: center; }
+.co-step__body { display: grid; gap: 12px; margin-top: 16px; }
+.co-step__done { margin: 8px 0 0 34px; font-size: 14px; line-height: 1.5; color: var(--ink-2); overflow-wrap: anywhere; }
+.co-step__why { margin-top: -6px; font-size: 12.5px; }
+.co-step.is-done .co-step__n { background: var(--green); color: transparent; position: relative; }
+.co-step.is-done .co-step__n::after { content: ""; position: absolute; left: 50%; top: 45%; width: 9px; height: 4.5px; border-left: 1.5px solid #FFFFFF; border-bottom: 1.5px solid #FFFFFF; translate: -50% -50%; rotate: -45deg; }
+.co-step.is-later { opacity: .55; box-shadow: none; background: rgba(255, 255, 255, .5); }
+.co-step.is-later .co-step__n { background: rgba(32, 47, 48, .35); }
+.co-next { width: 100%; min-height: 52px; margin-top: 4px; font-size: 16px; }
+/* the step that opens rises in: transform and opacity only */
+.co-step.is-enter .co-step__body { animation: co-in .45s var(--ease) both; }
+.co-step.is-enter .co-step__done { animation: co-in .35s var(--ease) both; }
+@keyframes co-in { from { opacity: 0; transform: translateY(10px); } }
+
+/* fields: a message under the field that needs it, a quiet tick on one that passes */
+.field { position: relative; }
+.field__err { display: flex; gap: 7px; align-items: baseline; margin: 0; font-size: 12.5px; line-height: 1.35; color: var(--ink-2); }
+.field__err::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--stop); translate: 0 -1px; }
+.field__err:empty { display: none; }
+.field.is-bad input { border-color: var(--stop); }
+.field.is-bad input:focus { box-shadow: 0 0 0 3px rgba(176, 114, 73, .18); }
+.field.is-bad .field__err { animation: co-in .25s var(--ease) both; }
+.field.is-ok input { padding-right: 38px; background: #FFFFFF url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.4 3.4L15 7' fill='none' stroke='%231D5F63' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") right 12px center / 16px no-repeat; }
+.co2 .check { align-items: flex-start; min-height: 44px; padding-top: 4px; line-height: 1.45; }
+.co2 .check input { margin-top: 1px; }
+
+/* the demo note: plain, never alarming */
+.co-demo { display: flex; gap: 10px; align-items: flex-start; margin: 0; padding: 12px 14px; border-radius: 14px; background: rgba(155, 205, 208, .28); font-size: 13px; line-height: 1.45; color: var(--ink-2); }
+.co-demo svg { flex: none; width: 18px; height: 18px; margin-top: 1px; fill: none; stroke: var(--green); stroke-width: 1.5; stroke-linecap: round; }
+.co-demo b { color: var(--ink); font-weight: 600; }
+.co-pay-btn { margin-top: 2px; }
+/* Pay, while the order is placed: a small turning ring */
+.pill-btn.is-busy { cursor: progress; opacity: 1 !important; }
+.pill-btn.is-busy::before { content: ""; width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .35); border-top-color: #FFFFFF; animation: spin .8s linear infinite; }
+.co-promo .fine { margin: 0 0 10px; font-size: 13px; }
+
+/* the bar at the bottom of a phone: the total and the next step (or Pay) */
+.co-bar { display: none; }
+@media (max-width: 760px) {
+  .co-bar { position: fixed; z-index: 60; left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 18px; border-radius: 22px; background: rgba(255, 255, 255, .96); box-shadow: 0 1px 0 rgba(32, 47, 48, .05), 0 18px 40px -16px rgba(32, 47, 48, .45); opacity: 0; transform: translateY(16px); transition: opacity .25s var(--ease), transform .3s var(--ease); }
+  .co-bar.is-on { opacity: 1; transform: none; }
+  .co-bar[hidden] { display: none; }
+  .co-bar__sum { display: grid; gap: 2px; margin: 0; font-size: 11px; color: var(--muted); white-space: nowrap; }
+  .co-bar__sum b { font: 600 17px/1 var(--display); color: var(--ink); font-variant-numeric: tabular-nums; }
+  .co-bar__btn { flex: 1; min-width: 0; min-height: 48px; padding: 0 16px; font-size: 14.5px; white-space: normal; text-align: center; line-height: 1.15; }
+  .co3 .cart__wrap { padding-bottom: 96px; }
+  .co-step { padding: 16px 14px 16px; }
+  .co-steps li span { font-size: 12px; }
+  .co-steps li + li::before { width: 14px; }
+}
+
+/* =====================================================================
+   The order confirmation (order-confirmed.html)
+   ===================================================================== */
+.oc { display: grid; gap: 12px; }
+.oc__hero { display: grid; justify-items: center; gap: 8px; padding: 8px 0 6px; text-align: center; }
+.oc__mark { width: 64px; height: 64px; margin-bottom: 6px; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.oc__ring { stroke: var(--green); stroke-width: 2; }
+.oc__tick { stroke: var(--green); stroke-width: 2.6; }
+.oc__kicker { color: var(--green); }
+.oc__h { justify-content: center; flex-wrap: wrap; gap: 0 .3em; margin: 0; text-align: center; }
+.oc__no { margin: 0; font-size: 14px; color: var(--muted); }
+.oc__no b { margin-left: 4px; padding: 4px 10px; border-radius: 999px; background: #FFFFFF; font: 600 14px/1 var(--display); color: var(--ink); letter-spacing: .02em; font-variant-numeric: tabular-nums; }
+.oc .lines--ro .line { grid-template-columns: 48px minmax(0, 1fr) auto; gap: 12px; padding: 8px 0; border: 0; }
+.oc .lines--ro .line__pic { width: 48px; }
+.oc .lines--ro .line__name { font-size: 14px; }
+.oc .lines--ro .line__meta { font-size: 12.5px; }
+.oc .lines--ro .line__sum { font-size: 14px; }
+.oc__box { padding: 18px 20px 20px; }
+.oc__box .co2__h { margin-bottom: 4px; }
+@media (max-width: 760px) { .oc__box { padding: 16px 14px; } }
+.oc__box .co2__h .cart__n { margin-left: 8px; margin-right: auto; }
+.oc__to { margin-top: 14px; padding-top: 14px; border-top: var(--dash); }
+.oc__h3 { margin: 0 0 4px; font: 600 14px/1.2 var(--display); color: var(--ink); }
+.oc__to p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-2); }
+.oc__next { padding: 18px 20px 20px; }
+.oc__steps { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 14px; }
+.oc__steps li { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; }
+.oc__steps li > b { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #ECECEA; font: 600 12px/1 var(--display); color: var(--ink); }
+.oc__steps p { margin: 3px 0 0; display: grid; gap: 2px; font-size: 14px; line-height: 1.5; color: var(--ink-2); }
+.oc__steps strong { font: 600 15px/1.3 var(--display); color: var(--ink); }
+.oc__btns { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 22px; margin-top: 8px; }
+.oc__btns .link { font-size: 14px; }
+/* the success: the ring draws, the tick follows, then the rest rises in */
+.oc .oc__ring { stroke-dasharray: 164; stroke-dashoffset: 0; }
+.oc .oc__tick { stroke-dasharray: 34; stroke-dashoffset: 0; }
+.oc.is-in .oc__ring { animation: oc-draw .7s var(--ease) both; }
+.oc.is-in .oc__tick { animation: oc-tick .45s var(--ease) .55s both; }
+.oc.is-in .oc__hero > :not(.oc__mark), .oc.is-in > :not(.oc__hero) { animation: co-in .5s var(--ease) both; }
+.oc.is-in .oc__hero > :nth-child(2) { animation-delay: .5s; } .oc.is-in .oc__hero > :nth-child(3) { animation-delay: .58s; } .oc.is-in .oc__hero > :nth-child(4) { animation-delay: .66s; }
+.oc.is-in > :nth-child(2) { animation-delay: .72s; } .oc.is-in > :nth-child(3) { animation-delay: .8s; } .oc.is-in > :nth-child(4) { animation-delay: .88s; } .oc.is-in > :nth-child(5) { animation-delay: .96s; }
+@keyframes oc-draw { from { stroke-dashoffset: 164; } }
+@keyframes oc-tick { from { stroke-dashoffset: 34; } }
+@media (max-width: 760px) { .oc__next { padding: 16px 14px; } .oc__btns .pill-btn { width: 100%; } }
+
+/* the cart and the checkout come in softly on arrival (once); nothing moves with reduced motion */
+.cart-page .cart__wrap > *, .co-page .co3__wrap > * { animation: co-in .5s var(--ease) both; }
+.cart-page .cart__wrap > :nth-child(2), .co-page .co3__wrap > :nth-child(2) { animation-delay: .06s; }
+.cart-page .cart__wrap > :nth-child(3), .co-page .co3__wrap > :nth-child(3) { animation-delay: .12s; }
+.co-page .co3__wrap > :nth-child(4) { animation-delay: .18s; }
+.oc-page .cart__wrap > * { animation: none; }
+/* small press feedback on the cart's own buttons */
+.item__qty button, .addon__btn, .paytabs span, .pdp-faq__ask a, .item__go { transition: background-color .2s, transform .15s var(--ease); }
+.item__qty button:active:not(:disabled), .addon__btn:active, .item__go:active { transform: scale(.94); }
+.paytabs label:active span { transform: scale(.97); }
+@media (prefers-reduced-motion: reduce) {
+  .cart-page .cart__wrap > *, .co-page .co3__wrap > *, .co-step.is-enter .co-step__body, .co-step.is-enter .co-step__done,
+  .field.is-bad .field__err, .oc.is-in *, .oc.is-in > * { animation: none !important; }
+  .co-bar { transition: none; }
+  .pill-btn.is-busy::before { animation-duration: 2.4s; }
+}

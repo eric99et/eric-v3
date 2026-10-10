@@ -3,8 +3,7 @@
 // array of {name, finish, unit, qty, img}. €129 a lock, €9.99 a Flex Mount, €9 flat
 // shipping, free over €250. Old carts are normalised on every read the way laas.js
 // does it, so both designs can read and write the same cart.
-// The checkout is still a shell, as the old one is: it validates the form and then
-// says plainly that payment is not connected. Nothing is sent anywhere.
+// The checkout's steps and its demo order are in checkout.js. Nothing is sent anywhere.
 (() => {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -77,6 +76,12 @@
 
   /* ---------------------------------------------------------------- paint */
   const setText = (sel, v) => $$(sel).forEach(el => { el.textContent = v; });
+  // a sum that changes gives a small tick, so the eye sees what moved
+  const setSum = (sel, v) => $$(sel).forEach(el => {
+    const was = el.textContent; el.textContent = v;
+    if (was && was !== v && painted && !reduce) el.animate([{ opacity: .2, transform: 'translateY(-5px)' }, { opacity: 1, transform: 'none' }], { duration: 320, easing: 'cubic-bezier(.2,.7,.2,1)' });
+  });
+  let painted = false;
   function paint() {
     const items = read(), t = totals(items), empty = !items.length;
     root.classList.toggle('is-empty', empty);
@@ -84,9 +89,14 @@
     // the lines (editable on the cart, read-only on the checkout)
     $$('[data-lines]').forEach(list => {
       const edit = list.dataset.lines === 'edit';
+      // where each line was, and its number, before the redraw: the lines then glide to their new place (FLIP,
+      // transform only), a new line fades in and a changed number gives a small bump
+      const before = new Map();
+      if (edit && !reduce) $$('li[data-key]', list).forEach(li => before.set(li.dataset.key, { top: li.getBoundingClientRect().top, q: $('.item__qty span', li)?.textContent }));
+      const had = before.size > 0;
       const label = i => esc(i.name) + (i.finish ? ', ' + esc(i.finish) : '');
       list.innerHTML = edit ? items.map((i, idx) => `
-        <li class="item">
+        <li class="item" data-key="${esc(i.name + '|' + (i.finish || ''))}">
           <span class="item__pic"><img src="${thumb(i)}" alt="" width="96" height="96" decoding="async"></span>
           <div class="item__what">
             <p class="item__name">${esc(i.name)}</p>
@@ -108,11 +118,19 @@
           </div>
           <p class="line__sum">${money(unitOf(i) * i.qty)}</p>
         </li>`).join('');
+      if (had) $$('li[data-key]', list).forEach(li => {
+        const b = before.get(li.dataset.key);
+        if (!b) { li.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 380, easing: 'cubic-bezier(.2,.7,.2,1)' }); return; }
+        const dy = b.top - li.getBoundingClientRect().top;
+        if (Math.abs(dy) > 1) li.animate([{ transform: `translateY(${dy}px)` }, { transform: 'none' }], { duration: 340, easing: 'cubic-bezier(.2,.7,.2,1)' });
+        const q = $('.item__qty span', li);
+        if (q && q.textContent !== b.q) q.animate([{ transform: 'scale(1.35)', opacity: .6 }, { transform: 'none', opacity: 1 }], { duration: 300, easing: 'cubic-bezier(.2,.7,.2,1)' });
+      });
     });
 
-    setText('[data-subtotal]', money(t.sub));
-    setText('[data-shipping]', !t.sub ? money(0) : t.ship ? money(t.ship) : tr('Free'));
-    setText('[data-total]', money(t.total));
+    setSum('[data-subtotal]', money(t.sub));
+    setSum('[data-shipping]', !t.sub ? money(0) : t.ship ? money(t.ship) : tr('Free'));
+    setSum('[data-total]', money(t.total));
     setText('[data-count]', t.count ? t.count + ' ' + tr(t.count === 1 ? 'item' : 'items') : '');
     $$('[data-empty]').forEach(el => { el.hidden = !empty; });
     $$('[data-full]').forEach(el => { el.hidden = empty; });
@@ -142,8 +160,11 @@
     $$('.nav__cart').forEach(a => { a.hidden = empty; a.setAttribute('aria-label', 'Cart, ' + t.count + (t.count === 1 ? ' item' : ' items')); });
 
     // checkout: the pay buttons carry the total
-    $$('[data-pay-btn]').forEach(b => { b.disabled = empty; b.textContent = empty ? tr('Your cart is empty') : tr('Pay') + ' ' + money(t.total) + ' ' + tr('and place order'); });
+    $$('[data-pay-btn]').forEach(b => { if (b.classList.contains('is-busy')) return; b.disabled = empty; b.textContent = empty ? tr('Your cart is empty') : tr('Pay') + ' ' + money(t.total) + ' ' + tr('and place order'); });
     $$('[data-checkout]').forEach(a => { a.setAttribute('aria-disabled', String(empty)); });
+    painted = true;
+    // checkout.js follows the totals (the bar at the bottom)
+    document.dispatchEvent(new Event('laas-painted'));
   }
 
   /* ------------------------------------------------------- cart actions */
@@ -154,8 +175,18 @@
       const items = read(), i = items[+step.dataset.step]; if (!i) return;
       // − at 1 takes the line out
       if (i.qty + +step.dataset.d < 1) {
-        items.splice(+step.dataset.step, 1); write(items); say(i.name + ' ' + tr('removed from your cart.'));
-        ($('[data-step]') || $('#cart-h'))?.focus();
+        const out = () => {
+          // the last lock takes the Flex Mount with it (no mount without a lock), as everywhere else
+          const rest = read(); const k = rest.findIndex(x => x.name === i.name && x.finish === i.finish);
+          if (k > -1) rest.splice(k, 1);
+          if (!rest.some(isLock)) { const f = rest.findIndex(isFlex); if (f > -1) rest.splice(f, 1); }
+          write(rest); say(i.name + ' ' + tr('removed from your cart.'));
+          ($('[data-step]') || $('#cart-h'))?.focus();
+        };
+        const li = step.closest('li');
+        // the line slides out first (a timer, not onfinish: that waits for a frame in a background tab)
+        if (li && !reduce) { li.style.pointerEvents = 'none'; li.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateX(-16px)' }], { duration: 220, easing: 'ease-in', fill: 'forwards' }); setTimeout(out, 230); }
+        else out();
         return;
       }
       if (+step.dataset.d > 0 && full(i, items)) return;
@@ -201,46 +232,7 @@
   addEventListener('storage', e => { if (e.key === KEY) paint(); });
   addEventListener('pageshow', paint);
 
-  /* ------------------------------------------------------------ checkout */
-  const form = $('#checkout-form');
-  if (form) {
-    const msg = $('#co-msg');
-    const notConnected = () => {
-      msg.hidden = false;
-      msg.textContent = tr('Payment is not connected yet. Nothing has been charged, and nothing you typed has been sent.');
-      msg.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
-    };
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      form.classList.add('was-checked');
-      if (!form.checkValidity()) {
-        const bad = form.querySelector('input:invalid, select:invalid, textarea:invalid');
-        msg.hidden = false; msg.textContent = tr('Check the highlighted fields.');
-        bad?.focus(); return;
-      }
-      notConnected();
-    });
-    $$('[data-express]').forEach(b => b.addEventListener('click', notConnected));
-    const notes = {
-      card: 'You enter your card on the secure payment page after you press Pay. Nothing is stored here.',
-      applepay: 'Apple Pay opens after you press Pay. No card number to type.',
-      mobilepay: 'You approve the amount in the MobilePay app after you press Pay.',
-      klarna: 'Klarna opens after you press Pay, then brings you straight back here.',
-      googlepay: 'Google Pay opens after you press Pay. No card number to type.',
-    };
-    $$('input[name="method"]').forEach(r => r.addEventListener('change', () => { $('#method-note').textContent = tr(notes[r.value]); }));
-    $('[data-promo]')?.addEventListener('click', () => {
-      const m = $('#promo-msg'); m.hidden = false; m.textContent = tr('Codes are checked on the payment page, after you press Pay.');
-    });
-    // the order summary: open on a desktop, folded on a phone
-    const sum = $('#co-summary');
-    const fold = () => { if (sum) sum.open = innerWidth > 760 || sum.dataset.user === 'open'; };
-    sum?.querySelector('summary').addEventListener('click', e => {
-      if (innerWidth > 760) { e.preventDefault(); return; }   // always open beside the form
-      sum.dataset.user = sum.open ? 'closed' : 'open';
-    });
-    addEventListener('resize', fold); fold();
-  }
+  // the checkout's steps, checks and the (demo) order live in checkout.js
 
   /* ------------------------------------------------------- nav and menu */
   const onScroll = () => root.classList.toggle('nav-float', scrollY > 8);
