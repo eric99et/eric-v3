@@ -184,3 +184,7 @@ html { scroll-snap-type: none; scroll-behavior: smooth; scroll-padding-top: 96px
 /* the studio renders carry a margin round the ring: the picture fills the stage */
 .pdp--v2 .lock3d { --ring: 100%; }
 @media (max-width: 760px) { .pdp--v2 .lock3d { --ring: 100%; } }
+/* details: the lock from above, the render on a white card, the numbers beside it */
+.details__photo { background: #FFFFFF; display: grid; place-items: center; }
+.details__photo img { width: 86%; height: 86%; object-fit: contain; }
+@media (max-width: 760px) { .details__photo { aspect-ratio: 1; } }
