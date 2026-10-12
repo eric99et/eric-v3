@@ -48,7 +48,7 @@ html { scroll-snap-type: none; scroll-behavior: smooth; scroll-padding-top: 96px
 .pdp__price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 14px; margin-top: 16px; }
 .pdp__price strong { font: 600 clamp(32px, 2.6vw, 40px)/1 var(--display); letter-spacing: -0.04em; }
 .pdp__price s { color: var(--muted); font-size: 17px; text-decoration-thickness: 1px; }
-.pdp__intro { align-self: center; padding: 7px 11px; border-radius: 20px; background: rgba(155, 205, 208, .55); color: var(--ink); font-size: 10.5px; }
+.pdp__intro { align-self: center; padding: 7px 11px; border-radius: 20px; background: rgba(155, 205, 208, .55); color: var(--ink); font-size: 11px; }
 .pdp__sub { margin-top: 14px; font-size: 16px; line-height: 1.5; color: var(--ink-2); }
 
 /* António's block, on a white card (the same card as on index.html #buy) */
@@ -273,3 +273,38 @@ html.reveal-on .acc__card[data-reveal] { transition: opacity .7s var(--ease), tr
   .acc__h { font-size: 18px; } .acc__p { font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) { html.reveal-on .acc__card[data-reveal] { transition: none; } }
+
+/* ------------------------------------------------------------ details, v2 (loop round 1): four numbers, a real photo,
+   the box as pictures, three rows for what the numbers do not say */
+.details.details--v2 { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: clamp(32px, 4vw, 64px); align-items: start; }
+.details--v2 .details__text { max-width: none; }
+.details--v2 .details__photo { position: sticky; top: 104px; margin: 50px 0 0; aspect-ratio: 1; border-radius: 24px; }
+.dnum { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 0 0 18px; padding: 0; list-style: none; }
+.dnum li { display: grid; gap: 8px; align-content: start; padding: 18px 16px 16px; border-radius: 18px; background: #FFFFFF; }
+.dnum b { font: 600 clamp(22px, 1.9vw, 28px)/1 var(--display); letter-spacing: -0.03em; color: var(--ink); }
+.dnum span { font-size: 13px; line-height: 1.3; color: var(--muted); }
+.details--v2 .details__h--box { margin-top: 36px; }
+.dbox { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 0 0 12px; padding: 0; list-style: none; }
+.dbox li { display: grid; justify-items: center; align-content: start; gap: 10px; padding: 18px 8px 14px; border-radius: 16px; box-shadow: inset 0 0 0 1px rgba(32, 47, 48, .12); text-align: center; font-size: 13px; line-height: 1.25; color: var(--ink); }
+.dbox svg { width: 30px; height: 30px; fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.details--v2 .details__box { font-size: 13px; }
+/* they rise into place once, one after the other */
+html.reveal-on .details--v2 [data-reveal]:not(.is-in) { opacity: 0; transform: translateY(18px); }
+html.reveal-on .details--v2 [data-reveal] { transition: opacity .7s var(--ease), transform .7s var(--ease); }
+html.reveal-on .dnum[data-reveal] li, html.reveal-on .dbox[data-reveal] li { transition: opacity .6s var(--ease), transform .6s var(--ease); }
+html.reveal-on .dnum[data-reveal]:not(.is-in) li, html.reveal-on .dbox[data-reveal]:not(.is-in) li { opacity: 0; transform: translateY(10px); }
+.dnum li:nth-child(2), .dbox li:nth-child(2) { transition-delay: .06s !important; }
+.dnum li:nth-child(3), .dbox li:nth-child(3) { transition-delay: .12s !important; }
+.dnum li:nth-child(4), .dbox li:nth-child(4) { transition-delay: .18s !important; }
+html.reveal-on .dnum[data-reveal]:not(.is-in), html.reveal-on .dbox[data-reveal]:not(.is-in) { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { html.reveal-on .details--v2 [data-reveal], html.reveal-on .details--v2 [data-reveal] li { transition: none; } }
+@media (max-width: 1000px) and (min-width: 761px) { .dnum, .dbox { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) {
+  .details.details--v2 { display: flex; flex-direction: column; gap: 22px; }
+  .details--v2 .details__photo { position: static; margin: 0; aspect-ratio: 4 / 3; border-radius: 20px; }
+  .dnum { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .dnum li { padding: 16px 14px 14px; }
+  .dbox { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .dbox li { grid-template-columns: 26px minmax(0, 1fr); justify-items: start; align-items: center; gap: 10px; padding: 12px 12px; text-align: left; }
+  .dbox svg { width: 26px; height: 26px; }
+}

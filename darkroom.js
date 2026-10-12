@@ -20,7 +20,7 @@ scrollTo(0, 0);
 /* ------------------------------------------------------------- language */
 // English is written in the page; Danish replaces each text node (and a few labels) before anything else runs.
 const DA = {
-  'The keyless ring lock for your bike.': 'Den nøglefri ringlås til din cykel.', 'Skip to content': 'Spring til indhold', 'Scroll down': 'Rul ned', 'Scroll': 'Rul', 'Menu': 'Menu', 'Close': 'Luk',
+  'The keyless ring lock for your bike.': 'Den nøglefri ringlås til din cykel.', 'LAAS Ring-Lock. The keyless ring lock for your bike.': 'LAAS Ring-Lock. Den nøglefri ringlås til din cykel.', 'Skip to content': 'Spring til indhold', 'Scroll down': 'Rul ned', 'Scroll': 'Rul', 'Menu': 'Menu', 'Close': 'Luk',
   'Keyless': 'Nøglefri', 'Find My': 'Find My', 'Varefakta': 'Varefakta', 'Will it fit?': 'Passer den?', 'Fit': 'Pasform', 'Buy': 'Køb', 'FAQ': 'FAQ',
   'Ring-Lock': 'Ring-Lock', 'Shipping': 'Fragt', 'Support': 'Support', 'Yours': 'Din lås', 'Returns': 'Returnering', 'Cart': 'Kurv',
   // the orbit and the seal

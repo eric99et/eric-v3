@@ -141,11 +141,13 @@
         if (cb && (b.value === 'flex' || b.value === 'no')) cb(b.value === 'flex');
       });
     }
-    dlg.innerHTML = `<form method="dialog"><img src="images/flexmount-install.webp" alt="" width="680" height="411">
+    // two photos answer the question before any words do: the frame-lock hole (ringed), and the Flex Mount on a frame without
+    dlg.innerHTML = `<form method="dialog"><div class="flex-ask__pics">
+      <figure><img src="images/ask-holes.webp" alt="" width="480" height="480"><svg class="flex-ask__ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44" pathLength="1"/></svg><figcaption>${da ? 'Huller' : 'Holes'}</figcaption></figure>
+      <figure><img src="images/ask-flex.webp" alt="" width="480" height="480"><figcaption>${da ? 'Ingen huller: Flex Mount' : 'No holes: Flex Mount'}</figcaption></figure></div>
       <button class="flex-ask__x" value="cancel" aria-label="${da ? 'Luk' : 'Close'}"></button>
       <div class="flex-ask__body"><p class="flex-ask__kicker label">${da ? 'Før den kommer i kurven' : 'Before it goes in the cart'}</p>
       <h2 id="flex-ask-h">${da ? 'Har dit stel huller til en ringlås?' : 'Does your frame have holes for a frame lock?'}</h2>
-      <p>${da ? 'To små gevindhuller i stellet, på hver side af baghjulet. Ingen huller? Flex Mount holder låsen på et stel uden dem.' : 'Two small threaded holes on the frame, either side of the rear wheel. No holes? The Flex Mount holds the lock on a frame without them.'}</p>
       <button class="buy-btn" value="flex">${da ? 'Tilføj Flex Mount' : 'Add the Flex Mount'} · ${flex}</button>
       <button class="flex-ask__no" value="no">${da ? 'Ja, mit stel har huller' : 'Yes, my frame has holes'}</button></div></form>`;
     onPick = done; dlg.returnValue = ''; dlg.showModal();
