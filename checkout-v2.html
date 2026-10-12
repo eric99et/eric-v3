@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="nav-clear">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -11,8 +11,8 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/inter-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="darkroom.css">
-<link rel="stylesheet" href="buy.css">
+<link rel="stylesheet" href="darkroom.css?v=1012r">
+<link rel="stylesheet" href="buy.css?v=1012y">
 <link rel="stylesheet" href="shop-v2.css">
 </head>
 <body class="buy-page shop-page co-page" data-shop>
@@ -87,7 +87,7 @@
       <ul class="lines lines--ro" data-lines="read"></ul>
       <dl class="sums">
         <div><dt>Subtotal</dt><dd data-subtotal>€0</dd></div>
-        <div><dt>Shipping <small>ships in 1–2 working days</small></dt><dd data-shipping>€0</dd></div>
+        <div><dt>Shipping <small>pre-order: ships in October</small></dt><dd data-shipping>€0</dd></div>
         <div class="sums__total"><dt>Total <small>incl. VAT</small></dt><dd data-total>€0</dd></div>
       </dl>
       <details class="co-promo">
@@ -131,7 +131,7 @@
             </div>
             <div class="field"><label for="co-phone">Phone <span>optional</span></label><input id="co-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="co-phone-err"><p class="field__err" id="co-phone-err" aria-live="polite"></p></div>
           </div>
-          <p class="fine">Ships from Copenhagen in 1–2 working days, with a tracking link by email.</p>
+          <p class="fine">Pre-order: ships from Copenhagen in October, with a tracking link by email.</p>
           <button class="pill-btn co-next" type="button" data-next>Continue to payment</button>
         </div>
       </section>
@@ -151,7 +151,7 @@
           <p class="co-demo"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span><b>Demo checkout.</b> No payment is taken and nothing you type leaves this browser. Pay places a test order.</span></p>
           <button class="pill-btn cart__go co-pay-btn" type="submit" data-pay-btn disabled>Pay</button>
           <p class="co-msg" id="co-msg" role="alert" hidden></p>
-          <p class="cart__fine">By pressing Pay you place an order with an obligation to pay and accept our <a class="link" href="terms.html">terms of sale</a>. You have 57 days from delivery to change your mind: tell us at support@laaslocks.com, then hand the lock to the carrier with the prepaid label. <a class="link" href="privacy.html">How we handle your data</a></p>
+          <p class="cart__fine">By pressing Pay you place an order with an obligation to pay and accept our <a class="link" href="terms.html">terms of sale</a>. You have 57 days from delivery to change your mind: tell us at support@laaslocks.com, then send the lock back to us. <a class="link" href="privacy.html">How we handle your data</a></p>
         </div>
       </section>
     </form>
@@ -181,9 +181,9 @@
 </main>
 
 <p class="visually-hidden" id="status" role="status" aria-live="polite"></p>
-<script src="i18n.js"></script>
+<script src="i18n.js?v=1012y"></script>
 <script src="shop-v2.js" defer></script>
-<script src="cart-nav.js"></script>
+<script src="cart-nav.js?v=1012r"></script>
 <script src="checkout.js" defer></script>
 </body>
 </html>

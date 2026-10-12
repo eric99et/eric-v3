@@ -279,3 +279,65 @@
   });
   addEventListener('scroll', () => { if (!pop.hidden) place(); }, { passive: true });
 })();
+
+/* the smart header: clear while nothing sits under it, the glass capsule as soon as content scrolls beneath.
+   It samples the page right under the bar every 10 px: text, a picture, a control, a filled card or the lock means
+   "something is under the bar"; an empty background or a section's own colour does not. A contrast guard keeps the
+   capsule whenever the colour under the logo does not suit the logo's tone (a light logo on chalk, an ink logo on ink). */
+(() => {
+  const root = document.documentElement, nav = document.querySelector('.nav');
+  if (!nav) return;
+  const shell = nav.querySelector('.nav__shell') || nav;
+  const clear = c => !c || c === 'transparent' || /rgba\(0, 0, 0, 0\)|\/ 0\)$/.test(c);
+  const isContent = el => {
+    if (!el || nav.contains(el)) return false;
+    if (el.closest('.px, .hero') || (el.closest('.tale') && root.classList.contains('in-tale'))) return false;
+    if (/^(IMG|PICTURE|VIDEO|CANVAS|SVG|BUTTON|INPUT|SELECT|TEXTAREA|A|LABEL|SUMMARY)$/i.test(el.tagName) || el.closest('svg')) {
+      // a full-screen canvas or stage layer is a background; a full-bleed photo is content
+      const b = el.getBoundingClientRect();
+      return !(el.tagName === 'CANVAS' && b.width >= innerWidth * 0.9 && b.height >= innerHeight * 0.9);
+    }
+    const b = el.getBoundingClientRect();
+    if (b.width >= innerWidth * 0.9 && b.height >= innerHeight * 0.9) return false;
+    for (const n of el.childNodes) if (n.nodeType === 3 && n.nodeValue.trim()) return true;
+    const cs = getComputedStyle(el);
+    const filled = cs.backgroundImage !== 'none' || !clear(cs.backgroundColor);
+    return filled && !/^(HTML|BODY|MAIN|SECTION|FOOTER|HEADER)$/.test(el.tagName) && el.offsetHeight < innerHeight * 0.9;
+  };
+  // things that do not take the pointer still count when they are visible under the bar
+  const QUIET = '.map, .void__right, .lockimg, .slot';
+  const quietContent = stack => stack.some(e => e.matches && e.matches(QUIET) && !e.closest('[data-key*="\\"hide\\":1"]') && getComputedStyle(e).opacity > 0.05);
+  let raf = 0;
+  const check = () => {
+    raf = 0;
+    if (root.classList.contains('in-foot') || root.classList.contains('in-hero')) return;
+    if (root.classList.contains('in-tale')) { root.classList.add('nav-clear'); return; }
+    // layout offsets, not the transformed box (the bar slides in and out)
+    const r = { top: nav.offsetTop + shell.offsetTop, left: nav.offsetLeft + shell.offsetLeft, width: shell.offsetWidth, height: shell.offsetHeight };
+    r.bottom = r.top + r.height; r.right = r.left + r.width;
+    let under = false;
+    outer: for (let y = r.top + 4; y <= r.bottom + 4; y += 10) for (let x = r.left + 12; x < r.right - 12; x += Math.max(40, r.width / 16)) {
+      const stack = document.elementsFromPoint(x, y).filter(el => !nav.contains(el));
+      if (isContent(stack[0]) || quietContent(stack)) { under = true; break outer; }
+    }
+    // contrast guard
+    if (!under) {
+      const bgEl = document.elementsFromPoint(r.left + 40, r.top + r.height / 2).find(el => !nav.contains(el) && !clear(getComputedStyle(el).backgroundColor)) || root;
+      let c = getComputedStyle(bgEl).backgroundColor;
+      if (clear(c)) c = getComputedStyle(root).backgroundColor;
+      const [R, G, B] = (c.match(/[\d.]+/g) || [236, 236, 234]).map(Number);
+      const darkBg = (0.2126 * R + 0.7152 * G + 0.0722 * B) < 128;
+      if (darkBg !== (root.dataset.tone === 'dark')) under = true;
+    }
+    root.classList.toggle('nav-clear', !under);
+  };
+  const schedule = () => { if (!raf) raf = requestAnimationFrame(check); };
+  let lastY = -1;
+  addEventListener('scroll', () => { if (Math.abs(scrollY - lastY) > 6) { lastY = scrollY; schedule(); } }, { passive: true });
+  addEventListener('scrollend', schedule);
+  addEventListener('resize', schedule);
+  addEventListener('load', schedule);
+  // the landing page glides between chapters and fades its colour: look again while the page settles
+  setInterval(() => { if (!document.hidden) schedule(); }, 700);
+  schedule();
+})();

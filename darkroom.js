@@ -29,8 +29,33 @@ const DA = {
   '63 mm clearance': '63 mm frigang',
   // the poster
   'No key.': 'Ingen nøgle.', 'No cable.': 'Intet kabel.', 'No key. No cable. One ring of stainless steel that stays on your bike.': 'Ingen nøgle. Intet kabel. Én ring af rustfrit stål, der bliver på din cykel.',
-  'One ring of stainless steel that stays on your bike. Nothing to carry, nothing to forget.': 'Én ring af rustfrit stål, der bliver på din cykel. Intet at bære på, intet at glemme.',
+  'One ring of stainless steel that stays on your bike. Nothing to carry, nothing to forget. Just you and your bike.': 'Én ring af rustfrit stål, der bliver på din cykel. Intet at bære på, intet at glemme. Bare dig og din cykel.',
   'Opens with your phone': 'Åbner med din telefon', 'Insurance-approved in Denmark': 'Forsikringsgodkendt i Danmark', 'Fits most bikes': 'Passer til de fleste cykler', '57 days to return it': '57 dage til at returnere den',
+  // added 12 Oct: how it works, the everyday, why a Ring-Lock
+  'How it works': 'Sådan virker den', 'Set up once. Then just ride.': 'Sæt den op én gang. Så cykler du bare.',
+  'No passwords, no account to make, nothing to carry. The LAAS app is on the App Store and Google Play.': 'Ingen adgangskoder, ingen konto at oprette, intet at bære på. LAAS-appen findes i App Store og Google Play.',
+  'Add your lock': 'Tilføj din lås', 'Enter the serial number and give your lock a name.': 'Indtast serienummeret, og giv din lås et navn.',
+  'Lock by hand': 'Lås med hånden', 'Push the bolt through the wheel. It locks with a click.': 'Skub bolten gennem hjulet. Den låser med et klik.',
+  'Unlock with one tap': 'Lås op med ét tryk', 'Bluetooth, a new key every time. It works without internet.': 'Bluetooth og en ny nøgle hver gang. Det virker uden internet.',
+  'Charge twice a year': 'Oplad to gange om året', '90 minutes over USB-C lasts about six months.': '90 minutter via USB-C holder cirka seks måneder.',
+  'Everyday': 'Hverdag', 'Moved? Forgot where you parked?': 'Flyttet? Glemt, hvor du parkerede?',
+  'The bike was moved to make room, or the street looked different on the way back. It happens to everyone.': 'Cyklen blev flyttet for at gøre plads, eller gaden så anderledes ud på vej tilbage. Det sker for alle.',
+  'Busy day.': 'Travl dag.', 'Your phone knows where it is.': 'Din telefon ved, hvor den er.', 'Right where you left it.': 'Lige hvor du stillede den.', 'One tap.': 'Ét tryk.', 'Unlocked with the LAAS app.': 'Låst op med LAAS-appen.', 'Pause story': 'Sæt historien på pause', 'Play story': 'Afspil historien', 'Who we are': 'Hvem vi er', 'Designed in Copenhagen, by people who ride every day.': 'Designet i København af folk, der cykler hver dag.', 'Founder, LAAS': 'Stifter, LAAS', 'Questions? Write to us at': 'Spørgsmål? Skriv til os på', '. A person answers.': '. Et menneske svarer.',
+  'Put a ring on it.': 'Sæt en ring på den.', 'Steel, copper or black. Same lock, same price. You have 57 days to fall in love with it.': 'Steel, Copper eller Black. Samme lås, samme pris. Du har 57 dage til at forelske dig i den.',
+  'LAAS began with a Swedish carpenter, Marcus Kjellsson, who lost his bike keys once too often. He wanted a lock with no keyhole at all, opened by the phone already in your pocket. The name plays on lås, Danish for lock.': 'LAAS begyndte med en svensk tømrer, Marcus Kjellsson, der mistede sine cykelnøgler én gang for meget. Han ville have en lås helt uden nøglehul, som åbnes med den telefon, du allerede har i lommen. Navnet leger med ordet lås.',
+  'It took four factories to get the ring right, and 2,500 backers on Kickstarter and Indiegogo who said yes before it existed.': 'Det krævede fire fabrikker at få ringen rigtig, og 2.500 backere på Kickstarter og Indiegogo, der sagde ja, før den fandtes.',
+  'Sivani, Kickstarter backer': 'Sivani, Kickstarter-backer',
+  'Probably. Please don’t measure: you have 57 days to try it on your own bike. Want to be sure? Two things decide it.': 'Sandsynligvis. Du behøver ikke måle: du har 57 dage til at prøve den på din egen cykel. Vil du være sikker? To ting afgør det.',
+  'Before you decide.': 'Før du beslutter dig.', 'for a lock? Seriously?': 'for en lås? Seriøst?',
+  'It replaces your keys, stays on your bike and is approved by Danish insurers. Ride it for 57 days. If it isn’t worth it, send it back.': 'Den erstatter dine nøgler, bliver siddende på cyklen og er godkendt af danske forsikringsselskaber. Kør med den i 57 dage. Er den ikke pengene værd, så send den tilbage.',
+  'What if my phone dies?': 'Hvad hvis min telefon løber tør for strøm?', 'Call us on': 'Ring til os på', 'and a person in Copenhagen will walk you through it.': 'så hjælper et menneske i København dig igennem det.',
+  '57 days to fall in love': '57 dage til at forelske dig', 'Specifications': 'Specifikationer', 'Weight': 'Vægt', 'Steel bolt': 'Stålbolt', 'Widest tyre': 'Bredeste dæk', 'Per charge': 'Pr. opladning', '6 mo.': '6 mdr.', 'All details': 'Alle detaljer',
+  'Park.': 'Parkér.', 'Push the bolt in. Click.': 'Skub bolten ind. Klik.', 'One tap in the app, and it opens.': 'Ét tryk i appen, og den åbner.', 'No key to dig for. Just ride.': 'Ingen nøgle at lede efter. Bare kør.', 'Moved?': 'Flyttet?', 'Forgot where you parked?': 'Glemt, hvor du parkerede?', 'Your bike, on the map.': 'Din cykel på kortet.', 'There it is.': 'Der er den.', 'Where did I park?': 'Hvor parkerede jeg?', 'Let’s find out.': 'Lad os finde ud af det.', 'Back to your day.': 'Tilbage til din dag.',
+  'Why a Ring-Lock': 'Hvorfor en Ring-Lock', 'One lock that stays on your bike.': 'Én lås, der bliver på din cykel.',
+  'Nothing to carry, nothing to forget, and no subscription.': 'Intet at bære på, intet at glemme og intet abonnement.',
+  'Classic lock': 'Almindelig lås', 'Varefakta listing': 'Varefakta-liste', 'Keyless, opens with your phone': 'Nøglefri, åbner med din telefon', 'A key, a chain or a D-lock': 'En nøgle, en kæde eller en bøjlelås', 'Insurance approval varies': 'Forsikringsgodkendelse varierer', 'No subscription': 'Intet abonnement', 'No key to carry or lose': 'Ingen nøgle at bære på eller miste', 'Stays on the bike': 'Bliver på cyklen',
+  'Opens without internet': 'Åbner uden internet', '57 days to return it': '57 dage til at returnere den', 'Subscription': 'Abonnement',
+  'Often not': 'Ofte ikke', 'Some': 'Nogle', 'Rarely': 'Sjældent', 'None': 'Intet',
   // 01 keyless
   'Your phone is the key.': 'Din telefon er nøglen.',
   'One tap in the LAAS app and the 9 mm hardened-steel bolt slides open. Push the bolt in and it locks with a click.': 'Ét tryk i LAAS-appen, og den 9 mm hærdede stålbolt glider op. Skub bolten i, så låser den med et klik.',
@@ -58,7 +83,7 @@ const DA = {
   // 05 buy (the finish names stay Steel, Copper and Black, as in the Drive copy)
   'Steel. Copper. Black.': 'Steel. Copper. Black.', 'Same lock, same price, three finishes. Pick the one that suits your bike.': 'Samme lås, samme pris, tre udgaver. Vælg den, der passer til din cykel.',
   'Drag to turn': 'Træk for at dreje', 'Intro price until 31 Dec 2026': 'Intropris til 31. dec. 2026',
-  '57-day returns': '57 dages returret', 'Day trial': 'dages prøvetid', 'Promise': 'Løfte', 'Read our reviews': 'Læs vores anmeldelser', 'Prepaid return label in the box': 'Forudbetalt returlabel i æsken', 'Free shipping over €250': 'Gratis fragt over 1.900 kr', '6 reviews': '6 anmeldelser', 'LAAS on Trustpilot: 3.8 out of 5 from 6 reviews': 'LAAS på Trustpilot: 3,8 ud af 5 fra 6 anmeldelser', 'Ringo W., Germany': 'Ringo W., Tyskland', 'D. A., Switzerland': 'D. A., Schweiz', 'R. I., United Kingdom': 'R. I., Storbritannien', 'Two-year right to complain': '2 års reklamationsret',
+  '57-day returns': '57 dages returret', 'Day trial': 'dages prøvetid', 'Promise': 'Løfte', 'Read our reviews': 'Læs vores anmeldelser', 'Pre-order: ships in October': 'Forudbestilling: sendes i oktober', 'Free shipping over €250': 'Gratis fragt over 1.900 kr', '6 reviews': '6 anmeldelser', 'LAAS on Trustpilot: 3.8 out of 5 from 6 reviews': 'LAAS på Trustpilot: 3,8 ud af 5 fra 6 anmeldelser', 'Ringo W., Germany': 'Ringo W., Tyskland', 'D. A., Switzerland': 'D. A., Schweiz', 'R. I., United Kingdom': 'R. I., Storbritannien', 'Two-year right to complain': '2 års reklamationsret',
   // 06 faq
   'Questions, answered.': 'Spørgsmål og svar.', 'Question not here? Call us on': 'Finder du ikke dit spørgsmål? Ring til os på',
   'Will my insurance accept it?': 'Godkender mit forsikringsselskab den?',
@@ -69,10 +94,10 @@ const DA = {
   'How secure is it?': 'Hvor sikker er den?',
   '9 mm of hardened steel. Every unlock uses a one-time key over Bluetooth, so a recorded signal cannot be replayed.': '9 mm hærdet stål. Hver oplåsning bruger en engangsnøgle via Bluetooth, så et optaget signal ikke kan afspilles igen.',
   'How fast does it ship, and what does it cost?': 'Hvor hurtigt sendes den, og hvad koster det?',
-  'It ships in 1–2 working days. Shipping is €9, and free on orders over €250. Questions about an order? Write to': 'Den sendes inden for 1–2 hverdage. Fragten koster 75 kr. og er gratis ved køb over 1.900 kr. Spørgsmål om en ordre? Skriv til',
+  'It is a pre-order and ships in October. Shipping is €9, and free on orders over €250. Questions about an order? Write to': 'Det er en forudbestilling, og den sendes i oktober. Fragten koster 75 kr. og er gratis ved køb over 1.900 kr. Spørgsmål om en ordre? Skriv til',
   'How do returns and the right to complain work?': 'Hvordan fungerer returnering og reklamationsret?',
   'Changed your mind? Tell us at': 'Fortryder du? Giv os besked på',
-  'within 57 days of delivery, then hand the lock to the carrier with the prepaid return label. You get your money back, shipping included, within 14 days of telling us, once the lock is back with us. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery.': 'senest 57 dage efter levering, og aflever låsen til fragtfirmaet med den forudbetalte returlabel. Du får pengene tilbage, inklusive fragt, inden for 14 dage efter din besked, når låsen er tilbage hos os. Du har også to års reklamationsret efter dansk lov, regnet fra levering.',
+  'within 57 days of delivery, then send the lock back to us. You get your money back, shipping included, within 14 days of telling us, once the lock is back with us. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery.': 'senest 57 dage efter levering, og send låsen retur til os. Du får pengene tilbage, inklusive fragt, inden for 14 dage efter din besked, når låsen er tilbage hos os. Du har også to års reklamationsret efter dansk lov, regnet fra levering.',
   'Terms of sale': 'Handelsbetingelser', 'Privacy': 'Privatliv',
   // the footer
   '© 2026 LAAS ApS · Designed in Copenhagen': '© 2026 LAAS ApS · Designet i København',
@@ -835,7 +860,10 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
       const top = Math.round(sec.getBoundingClientRect().top + scrollY), h = Math.max(sec.offsetHeight, sec.scrollHeight);
       if (sec.matches('footer')) { out.push(maxY); return; }
       out.push(Math.min(top, maxY));
-      if (h > innerHeight * 1.15) out.push(Math.min(top + h - innerHeight, maxY));
+      // a story chapter (data-steps) stops once per frame
+      const steps = +sec.dataset.steps || 0; // (no chapter uses steps now; kept for a story that stops per frame)
+      for (let k = 1; k < steps; k++) out.push(Math.min(top + k * innerHeight, maxY));
+      if (!steps && h > innerHeight * 1.15) out.push(Math.min(top + h - innerHeight, maxY));
     });
     return [...new Set(out)].sort((a, b) => a - b);
   };
@@ -886,6 +914,65 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
     if ((k === 'ArrowUp' || k === 'ArrowDown') && e.target.closest('[role="radiogroup"]')) return;
     e.preventDefault();
     if (!busy()) intent(down ? 1 : -1);
+  });
+}
+/* ------------------------------------------------- the everyday story: it plays itself, a frame every 3.2 s
+   while it is on screen; the dots jump to a frame. Reduced motion: no autoplay, the dots still work. */
+{
+  const MS = 3200;
+  $$('.tale').forEach(t => {
+    const frames = $$('[data-i]', t), dots = $$('.tale__dots li', t), n = dots.length;
+    let i = 0, timer = 0, visible = false;
+    t.style.setProperty('--tale-ms', MS + 'ms');
+    const show = k => {
+      i = (k + n) % n;
+      t.dataset.frame = i;
+      frames.forEach(el => { const on = +el.dataset.i === i; el.classList.toggle('is-on', on); if (el.matches('h2')) el.setAttribute('aria-hidden', String(!on)); });
+      dots.forEach((d, k2) => d.classList.toggle('is-on', k2 === i));
+      // restart the progress bar
+      t.classList.remove('is-playing'); void t.offsetWidth; if (timer) t.classList.add('is-playing');
+    };
+    const play = () => { if (reduce || timer) return; timer = setInterval(() => show(i + 1), MS); t.classList.add('is-playing'); };
+    const stop = () => { clearInterval(timer); timer = 0; t.classList.remove('is-playing'); };
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting && e.intersectionRatio > 0.6; visible && !document.hidden && !paused ? play() : stop(); }, { threshold: [0, 0.6, 1] }).observe(t);
+    document.addEventListener('visibilitychange', () => (document.hidden || !visible || paused ? stop() : play()));
+    const pauseBtn = $('.tale__pause', t);
+    let paused = false;
+    const setPaused = p => { paused = p; pauseBtn?.setAttribute('aria-pressed', String(p)); pauseBtn?.setAttribute('aria-label', p ? 'Play story' : 'Pause story'); p ? stop() : (visible && play()); };
+    pauseBtn?.addEventListener('click', () => setPaused(!paused));
+    dots.forEach((d, k) => d.querySelector('button').addEventListener('click', () => { stop(); show(k); if (visible && !paused) play(); }));
+    // the nav goes clear over the photos
+    const shellEl = document.querySelector('.nav__shell'), menuEl = document.getElementById('menu');
+    const nav = () => {
+      const r = t.getBoundingClientRect(), n = shellEl ? shellEl.offsetTop + shellEl.offsetHeight + 12 : 80;
+      document.documentElement.classList.toggle('in-tale', r.top <= 4 && r.bottom >= n && (!menuEl || menuEl.hidden));
+    };
+    addEventListener('scroll', nav, { passive: true }); addEventListener('resize', nav);
+    if (menuEl) new MutationObserver(nav).observe(menuEl, { attributes: true, attributeFilter: ['hidden'] });
+    nav(); show(0);
+  });
+}
+/* ------------------------------------------------- how it works: the steps light up one by one while on screen */
+{
+  const MS = 2400;
+  $$('.how').forEach(list => {
+    const items = $$('li', list), n = items.length;
+    let i = 0, timer = 0;
+    const show = k => {
+      i = (k + n) % n;
+      items.forEach((li, j) => { li.classList.toggle('is-on', j === i); li.setAttribute('aria-current', String(j === i)); });
+      list.style.setProperty('--how-p', (i / (n - 1)).toFixed(3));
+    };
+    const play = () => { if (reduce || timer) return; timer = setInterval(() => show(i + 1), MS); };
+    const stop = () => { clearInterval(timer); timer = 0; };
+    new IntersectionObserver(([e]) => (e.isIntersecting && !document.hidden ? play() : stop()), { threshold: 0.5 }).observe(list);
+    items.forEach((li, j) => {
+      li.tabIndex = 0;
+      const pick = () => { stop(); show(j); play(); };
+      li.addEventListener('click', pick);
+      li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+    });
+    show(0);
   });
 }
 window.LAAS_UI = true;
