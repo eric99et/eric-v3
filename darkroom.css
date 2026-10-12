@@ -1800,8 +1800,3 @@ html.nav-clear[data-tone="dark"] .nav__bag, html.nav-clear[data-tone="dark"] .na
 .intro__pic figcaption { margin-top: 10px; font-size: 13px; color: var(--muted); }
 @media (max-width: 760px), (max-height: 640px) { .intro__pic { display: none; } }
 
-/* buy card: the four numbers Marcus missed, with a way to the full details */
-.mini-specs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin: 14px 0 4px; padding: 0; list-style: none; }
-.mini-specs li { display: grid; gap: 2px; padding: 9px 8px; border-radius: 12px; background: rgba(32, 47, 48, .05); font-size: 11px; color: var(--muted); text-align: center; }
-.mini-specs b { font: 600 15px/1.1 var(--display); letter-spacing: -0.02em; color: var(--ink); }
-.mini-specs__all { display: inline-block; margin-bottom: 10px; font-size: 13px; }
