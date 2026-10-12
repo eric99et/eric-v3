@@ -194,6 +194,7 @@ setTimeout(() => { progress.img = 1; progress.glb = 1; }, 7000);
 
 /* --------------------------------------------------------------- the lock */
 const stage = $('#stage'), sheetEl = $('#sheet');
+const backdrop = $('#backdrop');
 // the render's own geometry (measured on the front view): the ring's centre and outer radius as shares of the frame
 const RING = { cx: 0.4997, cy: 0.5093, r: 0.4314 };
 // every other view: the centre and half the largest extent of the lock in its frame, so each angle stands as big
@@ -238,6 +239,7 @@ const slots = sections.map(s => $('.slot', s) || s);
 const keylessIdx = sections.findIndex(s => s.hasAttribute('data-keyless'));
 const productIdx = sections.findIndex(s => s.id === 'buy');
 const findIdx = sections.findIndex(s => s.id === 'findmy');
+const introIdx = sections.findIndex(s => s.id === 'intro');
 const cur = { ...poses[0] };
 function flash() {
   const el = $('#click'); if (!el) return;
@@ -481,6 +483,12 @@ function frameChrome(m) {
     sheetEl.classList.remove('is-on');
     root.classList.remove('bg-live');
     setVar(root, '--bg', hd >= 1 ? s.dataset.bg || '#ECECEA' : heroSec.dataset.bg);
+  }
+  // the intro's photo shows through exactly where the intro is, behind the lock
+  if (backdrop && introIdx > 0) {
+    const ir = rects[introIdx], seen = ir.bottom > 0 && ir.top < H;
+    backdrop.classList.toggle('is-on', seen);
+    if (seen) { setVar(backdrop, '--bt', Math.max(0, ir.top).toFixed(1) + 'px'); setVar(backdrop, '--bb', Math.max(0, H - ir.bottom).toFixed(1) + 'px'); }
   }
   // the footer has its own logo, links and buy button: the nav and the rail step aside for it
   const fr = rects[rects.length - 1];
