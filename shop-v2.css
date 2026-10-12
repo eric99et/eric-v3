@@ -870,3 +870,11 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
   .pick button::before { inset: 9px; }
   .pick button::after { inset: 7px; }
 }
+
+/* FAQ answers from Marcus's FAQ (13 Oct): several paragraphs, numbered steps, small subheads, a "Full terms" link */
+.pr .fq__a p + p, .pr .fq__a p + h3, .pr .fq__a ol + p, .pr .fq__a p + ol { margin-top: 10px; }
+.pr .fq__a h3 { margin: 18px 0 4px; font: 600 16px/1.3 var(--display); letter-spacing: -0.01em; color: var(--ink); }
+.pr .fq__a .fq__steps { display: grid; gap: 12px; margin: 0; padding-left: 1.3em; list-style: decimal outside; font-size: 15px; line-height: 1.55; color: var(--ink-2); max-width: 44em; }
+.pr .fq__a .fq__steps li::marker { font-weight: 600; color: var(--ink); }
+.pr .fq__a .fq__steps li p + p { margin-top: 4px; }
+.pr .fq__a .fq__more-link { margin-top: 12px; }

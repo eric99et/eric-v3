@@ -1816,3 +1816,13 @@ html.nav-clear[data-tone="dark"] .nav__bag, html.nav-clear[data-tone="dark"] .na
 .void--intro .specs a:hover { color: #9BCDD0; }
 .void--intro .specs a:hover svg { background: #9BCDD0; color: #202F30; }
 
+
+/* buy card: his trial line, quiet, under the badges */
+.buy__love { margin: 14px 0 0; font-size: 13px; line-height: 1.4; color: #606A74; text-align: center; }
+.buy__love a { color: inherit; text-decoration: none; }
+.buy__love a:hover { color: #1D5F63; text-decoration: underline; }
+.us__team { margin-top: 18px; font-size: 15px; color: var(--ink-2); }
+.us__quote p { font-size: 17px; }
+/* nine of his questions on a phone: a touch tighter so they fit one screen */
+@media (max-width: 760px) { .void--faq .qa summary { padding: 13px 0; font-size: 16px; } .void--faq .void__right { margin-top: 12px; } }
+@media (max-width: 760px) { .us__pics { height: 24svh; margin-bottom: 14px; } .void--us .body { font-size: 15px; line-height: 1.42; } .void--us .body + .body { margin-top: 8px; } .us__quote { margin-top: 14px; padding: 12px 14px; } .us__quote p { font-size: 15px; } .us__team { margin-top: 12px; font-size: 14px; } }
