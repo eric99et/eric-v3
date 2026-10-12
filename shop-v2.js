@@ -102,7 +102,7 @@
             <p class="item__name">${esc(i.name)}</p>
             ${i.finish ? `<p class="item__meta">${esc(i.finish)}</p>` : ''}
             <p class="item__meta">${money(unitOf(i) * i.qty)}</p>
-            <span class="item__tag">${tr(isLock(i) ? 'Intro price' : 'No drilling')}</span>
+            <span class="item__tag">${tr(isLock(i) ? 'Until 31 Dec 2026' : 'No drilling')}</span>
           </div>
           <div class="item__qty" role="group" aria-label="${tr('Quantity')}, ${label(i)}">
             <button type="button" data-step="${idx}" data-d="-1" aria-label="${i.qty <= 1 ? tr('Remove') + ' ' + label(i) : tr('One less')}">${i.qty <= 1 ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12"/></svg>' : '−'}</button>

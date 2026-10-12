@@ -596,7 +596,8 @@ main.shop.legal { max-width: none; font: inherit; letter-spacing: normal; }
 .fq__rate button { min-height: 30px; padding: 0 12px; border-radius: 999px; font-size: 13px; }
 .pr .fq__a .fq__thanks { margin-top: 12px; font-size: 13px; }
 @media (max-width: 760px) {
-  .fq { gap: 12px; margin-top: 20px; }
+  .fq { grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
+  .fq > * { min-width: 0; }
   .fq__help { display: none; }
   .fq__tab em { display: none; }
   .fq__search input { height: 48px; font-size: 16px; }
@@ -878,3 +879,12 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 .pr .fq__a .fq__steps li::marker { font-weight: 600; color: var(--ink); }
 .pr .fq__a .fq__steps li p + p { margin-top: 4px; }
 .pr .fq__a .fq__more-link { margin-top: 12px; }
+
+/* review round 1: one type scale on the reading pages — every page title as large as the FAQ's, the card headings under it */
+.cart__h { font: 600 clamp(30px, 3.4vw, 44px)/1.05 var(--display); }
+.pr__card h2 { font-size: clamp(24px, 2.2vw, 30px); }
+/* the four return steps start on one line */
+.pr__steps--line li { align-content: start; }
+
+/* round 4: on a phone the two add-on tiles stack, so all three finish swatches of the second lock fit and can be tapped */
+@media (max-width: 760px) { .addons { flex-direction: column; } .cart__box .addons .addon { flex: none; } }

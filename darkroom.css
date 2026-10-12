@@ -1714,6 +1714,8 @@ html.nav-clear .nav__shell, html.nav-clear.nav-float .nav__shell, html.nav-clear
   background: transparent; border-color: transparent; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
 html.nav-clear .nav__bag, html.nav-clear .nav .nav__menu { background: rgba(255, 255, 255, .55); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 html.nav-clear[data-tone="dark"] .nav__bag, html.nav-clear[data-tone="dark"] .nav .nav__menu { background: rgba(255, 255, 255, .12); }
+/* the landing page: while the bar is clear, the logo and the controls sit on the chapters' own gutter */
+html.nav-clear:has(#stage) .nav__shell, html.nav-clear.nav-float:has(#stage) .nav__shell, html.nav-clear.nav-float.nav-compact:has(#stage) .nav__shell { max-width: 100%; padding-left: 12px; padding-right: 12px; }
 
 /* desktop: a portrait photo is shown whole, as a tall panel on the right, over a blurred, darkened copy of itself */
 @media (min-width: 761px) {
@@ -1861,4 +1863,115 @@ html.nav-clear[data-tone="dark"] .nav__bag, html.nav-clear[data-tone="dark"] .na
   .help__talk { margin-top: 18px; grid-template-columns: 1fr; max-width: none; gap: 8px; }
   .help__talk a { padding: 10px 12px; gap: 10px; }
   .help__talk span { font-size: 14px; display: flex; gap: 10px; align-items: baseline; } .help__talk small { font-size: 12px; }
+}
+
+/* ---------------- review round 1 (legal, UI, psych) */
+/* intro: a calm, heavily blurred harbour (L1150695, blur baked into the file) under a soft teal-dark tone, so the lock reads sharp */
+.backdrop::before { background: url(images/story/intro-calm.webp?v=1) 50% 60% / cover no-repeat; filter: none; animation: drift 40s ease-in-out infinite alternate; }
+@media (max-width: 760px) { .backdrop::before { background-image: url(images/story/intro-calm-m.webp?v=1); background-position: 50% 55%; } }
+.backdrop::after { background: radial-gradient(ellipse 55% 50% at 50% 50%, rgba(20, 32, 33, .10), transparent 70%),
+  linear-gradient(180deg, rgba(20, 32, 33, .62) 0%, rgba(29, 95, 99, .42) 50%, rgba(20, 32, 33, .78) 100%); }
+/* the buy card never grows wider than the screen: the price tag wraps under the price when it must */
+.price-line { flex-wrap: wrap; row-gap: 8px; }
+.void--product .void__right, .buybox { min-width: 0; max-width: 100%; }
+.price-line .label { white-space: nowrap; }
+@media (max-width: 760px) { .price-line .label { flex-basis: 100%; width: max-content; max-width: 100%; white-space: normal; } }
+/* the comparison: plain words where a chain or D-lock is not simply yes or no */
+.cmp__c.is-txt { font: 500 13px/1.2 var(--body); color: #3C4A4B; text-align: center; }
+@media (max-width: 760px) { .cmp__c.is-txt { font-size: 12px; } }
+/* how the reviews are shown */
+.tpb__note { display: block; margin: 0; padding: 12px var(--gutter) 0; font-size: 12px; line-height: 1.45; color: #606A74; text-align: center; }
+.rv__note { margin: 18px 0 0; font-size: 12px; line-height: 1.45; color: #606A74; }
+/* varefakta: the certificate clear of the seal */
+.paper { translate: 0 0; width: min(17vw, 250px); }
+/* the story's second frame: a deeper shade where the words sit on a light photo */
+.tale__pin::after { background: linear-gradient(90deg, rgba(32, 47, 48, .78) 0%, rgba(32, 47, 48, .4) 40%, rgba(32, 47, 48, 0) 68%), linear-gradient(0deg, rgba(32, 47, 48, .6) 0%, rgba(32, 47, 48, 0) 40%); }
+.tale__line { text-shadow: 0 2px 24px rgba(20, 32, 33, .45); }
+@media (max-width: 760px) { .tale__pin::after { background: linear-gradient(0deg, rgba(32, 47, 48, .9) 0%, rgba(32, 47, 48, .72) 24%, rgba(32, 47, 48, .1) 55%); } }
+/* how it works: room for the longer Danish steps */
+.how li.is-on p { max-height: 8em; }
+/* the footer's legal links look like links */
+.foot2__legal a { color: #ECECEA; text-decoration: underline; text-decoration-color: rgba(236, 236, 234, .4); text-underline-offset: 2px; }
+.foot2__legal a:hover { color: #9BCDD0; }
+/* find my and the comparison fit one phone screen */
+@media (max-width: 760px) {
+  .void--map .fm-slot { flex: 0 0 34svh; min-height: 0; }
+  .void--map .fm__fine { font-size: 11px; margin-top: 10px !important; }
+  .void--compare .cmp td, .void--compare .cmp th, .void--compare .cmp__row { padding-block: 9px; }
+  .void--compare .cmp__row > span:nth-child(2) { margin-block: -9px; }
+  .void--compare .heading { font-size: 30px; }
+}
+.cmp__head > span:nth-child(3) { hyphens: none; }
+/* the Pre-order question: two equal answers, the free one first */
+.flex-ask h2 + .flex-ask__no { margin-top: 8px; }
+.flex-ask__no { padding: 10px 18px; white-space: normal; text-align: center; line-height: 1.25; cursor: pointer; }
+/* on a phone the review note shares the bottom with the band: tighter, and the trial line (the same promise as the 57 badge above it) steps aside */
+@media (max-width: 760px) {
+  #buy > .tpb { padding: 8px 0 6px; }
+  .tpb__note { padding-top: 4px; font-size: 10.5px; line-height: 1.3; }
+  #buy .buy__love { display: none; }
+}
+/* the calm intro needs no shadow behind the big words (it was clipped to a box by the word reveal) */
+.void--intro .intro__word { text-shadow: none; }
+.nav__buy, .cmp__buy { white-space: nowrap; }
+/* the struck price says what it is, in plain sight: the price from 1 Jan 2027 */
+.price-was { display: inline-flex; align-items: baseline; gap: 6px; white-space: nowrap; color: var(--muted); }
+.price-was small { font-size: 12px; }
+/* a phone: the logo leaves room for the Pre-order pill (it touched it in Danish) */
+@media (max-width: 760px) { .nav__logo { width: 92px; } .nav__end { margin-left: 12px; } }
+/* a phone: the buy card ends above the review band (it ran 24–44 px under it) */
+@media (max-width: 760px) {
+  #buy.void--product { padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)) !important; }
+  #buy .slot { flex: 1 1 18svh; min-height: 15svh; }
+  #buy .tpb__note { font-size: 11px; line-height: 1.35; }
+}
+/* the Pre-order question: a quiet way out for anyone who does not know yet */
+.flex-ask__unsure { margin-top: 10px; padding: 6px 4px; border: 0; background: none; color: var(--muted); font: inherit; font-size: 13px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.flex-ask__unsure:hover { color: var(--ink); }
+/* how it works: a real ride fills the empty right side on wide screens */
+.how__shot { display: none; }
+@media (min-width: 1101px) {
+  .void--how { grid-template-columns: minmax(0, .9fr) minmax(0, 1fr) minmax(0, .8fr); }
+  .how__shot { display: block; grid-column: 3; align-self: center; margin: 0; aspect-ratio: 4 / 5; max-height: 72vh; border-radius: 24px; overflow: hidden; }
+  .how__shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+}
+.foot2__legal small, .foot small { text-wrap: balance; }
+/* a short phone (667 px): the buy chapter grows a little rather than letting the review band cover the card */
+@media (max-width: 760px) and (max-height: 700px) { #buy.void--product { height: auto; min-height: 100svh; } }
+
+/* ------------------------------------------- round 4 (12 Oct) */
+/* portrait tablet: the story's tall photo sits centred at the top, the words full width under it, as on a phone */
+@media (min-width: 761px) and (max-aspect-ratio: 1/1) {
+  .tale__shot--tall picture { top: 92px; bottom: auto; height: 56svh; width: calc(56svh * .667); left: 50%; right: auto; translate: -50% 0; }
+  .tale__copy { width: auto; right: var(--gutter); bottom: clamp(56px, 8vh, 96px); }
+  .tale__line { font-size: clamp(44px, 7vw, 64px); }
+  .tale__pin::after { background: linear-gradient(0deg, rgba(32, 47, 48, .9) 0%, rgba(32, 47, 48, .6) 28%, rgba(32, 47, 48, .1) 55%); }
+}
+/* tablet: air between the nav links and the language toggle */
+@media (min-width: 761px) and (max-width: 1100px) {
+  .nav__shell { column-gap: 16px; }
+  .nav__links a { padding-inline: 8px; }
+}
+/* the cart count stays visible on the teal and dark chapters */
+html[data-tone="dark"] .nav__bag b, html.in-tale .nav__bag b { background: #ECECEA; color: #1D5F63; }
+
+/* ------------------------------------------- round 5 (12 Oct) */
+/* find my scene: a plain LAAS location chip on the drawn map, in brand teal on Chalk (not a copy of any app's sheet) */
+.fmp__sheet.fmp__chip {
+  left: 50%; right: auto; bottom: calc(var(--h) * .05); translate: -50% 0; width: max-content; max-width: 86%;
+  padding: calc(var(--h) * .013) calc(var(--h) * .024); border-radius: calc(var(--h) * .024);
+  background: #ECECEA; border: 1px solid rgba(29, 95, 99, .2); box-shadow: 0 10px 26px -12px rgba(32, 47, 48, .4);
+}
+.fmp__chip .fmp__name { display: flex; align-items: baseline; gap: .45em; white-space: nowrap; color: #1D5F63; }
+.fmp__chip .fmp__name b { color: #1D5F63; }
+.fmp__chip .fmp__name b::after { content: " ·"; font-weight: 400; }
+@media (max-width: 760px) { .fmp__sheet.fmp__chip { max-width: 94%; padding: 5px 9px; } .fmp__chip .fmp__name { gap: .3em; font-size: 10px; } .fmp__chip .fmp__name b { font-size: 12px; } }
+/* how it works: the lock on a rear wheel under the blossom stays in the 4:5 crop */
+@media (min-width: 1101px) { .how__shot img { object-position: 62% 50%; } }
+/* portrait tablet: the buy chapter's label floats, so the lock gets the whole left side next to the card */
+@media (min-width: 761px) and (max-width: 1100px) {
+  #buy.void--product { grid-template-columns: minmax(0, 1fr) minmax(320px, 380px); }
+  #buy .void__left { position: absolute; top: 120px; left: var(--gutter); }
+  #buy .slot { grid-column: 1; grid-row: 1; }
+  #buy .void__right { grid-column: 2; grid-row: 1; }
 }

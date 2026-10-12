@@ -22,7 +22,7 @@
 <link rel="preload" href="fonts/inter-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="images/lock/steel-00-800.webp" as="image" type="image/webp" media="(max-width: 900px)">
 <link rel="preload" href="images/lock/steel-00-1600.webp" as="image" type="image/webp" media="(min-width: 901px)">
-<link rel="stylesheet" href="darkroom.css?v=1013i">
+<link rel="stylesheet" href="darkroom.css?v=1018b">
 <script>
   // the loader only exists when scripts run; if the 3D engine never arrives, the page still opens
   document.documentElement.classList.add('is-loading');
@@ -30,9 +30,9 @@
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Product","name":"LAAS Ring-Lock","brand":{"@type":"Brand","name":"LAAS"},
- "description":"Keyless bike lock that opens with your phone. Insurance-approved in Denmark, Varefakta VK 37868 (certificate VF 5029:4).",
+ "description":"Keyless bike lock that opens with your phone. Insurance-approved in Denmark, Varefakta VK 37868 (tested to VF 5029:4).",
  "url":"https://eric99et.github.io/eric-v3/","image":["https://eric99et.github.io/eric-v3/images/scenes/finish-steel.webp","https://eric99et.github.io/eric-v3/images/scenes/finish-copper.webp","https://eric99et.github.io/eric-v3/images/scenes/finish-black.webp"],"color":"Steel, Copper, Black","weight":{"@type":"QuantitativeValue","value":504,"unitCode":"GRM"},
- "offers":{"@type":"Offer","url":"https://eric99et.github.io/eric-v3/buy.html","price":"129","priceCurrency":"EUR","priceValidUntil":"2026-12-31","availability":"https://schema.org/InStock","seller":{"@type":"Organization","name":"LAAS ApS"},"shippingDetails":{"@type":"OfferShippingDetails","shippingRate":{"@type":"MonetaryAmount","value":"9","currency":"EUR"},"shippingDestination":{"@type":"DefinedRegion","addressCountry":"DK"},"deliveryTime":{"@type":"ShippingDeliveryTime","handlingTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":2,"unitCode":"DAY"}}},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"DK","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow","merchantReturnDays":57,"returnMethod":"https://schema.org/ReturnByMail","returnFees":"https://schema.org/FreeReturn"}},"sku":"RL01","mpn":"RL01"}
+ "offers":{"@type":"Offer","url":"https://eric99et.github.io/eric-v3/buy.html","price":"129","priceCurrency":"EUR","priceValidUntil":"2026-12-31","availability":"https://schema.org/PreOrder","seller":{"@type":"Organization","name":"LAAS ApS"},"shippingDetails":{"@type":"OfferShippingDetails","shippingRate":{"@type":"MonetaryAmount","value":"9","currency":"EUR"},"shippingDestination":{"@type":"DefinedRegion","addressCountry":"DK"}},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"DK","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow","merchantReturnDays":57,"returnMethod":"https://schema.org/ReturnByMail"}},"sku":"RL01","mpn":"RL01"}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"LAAS ApS","url":"https://eric99et.github.io/eric-v3/","logo":"https://eric99et.github.io/eric-v3/apple-touch-icon.png","email":"support@laaslocks.com","telephone":"+45 31 33 82 13","address":{"@type":"PostalAddress","streetAddress":"Sankt Hans Gade 24, st.","postalCode":"2200","addressLocality":"København N","addressCountry":"DK"},"sameAs":["https://www.instagram.com/laaslocks/","https://www.facebook.com/laas"]}
@@ -79,7 +79,7 @@
     </nav>
     <div class="nav__end">
       <p class="lang label" role="group" aria-label="Language"><a href="?lang=en" data-lang="en" hreflang="en">EN</a><i aria-hidden="true">/</i><a href="?lang=da" data-lang="da" hreflang="da">DA</a></p>
-      <a class="nav__buy label" href="#buy"><span>Buy</span><span class="nav__price" data-price="lock">€129</span></a>
+      <a class="nav__buy label" href="#buy"><span>Pre-order</span><span class="nav__price" data-price="lock">€129</span></a>
       <button class="ghost label nav__menu" id="menu-open" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
     </div>
   </div>
@@ -141,14 +141,11 @@
       <circle class="map__you-halo" cx="700" cy="1020.6" r="26"/>
       <circle class="map__you" cx="700" cy="1020.6" r="11"/>
     </svg>
-    <!-- the bike, as a Find My pin where the route ends -->
+    <!-- location pin (LAAS style) where the route ends -->
     <span class="fmp__pin"><i><svg viewBox="0 0 32 32"><circle cx="8" cy="20" r="5.2"/><circle cx="24" cy="20" r="5.2"/><path d="M8 20l5-9h8l3 9M13 11l3 9h-8M16 20l5-9M11.5 8h3.5M19.5 8.5l1.5 2.5"/></svg></i></span>
-    <div class="fmp__sheet">
-      <i class="fmp__grab"></i>
-      <div class="fmp__item">
-        <span class="fmp__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.6"/><path d="M8.6 17.4l1.8-1.6M15.4 17.4l-1.8-1.6"/></svg></span>
-        <span class="fmp__name"><b>Ring-Lock</b><span>Nørrebro · Now · <em id="chip-text">2.4&nbsp;km</em></span></span>
-              </div>
+    <!-- location chip (LAAS style, not a copy of any app's interface) -->
+    <div class="fmp__sheet fmp__chip">
+      <span class="fmp__name"><b>Ring-Lock</b><span>Nørrebro · <em id="chip-text">2.4&nbsp;km</em></span></span>
     </div>
   </div>
   <!-- find my: rings on the map -->
@@ -258,10 +255,11 @@
     </div>
     <ol class="how">
       <li><span class="how__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.75" width="11" height="18.5" rx="2.75"/><path d="M9.5 9h5M9.5 12h5M9.5 15h3"/></svg></span><span class="label">01</span><b>Add your lock</b><p>Add it in the LAAS app. It will never appear in your phone’s Bluetooth settings.</p></li>
-      <li><span class="how__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.25"/><path d="M12 7.5v4.5l3 2"/></svg></span><span class="label">02</span><b>Lock by hand</b><p>No app needed to lock it. Lock it by hand.</p></li>
+      <li><span class="how__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 13V6.5a1.5 1.5 0 0 1 3 0V12M11 11V5a1.5 1.5 0 0 1 3 0v6M14 11V7a1.5 1.5 0 0 1 3 0v6a6 6 0 0 1-6 6h-1a5 5 0 0 1-4-2l-2.5-3.5a1.5 1.5 0 0 1 2.4-1.8L8 13"/></svg></span><span class="label">02</span><b>Lock by hand</b><p>No app needed to lock it. Lock it by hand.</p></li>
       <li><span class="how__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 7.6-1.7"/></svg></span><span class="label">03</span><b>Unlock with one tap</b><p>Over Bluetooth, within approximately 10 metres of your bike.</p></li>
       <li><span class="how__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7.5" width="16" height="9" rx="2.25"/><path d="M21 10.5v3M7 12h6"/></svg></span><span class="label">04</span><b>Charge twice a year</b><p>Roughly every six months. Lift the rubber cover and plug in a USB-C cable.</p></li>
     </ol>
+    <figure class="how__shot" aria-hidden="true"><img src="images/real/carry.webp" alt="" width="900" height="888" loading="lazy" decoding="async"></figure>
   </section>
 
   <!-- 3 · the everyday moment Find My answers, told as a story: one rider, three full-screen frames, one stop each
@@ -277,7 +275,7 @@
       <div class="tale__copy">
         <h2 class="tale__line is-on" data-i="0" id="h1c">Park.<span>Push the bolt in. Click.</span></h2>
         <h2 class="tale__line" data-i="1" aria-hidden="true">Busy day.<span>Forgot where you parked?</span></h2>
-        <h2 class="tale__line" data-i="2" aria-hidden="true">Let’s find out.<span>Your phone knows where it is.</span></h2>
+        <h2 class="tale__line" data-i="2" aria-hidden="true">Let’s find out.<span>Your iPhone knows where it is.</span></h2>
         <h2 class="tale__line" data-i="3" aria-hidden="true">There it is.<span>Right where you left it.</span></h2>
         <h2 class="tale__line" data-i="4" aria-hidden="true">One tap.<span>Unlocked with the LAAS app.</span></h2>
         <h2 class="tale__line" data-i="5" aria-hidden="true">Back to your day.<span>No key to dig for. Just ride.</span></h2>
@@ -303,27 +301,27 @@
   </section>
 
   <!-- 3 · varefakta: the certificate, and the ring at the centre of its seal -->
-  <section class="void void--seal" id="approved" data-nav-section="approved" data-tone="dark" data-bg="#1D5F63" data-key='{"img":"01","yaw":0,"pitch":0,"roll":0,"size":0.34,"x":0.24,"y":-0.04,"seal":1,"free":1,"msize":0.5,"mx":0,"my":-0.12}' aria-labelledby="h3">
+  <section class="void void--seal" id="approved" data-nav-section="approved" data-tone="dark" data-bg="#1D5F63" data-key='{"img":"01","yaw":0,"pitch":0,"roll":0,"size":0.3,"x":0.18,"y":-0.04,"seal":1,"free":1,"msize":0.5,"mx":0,"my":-0.12}' aria-labelledby="h3">
     <div class="void__left">
       <p class="void__index label"><b>05</b> Varefakta</p>
       <h2 class="heading split" id="h3">Insurance&#8209;approved in&nbsp;Denmark.</h2>
-      <p class="body">Ring-Lock has passed Denmark’s strict Varefakta insurance tests. It is the only electronic app-controlled ring lock on <a class="link" href="https://varefakta.dk/cykellaase/" target="_blank" rel="noopener">Varefakta’s public list</a> (VK 37868). The certificate is in the box.</p>
+      <p class="body">Ring-Lock has passed Denmark’s strict Varefakta insurance tests. As of October 2026, it is the only electronic app-controlled ring lock on <a class="link" href="https://varefakta.dk/cykellaase/" target="_blank" rel="noopener">Varefakta’s public list</a> (VK 37868). The certificate is in the box.</p>
       <div class="vf">
         <img class="vf__mark" src="images/varefakta-badge.jpg" width="96" height="96" alt="Varefakta kontrolleret">
         <dl class="cert">
           <div><dt class="label">Listing</dt><dd>VK 37868</dd></div>
-          <div><dt class="label">Certificate</dt><dd>VF 5029:4</dd></div>
+          <div><dt class="label">Standard</dt><dd>VF 5029:4</dd></div>
         </dl>
       </div>
     </div>
     <div class="slot vf-slot" aria-hidden="true">
       <div class="paper">
-        <p class="paper__head"><span class="label">Låseattest · Example</span><span>Lock certificate</span></p>
+        <p class="paper__head"><span class="label">Example</span><span>Lock certificate</span></p>
         <dl class="paper__rows">
           <div><dt>Lock</dt><dd>LAAS Ring-Lock</dd></div>
           <div><dt>Lock ID</dt><dd>RL01 · ·&nbsp;·&nbsp;·</dd></div>
           <div><dt>Frame no.</dt><dd>WAW&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·&nbsp;·</dd></div>
-          <div><dt>Certificate</dt><dd>VF 5029:4</dd></div>
+          <div><dt>Standard</dt><dd>VF 5029:4</dd></div>
         </dl>
         <p class="paper__sign"><i></i><span>In the box</span></p>
       </div>
@@ -339,7 +337,7 @@
       <div class="fitq">
         <p class="fitq__h" id="fq1"><b>1</b>Your bike</p>
         <div class="pickrow" id="tyre" role="radiogroup" aria-labelledby="fq1">
-          <button type="button" class="chip" role="radio" data-mm="28" aria-checked="false">Road</button>
+          <button type="button" class="chip" role="radio" data-mm="35" aria-checked="false">Commuter</button>
           <button type="button" class="chip" role="radio" data-mm="42" aria-checked="true">City</button>
           <button type="button" class="chip" role="radio" data-mm="55" aria-checked="false">E-bike</button>
           <button type="button" class="chip" role="radio" data-mm="60" aria-checked="false">Cargo</button>
@@ -353,7 +351,7 @@
           <button type="button" class="chip" role="radio" data-holes="1" aria-checked="true">Yes</button>
           <button type="button" class="chip" role="radio" data-holes="0" aria-checked="false">No</button>
         </div>
-        <p class="fitq__hint">Two small threaded holes, either side of the rear wheel.</p>
+        <p class="fitq__hint">Two small threaded holes, either side of the rear wheel, 75 to 100 mm apart.</p>
       </div>
       <div class="verdict" id="verdict" aria-live="polite">
         <p class="verdict__head"><i class="verdict__mark" aria-hidden="true"><svg viewBox="0 0 20 20"><path class="verdict__yes" d="M5 10.5l3.4 3.4L15 7"/><path class="verdict__no" d="M6.5 6.5l7 7M13.5 6.5l-7 7"/></svg></i><span id="verdict-head">It fits.</span></p>
@@ -372,10 +370,10 @@
       <p class="body">Nothing to carry, nothing to forget, and no subscription.</p>
       <figure class="cmp__photo"><picture><source media="(max-width: 760px)" srcset="images/story/harbour-m.webp"><img src="images/story/harbour.webp" alt="A rider on his way along the harbour" loading="lazy" decoding="async"></picture></figure>
     </div>
-    <div class="cmp" role="table" aria-label="LAAS Ring-Lock compared with a classic lock">
-      <div class="cmp__row cmp__head" role="row"><span role="columnheader"></span><span role="columnheader" class="cmp__us">Ring-Lock</span><span role="columnheader">Classic lock</span></div>
-      <div class="cmp__row" role="row"><span role="rowheader">No key to carry or lose</span><span role="cell" class="cmp__c is-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><i class="visually-hidden">Yes</i></span><span role="cell" class="cmp__c is-no"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 7.5l9 9M16.5 7.5l-9 9"/></svg><i class="visually-hidden">No</i></span></div><div class="cmp__row" role="row"><span role="rowheader">Stays on the bike</span><span role="cell" class="cmp__c is-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><i class="visually-hidden">Yes</i></span><span role="cell" class="cmp__c is-no"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 7.5l9 9M16.5 7.5l-9 9"/></svg><i class="visually-hidden">No</i></span></div><div class="cmp__row" role="row"><span role="rowheader">Opens without internet</span><span role="cell" class="cmp__c is-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><i class="visually-hidden">Yes</i></span><span role="cell" class="cmp__c is-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><i class="visually-hidden">Yes</i></span></div><div class="cmp__row" role="row"><span role="rowheader">Insurance-approved in Denmark</span><span role="cell" class="cmp__c is-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><i class="visually-hidden">Yes</i></span><span role="cell" class="cmp__c is-no"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 7.5l9 9M16.5 7.5l-9 9"/></svg><i class="visually-hidden">No</i></span></div><div class="cmp__row" role="row"><span role="rowheader">57 days to return it</span><span role="cell" class="cmp__c is-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><i class="visually-hidden">Yes</i></span><span role="cell" class="cmp__c is-no"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 7.5l9 9M16.5 7.5l-9 9"/></svg><i class="visually-hidden">No</i></span></div><div class="cmp__row" role="row"><span role="rowheader">No subscription</span><span role="cell" class="cmp__c is-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><i class="visually-hidden">Yes</i></span><span role="cell" class="cmp__c is-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><i class="visually-hidden">Yes</i></span></div>
-      <div class="cmp__foot"><p><b>VK 37868</b> Varefakta listing</p><a class="cmp__buy" href="#buy"><span>Buy</span><span data-price="lock">€129</span></a></div>
+    <div class="cmp" role="table" aria-label="LAAS Ring-Lock compared with a chain or D-lock">
+      <div class="cmp__row cmp__head" role="row"><span role="columnheader"></span><span role="columnheader" class="cmp__us">Ring-Lock</span><span role="columnheader">Chain or D‑lock</span></div>
+      <div class="cmp__row" role="row"><span role="rowheader">No key to carry or lose</span><span role="cell" class="cmp__c is-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><i class="visually-hidden">Yes</i></span><span role="cell" class="cmp__c is-no"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 7.5l9 9M16.5 7.5l-9 9"/></svg><i class="visually-hidden">No</i></span></div><div class="cmp__row" role="row"><span role="rowheader">Stays on the bike</span><span role="cell" class="cmp__c is-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><i class="visually-hidden">Yes</i></span><span role="cell" class="cmp__c is-no"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 7.5l9 9M16.5 7.5l-9 9"/></svg><i class="visually-hidden">No</i></span></div><div class="cmp__row" role="row"><span role="rowheader">Opens without internet</span><span role="cell" class="cmp__c is-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><i class="visually-hidden">Yes</i></span><span role="cell" class="cmp__c is-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><i class="visually-hidden">Yes</i></span></div><div class="cmp__row" role="row"><span role="rowheader">Insurance-approved in Denmark</span><span role="cell" class="cmp__c is-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><i class="visually-hidden">Yes</i></span><span role="cell" class="cmp__c is-txt">Some</span></div><div class="cmp__row" role="row"><span role="rowheader">57 days to return it</span><span role="cell" class="cmp__c is-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><i class="visually-hidden">Yes</i></span><span role="cell" class="cmp__c is-txt">14 days online (by&nbsp;law)</span></div><div class="cmp__row" role="row"><span role="rowheader">No subscription</span><span role="cell" class="cmp__c is-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><i class="visually-hidden">Yes</i></span><span role="cell" class="cmp__c is-yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><i class="visually-hidden">Yes</i></span></div>
+      <div class="cmp__foot"><p><b>VK 37868</b> Varefakta listing</p><a class="cmp__buy" href="#buy"><span>Pre-order</span><span data-price="lock">€129</span></a></div>
     </div>
   </section>
 
@@ -397,27 +395,29 @@
         <button type="button" role="radio" data-finish="black" aria-checked="false" style="--c:#2A2D2E"><span class="visually-hidden">Black</span></button>
         <span class="finishes__name label" id="finish-name" aria-hidden="true">Steel</span>
       </div>
-      <p class="price-line"><strong>€129</strong><s data-price="was">€149</s><span class="label">Intro price until 31 Dec 2026</span></p>
+      <p class="price-line"><strong>€129</strong><span class="price-was"><s><span data-price="was">€149</span></s> <small>from 1 Jan 2027</small></span><span class="label">Price until 31 Dec 2026</span></p>
       <div class="qty-row">
         <div class="qty">
           <button type="button" data-qty="-1" aria-label="Decrease quantity">−</button>
           <span id="qty-value">1</span>
           <button type="button" data-qty="1" aria-label="Increase quantity">+</button>
         </div>
-        <a class="buy-btn" href="buy.html" id="buy-label">Buy</a>
+        <a class="buy-btn" href="buy.html" id="buy-label">Pre-order</a>
       </div>
       <ul class="trust-row" aria-label="What you are covered by">
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Insurance-approved in Denmark</li>
-        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Free shipping over €250</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Shipping €9, free over €250</li>
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Pre-order: ships in October</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><a class="link" href="terms.html#delivery">Cancel before it ships and get all your money back (your legal right)</a></li>
       </ul>
       <ul class="paywall" aria-label="Accepted payment methods"><li><img src="images/icons/mobilepay-mark.svg" alt="MobilePay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/applepay.svg" alt="Apple Pay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/googlepay.svg" alt="Google Pay" width="38" height="24" loading="lazy"></li><li><img src="images/icons/klarna.svg" alt="Klarna" width="38" height="24" loading="lazy"></li><li><img src="images/icons/visa.svg" alt="Visa" width="38" height="24" loading="lazy"></li><li><img src="images/icons/mastercard.svg" alt="Mastercard" width="38" height="24" loading="lazy"></li></ul>
-      <div class="badges"><a class="badge badge--57" href="promises.html#trial" aria-label="57 day trial: how it works"><b>57</b><span>Day trial</span></a><a class="badge badge--kym" href="promises.html#keep-moving" aria-label="Keep You Moving promise: how it works"><b>Keep you moving</b><i aria-hidden="true"></i><span>Promise</span></a><a class="badge badge--tp" href="https://dk.trustpilot.com/review/laaslocks.com" target="_blank" rel="noopener"><span class="badge__tp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.8 6.6 7.2.6-5.5 4.7 1.7 7-6.2-3.8-6.2 3.8 1.7-7L2 9.7l7.2-.6z"/></svg>Trustpilot</span><span>Read our reviews</span></a></div>
+      <div class="badges"><a class="badge badge--57" href="promises.html#trial" aria-label="57 day trial: how it works"><b>57</b><span>Day trial</span></a><a class="badge badge--kym" href="promises.html#keep-moving" aria-label="Keep You Moving promise: how it works"><b>Keep You Moving</b><i aria-hidden="true"></i><span>promise</span></a><a class="badge badge--tp" href="https://dk.trustpilot.com/review/laaslocks.com" target="_blank" rel="noopener"><span class="badge__tp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.8 6.6 7.2.6-5.5 4.7 1.7 7-6.2-3.8-6.2 3.8 1.7-7L2 9.7l7.2-.6z"/></svg>Trustpilot</span><span>Read our reviews</span></a></div>
       <p class="buy__love"><a href="promises.html#trial">You have 57 days to fall in love with it. If you’re not obsessed by then, you’ll get your money back.</a></p>
     </div>
     <!-- reviews: a quiet band of real Trustpilot reviews, drifting right -->
-    <a class="tpb" href="https://dk.trustpilot.com/review/laaslocks.com" target="_blank" rel="noopener" aria-label="LAAS on Trustpilot: 3.8 out of 5 from 6 reviews">
+    <a class="tpb" href="https://dk.trustpilot.com/review/laaslocks.com" target="_blank" rel="noopener" aria-label="LAAS on Trustpilot: 3.8 out of 5 from 6 reviews" aria-describedby="tpb-note">
       <ul class="tpb__list"><li class="tpb__sum"><span class="tpb__logo"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg>Trustpilot</span><span class="tpb__stars" role="img" aria-label="3.8 out of 5"><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg class="off" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg></span><b>3.8</b><span>6 reviews</span></li><li class="tpb__q"><span class="tpb__stars" role="img" aria-label="5 out of 5"><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg></span><q lang="de">Klein unauffällig funktionell! Top Design und einfach in der Anwendung.</q><span>Ringo W., Germany</span></li><li class="tpb__q"><span class="tpb__stars" role="img" aria-label="5 out of 5"><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg></span><q lang="en">It works well. […] The quality seems to be really good.</q><span>D. A., Switzerland</span></li><li class="tpb__q"><span class="tpb__stars" role="img" aria-label="4 out of 5"><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg class="off" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg></span><q lang="en">The app works fine. […] A good product.</q><span>R. I., United Kingdom</span></li><li class="tpb__sum" aria-hidden="true"><span class="tpb__logo"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg>Trustpilot</span><span class="tpb__stars" role="img" aria-label="3.8 out of 5"><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg class="off" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg></span><b>3.8</b><span>6 reviews</span></li><li class="tpb__q" aria-hidden="true"><span class="tpb__stars" role="img" aria-label="5 out of 5"><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg></span><q lang="de">Klein unauffällig funktionell! Top Design und einfach in der Anwendung.</q><span>Ringo W., Germany</span></li><li class="tpb__q" aria-hidden="true"><span class="tpb__stars" role="img" aria-label="5 out of 5"><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg></span><q lang="en">It works well. […] The quality seems to be really good.</q><span>D. A., Switzerland</span></li><li class="tpb__q" aria-hidden="true"><span class="tpb__stars" role="img" aria-label="4 out of 5"><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg><svg class="off" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="1"/><path d="M8 3.2l1.2 3.4h3.6l-2.9 2.1 1.1 3.4L8 10l-3 2.1 1.1-3.4-2.9-2.1h3.6z"/></svg></span><q lang="en">The app works fine. […] A good product.</q><span>R. I., United Kingdom</span></li></ul>
+      <span class="tpb__note" id="tpb-note">From Trustpilot, shortened where marked […]. LAAS does not check them; Trustpilot shows all reviews, including the less positive ones. Most are from our Kickstarter backers.</span>
     </a>
   </section>
 
@@ -432,8 +432,8 @@
     <div class="void__left">
       <p class="void__index label"><b>09</b> About LAAS</p>
       <h2 class="heading split" id="h4c">The world is better than we&nbsp;thought.</h2>
-      <p class="body">We built a lock to stop theft. Then our riders showed us something else. Some bikes they thought were stolen had just been moved, borrowed or forgotten.</p>
-      <p class="body">Getting those bikes back to their owners became our unexpected mission.</p>
+      <p class="body">We set out to make a lock you never have to think about. Then our riders showed us something else. A bike that seems gone has often just been moved, borrowed or forgotten.</p>
+      <p class="body">Helping people get back to their bikes became our unexpected mission.</p>
       <blockquote class="us__quote"><p>“My job is mostly saying no. My job is to keep LAAS simple. The lock. The app. The website. The campaigns. And every now and then, yes to the right thing.”</p><cite>Marcus Kjellsson, Founder, LAAS</cite></blockquote>
       <p class="us__team">The team: Marcus, Tin, Shyam, Eric, António and Thomas.</p>
     </div>
@@ -449,13 +449,13 @@
     </div>
     <div class="void__right faq">
       <details class="qa" name="qa"><summary>Which bikes does it fit?<i aria-hidden="true"></i></summary><p>Most city, commuter, hybrid, electric, cargo and family bikes. It is not designed for fat bikes. No mounting holes? Use Flex Mount, an optional accessory for frames without ring-lock mounting holes.</p></details>
-      <details class="qa" name="qa"><summary>How safe is Ring-Lock?<i aria-hidden="true"></i></summary><p>Ring-Lock has passed Denmark’s strict Varefakta insurance tests. It is insurance approved in Denmark, and the insurance certificate is in the box.</p></details>
-      <details class="qa" name="qa"><summary>How often does it need charging?<i aria-hidden="true"></i></summary><p>Roughly every six months. Lift the rubber cover and plug a USB-C cable into the lock. It can stay on the bike while charging.</p></details>
-      <details class="qa" name="qa"><summary>Does it work on Android?<i aria-hidden="true"></i></summary><p>Yes. Use LAAS on Android to unlock and share your bike. The Android app is available on Google Play.</p></details>
+      <details class="qa" name="qa"><summary>How safe is Ring-Lock?<i aria-hidden="true"></i></summary><p>Ring-Lock has passed Denmark’s strict Varefakta insurance tests. It is insurance approved in Denmark, and the lock certificate is in the box.</p></details>
+      <details class="qa" name="qa"><summary>How often does it need charging?<i aria-hidden="true"></i></summary><p>Roughly every six months, and the app warns you when the battery is low. Lift the rubber cover and plug a USB-C cable into the lock. It can stay on the bike while charging. Battery empty while locked? Plug in a USB-C power bank and unlock in the app.</p></details>
+      <details class="qa" name="qa"><summary>Does it work on Android?<i aria-hidden="true"></i></summary><p>Yes. Use LAAS on Android to unlock and share your bike. The Android app is available on Google Play. Apple Find My needs an iPhone, iPad or Mac.</p></details>
       <details class="qa" name="qa"><summary>What if my phone is lost or replaced?<i aria-hidden="true"></i></summary><p>Signed in with Apple or Google? Install the LAAS app on another phone and sign in with the same account. Another Owner has access? Have them invite your new phone. Neither of those works? Call us on <a class="link" href="tel:+4531338213">+45 31 33 82 13</a>.</p></details>
-      <details class="qa" name="qa"><summary>What is the Keep You Moving promise?<i aria-hidden="true"></i></summary><p>If our lock is the problem, it’s our job to fix it. We cover a shared bike, public transport or another reasonable option, up to €30. For two years from purchase. <a class="link" href="promises.html#keep-moving">Full terms</a></p></details>
-      <details class="qa" name="qa" id="shipping"><summary>When does it ship, and what does it cost?<i aria-hidden="true"></i></summary><p>It is a pre-order and ships in October. Shipping is €9, and free on orders over €250. Questions about an order? Write to <a class="link" href="mailto:support@laaslocks.com">support@laaslocks.com</a>.</p></details>
-      <details class="qa" name="qa" id="returns"><summary>Can I try it before committing?<i aria-hidden="true"></i></summary><p>Yes. You have 57 days to fall in love with it. If you’re not obsessed by then, you’ll get your money back. Tell us at <a class="link" href="mailto:support@laaslocks.com">support@laaslocks.com</a> within 57 days of delivery, then send the lock back to us. You get your money back, shipping included, within 14 days of telling us, once the lock is back with us. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery. <a class="link" href="terms.html">Terms of sale</a></p></details>
+      <details class="qa" name="qa"><summary>What is the Keep You Moving promise?<i aria-hidden="true"></i></summary><p>If our lock is the problem, it’s our job to fix it. We cover a shared bike, public transport or another reasonable option, up to €30. For two years from delivery, in Denmark. <a class="link" href="promises.html#keep-moving">Full terms</a></p></details>
+      <details class="qa" name="qa" id="shipping"><summary>When does it ship, and what does it cost?<i aria-hidden="true"></i></summary><p>It is a pre-order and ships in October. You can cancel any time before it ships and get all your money back. Shipping is €9, and free on orders over €250. Questions about an order? Write to <a class="link" href="mailto:support@laaslocks.com">support@laaslocks.com</a>.</p></details>
+      <details class="qa" name="qa" id="returns"><summary>Can I try it before committing?<i aria-hidden="true"></i></summary><p>Yes. You have 57 days to fall in love with it. If you’re not obsessed by then, you’ll get your money back. Tell us at <a class="link" href="mailto:support@laaslocks.com">support@laaslocks.com</a> within 57 days of delivery, then send the lock back to us. You get your money back, shipping included, within 14 days of telling us, once the lock is back with us or you have shown us you sent it. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery. <a class="link" href="terms.html">Terms of sale</a></p></details>
     </div>
   </section>
 
@@ -495,8 +495,8 @@
   </footer>
 </main>
 
-<script src="i18n.js?v=1013g"></script>
-<script type="module" src="darkroom.js?v=1013h" onerror="var h=document.documentElement;h.classList.remove('is-loading');h.classList.add('is-loaded','no-engine')"></script>
-<script src="cart-nav.js?v=1012r"></script>
+<script src="i18n.js?v=1018b"></script>
+<script type="module" src="darkroom.js?v=1018c" onerror="var h=document.documentElement;h.classList.remove('is-loading');h.classList.add('is-loaded','no-engine')"></script>
+<script src="cart-nav.js?v=1016a"></script>
 </body>
 </html>

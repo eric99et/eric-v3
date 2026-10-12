@@ -123,23 +123,33 @@
     return true;
   };
   // before locks go in the cart: one question, so nobody gets a lock they cannot mount. done(true) adds the Flex
-  // Mount too, done(false) not; closing it adds nothing. Not asked when a Flex Mount is in the cart already.
+  // Mount too, done(false) not; closing it (X, Esc, backdrop) still puts the locks in, without the Flex Mount.
+  // Not asked when a Flex Mount is in the cart already, or once the visitor has said the frame has holes.
   let dlg = null, onPick = null;
+  const remember = v => { try { sessionStorage.setItem('laas-flex', v); } catch { /* private mode */ } };
+  const saidHoles = () => { try { return sessionStorage.getItem('laas-flex') === 'no'; } catch { return false; } };
   const ask = done => {
-    if (hasFlex() || !window.HTMLDialogElement) { done(false); return; }
+    if (hasFlex() || saidHoles() || !window.HTMLDialogElement) { done(false); return; }
     const da = L().lang === 'da', flex = L().money(L().P.flex || 9.99);
     if (!dlg) {
       dlg = document.createElement('dialog');
       dlg.className = 'flex-ask'; dlg.setAttribute('aria-labelledby', 'flex-ask-h');
       document.body.append(dlg);
       // the answer is taken from the click itself (the close event can lag); a tap on the backdrop closes it
+      // closed without an answer (X, Esc, backdrop): the locks still go in, the cart offers the Flex Mount again
+      const finish = v => {
+        const cb = onPick; onPick = null;
+        if (dlg.open) dlg.close();
+        if (v === 'no') remember('no');
+        if (cb) cb(v === 'flex');
+      };
       dlg.addEventListener('click', e => {
         const b = e.target.closest('button[value]');
-        if (!b) { if (e.target === dlg) dlg.close(); return; }
-        e.preventDefault(); dlg.close();
-        const cb = onPick; onPick = null;
-        if (cb && (b.value === 'flex' || b.value === 'no')) cb(b.value === 'flex');
+        if (!b) { if (e.target === dlg) finish('cancel'); return; }
+        e.preventDefault(); finish(b.value);
       });
+      dlg.addEventListener('cancel', e => { e.preventDefault(); finish('cancel'); });
+      dlg.addEventListener('close', () => finish('cancel'));
     }
     // two photos answer the question before any words do: the frame-lock hole (ringed), and the Flex Mount on a frame without
     dlg.innerHTML = `<form method="dialog"><div class="flex-ask__pics">
@@ -148,8 +158,9 @@
       <button class="flex-ask__x" value="cancel" aria-label="${da ? 'Luk' : 'Close'}"></button>
       <div class="flex-ask__body"><p class="flex-ask__kicker label">${da ? 'Før den kommer i kurven' : 'Before it goes in the cart'}</p>
       <h2 id="flex-ask-h">${da ? 'Har dit stel huller til en ringlås?' : 'Does your frame have holes for a frame lock?'}</h2>
-      <button class="buy-btn" value="flex">${da ? 'Tilføj Flex Mount' : 'Add the Flex Mount'} · ${flex}</button>
-      <button class="flex-ask__no" value="no">${da ? 'Ja, mit stel har huller' : 'Yes, my frame has holes'}</button></div></form>`;
+      <button class="flex-ask__no" value="no">${da ? 'Ja, der er huller' : 'Yes, it has holes'}</button>
+      <button class="flex-ask__no" value="flex">${da ? 'Ingen huller: tilføj Flex Mount' : 'No holes: add the Flex Mount'} · ${flex}</button>
+      <button class="flex-ask__unsure" value="cancel">${da ? 'Ikke sikker? Læg låsen i kurven, og tjek senere.' : 'Not sure? Add the lock now and check later.'}</button></div></form>`;
     onPick = done; dlg.returnValue = ''; dlg.showModal();
   };
   // the whole Buy: ask, then put the locks (and the Flex Mount) in the cart; then(n) after

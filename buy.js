@@ -63,7 +63,7 @@
     minus.classList.toggle('is-trash', n === 1);
     minus.setAttribute('aria-label', tr(n === 1 ? 'Remove from cart' : 'Decrease quantity'));
     $('.qty-row').classList.toggle('is-cart', !!n);
-    const label = tr(n ? 'Check out' : 'Buy');
+    const label = tr(n ? 'Check out' : 'Pre-order');
     $('#buy-btn').textContent = label;
     $('#buybar-btn').textContent = label;
     $('#buy').dataset.metal = finish;

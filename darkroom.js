@@ -24,9 +24,9 @@ const DA = {
   'Keyless': 'Nøglefri', 'Find My': 'Find My', 'Varefakta': 'Varefakta', 'Will it fit?': 'Passer den?', 'Fit': 'Pasform', 'Buy': 'Køb', 'FAQ': 'FAQ',
   'Ring-Lock': 'Ring-Lock', 'Shipping': 'Fragt', 'Support': 'Support', 'Yours': 'Din lås', 'Returns': 'Returnering', 'Cart': 'Kurv',
   // the orbit and the seal
-  'KEYLESS · INSURANCE-APPROVED IN DENMARK · FITS MOST BIKES · €129 ·': 'NØGLEFRI · FORSIKRINGSGODKENDT I DANMARK · PASSER TIL DE FLESTE CYKLER · 999 KR ·',
+  'KEYLESS · INSURANCE-APPROVED IN DENMARK · FITS MOST BIKES · €129 ·': 'NØGLEFRI · FORSIKRINGSGODKENDT I DANMARK · PASSER TIL DE FLESTE CYKLER · 999 KR ·',
   'VAREFAKTA · VK 37868 · VF 5029:4 · INSURANCE-APPROVED IN DENMARK ·': 'VAREFAKTA · VK 37868 · VF 5029:4 · FORSIKRINGSGODKENDT I DANMARK ·',
-  '63 mm clearance': '63 mm frigang',
+  '63 mm clearance': '63 mm frigang', 'mm tyre': 'mm dæk', '42 mm tyre': '42 mm dæk',
   // the poster
   'No key.': 'Ingen nøgle.', 'No cable.': 'Intet kabel.', 'No key. No cable. One ring of stainless steel that stays on your bike.': 'Ingen nøgle. Intet kabel. Én ring af rustfrit stål, der bliver på din cykel.',
   'One ring of stainless steel that stays on your bike. Nothing to carry, nothing to forget. Just you and your bike.': 'Én ring af rustfrit stål, der bliver på din cykel. Intet at bære på, intet at glemme. Bare dig og din cykel.',
@@ -40,7 +40,7 @@ const DA = {
   'Charge twice a year': 'Oplad to gange om året', '90 minutes over USB-C lasts about six months.': '90 minutter via USB-C holder cirka seks måneder.',
   'Everyday': 'Hverdag', 'Moved? Forgot where you parked?': 'Flyttet? Glemt, hvor du parkerede?',
   'The bike was moved to make room, or the street looked different on the way back. It happens to everyone.': 'Cyklen blev flyttet for at gøre plads, eller gaden så anderledes ud på vej tilbage. Det sker for alle.',
-  'Busy day.': 'Travl dag.', 'Your phone knows where it is.': 'Din telefon ved, hvor den er.', 'Right where you left it.': 'Lige hvor du stillede den.', 'One tap.': 'Ét tryk.', 'Unlocked with the LAAS app.': 'Låst op med LAAS-appen.', 'Pause story': 'Sæt historien på pause', 'Play story': 'Afspil historien', 'Who we are': 'Hvem vi er', 'Designed in Copenhagen, by people who ride every day.': 'Designet i København af folk, der cykler hver dag.', 'Founder, LAAS': 'Stifter, LAAS', 'Questions? Write to us at': 'Spørgsmål? Skriv til os på', '. A person answers.': '. Et menneske svarer.',
+  'Busy day.': 'Travl dag.', 'Your iPhone knows where it is.': 'Din iPhone ved, hvor den er.', 'Right where you left it.': 'Lige hvor du stillede den.', 'One tap.': 'Ét tryk.', 'Unlocked with the LAAS app.': 'Låst op med LAAS-appen.', 'Pause story': 'Sæt historien på pause', 'Play story': 'Afspil historien', 'Who we are': 'Hvem vi er', 'Designed in Copenhagen, by people who ride every day.': 'Designet i København af folk, der cykler hver dag.', 'Founder, LAAS': 'Stifter, LAAS', 'Questions? Write to us at': 'Spørgsmål? Skriv til os på', '. A person answers.': '. Et menneske svarer.',
   'Put a ring on it.': 'Sæt en ring på den.', 'Steel, copper or black. Same lock, same price. You have 57 days to fall in love with it.': 'Steel, Copper eller Black. Samme lås, samme pris. Du har 57 dage til at forelske dig i den.',
   'LAAS began with a Swedish carpenter, Marcus Kjellsson, who lost his bike keys once too often. He wanted a lock with no keyhole at all, opened by the phone already in your pocket. The name plays on lås, Danish for lock.': 'LAAS begyndte med en svensk tømrer, Marcus Kjellsson, der mistede sine cykelnøgler én gang for meget. Han ville have en lås helt uden nøglehul, som åbnes med den telefon, du allerede har i lommen. Navnet leger med ordet lås.',
   'It took four factories to get the ring right, and 2,500 backers on Kickstarter and Indiegogo who said yes before it existed.': 'Det krævede fire fabrikker at få ringen rigtig, og 2.500 backere på Kickstarter og Indiegogo, der sagde ja, før den fandtes.',
@@ -58,14 +58,14 @@ const DA = {
   'Over Bluetooth, within approximately 10 metres of your bike.': 'Via Bluetooth, inden for cirka 10 meter fra din cykel.',
   'Roughly every six months. Lift the rubber cover and plug in a USB-C cable.': 'Cirka hver sjette måned. Løft gummidækslet og sæt et USB-C-kabel i.',
   'After setup, you can locate your Ring-Lock in the Apple Find My app on your iPhone, iPad or Mac. The location is end-to-end encrypted: neither LAAS nor Apple can see it.': 'Efter opsætningen kan du finde din Ring-Lock i Apple Find My-appen på din iPhone, iPad eller Mac. Placeringen er end-to-end-krypteret: hverken LAAS eller Apple kan se den.',
-  'Ring-Lock has passed Denmark’s strict Varefakta insurance tests. It is the only electronic app-controlled ring lock on': 'Ring-Lock har bestået Varefaktas strenge forsikringstest i Danmark. Den er den eneste elektroniske, app-styrede ringlås på',
+  'Ring-Lock has passed Denmark’s strict Varefakta insurance tests. As of October 2026, it is the only electronic app-controlled ring lock on': 'Ring-Lock har bestået Varefaktas strenge forsikringstest i Danmark. Pr. oktober 2026 er den den eneste elektroniske, app-styrede ringlås på',
   'Most city, commuter, hybrid, electric, cargo and family bikes. It is not designed for fat bikes. Try it for 57 days; if it does not fit, send it back.': 'De fleste by-, pendler-, hybrid-, el-, lad- og familiecykler. Den er ikke lavet til fatbikes. Prøv den i 57 dage; passer den ikke, så send den tilbage.',
   'Steel, copper or black. Same lock, same price.': 'Steel, Copper eller Black. Samme lås, samme pris.',
   'You have 57 days to fall in love with it. If you’re not obsessed by then, you’ll get your money back.': 'Du har 57 dage til at forelske dig i den. Er du ikke helt solgt til den tid, får du pengene tilbage.',
   'About LAAS': 'Om LAAS',
   'The world is better than we thought.': 'Verden er bedre, end vi troede.',
-  'We built a lock to stop theft. Then our riders showed us something else. Some bikes they thought were stolen had just been moved, borrowed or forgotten.': 'Vi byggede en lås for at stoppe tyveri. Så viste vores cyklister os noget andet. Nogle cykler, de troede var stjålet, var bare blevet flyttet, lånt eller glemt.',
-  'Getting those bikes back to their owners became our unexpected mission.': 'At få de cykler tilbage til deres ejere blev vores uventede mission.',
+  'We set out to make a lock you never have to think about. Then our riders showed us something else. A bike that seems gone has often just been moved, borrowed or forgotten.': 'Vi ville lave en lås, du aldrig behøver at tænke på. Så viste vores cyklister os noget andet. En cykel, der ser ud til at være væk, er ofte bare blevet flyttet, lånt ud eller glemt.',
+  'Helping people get back to their bikes became our unexpected mission.': 'At hjælpe folk tilbage til deres cykel blev vores uventede mission.',
   '“My job is mostly saying no. My job is to keep LAAS simple. The lock. The app. The website. The campaigns. And every now and then, yes to the right thing.”': '“Mit job er mest at sige nej. Mit job er at holde LAAS enkel. Låsen. Appen. Hjemmesiden. Kampagnerne. Og en gang imellem ja til det rigtige.”',
   'Marcus Kjellsson, Founder, LAAS': 'Marcus Kjellsson, stifter af LAAS',
   'The team: Marcus, Tin, Shyam, Eric, António and Thomas.': 'Holdet: Marcus, Tin, Shyam, Eric, António og Thomas.',
@@ -77,15 +77,15 @@ const DA = {
   'Do I need an account?': 'Skal jeg have en konto?',
   'No. Signing in with Google or Apple makes it easier to regain access if you lose your phone.': 'Nej. Logger du ind med Google eller Apple, er det nemmere at få adgang igen, hvis du mister din telefon.',
   'How safe is Ring-Lock?': 'Hvor sikker er Ring-Lock?',
-  'Ring-Lock has passed Denmark’s strict Varefakta insurance tests. It is insurance approved in Denmark, and the insurance certificate is in the box.': 'Ring-Lock har bestået Varefaktas strenge forsikringstest i Danmark. Den er forsikringsgodkendt i Danmark, og forsikringscertifikatet ligger i æsken.',
+  'Ring-Lock has passed Denmark’s strict Varefakta insurance tests. It is insurance approved in Denmark, and the lock certificate is in the box.': 'Ring-Lock har bestået Varefaktas strenge forsikringstest i Danmark. Den er forsikringsgodkendt i Danmark, og låsecertifikatet ligger i æsken.',
   'How often does it need charging?': 'Hvor tit skal den lades op?',
-  'Roughly every six months. Lift the rubber cover and plug a USB-C cable into the lock. It can stay on the bike while charging.': 'Cirka hver sjette måned. Løft gummidækslet og sæt et USB-C-kabel i låsen. Den kan blive siddende på cyklen, mens den lader.',
+  'Roughly every six months, and the app warns you when the battery is low. Lift the rubber cover and plug a USB-C cable into the lock. It can stay on the bike while charging. Battery empty while locked? Plug in a USB-C power bank and unlock in the app.': 'Cirka hver sjette måned, og appen giver dig besked, når batteriet er lavt. Løft gummidækslet og sæt et USB-C-kabel i låsen. Den kan blive siddende på cyklen, mens den lader. Er batteriet tomt, mens den er låst? Sæt en USB-C-powerbank i, og lås op i appen.',
   'Does it work on Android?': 'Virker den på Android?',
-  'Yes. Use LAAS on Android to unlock and share your bike. The Android app is available on Google Play.': 'Ja. Brug LAAS på Android til at låse op og dele din cykel. Android-appen findes på Google Play.',
+  'Yes. Use LAAS on Android to unlock and share your bike. The Android app is available on Google Play. Apple Find My needs an iPhone, iPad or Mac.': 'Ja. Brug LAAS på Android til at låse op og dele din cykel. Android-appen findes på Google Play. Apple Find My kræver en iPhone, iPad eller Mac.',
   'What if my phone is lost or replaced?': 'Hvad hvis jeg mister eller skifter min telefon?',
   'Signed in with Apple or Google? Install the LAAS app on another phone and sign in with the same account. Another Owner has access? Have them invite your new phone. Neither of those works? Call us on': 'Logget ind med Apple eller Google? Installer LAAS-appen på en anden telefon, og log ind med samme konto. Har en anden ejer adgang? Bed dem invitere din nye telefon. Virker ingen af delene? Ring til os på',
   'What is the Keep You Moving promise?': 'Hvad er Keep You Moving-løftet?',
-  'If our lock is the problem, it’s our job to fix it. We cover a shared bike, public transport or another reasonable option, up to €30. For two years from purchase.': 'Hvis vores lås er problemet, er det vores job at løse det. Vi dækker en delecykel, offentlig transport eller en anden rimelig løsning, op til 225 kr. I to år fra købet.',
+  'If our lock is the problem, it’s our job to fix it. We cover a shared bike, public transport or another reasonable option, up to €30. For two years from delivery, in Denmark.': 'Hvis vores lås er problemet, er det vores job at løse det. Vi dækker en delecykel, offentlig transport eller en anden rimelig løsning, op til 225 kr. I to år fra levering, i Danmark.',
   'Full terms': 'Alle vilkår',
   'When does it ship, and what does it cost?': 'Hvornår sendes den, og hvad koster det?',
   'Can I try it before committing?': 'Kan jeg prøve den, før jeg beslutter mig?',
@@ -96,7 +96,7 @@ const DA = {
   'Park.': 'Parkér.', 'Push the bolt in. Click.': 'Skub bolten ind. Klik.', 'One tap in the app, and it opens.': 'Ét tryk i appen, og den åbner.', 'No key to dig for. Just ride.': 'Ingen nøgle at lede efter. Bare kør.', 'Moved?': 'Flyttet?', 'Forgot where you parked?': 'Glemt, hvor du parkerede?', 'Your bike, on the map.': 'Din cykel på kortet.', 'There it is.': 'Der er den.', 'Where did I park?': 'Hvor parkerede jeg?', 'Let’s find out.': 'Lad os finde ud af det.', 'Back to your day.': 'Tilbage til din dag.',
   'Why a Ring-Lock': 'Hvorfor en Ring-Lock', 'One lock that stays on your bike.': 'Én lås, der bliver på din cykel.',
   'Nothing to carry, nothing to forget, and no subscription.': 'Intet at bære på, intet at glemme og intet abonnement.',
-  'Classic lock': 'Almindelig lås', 'Varefakta listing': 'Varefakta-liste', 'Keyless, opens with your phone': 'Nøglefri, åbner med din telefon', 'A key, a chain or a D-lock': 'En nøgle, en kæde eller en bøjlelås', 'Insurance approval varies': 'Forsikringsgodkendelse varierer', 'No subscription': 'Intet abonnement', 'No key to carry or lose': 'Ingen nøgle at bære på eller miste', 'Stays on the bike': 'Bliver på cyklen',
+  'Classic lock': 'Almindelig lås', 'Chain or D‑lock': 'Kæde- eller bøjlelås', '14 days online (by law)': '14 dage ved onlinekøb (lovkrav)', 'LAAS Ring-Lock compared with a chain or D-lock': 'LAAS Ring-Lock sammenlignet med en kæde- eller bøjlelås', 'Varefakta listing': 'Varefakta-liste', 'Keyless, opens with your phone': 'Nøglefri, åbner med din telefon', 'A key, a chain or a D-lock': 'En nøgle, en kæde eller en bøjlelås', 'Insurance approval varies': 'Forsikringsgodkendelse varierer', 'No subscription': 'Intet abonnement', 'No key to carry or lose': 'Ingen nøgle at bære på eller miste', 'Stays on the bike': 'Bliver på cyklen',
   'Opens without internet': 'Åbner uden internet', '57 days to return it': '57 dage til at returnere den', 'Subscription': 'Abonnement',
   'Often not': 'Ofte ikke', 'Some': 'Nogle', 'Rarely': 'Sjældent', 'None': 'Intet',
   // 01 keyless
@@ -109,38 +109,41 @@ const DA = {
   'Nørrebro · Now': 'Nørrebro · Nu', 'Nørrebro · Now ·': 'Nørrebro · Nu ·',
   // 03 varefakta
   'Insurance‑approved in Denmark.': 'Forsikrings­godkendt i Danmark.',
-  'The only electronic app-controlled ring lock on': 'Den eneste elektroniske app-styrede ringlås på', 'Varefakta’s public list': 'Varefaktas offentlige liste', '(VK 37868). The certificate is in the box.': '(VK 37868). Certifikatet ligger i æsken.',
-  'Listing': 'Liste', 'Certificate': 'Certifikat',
-  'Lock certificate': 'Låsecertifikat', 'Låseattest · Example': 'Låseattest · Eksempel', 'Lock': 'Lås', 'Lock ID': 'Låse-ID', 'Frame no.': 'Stel nr.', 'In the box': 'I æsken',
+  'The only electronic app-controlled ring lock on': 'Den eneste elektroniske app-styrede ringlås på', 'Varefakta’s public list': 'Varefaktas offentlige liste', '(VK 37868). The certificate is in the box.': '(VK 37868). Låsecertifikatet ligger i æsken.',
+  'Listing': 'Liste', 'Certificate': 'Certifikat', 'Standard': 'Norm',
+  'Lock certificate': 'Låsecertifikat', 'Example': 'Eksempel', 'Lock': 'Lås', 'Lock ID': 'Låse-ID', 'Frame no.': 'Stel nr.', 'In the box': 'I æsken',
   // 04 fit
-  'Will it fit my bike?': 'Passer den til min cykel?', 'Road': 'Racer', 'City': 'Bycykel', 'E-bike': 'Elcykel', 'Cargo': 'Ladcykel', 'Fat bike': 'Fatbike',
+  'Will it fit my bike?': 'Passer den til min cykel?', 'Commuter': 'Pendler', 'City': 'Bycykel', 'E-bike': 'Elcykel', 'Cargo': 'Ladcykel', 'Fat bike': 'Fatbike',
   'Two things decide it: your tyre, and whether your frame has holes for a frame lock.': 'To ting afgør det: dit dæk, og om dit stel har huller til en ringlås.', 'Your bike': 'Din cykel',
   'Tyres up to 60 mm fit.': 'Dæk op til 60 mm passer.', 'The width is on the side of the tyre: in 42-622, the 42.': 'Bredden står på siden af dækket: i 42-622 er det 42.',
   'Tyre width': 'Dækbredde', 'Up to 35 mm': 'Op til 35 mm', 'Over 60 mm': 'Over 60 mm', 'tyre': 'dæk', 'Holes for a frame lock?': 'Huller til en ringlås?', 'Yes': 'Ja', 'No': 'Nej',
   'It is printed on the side of the tyre: in 42-622, the 42 is the width in mm.': 'Det står på siden af dækket: i 42-622 er 42 bredden i mm.',
-  'Two small threaded holes, either side of the rear wheel.': 'To små gevindhuller, på hver side af baghjulet.',
+  'Two small threaded holes, either side of the rear wheel, 75 to 100 mm apart.': 'To små gevindhuller, på hver side af baghjulet, 75 til 100 mm fra hinanden.',
   'It fits.': 'Den passer.', 'Too wide.': 'For bredt.', 'Need a Flex Mount?': 'Mangler du en Flex Mount?', 'It fits, with the Flex Mount.': 'Den passer, med Flex Mount.',
   'The screws are in the box.': 'Skruerne ligger i æsken.',
   'The ring takes tyres up to 60 mm.': 'Ringen tager dæk op til 60 mm.',
-  'Add the Flex Mount (€9.99) in the basket. It holds the lock on a frame without holes.': 'Tilføj Flex Mount (75 kr.) i kurven. Den holder låsen på et stel uden huller.',
+  'Add the Flex Mount (€9.99) when you pre-order. It holds the lock on a frame without holes.': 'Tilføj Flex Mount (75 kr.), når du forudbestiller. Den holder låsen på et stel uden huller.',
   // 05 buy (the finish names stay Steel, Copper and Black, as in the Drive copy)
   'Steel. Copper. Black.': 'Steel. Copper. Black.', 'Same lock, same price, three finishes. Pick the one that suits your bike.': 'Samme lås, samme pris, tre udgaver. Vælg den, der passer til din cykel.',
   'Drag to turn': 'Træk for at dreje', 'Intro price until 31 Dec 2026': 'Intropris til 31. dec. 2026',
-  '57-day returns': '57 dages returret', 'Day trial': 'dages prøvetid', 'Promise': 'Løfte', 'Read our reviews': 'Læs vores anmeldelser', 'Pre-order: ships in October': 'Forudbestilling: sendes i oktober', 'Free shipping over €250': 'Gratis fragt over 1.900 kr', '6 reviews': '6 anmeldelser', 'LAAS on Trustpilot: 3.8 out of 5 from 6 reviews': 'LAAS på Trustpilot: 3,8 ud af 5 fra 6 anmeldelser', 'Ringo W., Germany': 'Ringo W., Tyskland', 'D. A., Switzerland': 'D. A., Schweiz', 'R. I., United Kingdom': 'R. I., Storbritannien', 'Two-year right to complain': '2 års reklamationsret',
+  'Price until 31 Dec 2026': 'Pris til 31. dec. 2026', 'from 1 Jan 2027': 'fra 1. jan. 2027',
+  'Pre-order': 'Forudbestil', 'promise': 'løfte', 'Shipping €9, free over €250': 'Fragt 75 kr, gratis over 1.900 kr',
+  'From Trustpilot, shortened where marked […]. LAAS does not check them; Trustpilot shows all reviews, including the less positive ones. Most are from our Kickstarter backers.': 'Fra Trustpilot, forkortet hvor der står […]. LAAS kontrollerer dem ikke; Trustpilot viser alle anmeldelser, også de mindre positive. De fleste er fra vores Kickstarter-backere.',
+  '57-day returns': '57 dages returret', 'Day trial': 'dages prøvetid', 'Promise': 'Løfte', 'Read our reviews': 'Læs vores anmeldelser', 'Pre-order: ships in October': 'Forudbestilling: sendes i oktober', 'Cancel before it ships and get all your money back (your legal right)': 'Annullér, før den sendes, og få alle pengene tilbage (din ret efter loven)', '3.8': '3,8', 'Free shipping over €250': 'Gratis fragt over 1.900 kr', '6 reviews': '6 anmeldelser', 'LAAS on Trustpilot: 3.8 out of 5 from 6 reviews': 'LAAS på Trustpilot: 3,8 ud af 5 fra 6 anmeldelser', 'Ringo W., Germany': 'Ringo W., Tyskland', 'D. A., Switzerland': 'D. A., Schweiz', 'R. I., United Kingdom': 'R. I., Storbritannien', 'Two-year right to complain': '2 års reklamationsret',
   // 06 faq
   'Questions, answered.': 'Spørgsmål og svar.', 'Question not here? Call us on': 'Finder du ikke dit spørgsmål? Ring til os på',
   'Will my insurance accept it?': 'Godkender mit forsikringsselskab den?',
   'In Denmark, the Ring-Lock is insurance-approved: Varefakta VK 37868. Most Danish insurers ask for a Varefakta-approved lock and a lock certificate, and the certificate is in the box. Check your own policy. Outside Denmark, check what your policy asks for first.': 'I Danmark er Ring-Lock forsikringsgodkendt: Varefakta VK 37868. De fleste danske forsikringsselskaber kræver en Varefakta-godkendt lås og et låsecertifikat, og certifikatet ligger i æsken. Tjek din egen police. Uden for Danmark: tjek først, hvad din police kræver.',
-  'Most bikes, cargo bikes and e-bikes too: tyres up to 60 mm, mount spacing 75 to 100 mm. Not fat bikes. Frame holes? The mounting screws are in the box. No holes? The Flex Mount, €9.99.': 'De fleste cykler, også ladcykler og elcykler: dæk op til 60 mm, monteringsafstand 75 til 100 mm. Ikke fatbikes. Huller i stellet? Monteringsskruerne ligger i æsken. Ingen huller? Flex Mount, 75 kr.',
+  'Most bikes, cargo bikes and e-bikes too: tyres up to 60 mm, mount spacing 75 to 100 mm. Not fat bikes. Frame holes? The mounting screws are in the box. No holes? The Flex Mount, €9.99.': 'De fleste cykler, også ladcykler og elcykler: dæk op til 60 mm, monteringsafstand 75 til 100 mm. Ikke fatbikes. Huller i stellet? Monteringsskruerne ligger i æsken. Ingen huller? Flex Mount, 75 kr.',
   'What if the battery runs low?': 'Hvad hvis batteriet er ved at løbe tør?',
   'About six months per charge. A full charge over USB-C takes 90 minutes, and any USB-C cable works.': 'Cirka seks måneder pr. opladning. En fuld opladning via USB-C tager 90 minutter, og alle USB-C-kabler virker.',
   'How secure is it?': 'Hvor sikker er den?',
   '9 mm of hardened steel. Every unlock uses a one-time key over Bluetooth, so a recorded signal cannot be replayed.': '9 mm hærdet stål. Hver oplåsning bruger en engangsnøgle via Bluetooth, så et optaget signal ikke kan afspilles igen.',
   'How fast does it ship, and what does it cost?': 'Hvor hurtigt sendes den, og hvad koster det?',
-  'It is a pre-order and ships in October. Shipping is €9, and free on orders over €250. Questions about an order? Write to': 'Det er en forudbestilling, og den sendes i oktober. Fragten koster 75 kr. og er gratis ved køb over 1.900 kr. Spørgsmål om en ordre? Skriv til',
+  'It is a pre-order and ships in October. You can cancel any time before it ships and get all your money back. Shipping is €9, and free on orders over €250. Questions about an order? Write to': 'Det er en forudbestilling, og den sendes i oktober. Du kan annullere når som helst, før den sendes, og få alle pengene tilbage. Fragten koster 75 kr. og er gratis ved køb over 1.900 kr. Spørgsmål om en ordre? Skriv til',
   'How do returns and the right to complain work?': 'Hvordan fungerer returnering og reklamationsret?',
   'Changed your mind? Tell us at': 'Fortryder du? Giv os besked på',
-  'within 57 days of delivery, then send the lock back to us. You get your money back, shipping included, within 14 days of telling us, once the lock is back with us. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery.': 'senest 57 dage efter levering, og send låsen retur til os. Du får pengene tilbage, inklusive fragt, inden for 14 dage efter din besked, når låsen er tilbage hos os. Du har også to års reklamationsret efter dansk lov, regnet fra levering.',
+  'within 57 days of delivery, then send the lock back to us. You get your money back, shipping included, within 14 days of telling us, once the lock is back with us or you have shown us you sent it. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery.': 'senest 57 dage efter levering, og send låsen retur til os. Du får pengene tilbage, inklusive fragt, inden for 14 dage efter din besked, når låsen er tilbage hos os, eller du har vist os, at du har sendt den. Du har også to års reklamationsret efter dansk lov, regnet fra levering.',
   'Terms of sale': 'Handelsbetingelser', 'Privacy': 'Privatliv',
   // the footer
   '© 2026 LAAS ApS · Designed in Copenhagen': '© 2026 LAAS ApS · Designet i København',
@@ -158,7 +161,7 @@ if (lang === 'da') {
   const nodes = []; let n; while ((n = w.nextNode())) if (!n.parentElement.closest('script,style')) nodes.push(n);
   nodes.forEach(n => { const key = n.nodeValue.replace(/ /g, ' ').replace(/\s+/g, ' ').trim(); if (DA[key]) n.nodeValue = n.nodeValue.replace(n.nodeValue.trim(), DA[key]); });
   // prices in kroner, as the Danish cart and checkout show them (i18n.js)
-  $$('.price-line strong').forEach(el => { el.textContent = '999 kr'; }); $$('.price-line s').forEach(el => { el.textContent = '1.099 kr'; }); $$('[data-price="lock"]').forEach(el => { el.textContent = '999 kr'; });
+  $$('.price-line strong').forEach(el => { el.textContent = '999 kr'; }); $$('.price-line [data-price="was"]').forEach(el => { el.textContent = '1.099 kr'; }); $$('[data-price="lock"]').forEach(el => { el.textContent = '999 kr'; });
   $$('[aria-label]').forEach(el => { const v = DA[el.getAttribute('aria-label')]; if (v) el.setAttribute('aria-label', v); });
 }
 $$('.lang a').forEach(a => a.setAttribute('aria-current', String(a.dataset.lang === lang)));
@@ -189,6 +192,8 @@ document.addEventListener('click', e => {
   if (f && f !== document.body) { if (!f.matches('summary, a, button')) f.tabIndex = -1; f.focus({ preventScroll: true }); }
   if (reduce) { scrollTo(0, to); return; }
   Object.assign(glider, { on: true, from: scrollY, to, t0: performance.now(), dur: Math.min(1600, 700 + Math.abs(to - scrollY) * 0.12) });
+  // a question that was closed grows as it opens (0.45 s): aim again once the answer has its full height, so it lands in view
+  if (el.matches('details')) setTimeout(() => { const t2 = landing(el); if (reduce) scrollTo(0, t2); else if (glider.on) glider.to = t2; else if (Math.abs(scrollY - t2) > 4) Object.assign(glider, { on: true, from: scrollY, to: t2, t0: performance.now(), dur: 500 }); }, 520);
 });
 
 /* ------------------------------------------------------------------ loader */
@@ -546,7 +551,7 @@ function frameChrome(m) {
     const r = rects[findIdx], p = clamp((H - r.top) / H);
     // the distance on the phone counts down as you arrive
     const n = Math.round(450 + 1950 * (1 - p));
-    const txt = n >= 1000 ? (n / 1000).toFixed(1) + '\u00a0km' : n + '\u00a0m';
+    const txt = n >= 1000 ? (n / 1000).toFixed(1).replace('.', lang === 'da' ? ',' : '.') + '\u00a0km' : n + '\u00a0m';
     if (txt !== lastChip) { lastChip = txt; chipText.textContent = txt; }
     // the phone is drawn round the lock: the lock sits where its placeholder's pin would be, about a third of the screen wide
     if (m.ghostR) {
@@ -601,6 +606,12 @@ function loop(now) {
     target.size = lerp(a.msize ?? a.size, b.msize ?? b.size, t);
     target.x = lerp(a.mx ?? a.x, b.mx ?? b.x, t); target.y = lerp(a.my ?? a.y, b.my ?? b.y, t);
     target.roll = lerp(a.mroll ?? a.roll, b.mroll ?? b.roll, t);
+  } else {
+    // a tall tablet: x is measured in screen heights, so keep the ring (and the seal round it) inside the width
+    // (the buy chapter places the lock in its own column, so there it is held by the ring's real radius only)
+    const pr = (i === productIdx ? 1 - t : 0) + (i + 1 === productIdx ? t : 0);
+    const maxX = Math.max(0, (W / 2 - target.size * lerp(H * 0.62, Math.min(W * 0.95, H * 1.32) * 0.44, pr) - 24) / H);
+    target.x = clamp(target.x, -maxX, maxX);
   }
 
   // keyless: open by itself once, a moment after you arrive
@@ -720,7 +731,7 @@ function renderFit() {
   vHead.textContent = t(no ? 'Too wide.' : holes ? 'It fits.' : 'It fits, with the Flex Mount.');
   vBody.textContent = no ? t('The ring takes tyres up to 60 mm.')
     : holes ? t('The screws are in the box.')
-    : t('Add the Flex Mount (€9.99) in the basket. It holds the lock on a frame without holes.');
+    : t('Add the Flex Mount (€9.99) when you pre-order. It holds the lock on a frame without holes.');
   // no holes: a quiet way to the Flex Mount on its own (the buy page's accessory)
   if (!no && !holes) { const a = document.createElement('a'); a.className = 'link verdict__more'; a.href = 'buy.html#flex-mount'; a.textContent = t('Need a Flex Mount?'); vBody.append(' ', a); }
   verdict.classList.remove('is-swap'); void verdict.offsetWidth; verdict.classList.add('is-swap');
@@ -772,7 +783,8 @@ function radio(group, pick) {
   }));
 }
 radio('tyre', b => { fitState.mm = +b.dataset.mm; });
-radio('holes', b => { fitState.holes = b.dataset.holes === '1'; });
+// the answer is kept for the Pre-order question: holes means it is not asked again (cart-nav.js)
+radio('holes', b => { fitState.holes = b.dataset.holes === '1'; try { if (fitState.holes) sessionStorage.setItem('laas-flex', 'no'); else sessionStorage.removeItem('laas-flex'); } catch { /* private mode */ } });
 renderFit();
 
 /* ------------------------------------------- finishes: one sliding outline */
@@ -791,7 +803,7 @@ function renderBuy() {
   minus.classList.toggle('is-trash', n === 1);
   minus.setAttribute('aria-label', t(n === 1 ? 'Remove from cart' : 'Decrease quantity'));
   $('.qty-row').classList.toggle('is-cart', !!n);
-  $('#buy-label').textContent = t(n ? 'Check out' : 'Buy');
+  $('#buy-label').textContent = t(n ? 'Check out' : 'Pre-order');
   // the link is the fallback when the cart script is missing: the buy page, with the choice
   $('#buy-label').href = n ? 'checkout-v2.html' : `buy.html?finish=${finish}&qty=${qty}`;
   $('#finish-name').textContent = FIN_NAME[finish];
