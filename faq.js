@@ -46,9 +46,14 @@
       d.open = true; d.scrollIntoView({ behavior: 'smooth', block: 'center' }); d.querySelector('summary').focus({ preventScroll: true });
     }));
     // a link to #insurance (or #insurance-da) opens that topic
-    const key = decodeURIComponent(location.hash.slice(1)).replace(/-da$/, '');
+    // and #everyday/4 opens that topic's fifth question (the support links on the start page)
+    const [key, qi] = decodeURIComponent(location.hash.slice(1)).replace(/-da$/, '').split('/');
     const start = tabs.find(t => t.dataset.key === key);
     if (start) pick(start);
+    if (start && qi !== undefined) {
+      const d = panels[tabs.indexOf(start)].querySelectorAll('details')[+qi];
+      if (d) { d.open = true; setTimeout(() => d.scrollIntoView({ block: 'center' }), 60); }
+    }
     // Did this help? a thank-you, or the way to a person
     fq.addEventListener('click', e => {
       const b = e.target.closest('[data-rate]');

@@ -92,6 +92,7 @@ const DA = {
   'Yes. You have 57 days to fall in love with it. If you’re not obsessed by then, you’ll get your money back. Tell us at': 'Ja. Du har 57 dage til at forelske dig i den. Er du ikke helt solgt til den tid, får du pengene tilbage. Giv os besked på',
   'Help & Guides': 'Hjælp og guides',
   'Locks you can love. · © 2026 LAAS ApS · Designed in Copenhagen': 'Locks you can love. · © 2026 LAAS ApS · Designet i København',
+  'Support': 'Support', 'Help & Guides.': 'Hjælp og guides.', 'Find an answer, a guide, or someone who can help.': 'Find et svar, en guide eller en, der kan hjælpe.', 'Talk to us': 'Tal med os', 'Call us': 'Ring til os', 'Write to us': 'Skriv til os', 'My lock won’t open.': 'Min lås vil ikke åbne.', 'Keep You Moving': 'Keep You Moving', 'I lost my phone.': 'Jeg har mistet min telefon.', 'My bike is missing.': 'Min cykel er væk.', 'Manual & guides.': 'Manual og guides.', 'Setup, everyday use and the full manual.': 'Opsætning, daglig brug og hele manualen.',
   'Park.': 'Parkér.', 'Push the bolt in. Click.': 'Skub bolten ind. Klik.', 'One tap in the app, and it opens.': 'Ét tryk i appen, og den åbner.', 'No key to dig for. Just ride.': 'Ingen nøgle at lede efter. Bare kør.', 'Moved?': 'Flyttet?', 'Forgot where you parked?': 'Glemt, hvor du parkerede?', 'Your bike, on the map.': 'Din cykel på kortet.', 'There it is.': 'Der er den.', 'Where did I park?': 'Hvor parkerede jeg?', 'Let’s find out.': 'Lad os finde ud af det.', 'Back to your day.': 'Tilbage til din dag.',
   'Why a Ring-Lock': 'Hvorfor en Ring-Lock', 'One lock that stays on your bike.': 'Én lås, der bliver på din cykel.',
   'Nothing to carry, nothing to forget, and no subscription.': 'Intet at bære på, intet at glemme og intet abonnement.',
@@ -157,7 +158,7 @@ if (lang === 'da') {
   const nodes = []; let n; while ((n = w.nextNode())) if (!n.parentElement.closest('script,style')) nodes.push(n);
   nodes.forEach(n => { const key = n.nodeValue.replace(/ /g, ' ').replace(/\s+/g, ' ').trim(); if (DA[key]) n.nodeValue = n.nodeValue.replace(n.nodeValue.trim(), DA[key]); });
   // prices in kroner, as the Danish cart and checkout show them (i18n.js)
-  $$('.price-line strong').forEach(el => { el.textContent = '999 kr'; });
+  $$('.price-line strong').forEach(el => { el.textContent = '999 kr'; }); $$('.price-line s').forEach(el => { el.textContent = '1.099 kr'; }); $$('[data-price="lock"]').forEach(el => { el.textContent = '999 kr'; });
   $$('[aria-label]').forEach(el => { const v = DA[el.getAttribute('aria-label')]; if (v) el.setAttribute('aria-label', v); });
 }
 $$('.lang a').forEach(a => a.setAttribute('aria-current', String(a.dataset.lang === lang)));

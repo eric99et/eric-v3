@@ -10,7 +10,7 @@
   if (lang !== 'da') lang = 'en';
 
   // a lock, a Flex Mount, shipping and the free-shipping line (two locks ship free in both)
-  const PRICES = { en: { lock: 129, flex: 9.99, ship: 9, free: 250 }, da: { lock: 999, flex: 75, ship: 75, free: 1900 } };
+  const PRICES = { en: { lock: 129, was: 149, flex: 9.99, ship: 9, free: 250 }, da: { lock: 999, was: 1099, flex: 75, ship: 75, free: 1900 } };
   const P = PRICES[lang];
   const money = n => {
     const r = Math.round(n * 100) / 100, whole = Number.isInteger(r);

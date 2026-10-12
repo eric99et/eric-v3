@@ -22,7 +22,7 @@
 <link rel="preload" href="fonts/inter-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="images/lock/steel-00-800.webp" as="image" type="image/webp" media="(max-width: 900px)">
 <link rel="preload" href="images/lock/steel-00-1600.webp" as="image" type="image/webp" media="(min-width: 901px)">
-<link rel="stylesheet" href="darkroom.css?v=1013f">
+<link rel="stylesheet" href="darkroom.css?v=1013i">
 <script>
   // the loader only exists when scripts run; if the 3D engine never arrives, the page still opens
   document.documentElement.classList.add('is-loading');
@@ -75,7 +75,7 @@
       <a href="buy.html">Ring-Lock</a>
       <a href="faq.html" data-nav="faq">FAQ</a>
       <a href="shipping.html">Shipping</a>
-      <a href="mailto:support@laaslocks.com">Support</a>
+      <a href="#help">Support</a>
     </nav>
     <div class="nav__end">
       <p class="lang label" role="group" aria-label="Language"><a href="?lang=en" data-lang="en" hreflang="en">EN</a><i aria-hidden="true">/</i><a href="?lang=da" data-lang="da" hreflang="da">DA</a></p>
@@ -90,7 +90,7 @@
     <a class="display" href="buy.html"><span class="label">01</span>Ring-Lock</a>
     <a class="display" href="faq.html"><span class="label">02</span>FAQ</a>
     <a class="display" href="shipping.html"><span class="label">03</span>Shipping</a>
-    <a class="display" href="mailto:support@laaslocks.com"><span class="label">04</span>Support</a>
+    <a class="display" href="#help"><span class="label">04</span>Support</a>
   </nav>
   <p class="lang lang--menu label" role="group" aria-label="Language"><a href="?lang=en" data-lang="en">EN</a><i aria-hidden="true">/</i><a href="?lang=da" data-lang="da">DA</a></p>
 </div>
@@ -397,7 +397,7 @@
         <button type="button" role="radio" data-finish="black" aria-checked="false" style="--c:#2A2D2E"><span class="visually-hidden">Black</span></button>
         <span class="finishes__name label" id="finish-name" aria-hidden="true">Steel</span>
       </div>
-      <p class="price-line"><strong>€129</strong><span class="label">Intro price until 31 Dec 2026</span></p>
+      <p class="price-line"><strong>€129</strong><s data-price="was">€149</s><span class="label">Intro price until 31 Dec 2026</span></p>
       <div class="qty-row">
         <div class="qty">
           <button type="button" data-qty="-1" aria-label="Decrease quantity">−</button>
@@ -459,12 +459,31 @@
     </div>
   </section>
 
+  <!-- 11 · help & guides: Marcus's /help/ page as a chapter. Three moments people call about, the manual, and a person -->
+  <section class="void void--help" id="help" data-nav-section="faq" data-bg="#ECECEA" data-key='{"hide":1}' aria-labelledby="h7">
+    <div class="void__left">
+      <p class="void__index label"><b>11</b> Support</p>
+      <h2 class="heading split" id="h7">Help &amp;&nbsp;Guides.</h2>
+      <p class="body">Find an answer, a guide, or someone who can help.</p>
+      <ul class="help__talk" aria-label="Talk to us">
+        <li><a href="tel:+4531338213"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 3.8 9.4 4.4l1 4-2 1.6a12 12 0 0 0 5.6 5.6l1.6-2 4 1 .6 2.2a1.8 1.8 0 0 1-1.6 2.2A15.8 15.8 0 0 1 3 5.4a1.8 1.8 0 0 1 2.2-1.6z"/></svg><span><small>Call us</small>+45 31 33 82 13</span></a></li>
+        <li><a href="mailto:support@laaslocks.com"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg><span><small>Write to us</small>support@laaslocks.com</span></a></li>
+      </ul>
+    </div>
+    <ul class="help">
+      <li><a href="faq.html#everyday/4"><b>My lock won’t open.</b><span class="help__kym">Keep You Moving</span><svg class="help__go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></li>
+      <li><a href="faq.html#app/4"><b>I lost my phone.</b><svg class="help__go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></li>
+      <li><a href="faq.html#findmy/3"><b>My bike is missing.</b><svg class="help__go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></li>
+      <li class="help__manual"><a href="https://laaslocks.com/guides/"><b>Manual &amp; guides.</b><span class="help__sub">Setup, everyday use and the full manual.</span><svg class="help__go" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></li>
+    </ul>
+  </section>
+
   <footer class="foot" data-nav-section="faq" data-tone="dark" data-bg="#ECECEA" data-key='{"img":"00","yaw":-0.3,"pitch":-0.12,"roll":0,"size":0.42,"msize":0.5,"my":-0.04,"fade":1}'>
     <!-- after 21st.dev "Footer section 1": the mark, one row of links, the socials, a hatched band, the copyright -->
     <div class="foot2">
       <div class="foot2__top">
         <svg class="foot2__logo" viewBox="0 0 343.43 88.44" role="img" aria-label="LAAS"><use href="#laas-mark"/></svg>
-        <nav class="foot2__nav" aria-label="Footer"><a href="buy.html">Ring-Lock</a><a href="faq.html">FAQ</a><a href="shipping.html">Shipping</a><a href="shipping.html#returns">Returns</a><a href="https://laaslocks.com/help/">Help &amp; Guides</a><a href="mailto:support@laaslocks.com">Support</a></nav>
+        <nav class="foot2__nav" aria-label="Footer"><a href="buy.html">Ring-Lock</a><a href="faq.html">FAQ</a><a href="shipping.html">Shipping</a><a href="shipping.html#returns">Returns</a><a href="https://laaslocks.com/help/">Help &amp; Guides</a><a href="#help">Support</a></nav>
         <p class="foot2__social">
           <a href="https://www.instagram.com/laaslocks/" target="_blank" rel="noopener" aria-label="LAAS on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.3-3.6a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6z"/></svg></a>
           <a href="https://www.facebook.com/laas" target="_blank" rel="noopener" aria-label="LAAS on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
@@ -476,8 +495,8 @@
   </footer>
 </main>
 
-<script src="i18n.js?v=1012y"></script>
-<script type="module" src="darkroom.js?v=1013d" onerror="var h=document.documentElement;h.classList.remove('is-loading');h.classList.add('is-loaded','no-engine')"></script>
+<script src="i18n.js?v=1013g"></script>
+<script type="module" src="darkroom.js?v=1013h" onerror="var h=document.documentElement;h.classList.remove('is-loading');h.classList.add('is-loaded','no-engine')"></script>
 <script src="cart-nav.js?v=1012r"></script>
 </body>
 </html>
