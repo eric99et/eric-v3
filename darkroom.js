@@ -256,12 +256,14 @@ addEventListener('resize', resize); resize();
 const fpin = { x: 0, y: 0 };
 function measurePin() {
   const f = $('.fmp'); if (!f) return;
-  const Wp = f.offsetWidth, Hp = f.offsetHeight, pad = Hp * 0.012, ws = Wp - 2 * pad, hs = Hp - 2 * pad;
+  const Wp = f.offsetWidth, Hp = f.offsetHeight; if (!Wp || !Hp) return; const pad = Hp * 0.012, ws = Wp - 2 * pad, hs = Hp - 2 * pad;
   const k = Math.max(ws / 520, hs / 1130), ox = (ws - 520 * k) / 2;
   fpin.x = pad + ox + (837.4 - 590) * k; fpin.y = pad + (598 - 300) * k;
   f.style.setProperty('--fpx', fpin.x.toFixed(1) + 'px'); f.style.setProperty('--fpy', fpin.y.toFixed(1) + 'px');
 }
 addEventListener('resize', measurePin); measurePin();
+// the phone is hidden (size 0) until its chapter comes near, and its height follows the viewport: measure again whenever it changes
+if (window.ResizeObserver && $('.fmp')) new ResizeObserver(measurePin).observe($('.fmp'));
 // the map is drawn wide; a phone gets its own crop, with the bike in it
 /* -------------------------------------------------------- chrome per frame */
 const navLinks = $$('[data-nav]'), railLinks = $$('[data-rail]'), menuLinks = $$('.menu nav a');
