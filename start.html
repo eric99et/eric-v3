@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>LAAS Ring-Lock · Start (draft)</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/poppins-500-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="images/scenes/bike-lock-2400.webp" as="image">
+<style>
+@font-face { font-family: 'Inter'; font-weight: 400 600; font-display: swap; src: url('fonts/inter-400-600-latin.woff2') format('woff2'); }
+@font-face { font-family: 'Poppins'; font-weight: 400; font-display: swap; src: url('fonts/poppins-400-latin.woff2') format('woff2'); }
+@font-face { font-family: 'Poppins'; font-weight: 500; font-display: swap; src: url('fonts/poppins-500-latin.woff2') format('woff2'); }
+@font-face { font-family: 'Poppins'; font-weight: 600; font-display: swap; src: url('fonts/poppins-600-latin.woff2') format('woff2'); }
+
+:root {
+  --chalk: #ECECEA; --white: #FFFFFF; --ink: #202F30; --deep: #1D5F63; --teal: #458A8E;
+  --petrol: #213D35; --slate: #606A74; --pale: #9BCDD0; --amber: #E49827;
+  --line: rgba(32, 47, 48, .14);
+  --display: 'Poppins', system-ui, sans-serif;
+  --body: 'Inter', -apple-system, 'Segoe UI', Arial, sans-serif;
+  --gutter: clamp(16px, 4vw, 56px);
+  --max: 1240px;
+  --nav: 70px;
+  --ease: cubic-bezier(.2, .7, .1, 1);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav) + 16px); -webkit-text-size-adjust: 100%; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--deep); outline-offset: 3px; border-radius: 12px; }
+.nav a:focus-visible, .sec--ink a:focus-visible, .foot a:focus-visible, .stage a:focus-visible { outline-color: var(--pale); }
+body { margin: 0; background: var(--chalk); color: var(--ink); font: 400 17px/1.55 var(--body); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+img { display: block; max-width: 100%; }
+figure { margin: 0; }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--display); font-weight: 500; letter-spacing: -.02em; line-height: 1.04; margin: 0; }
+p { margin: 0; }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--white); padding: 10px 14px; border-radius: 8px; z-index: 100; }
+.skip:focus { left: 8px; }
+.wrap { width: min(var(--max), 100% - 2 * var(--gutter)); margin-inline: auto; }
+.kicker { font: 500 12px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--deep); }
+
+/* ---------- nav ---------- */
+.nav { position: fixed; top: 12px; left: 50%; translate: -50% 0; width: min(1180px, 100% - 24px); height: 58px; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 0 8px 0 22px; border-radius: 999px; background: rgba(32, 47, 48, .62); backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4); border: 1px solid rgba(236, 236, 234, .14); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 14px 40px -20px rgba(0, 0, 0, .6); color: var(--chalk); transition: translate .5s var(--ease), opacity .35s; }
+html.in-intro .nav { translate: -50% -140%; opacity: 0; pointer-events: none; }
+.nav__logo { display: block; }
+.nav__logo img { width: 120px; height: auto; }
+.nav__links { display: flex; align-items: center; gap: 6px; }
+.nav__links a { min-height: 44px; display: inline-flex; align-items: center; text-decoration: none; font: 500 14px/1 var(--display); padding: 12px 14px; border-radius: 999px; }
+.nav__links a:hover { background: rgba(236, 236, 234, .1); }
+.nav__links .nav__buy { background: var(--chalk); color: var(--ink); padding: 12px 18px; }
+.nav__links .nav__buy:hover { background: var(--white); }
+
+/* ---------- opening story (pinned) ---------- */
+.story { position: relative; height: 590svh; background: var(--ink); }
+.snap { position: absolute; left: 0; width: 1px; height: 1px; scroll-snap-align: start; scroll-snap-stop: always; pointer-events: none; }
+.stage { position: sticky; top: 0; height: 100svh; overflow: hidden; color: var(--white); }
+.shot { position: absolute; inset: 0; opacity: 0; transition: opacity .9s var(--ease); }
+.shot picture { display: contents; }
+.shot img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 6s linear; }
+.shot.is-on { opacity: 1; }
+.shot.is-on img { transform: scale(1); }
+/* beat 1: push the woman right, clear of the headline */
+.shot[data-shot="1"] img, .shot[data-shot="1"].is-on img { transform-origin: 0% 35%; transform: scale(1.28); }
+.beat[data-beat="1"] { max-width: 50vw; }
+.beat[data-beat="1"] h2 span { white-space: normal; }
+/* hero: push the lock right so the headline never sits on it */
+.shot[data-shot="0"] img, .shot[data-shot="0"].is-on img { transform-origin: 0% 62%; transform: scale(1.32); }
+.stage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(32, 47, 48, .62) 0%, rgba(32, 47, 48, .18) 55%, rgba(32, 47, 48, 0) 80%), linear-gradient(0deg, rgba(32, 47, 48, .55) 0%, rgba(32, 47, 48, 0) 40%); pointer-events: none; }
+.beat { position: absolute; z-index: 2; left: var(--gutter); top: calc(var(--nav) + 9vh); max-width: min(900px, 90vw); opacity: 0; transform: translateY(18px); transition: opacity .6s var(--ease), transform .6s var(--ease); pointer-events: none; }
+.beat[data-beat="0"] { max-width: 46vw; }
+.beat[data-beat="0"] h1 { font-size: clamp(46px, 5.4vw, 88px); }
+.beat.with-reviews .fine { opacity: 0; }
+.beat.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.beat h1, .beat h2 { font-size: clamp(46px, 6.6vw, 104px); font-weight: 600; text-shadow: 0 2px 30px rgba(0, 0, 0, .25); }
+.beat h1 span, .beat h2 span { display: block; color: var(--pale); font-weight: 500; white-space: nowrap; }
+.beat .sub { margin-top: 16px; font: 500 clamp(19px, 2vw, 26px)/1.25 var(--display); }
+.beat .fine { margin-top: 14px; max-width: 460px; font-size: 13px; line-height: 1.45; }
+.shot:not([data-shot="0"])::after { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 85% at 0% 12%, rgba(32, 47, 48, .74), rgba(32, 47, 48, 0) 62%); }
+.progress { position: absolute; z-index: 3; right: var(--gutter); top: 50%; translate: 0 -50%; display: grid; gap: 10px; }
+.progress i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, .4); transition: background .3s, scale .3s; }
+.progress i.is-on { background: var(--white); scale: 1.4; }
+.hint { position: absolute; z-index: 3; left: 50%; bottom: 26px; translate: -50% 0; font: 500 12px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; opacity: .8; transition: opacity .4s; }
+.hint::after { content: ""; display: block; width: 1px; height: 28px; margin: 10px auto 0; background: currentColor; animation: hint 1.8s var(--ease) infinite; transform-origin: top; }
+@keyframes hint { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+
+/* chapter stops, like Eric V3: every chapter and every story beat is a stop */
+html { scroll-snap-type: y proximity; }
+main > section:not(.story), .foot { scroll-snap-align: start; }
+/* the opening (from Eric V3): the pixel wordmark on dark rider frames, pulled into the logo on the lock */
+.intro-shots { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: var(--ink); opacity: calc(1 - var(--ip, 0) * 1.4); }
+.intro-shot { position: absolute; inset: 0; opacity: 0; animation: ishot 30s linear infinite; }
+.intro-shot img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 38%; animation: idrift 30s linear infinite; }
+.intro-shot:nth-child(2), .intro-shot:nth-child(2) img { animation-delay: 6s; }
+.intro-shot:nth-child(3), .intro-shot:nth-child(3) img { animation-delay: 12s; }
+.intro-shot:nth-child(4), .intro-shot:nth-child(4) img { animation-delay: 18s; }
+.intro-shot:nth-child(5), .intro-shot:nth-child(5) img { animation-delay: 24s; }
+.intro-shot:first-child, .intro-shot:first-child img { animation-delay: -1.5s; }
+@keyframes ishot { 0% { opacity: 0; } 5% { opacity: 1; } 20% { opacity: 1; } 25% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes idrift { 0% { scale: 1.08; } 25% { scale: 1; } 100% { scale: 1; } }
+.intro-shots::after { content: ""; position: absolute; inset: 0; background: rgba(32, 47, 48, .5); }
+.shot { z-index: 1; }
+.stage.is-intro .shot[data-shot="0"] { transition: none; }
+.shot[data-shot="0"] { will-change: transform, opacity; }
+.px { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; pointer-events: none; }
+.intro-tag { position: absolute; z-index: 3; left: 50%; bottom: 112px; translate: -50% 0; margin: 0; width: max-content; max-width: calc(100% - 32px); text-align: center; font: 500 clamp(18px, 1.7vw, 26px)/1.3 var(--display); color: var(--chalk); opacity: calc(1 - var(--ip, 0) * 5); pointer-events: none; }
+.stage::after { z-index: 1; opacity: var(--gs, 1); }
+.beat, .reviews, .progress, .hint, .stage .note { z-index: 4; }
+.stage.is-intro .progress { opacity: 0; }
+.progress { transition: opacity .4s; }
+
+/* reviews rise from the bottom on the last beat */
+.reviews { position: absolute; z-index: 3; left: var(--gutter); right: var(--gutter); bottom: 34px; display: grid; grid-template-columns: auto repeat(3, minmax(0, 1fr)); gap: 14px; align-items: stretch; opacity: 0; transform: translateY(40px); transition: opacity .7s var(--ease) .15s, transform .7s var(--ease) .15s; pointer-events: none; }
+.reviews.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.rv-score, .rv { background: rgba(236, 236, 234, .94); color: var(--ink); border-radius: 18px; padding: 18px 20px; }
+.rv-score { display: grid; align-content: center; gap: 4px; text-decoration: none; min-width: 150px; }
+.rv-score b { font: 600 34px/1 var(--display); }
+.rv-score small { font-size: 13px; color: var(--slate); }
+.stars { display: flex; gap: 2px; }
+.stars i { width: 16px; height: 16px; background: #00B67A; clip-path: polygon(50% 6%, 61% 38%, 95% 38%, 67% 58%, 78% 92%, 50% 71%, 22% 92%, 33% 58%, 5% 38%, 39% 38%); }
+.stars i.half { background: linear-gradient(90deg, #00B67A 60%, #C9CDCF 60%); }
+.stars i.off { background: #C9CDCF; }
+.rv p { font: 500 16px/1.35 var(--display); }
+.rv small { display: block; margin-top: 10px; font-size: 13px; color: var(--slate); }
+
+/* ---------- sections ---------- */
+.sec { padding: clamp(80px, 12vw, 150px) 0; }
+.sec--white { background: var(--white); }
+.sec--ink { background: var(--ink); color: var(--chalk); }
+.sec--ink .kicker { color: var(--pale); }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
+.split--flip .split__media { order: -1; }
+.split h2 { font-size: clamp(40px, 5vw, 76px); margin-top: 16px; }
+.split .lead { margin-top: 24px; font-size: clamp(18px, 1.4vw, 21px); max-width: 30em; }
+.split .lead + .lead { margin-top: 14px; }
+.media { border-radius: 24px; overflow: hidden; background: var(--chalk); }
+.media img { width: 100%; height: 100%; object-fit: cover; }
+.media--tall { aspect-ratio: 4 / 5; }
+.media--wide { aspect-ratio: 3 / 2; }
+.btn { display: inline-flex; align-items: center; gap: 10px; margin-top: 30px; padding: 16px 26px; border-radius: 999px; font: 500 16px/1 var(--display); text-decoration: none; background: var(--deep); color: var(--white); border: 0; cursor: pointer; transition: background .2s; }
+.btn:hover { background: var(--teal); }
+.btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
+.btn--ghost:hover { background: var(--ink); color: var(--chalk); }
+
+/* 57 days */
+.trial { position: relative; min-height: 92svh; display: grid; align-items: end; color: var(--white); overflow: hidden; }
+.trial > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+.trial::before { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(32, 47, 48, .78) 0%, rgba(32, 47, 48, .1) 60%); }
+.trial .wrap { position: relative; padding-bottom: clamp(48px, 9vw, 110px); }
+.trial h2 { font-size: clamp(46px, 7vw, 108px); font-weight: 600; max-width: 10em; }
+.trial p { margin-top: 20px; max-width: 34em; font-size: clamp(18px, 1.5vw, 22px); }
+.promises { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; padding: 0; list-style: none; }
+.promises li { padding: 10px 16px; border-radius: 999px; background: var(--white); font: 500 14px/1 var(--display); }
+
+/* the light page rises as one sheet, rounded at the top (Eric V3) */
+#trial { position: relative; z-index: 2; margin-top: -28px; border-radius: 28px 28px 0 0; background: var(--chalk); }
+
+/* insurance */
+.seal { display: flex; align-items: center; gap: 18px; margin-top: 30px; }
+.seal img { width: 86px; height: 88px; border-radius: 14px; background: var(--white); padding: 6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { padding: 9px 14px; border-radius: 999px; border: 1px solid rgba(236, 236, 234, .3); font: 500 13px/1 var(--display); }
+.chip b { font-weight: 600; color: var(--pale); margin-right: 6px; }
+.caption { margin-top: 12px; font-size: 13px; color: var(--slate); }
+.sec--ink .caption { color: var(--pale); }
+
+/* how it works */
+.how__head { max-width: 760px; }
+.how__head h2 { font-size: clamp(40px, 5vw, 76px); margin-top: 16px; }
+.cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: 56px; }
+.card { background: var(--chalk); border: 1px solid var(--line); border-radius: 24px; overflow: hidden; display: flex; flex-direction: column; }
+.card__vis { aspect-ratio: 1 / 1; position: relative; overflow: hidden; background: var(--white); display: grid; place-items: center; }
+.card__vis > img { width: 100%; height: 100%; object-fit: cover; }
+.card__body { padding: 22px 22px 26px; }
+.card h3 { font-size: 24px; }
+.card p { margin-top: 10px; color: var(--slate); font-size: 15px; }
+.card .num { font: 500 12px/1 var(--display); letter-spacing: .14em; color: var(--deep); margin-bottom: 12px; display: block; }
+
+/* custom graphic: setup phone */
+.phone { width: 50%; aspect-ratio: 9 / 19; border-radius: 26px; background: var(--ink); padding: 7px; }
+.phone__screen { height: 100%; border-radius: 20px; background: var(--white); padding: 22px 12px 12px; display: flex; flex-direction: column; gap: 8px; font-family: var(--display); }
+.phone__screen b { font-size: 12px; font-weight: 600; }
+.phone__screen small { font-size: 8px; color: var(--slate); line-height: 1.3; }
+.field { border: 1px solid var(--line); border-radius: 8px; padding: 7px 8px; font-size: 10px; letter-spacing: .08em; }
+.field--name { color: var(--slate); }
+.phone__cta { margin-top: auto; border-radius: 999px; background: var(--deep); color: var(--white); text-align: center; font-size: 9px; padding: 8px; }
+/* custom graphic: share link */
+.share { width: 74%; display: grid; gap: 10px; font-family: var(--display); }
+.bubble { background: var(--white); border-radius: 16px 16px 16px 4px; padding: 12px 14px; font-size: 13px; }
+.bubble--me { justify-self: end; background: var(--deep); color: var(--white); border-radius: 16px 16px 4px 16px; }
+.bubble u { text-decoration: none; display: block; margin-top: 6px; padding: 8px 10px; border-radius: 10px; background: rgba(255, 255, 255, .16); font-size: 12px; }
+/* custom graphic: battery */
+.battery { width: 58%; display: grid; gap: 12px; justify-items: center; font-family: var(--display); }
+.battery__body { position: relative; width: 100%; height: 64px; border: 3px solid var(--ink); border-radius: 14px; padding: 5px; }
+.battery__body::after { content: ""; position: absolute; right: -11px; top: 50%; translate: 0 -50%; width: 6px; height: 22px; border-radius: 0 4px 4px 0; background: var(--ink); }
+.battery__fill { height: 100%; width: 12%; border-radius: 8px; background: var(--teal); }
+.card.in .battery__fill { animation: charge 3.2s var(--ease) .3s forwards; }
+@keyframes charge { to { width: 100%; } }
+.battery span { font-size: 13px; color: var(--slate); }
+
+/* inside */
+.parts { list-style: none; padding: 0; margin: 34px 0 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.parts li { display: grid; grid-template-columns: 56px 1fr; gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.parts b { font: 600 22px/1 var(--display); color: var(--teal); }
+.parts strong { font: 500 18px/1.2 var(--display); display: block; }
+.parts span { color: var(--slate); font-size: 15px; display: block; margin-top: 4px; }
+.security { margin-top: 28px; padding: 20px 22px; border-radius: 18px; background: var(--chalk); }
+.security strong { font: 500 18px/1.2 var(--display); }
+.security p { margin-top: 6px; color: var(--slate); font-size: 15px; }
+.render { background: var(--white); aspect-ratio: 1 / 1; border-radius: 24px; display: grid; place-items: center; }
+.render img { width: 86%; }
+
+/* in the box */
+.sec--box { padding-top: 0; }
+.h-sec { font-size: clamp(40px, 5vw, 76px); margin-top: 16px; }
+.box { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; margin-top: 48px; padding: 0; list-style: none; counter-reset: box; }
+.box li { counter-increment: box; background: var(--white); border-radius: 20px; padding: 22px 18px; font: 500 17px/1.25 var(--display); min-height: 130px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; }
+.box li::before { content: "0" counter(box); font-size: 12px; letter-spacing: .14em; color: var(--deep); }
+
+/* faq */
+.faq { max-width: 860px; }
+.faq h2 { font-size: clamp(40px, 5vw, 76px); margin-top: 16px; }
+.faq__list { margin-top: 44px; border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 20px; padding: 24px 0; font: 500 clamp(19px, 1.7vw, 23px)/1.3 var(--display); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-weight: 400; font-size: 28px; line-height: .9; transition: rotate .3s var(--ease); }
+.faq details[open] summary::after { rotate: 45deg; }
+.faq details p { padding: 0 0 26px; max-width: 40em; color: var(--slate); }
+.faq__more { margin-top: 26px; }
+
+/* shop */
+.shop { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(32px, 6vw, 90px); align-items: center; }
+.shop__img { aspect-ratio: 1 / 1; border-radius: 28px; background: var(--white); display: grid; place-items: center; overflow: hidden; }
+.shop__img img { width: 84%; transition: opacity .35s; }
+.shop h2 { font-size: clamp(44px, 5.4vw, 80px); }
+.shop .tag { margin-top: 10px; color: var(--slate); }
+.price { display: flex; align-items: baseline; gap: 12px; margin-top: 26px; }
+.price b { font: 600 44px/1 var(--display); }
+.price small { color: var(--slate); font-size: 14px; }
+.finishes { display: flex; gap: 10px; margin-top: 26px; }
+.finishes button { display: grid; justify-items: center; gap: 6px; padding: 8px 8px 10px; border-radius: 16px; border: 1.5px solid transparent; background: var(--white); cursor: pointer; font: 500 13px/1 var(--display); color: var(--ink); }
+.finishes button img { width: 64px; height: 64px; object-fit: contain; }
+.finishes button[aria-pressed="true"] { border-color: var(--ink); }
+.offer { margin-top: 22px; padding: 16px 18px; border-radius: 16px; background: var(--white); display: flex; gap: 14px; align-items: center; }
+.offer b { font: 600 15px/1.3 var(--display); }
+.offer span { display: block; color: var(--slate); font-size: 14px; }
+.offer__tag { flex: none; padding: 8px 10px; border-radius: 10px; background: var(--ink); color: var(--chalk); font: 600 14px/1 var(--display); }
+.assure { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 8px; color: var(--slate); font-size: 15px; }
+.assure li::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--teal); margin-right: 10px; translate: 0 -2px; }
+
+/* footer */
+.foot { background: var(--ink); color: var(--chalk); padding: 56px 0 40px; font-size: 14px; }
+.foot__top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 28px; }
+.foot__top img { width: 120px; }
+.foot__tag { margin-top: 14px; font: 500 18px/1.2 var(--display); }
+.foot nav { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.foot nav a { display: inline-block; padding: 11px 0; text-decoration: none; opacity: .85; }
+.foot nav a:hover { opacity: 1; text-decoration: underline; }
+.foot__legal { margin-top: 36px; padding-top: 22px; border-top: 1px solid rgba(236, 236, 234, .16); display: grid; gap: 8px; opacity: .7; font-size: 12px; }
+
+/* reveal */
+.rise { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.rise.in { opacity: 1; transform: none; }
+
+
+/* ---------- v3: selling (three-agent review) ---------- */
+.btn--light { background: var(--chalk); color: var(--ink); }
+.btn--light:hover { background: var(--white); }
+.btn--sm { margin-top: 18px; padding: 13px 20px; font-size: 15px; }
+.hero-buy { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; margin-top: 26px; }
+.hero-buy .btn { margin-top: 0; }
+.textlink { font: 500 16px/1 var(--display); color: var(--white); text-underline-offset: 5px; padding: 12px 0; }
+.hero-assure { margin-top: 16px; font-size: 14px; color: rgba(255, 255, 255, .9); }
+.platforms { margin-top: 26px; color: var(--slate); font-size: 15px; }
+.lead.small { font-size: 16px; color: var(--slate); }
+.fitlist { list-style: none; padding: 0; margin: 26px 0 22px; border-top: 1px solid var(--line); }
+.fitlist li { display: grid; grid-template-columns: 120px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.fitlist b { font: 500 16px/1.4 var(--display); }
+.fitlist span { color: var(--slate); font-size: 16px; }
+.compare h2 { font-size: clamp(36px, 4.4vw, 64px); margin-top: 16px; max-width: 14em; }
+.table { margin-top: 40px; border-radius: 20px; overflow: hidden; border: 1px solid var(--line); }
+.tr { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 12px; padding: 16px 22px; border-top: 1px solid var(--line); font-size: 16px; align-items: center; }
+.tr:first-child { border-top: 0; }
+.th { background: var(--chalk); font: 500 14px/1.2 var(--display); }
+.th span:nth-child(2) { color: var(--deep); }
+.tr .yes { font-weight: 600; color: var(--deep); }
+.tr .no { color: var(--slate); }
+.inbox { margin-top: 22px; padding: 20px 22px; border-radius: 18px; border: 1px solid var(--line); }
+.inbox strong { font: 500 18px/1.2 var(--display); }
+.inbox ul { margin: 10px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+.inbox li { padding: 8px 12px; border-radius: 999px; background: var(--chalk); font: 500 13px/1 var(--display); }
+#inside .security { background: var(--chalk); }
+.reviews-row { display: grid; grid-template-columns: auto repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 22px; }
+.reviews-row .rv-score, .reviews-row .rv { background: var(--white); }
+.shop__card .tag { margin-top: 10px; color: var(--slate); }
+.finish-label { margin-top: 24px; font-size: 15px; color: var(--slate); }
+.finish-label b { color: var(--ink); font-weight: 600; }
+.finishes { margin-top: 10px; }
+.btn--buy { width: 100%; justify-content: center; margin-top: 22px; padding: 18px 26px; font-size: 17px; }
+.offer-line { margin-top: 16px; font-size: 14px; color: var(--slate); }
+.buybar { position: fixed; z-index: 55; left: 50%; bottom: 14px; translate: -50% 150%; width: min(560px, 100% - 24px); display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 10px; border-radius: 999px; background: rgba(32, 47, 48, .9); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); color: var(--chalk); transition: translate .45s var(--ease); }
+.buybar.is-on { translate: -50% 0; }
+.buybar img { width: 44px; height: 44px; border-radius: 50%; background: var(--white); object-fit: contain; padding: 3px; }
+.buybar div { flex: 1; display: grid; line-height: 1.25; }
+.buybar b { font: 600 15px/1.2 var(--display); }
+.buybar span { font-size: 12px; opacity: .8; }
+.buybar .btn { margin: 0; padding: 13px 26px; background: var(--chalk); color: var(--ink); }
+@media (max-width: 980px) { .reviews-row { grid-template-columns: repeat(3, minmax(0, 1fr)); } .reviews-row .rv-score { grid-column: 1 / -1; } }
+@media (max-width: 760px) {
+  .hero-buy { gap: 8px 18px; margin-top: 18px; }
+  .hero-assure { font-size: 12px; }
+  .beat .sub { font-size: 17px; }
+  /* how it works: one swipe row on a phone */
+  .cards { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; margin-inline: calc(-1 * var(--gutter)); padding: 0 var(--gutter) 6px; scrollbar-width: none; }
+  .cards::-webkit-scrollbar { display: none; }
+  .card { flex: 0 0 80%; scroll-snap-align: start; }
+  .fitlist li { grid-template-columns: 96px 1fr; }
+  .tr { grid-template-columns: 1.3fr .8fr .8fr; padding: 14px 14px; font-size: 14px; gap: 8px; }
+  .reviews-row { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(-1 * var(--gutter)); padding: 0 var(--gutter); scrollbar-width: none; }
+  .reviews-row::-webkit-scrollbar { display: none; }
+  .reviews-row > * { flex: 0 0 78%; scroll-snap-align: start; }
+  .reviews-row .rv-score { flex-basis: 52%; }
+  /* shop: the choice and the button before the big picture */
+  .shop__card { order: -1; }
+  .shop__img { width: 72%; margin: 0 auto; }
+  .buybar { bottom: 10px; }
+  .notes-toggle { bottom: 76px; }
+}
+
+/* ---------- draft notes (Swedish, for Eric + Marcus) ---------- */
+.note { display: none; position: relative; z-index: 4; margin: 0 0 18px; padding: 10px 14px 10px 12px; border-radius: 12px; background: #FFF6E5; color: #4A3B12; border-left: 4px solid var(--amber); font: 400 13px/1.45 var(--body); max-width: 560px; text-align: left; }
+.note b { font-weight: 600; }
+.note[data-k="m"] { border-color: var(--teal); background: #E8F3F3; color: #173F42; }
+.note[data-k="e"] { border-color: var(--slate); background: #EEF0F2; color: #2E343A; }
+.note[data-k="new"] { border-color: var(--rose, #D87D9B); background: #FBEFF3; color: #5A2234; }
+.notes-on .note { display: block; }
+.stage .note { position: absolute; left: var(--gutter); bottom: 24px; margin: 0; max-width: 420px; }
+.stage .note[data-for] { display: none; }
+.notes-on .stage .note[data-for].is-on { display: block; }
+.notes-on .reviews.is-on ~ .note[data-for="3"] { bottom: auto; top: calc(var(--nav) + 12px); left: auto; right: var(--gutter); }
+.notes-toggle { position: fixed; z-index: 60; right: 14px; bottom: 14px; padding: 10px 14px; border-radius: 999px; border: 0; background: var(--amber); color: var(--ink); font: 600 13px/1 var(--display); cursor: pointer; box-shadow: 0 8px 24px -10px rgba(0, 0, 0, .5); }
+.legend { display: none; }
+.notes-on .reviews { right: calc(var(--gutter) + 120px); }
+.notes-on .legend { display: flex; flex-wrap: wrap; gap: 8px; position: fixed; z-index: 60; right: 14px; bottom: 58px; max-width: 300px; justify-content: flex-end; }
+.legend span { padding: 6px 10px; border-radius: 999px; font: 500 11px/1 var(--display); border-left: 4px solid; }
+.legend .l-m { background: #E8F3F3; border-color: var(--teal); }
+.legend .l-e { background: #EEF0F2; border-color: var(--slate); }
+.legend .l-new { background: #FBEFF3; border-color: #D87D9B; }
+.legend .l-q { background: #FFF6E5; border-color: var(--amber); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 980px) {
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .box { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .reviews { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .rv-score { grid-column: 1 / -1; grid-template-columns: auto auto 1fr; align-items: center; gap: 12px; min-width: 0; padding: 12px 16px; }
+  .rv-score b { font-size: 24px; }
+}
+@media (max-width: 760px) {
+  :root { --nav: 64px; }
+  .nav { height: 52px; padding-left: 16px; top: 8px; width: calc(100% - 16px); }
+  body { font-size: 16px; }
+  .nav__links a:not(.nav__buy):not(.nav__help) { display: none; }
+  .nav__links .long { display: none; }
+  .notes-on .legend { display: none; }
+  .notes-toggle { padding: 8px 12px; font-size: 12px; right: 10px; bottom: 10px; }
+  .nav__links a { padding: 10px 12px; font-size: 13px; }
+  .nav__links .nav__buy { padding: 10px 14px; }
+  .split, .shop { grid-template-columns: 1fr; }
+  .split__media { order: -1; }
+  .media--tall { aspect-ratio: 4 / 4.4; }
+  .beat { top: calc(var(--nav) + 6svh); }
+  .beat h1, .beat h2 { font-size: clamp(40px, 11vw, 58px); }
+  .beat h1 span, .beat h2 span { white-space: normal; }
+  .beat[data-beat="0"] { max-width: 90vw; }
+  /* on a phone the lock fills the middle: the hero title sits below it, over the spokes */
+  .beat[data-beat="0"], .notes-on .beat[data-beat="0"] { top: auto; bottom: 72px; }
+  .shot img { object-position: var(--mpos, 50% 50%); }
+  .stage::after { background: linear-gradient(180deg, rgba(32, 47, 48, .66) 0%, rgba(32, 47, 48, .12) 45%, rgba(32, 47, 48, .55) 100%); }
+  .progress { display: none; }
+  .reviews { left: 16px; right: 0; bottom: 18px; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-right: 16px; scrollbar-width: none; }
+  .reviews::-webkit-scrollbar { display: none; }
+  .rv, .rv-score { flex: 0 0 76%; scroll-snap-align: start; }
+  .rv-score { flex-basis: auto; display: grid; grid-template-columns: none; }
+  .cards { grid-template-columns: 1fr; gap: 14px; }
+  .card__vis { aspect-ratio: 16 / 10; }
+  .card__body { padding: 18px 20px 22px; }
+  .card h3 { font-size: 22px; }
+  .phone { width: 150px; height: auto; align-self: start; margin-top: 18px; }
+  .share { width: 76%; }
+  .battery { width: 56%; }
+  .battery__body { height: 52px; }
+  .box li { min-height: 104px; font-size: 15px; padding: 18px 16px; }
+  .box li:last-child { grid-column: 1 / -1; }
+  .finishes button img { width: 54px; height: 54px; }
+  .stage .note { right: 16px; left: 16px; bottom: auto; top: calc(var(--nav) + 8px); max-width: none; }
+  .notes-on .reviews.is-on ~ .note[data-for="3"] { left: 16px; right: 16px; }
+  .notes-on .beat { top: calc(var(--nav) + 150px); }
+  .notes-on .reviews { right: 0; }
+  .shot[data-shot="0"] img, .shot[data-shot="0"].is-on img, .shot[data-shot="1"] img, .shot[data-shot="1"].is-on img { transform: none; }
+  .beat[data-beat="1"] { max-width: 90vw; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-snap-type: none; scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01ms !important; animation: none !important; }
+  .rise { opacity: 1; transform: none; }
+  .card .battery__fill { width: 100%; }
+}
+.beat[data-beat="0"] h1 span { white-space: normal; font-size: .82em; margin-top: .08em; }
+#inside .render { background: var(--chalk); }
+#reviews { padding: clamp(56px, 7vw, 90px) 0; }
+.shop__img img { height: auto; }
+@media (max-width: 760px) {
+  .notes-toggle { bottom: 78px; }
+  /* hero on a phone: the title above the lock, the buy row below it */
+  .beat[data-beat="0"], .notes-on .beat[data-beat="0"] { top: calc(var(--nav) + 8px); bottom: 64px; display: flex; flex-direction: column; }
+  .notes-on .beat[data-beat="0"] { top: calc(var(--nav) + 120px); }
+  .beat[data-beat="0"] h1 { font-size: clamp(36px, 10.4vw, 46px); }
+  .beat[data-beat="0"] .hero-buy { margin-top: auto; }
+}
+</style>
+</head>
+<body class="notes-on">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="laas-mark" viewBox="0 0 343.43 88.44"><g transform="translate(-966.000 -758.556)">
+  <path d="M1151.490 847.000 C1149.972 847.000 1148.431 846.664 1146.976 845.952 C1141.872 843.460 1139.758 837.309 1142.255 832.214 L1174.824 765.761 C1177.321 760.666 1183.484 758.557 1188.588 761.050 C1193.692 763.542 1195.806 769.693 1193.308 774.788 L1160.739 841.240 C1158.954 844.883 1155.295 847.000 1151.490 847.000"/>
+  <path d="M1050.634 847.000 C1049.116 847.000 1047.576 846.664 1046.120 845.952 C1041.016 843.460 1038.902 837.309 1041.400 832.213 L1073.969 765.762 C1076.466 760.667 1082.627 758.556 1087.732 761.050 C1092.836 763.543 1094.950 769.693 1092.453 774.789 L1059.884 841.241 C1058.099 844.884 1054.440 847.001 1050.634 847.001 L1050.634 847.000"/>
+  <path d="M1291.020 760.000 L1264.549 760.000 C1256.932 760.000 1249.605 763.154 1244.447 768.653 C1239.331 774.107 1236.784 781.214 1237.275 788.664 C1238.203 802.740 1250.007 813.766 1264.149 813.766 C1264.307 813.766 1264.461 813.750 1264.618 813.743 L1264.618 813.766 L1270.230 813.766 C1269.806 813.382 1269.407 812.970 1269.034 812.536 C1266.935 810.106 1265.662 806.948 1265.662 803.496 C1265.662 800.044 1266.935 796.885 1269.034 794.456 C1269.404 794.027 1269.798 793.618 1270.217 793.237 L1264.618 793.237 L1264.618 793.249 C1264.461 793.242 1264.307 793.226 1264.149 793.226 C1260.812 793.226 1258.027 790.629 1257.809 787.315 C1257.663 785.111 1258.631 783.583 1259.468 782.691 C1260.770 781.304 1262.574 780.540 1264.550 780.540 L1291.021 780.540 C1296.703 780.540 1301.310 775.942 1301.310 770.270 C1301.310 764.598 1296.703 760.000 1291.021 760.000 L1291.020 760.000"/>
+  <path d="M1281.666 846.992 L1251.104 846.992 C1245.422 846.992 1240.815 842.394 1240.815 836.722 C1240.815 831.050 1245.422 826.452 1251.104 826.452 L1281.666 826.452 C1283.641 826.452 1285.446 825.688 1286.747 824.301 C1287.584 823.408 1288.552 821.882 1288.407 819.676 C1288.189 816.362 1285.404 813.767 1282.067 813.767 L1279.551 813.767 C1273.869 813.767 1269.262 809.168 1269.262 803.496 C1269.262 797.824 1273.869 793.226 1279.551 793.226 L1282.067 793.226 C1296.209 793.226 1308.013 804.252 1308.941 818.328 C1309.431 825.779 1306.884 832.886 1301.768 838.341 C1296.611 843.839 1289.283 846.992 1281.666 846.992"/>
+  <path d="M1017.660 826.452 L990.179 826.452 L990.179 836.722 C990.179 840.791 988.415 844.454 985.610 846.993 L1017.660 846.993 C1023.342 846.993 1027.949 842.395 1027.949 836.722 C1027.949 831.050 1023.342 826.452 1017.660 826.452"/>
+  <path d="M1096.557 774.106 C1096.334 774.875 1096.047 775.630 1095.687 776.363 L1085.232 797.695 L1106.641 841.246 C1106.864 841.701 1107.117 842.131 1107.395 842.537 C1107.953 843.349 1108.613 844.060 1109.349 844.663 C1110.454 845.567 1111.730 846.225 1113.088 846.607 C1113.993 846.862 1114.934 846.994 1115.885 846.994 C1116.266 846.994 1116.647 846.973 1117.029 846.930 C1117.220 846.909 1117.411 846.882 1117.601 846.849 C1118.172 846.752 1118.742 846.605 1119.302 846.407 C1119.676 846.275 1120.046 846.119 1120.411 845.941 C1125.512 843.442 1127.617 837.289 1125.115 832.197 L1096.558 774.105 L1096.557 774.106"/>
+  <path d="M1197.413 774.106 C1197.190 774.875 1196.902 775.630 1196.543 776.363 L1186.088 797.695 L1207.496 841.246 C1209.284 844.883 1212.939 846.994 1216.741 846.994 C1218.263 846.994 1219.808 846.656 1221.266 845.941 C1226.367 843.442 1228.473 837.289 1225.970 832.197 L1197.414 774.105 L1197.413 774.106"/>
+  <path d="M986.578 826.452 L986.578 770.270 C986.578 764.598 981.971 760.000 976.289 760.000 C970.607 760.000 966.000 764.598 966.000 770.270 L966.000 836.722 C966.000 842.394 970.607 846.993 976.289 846.993 C981.971 846.993 986.578 842.394 986.578 836.722 L986.578 826.452"/>
+  </g></symbol></svg>
+<a class="skip" href="#shop">Skip to shop</a>
+
+<header class="nav">
+  <a class="nav__logo" href="#top" aria-label="LAAS, back to top"><img src="images/logo-white.svg" alt="LAAS" width="120" height="30"></a>
+  <nav class="nav__links" aria-label="Main">
+    <a class="nav__help" href="https://laaslocks.com/help/" target="_blank" rel="noopener">Help<span class="long"> &amp; Guides</span> ↗</a>
+    <a href="#how">How it works</a>
+    <a href="#faq">FAQ</a>
+    <a class="nav__buy" href="#shop">Shop<span class="long"> Ring-Lock</span></a>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- ================= OPENING STORY (Marcus's story, Eric V3's opening) ================= -->
+  <section class="story" id="story" aria-label="LAAS Ring-Lock. Keyless. Works with Apple Find My.">
+    <i class="snap" style="top:0" aria-hidden="true"></i><i class="snap" style="top:90svh" aria-hidden="true"></i><i class="snap" style="top:190svh" aria-hidden="true"></i><i class="snap" style="top:290svh" aria-hidden="true"></i><i class="snap" style="top:390svh" aria-hidden="true"></i>
+    <div class="stage" id="stage">
+      <div class="intro-shots" aria-hidden="true">
+        <picture class="intro-shot"><source media="(max-width: 760px)" srcset="images/hero/rider-1-1000.webp"><img src="images/hero/rider-1-1920.webp" alt="" decoding="async" fetchpriority="high"></picture>
+        <picture class="intro-shot"><source media="(max-width: 760px)" srcset="images/hero/rider-2-1000.webp"><img src="images/hero/rider-2-1920.webp" alt="" decoding="async"></picture>
+        <picture class="intro-shot"><source media="(max-width: 760px)" srcset="images/hero/rider-3-1000.webp"><img src="images/hero/rider-3-1920.webp" alt="" decoding="async"></picture>
+        <picture class="intro-shot"><source media="(max-width: 760px)" srcset="images/hero/rider-4-1000.webp"><img src="images/hero/rider-4-1920.webp" alt="" decoding="async"></picture>
+        <picture class="intro-shot"><source media="(max-width: 760px)" srcset="images/hero/rider-5-1000.webp"><img src="images/hero/rider-5-1920.webp" alt="" decoding="async"></picture>
+      </div>
+      <figure class="shot is-on" data-shot="0"><picture><source media="(max-width: 760px)" srcset="images/scenes/bike-lock-tall-900.webp"><img src="images/scenes/bike-lock-2400.webp" alt="A light blue city bike with a LAAS Ring-Lock around the rear wheel" fetchpriority="high"></picture></figure>
+      <figure class="shot" data-shot="1" style="--mpos: 58% 50%"><picture><source media="(max-width: 760px)" srcset="images/hero/park-900.webp"><img src="images/hero/park-1920.webp" alt="A woman looking around a park for her bike" loading="eager"></picture></figure>
+      <figure class="shot" data-shot="2" style="--mpos: 30% 50%"><picture><source media="(max-width: 760px)" srcset="images/hero/phone-900.webp"><img src="images/hero/phone-1920.webp" alt="The same woman checking her phone" loading="eager"></picture></figure>
+      <figure class="shot" data-shot="3" style="--mpos: 40% 50%"><picture><source media="(max-width: 760px)" srcset="images/hero/plaza-900.webp"><img src="images/hero/plaza-1920.webp" alt="The same woman riding away across a Copenhagen square" loading="eager"></picture></figure>
+
+      <canvas class="px" id="px" aria-hidden="true"></canvas>
+      <p class="intro-tag" aria-hidden="true">The keyless ring lock for your bike.</p>
+      <div class="beat" data-beat="0">
+        <h1>Keyless.<span>Works with Apple Find My.</span></h1>
+        <p class="sub">The LAAS Ring-Lock. Opens with your phone.</p>
+        <div class="hero-buy">
+          <a class="btn btn--light" href="#shop">Shop Ring-Lock · €129</a>
+          <a class="textlink" href="#how">See how it works</a>
+        </div>
+        <p class="hero-assure">57-day returns · No subscription · Ships in 1–2 working days</p>
+      </div>
+      <div class="beat" data-beat="1">
+        <h2>Moved?<span>Forgot where you parked?</span></h2>
+      </div>
+      <div class="beat" data-beat="2">
+        <h2>Let’s find out.</h2>
+      </div>
+      <div class="beat" data-beat="3">
+        <h2>Never lose track<br>of your bike.<span>Works with Apple Find My.</span></h2>
+        <p class="fine">Only you see where your bike is. LAAS does not receive its location. To use the Apple Find My app to locate this item, the latest version of iOS, iPadOS, or macOS is recommended.</p>
+        <a class="btn btn--light btn--sm" href="#shop">Shop Ring-Lock · €129</a>
+      </div>
+
+      <div class="progress" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i></div>
+      <div class="hint" aria-hidden="true">Scroll</div>
+
+      <aside class="note" data-for="-1" data-k="e"><b>Öppningen från Eric V3</b>, nu kortare (0,9 skärm i stället för 1,6). Pixel-loggan dras in i loggan på låset medan fotot zoomar ut till Marcus hero.</aside>
+      <aside class="note" data-for="0" data-k="new"><b>Hero: Marcus rubrik + köpknapp 🆕.</b> Alla tre agenter: pris och köpknapp måste synas direkt. “Apple Find My.” → “Works with Apple Find My.” (Apples regel) ❓ Marcus OK. Foto tillfälligt, Eric väljer.</aside>
+      <aside class="note" data-for="1" data-k="q"><b>Ändrat från “Stolen? Moved?”</b> Apples Find My-regler (R3 §3.2) förbjuder stöld ihop med Find My. ❓ Marcus OK. Samma modell i alla tre bilderna (letar → telefon → cyklar iväg).</aside>
+      <aside class="note" data-for="2" data-k="m"><b>Marcus text.</b> En riktig Find My-skärm måste vara vår egen godkända skärmdump.</aside>
+      <aside class="note" data-for="3" data-k="new"><b>Marcus text + integritetsrad 🆕</b> (som Apple AirTag). Recensionerna är flyttade längre ner: 3.8 av 6 ska inte vara det sista man ser i berättelsen.</aside>
+    </div>
+  </section>
+
+  <!-- ================= HOW IT WORKS (moved up: pays off "Keyless") ================= -->
+  <section class="sec sec--white" id="how">
+    <div class="wrap">
+      <div class="how__head rise">
+        <aside class="note" data-k="m"><b>Marcus fyra kapitel, flyttade upp 🆕.</b> De förklarar “Keyless” direkt och skiljer Find My från försäkringen. Grafiken är ny; Marcus skärmdumpar och filmer byts in när filerna finns.</aside>
+        <span class="kicker">How it works</span>
+        <h2>Your phone is the key.</h2>
+      </div>
+      <div class="cards" aria-label="How it works, four steps">
+        <article class="card rise">
+          <div class="card__vis">
+            <div class="phone" aria-hidden="true"><div class="phone__screen">
+              <b>Add new lock</b><small>Enter the serial number on the lock.</small>
+              <div class="field">RL01 · 4821 · 77</div>
+              <div class="field field--name">Name: Blue city bike</div>
+              <div class="phone__cta">Add lock</div>
+            </div></div>
+          </div>
+          <div class="card__body"><span class="num">01</span><h3>Set up your lock.</h3><p>Enter the serial number. Give your lock a name. No passwords. No email verification.</p></div>
+        </article>
+        <article class="card rise">
+          <div class="card__vis"><img src="images/hero.jpg" alt="Close-up of a Ring-Lock around a rear tyre" loading="lazy"></div>
+          <div class="card__body"><span class="num">02</span><h3>Lock manually.</h3><p>Push the bolt in, like any bike lock. Unlock with the app, even without internet.</p></div>
+        </article>
+        <article class="card rise">
+          <div class="card__vis">
+            <div class="share" aria-hidden="true">
+              <div class="bubble">Can I borrow your bike?</div>
+              <div class="bubble bubble--me">Sure. Here you go.<u><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="vertical-align:-2px;margin-right:4px"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/></svg>LAAS invite · Blue city bike</u></div>
+              <div class="bubble">Unlocked. Thanks!</div>
+            </div>
+          </div>
+          <div class="card__body"><span class="num">03</span><h3>Send a link. Not a key.</h3><p>Send an invitation. They accept it and unlock with their phone.</p></div>
+        </article>
+        <article class="card rise">
+          <div class="card__vis">
+            <div class="battery" aria-hidden="true"><div class="battery__body"><div class="battery__fill"></div></div><span>USB-C · 90 min · about six months</span></div>
+          </div>
+          <div class="card__body"><span class="num">04</span><h3>Charge for 90 minutes.</h3><p>Then ride for about six months. Any USB-C cable works.</p></div>
+        </article>
+      </div>
+      <p class="platforms rise">The LAAS app works on iPhone and Android. Apple Find My needs an Apple device.</p>
+      <aside class="note" data-k="q" style="margin-top:18px"><b>❓ Bekräfta:</b> funkar delning vid lansering (Marcus 12 sep: “to be implemented asap”)? 90 min laddning enligt Driven (Marcus skrev “an hour”).</aside>
+    </div>
+  </section>
+
+  <!-- ================= INSURANCE ================= -->
+  <section class="sec sec--ink" id="insurance">
+    <div class="wrap split">
+      <div class="rise">
+        <aside class="note" data-k="m"><b>Marcus text + VK-fakta från V3.</b> Ett kapitel från Find My (tvåhistorieregeln). Marcus labbfilm ska in i bilden till höger.</aside>
+        <span class="kicker">Varefakta</span>
+        <h2>Insurance-approved in Denmark.</h2>
+        <p class="lead">Varefakta is Denmark’s independent consumer-labeling body, so its mark means the claims were verified by people who do not work for us.</p>
+        <p class="lead">The only electronic app-controlled ring lock on Varefakta’s public list. The certificate is in the box.</p>
+        <div class="seal">
+          <img src="images/varefakta-badge.jpg" alt="Varefakta Kontrolleret" width="86" height="88" loading="lazy">
+          <div class="chips"><span class="chip"><b>Listing</b>VK 37868</span><span class="chip"><b>Certificate</b>VF 5029:4</span></div>
+        </div>
+      </div>
+      <div class="split__media rise">
+        <div class="media media--tall"><img src="images/feature-insurance-bright.jpg" alt="A copper Ring-Lock mounted on a green bike" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FIT ================= -->
+  <section class="sec" id="fit">
+    <div class="wrap split">
+      <div class="rise">
+        <aside class="note" data-k="m"><b>Marcus “Yes.” + Driven-fakta.</b> “Please don’t measure” är ersatt av konkreta mått (alla tre agenter). Marcus foto IMG_9880 ska in här.</aside>
+        <span class="kicker">Fit</span>
+        <h2>Will it fit my bike?</h2>
+        <p class="lead">Yes. Ring-Lock fits most bikes, from city bikes to e-bikes and cargo bikes.</p>
+        <ul class="fitlist">
+          <li><b>Tyres</b><span>Up to 60 mm wide. The width is on the tyre: in 42-622, it is 42.</span></li>
+          <li><b>Frame holes</b><span>Two threaded holes by the rear wheel? The screws are in the box.</span></li>
+          <li><b>No holes</b><span>Add the Flex Mount for €9.99.</span></li>
+          <li><b>Not for</b><span>Fat bikes.</span></li>
+        </ul>
+        <p class="lead small">Not sure? Try it on your own bike for 57 days. If it does not fit, send it back.</p>
+        <a class="btn btn--ghost" href="#shop">Choose your finish</a>
+      </div>
+      <div class="split__media rise">
+        <div class="media media--tall"><img src="images/real/steel.webp" alt="A Steel Ring-Lock around a city bike tyre" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COMPARE (new) ================= -->
+  <section class="sec sec--white" id="compare">
+    <div class="wrap compare">
+      <div class="rise">
+        <aside class="note" data-k="new"><b>Nytt 🆕: jämförelse.</b> Motiverar €129 (struktur- och konkurrentagenten). Find My är medvetet utelämnat här, eftersom tabellen innehåller försäkring.</aside>
+        <span class="kicker">Why a Ring-Lock</span>
+        <h2>One lock that stays on your bike.</h2>
+      </div>
+      <div class="table rise" role="table" aria-label="LAAS Ring-Lock compared with a classic lock">
+        <div class="tr th" role="row"><span role="columnheader"></span><span role="columnheader">LAAS Ring-Lock</span><span role="columnheader">Classic lock</span></div>
+        <div class="tr" role="row"><span role="rowheader">No key to carry or lose</span><span role="cell" class="yes">Yes</span><span role="cell" class="no">No</span></div>
+        <div class="tr" role="row"><span role="rowheader">Lend your bike with a link</span><span role="cell" class="yes">Yes</span><span role="cell" class="no">No</span></div>
+        <div class="tr" role="row"><span role="rowheader">Stays on the bike, nothing to carry</span><span role="cell" class="yes">Yes</span><span role="cell" class="no">Often not</span></div>
+        <div class="tr" role="row"><span role="rowheader">Opens without internet</span><span role="cell" class="yes">Yes</span><span role="cell" class="no">Yes</span></div>
+        <div class="tr" role="row"><span role="rowheader">Insurance-approved in Denmark</span><span role="cell" class="yes">Yes, VK 37868</span><span role="cell" class="no">Some</span></div>
+        <div class="tr" role="row"><span role="rowheader">Subscription</span><span role="cell" class="yes">None</span><span role="cell" class="no">None</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 57 DAYS (moved down: risk, right before the buy) ================= -->
+  <section class="sec" id="trial">
+    <div class="wrap split">
+      <div class="rise">
+        <aside class="note" data-k="m"><b>Marcus rubrik, flyttad ner 🆕.</b> Risken ska tas bort precis innan köpet, inte innan man vill ha låset. Brödtexten är lugnare (“obsessed” bröt mot tonregeln). ❓ Marcus OK.</aside>
+        <span class="kicker">Try it</span>
+        <h2>57 days to fall in love.</h2>
+        <p class="lead">Ride with it for 57 days. If it is not for you, send it back with the prepaid label and get your money back.</p>
+        <ul class="promises">
+          <li>57-day returns</li>
+          <li>Prepaid return label in the box</li>
+          <li>Two-year right to complain</li>
+          <li>No subscription</li>
+        </ul>
+        <p class="lead small">Designed in Copenhagen, where we ride every day.</p>
+        <a class="btn" href="#shop">Choose your finish</a>
+      </div>
+      <div class="split__media rise">
+        <div class="media media--tall"><img src="images/rider-plaza.jpg" alt="A woman walking her bike across a Copenhagen square" loading="lazy" style="object-position:52% 50%"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= INSIDE + IN THE BOX (merged) ================= -->
+  <section class="sec sec--white" id="inside">
+    <div class="wrap split">
+      <div class="rise">
+        <aside class="note" data-k="m"><b>Marcus text, två kapitel ihopslagna 🆕.</b> Slutlig genomskärning saknas (tillfälligt v8). Eric gör en ren “In the box”-rendering.</aside>
+        <span class="kicker">Inside the lock</span>
+        <h2>Steel outside. Sealed electronics inside.</h2>
+        <ul class="parts">
+          <li><b>2</b><div><strong>2 mm stainless-steel pipe</strong><span>Forms the body of the lock. Polished or surface treated, depending on the finish.</span></div></li>
+          <li><b>9</b><div><strong>9 mm hardened-steel shackle</strong><span>Closes through the rear wheel and stops it turning.</span></div></li>
+          <li><b>1</b><div><strong>One watertight electronics unit</strong><span>Batteries, motor and mechanism in one sealed unit.</span></div></li>
+        </ul>
+        <div class="security"><strong>Electronic security.</strong><p>Encrypted communication and a new unlocking key for every unlock. A recorded unlock cannot be replayed.</p></div>
+        <div class="inbox">
+          <strong>In the box</strong>
+          <ul><li>LAAS Ring-Lock</li><li>Mounting screws</li><li>Quick-start manual</li><li>Insurance certificate</li><li>Return shipping label</li></ul>
+        </div>
+      </div>
+      <div class="split__media rise">
+        <div class="render"><img src="images/v8/steel-02-left-three-quarter.webp" alt="LAAS Ring-Lock in Steel, three-quarter view" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= REVIEWS (moved, honest and small) ================= -->
+  <section class="sec" id="reviews">
+    <div class="wrap">
+      <div class="rise">
+        <aside class="note" data-k="e"><b>Riktiga Trustpilot-recensioner, flyttade hit.</b> 3.8 av 6 visas ärligt och litet, inte i heron (EU Omnibus: inga utvalda, säg var de kommer ifrån). Byt till pressciat när vi har riktiga.</aside>
+        <span class="kicker">From riders</span>
+      </div>
+      <div class="reviews-row rise">
+        <a class="rv-score" href="https://www.trustpilot.com/review/laaslocks.com" target="_blank" rel="noopener">
+          <span class="stars" aria-hidden="true"><i></i><i></i><i></i><i class="half"></i><i class="off"></i></span>
+          <b>3.8</b>
+          <small>Selected reviews from Trustpilot. Read all 6 ↗</small>
+        </a>
+        <figure class="rv"><p>“Small, discreet, functional. Great design and easy to use.”</p><small>Ringo W., Germany · translated from German</small></figure>
+        <figure class="rv"><p>“It works well. The quality seems to be really good.”</p><small>D. A., Switzerland</small></figure>
+        <figure class="rv"><p>“The app works fine. A good product.”</p><small>R. I., United Kingdom</small></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="sec sec--white" id="faq">
+    <div class="wrap faq">
+      <div class="rise">
+        <aside class="note" data-k="e"><b>Marcus 3 + V3 3 + 2 nya 🆕</b> (död telefon och batteri, de vanligaste frågorna om smarta lås). Prisfrågan är omskriven till konkret nytta.</aside>
+        <span class="kicker">A few more questions</span>
+        <h2>Before you decide.</h2>
+      </div>
+      <div class="faq__list rise">
+        <details><summary>€129 for a lock?</summary><p>No keys to lose or copy. Unlock with your phone, lend your bike with a link, and charge it twice a year. One lock that stays on your bike, with no subscription.</p></details>
+        <details><summary>What if my phone dies?</summary><p>Anyone you have shared the lock with can open it from their phone. Lending works with a link, so a partner or friend can hold a key for you.</p></details>
+        <details><summary>What if the lock’s battery runs low?</summary><p>About six months per charge, and the app warns you well before. A full charge over USB-C takes 90 minutes.</p></details>
+        <details><summary>Can LAAS see where my bike is?</summary><p>No. Your bike’s location is in Apple Find My. LAAS does not receive it.</p></details>
+        <details><summary>Does it work on Android?</summary><p>Yes. Use the LAAS app to unlock and share your bike. Apple Find My requires an Apple device.</p></details>
+        <details><summary>Will my insurance accept it?</summary><p>In Denmark, the Ring-Lock is insurance-approved: Varefakta VK 37868. Most Danish insurers ask for a Varefakta-approved lock and a lock certificate, and the certificate is in the box. Check your own policy. Outside Denmark, check what your policy asks for first.</p></details>
+        <details><summary>How fast does it ship, and what does it cost?</summary><p>It ships in 1–2 working days. Shipping for one lock is €9, and free from two locks. Questions about an order? Write to <a href="mailto:support@laaslocks.com">support@laaslocks.com</a>.</p></details>
+        <details><summary>How do returns and the right to complain work?</summary><p>Changed your mind? Tell us at support@laaslocks.com within 57 days of delivery, then hand the lock to the carrier with the prepaid return label. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery.</p></details>
+      </div>
+      <aside class="note" data-k="q" style="margin-top:16px">❓ “What if my phone dies?” och batterivarningen i appen: bekräfta med Shyam att det stämmer.</aside>
+      <a class="btn btn--ghost faq__more" href="https://laaslocks.com/help/" target="_blank" rel="noopener">More answers in Help &amp; Guides ↗</a>
+    </div>
+  </section>
+
+  <!-- ================= SHOP ================= -->
+  <section class="sec" id="shop">
+    <div class="wrap shop">
+      <div class="shop__img rise"><img id="shopImg" src="images/v8/steel-00-hero.webp" alt="LAAS Ring-Lock in Steel" width="1200" height="1200"></div>
+      <div class="shop__card rise">
+        <aside class="note" data-k="new"><b>Erics del (shoppen).</b> Priset ligger i knappen, Steel (bästsäljaren) är förvald och leveranstid och retur står direkt under knappen. ❓ Andra låset €119 och fri frakt från två lås är Marcus idé och inte byggt i köpflödet än.</aside>
+        <span class="kicker">Shop</span>
+        <h2>Ring-Lock</h2>
+        <p class="tag">Keyless. Unlock and share from your phone.</p>
+        <div class="price"><b>€129</b><small>Introduction price through 31 December 2026. From 1 January 2027: €149.</small></div>
+        <p class="finish-label">Finish: <b id="finishName">Steel</b></p>
+        <div class="finishes" role="group" aria-label="Finish">
+          <button type="button" aria-pressed="true" data-finish="steel"><img src="images/v8/steel-00-hero-s.webp" alt="">Steel</button>
+          <button type="button" aria-pressed="false" data-finish="black"><img src="images/v8/black-00-hero-s.webp" alt="">Black</button>
+          <button type="button" aria-pressed="false" data-finish="copper"><img src="images/v8/copper-00-hero-s.webp" alt="">Copper</button>
+        </div>
+        <a class="btn btn--buy" id="buyBtn" href="buy.html?finish=steel">Buy Ring-Lock · €129</a>
+        <ul class="assure">
+          <li>Ships in 1–2 working days · €9, free from two locks</li>
+          <li>57 days to change your mind · prepaid return label</li>
+          <li>No subscription · two-year right to complain</li>
+          <li>Works on iPhone and Android</li>
+        </ul>
+        <p class="offer-line">Two bikes? The second lock is €119.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- sticky buy bar: after the story, hidden over the shop -->
+<div class="buybar" id="buybar" aria-hidden="true">
+  <img src="images/v8/steel-00-hero-s.webp" alt="" width="44" height="44">
+  <div><b>Ring-Lock · €129</b><span>Ships in 1–2 working days</span></div>
+  <a class="btn btn--sm" href="#shop" tabindex="-1">Buy</a>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div><img src="images/logo-white.svg" alt="LAAS" width="120" height="30"><p class="foot__tag">Locks you can love.</p></div>
+      <nav aria-label="Footer">
+        <a href="https://laaslocks.com/help/" target="_blank" rel="noopener">Help &amp; Guides</a>
+        <a href="https://laaslocks.com/guides/" target="_blank" rel="noopener">Manual &amp; guides</a>
+        <a href="https://laaslocks.com/app/" target="_blank" rel="noopener">Get the app</a>
+        <a href="terms.html">Terms of sale</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="https://www.instagram.com/laaslocks/" target="_blank" rel="noopener">Instagram</a>
+      </nav>
+    </div>
+    <div class="foot__legal">
+      <span>© 2026 LAAS ApS · Designed in Copenhagen · Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · +45 40 85 30 99 · support@laaslocks.com</span>
+      <span>Apple, Find My, iPhone, iPad, iPadOS, Mac and macOS are trademarks of Apple Inc., registered in the U.S. and other countries and regions. IOS is a trademark or registered trademark of Cisco in the U.S. and other countries and is used under license.</span>
+    </div>
+    <aside class="note" data-k="q" style="margin-top:20px"><b>❓ Tagline</b> “Locks you can love.” kommer från Marcus prototyp, POS-skissen och laaslocks.com. Den är ny jämfört med Drivens alternativ, så bekräfta. Telefon +45 40 85 30 99 enligt Driven (laaslocks.com har 31 33 82 13).</aside>
+  </div>
+</footer>
+
+<div class="legend" aria-hidden="true"><span class="l-m">♻️ Marcus</span><span class="l-e">♻️ Eric V3</span><span class="l-new">🆕 Nytt</span><span class="l-q">❓ Bekräfta</span></div>
+<button class="notes-toggle" type="button" aria-pressed="true">Utkastanteckningar: på</button>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const story = document.getElementById('story');
+  const stage = document.getElementById('stage');
+  const shots = [...story.querySelectorAll('.shot')];
+  const shot0 = shots[0];
+  const beats = [...story.querySelectorAll('.beat')];
+  const dots = [...story.querySelectorAll('.progress i')];
+  const notes = [...story.querySelectorAll('.note[data-for]')];
+  const hint = story.querySelector('.hint');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (n, a = 0, b = 1) => Math.max(a, Math.min(b, n));
+  const smooth = n => n * n * (3 - 2 * n);
+  // the story: an opening of 1.6 screens, then one screen per step (4 beats + the reviews)
+  const INTRO = 0.9, STEPS = 4;
+  let current = null, W = innerWidth, H = innerHeight;
+  const phone = () => W <= 760;
+
+  function setStep(i) {
+    if (i === current) return;
+    current = i;
+    const beat = i < 0 ? -1 : Math.min(i, 3);
+    beats.forEach(el => { const on = Number(el.dataset.beat) === beat; el.classList.toggle('is-on', on); el.inert = !on; });
+    shots.forEach(el => el.classList.toggle('is-on', Number(el.dataset.shot) === Math.max(beat, 0)));
+    notes.forEach(el => el.classList.toggle('is-on', Number(el.dataset.for) === beat));
+    dots.forEach((d, k) => d.classList.toggle('is-on', k === beat));
+  }
+
+  /* ---- where the laser-marked logo sits on screen in the hero photo ---- */
+  const LOGO = { wide: { iw: 2400, ih: 1354, u: 0.510, v: 0.369, w: 0.046, base: 1.32, oy: 0.62 },
+                 tall: { iw: 900, ih: 1500, u: 0.444, v: 0.467, w: 0.122, base: 1, oy: 0.5 } };
+  const ANG = 36 * Math.PI / 180;
+  function logoOnScreen() {
+    const L = phone() ? LOGO.tall : LOGO.wide;
+    const c = Math.max(W / L.iw, H / L.ih), rw = L.iw * c, rh = L.ih * c;
+    const x0 = (W - rw) / 2 + L.u * rw, y0 = (H - rh) / 2 + L.v * rh;
+    const oy = L.oy * H;
+    return { x: x0 * L.base, y: oy + (y0 - oy) * L.base, w: L.w * rw * L.base };
+  }
+
+  /* ---- the pixel wordmark (Eric V3): the supplied LAAS artwork sampled onto square pixels ---- */
+  const canvas = document.getElementById('px'), ctx = canvas.getContext('2d');
+  const MARK = [...document.querySelectorAll('#laas-mark path')].map(p => new Path2D(p.getAttribute('d')));
+  const MW = 343.43, MH = 88.44, MX = 966, MY = 758.556;
+  const px = { cells: [], cell: 10, w: 0, h: 0, x: 0, y: 0, dpr: 1, key: '' };
+  function buildPixels() {
+    const key = W + 'x' + H;
+    if (px.key === key) return;
+    px.key = key;
+    px.dpr = Math.min(devicePixelRatio || 1, 2);
+    canvas.width = Math.round(W * px.dpr); canvas.height = Math.round(H * px.dpr);
+    px.w = phone() ? W * 0.86 : Math.min(W * 0.72, H * 2.3);
+    px.h = px.w * MH / MW;
+    px.x = (W - px.w) / 2; px.y = H * 0.46 - px.h / 2;
+    px.cell = Math.max(5, Math.round(px.w / (phone() ? 56 : 88)));
+    const cols = Math.ceil(px.w / px.cell), rows = Math.ceil(px.h / px.cell), ss = 4;
+    const off = document.createElement('canvas'); off.width = cols * ss; off.height = rows * ss;
+    const o = off.getContext('2d');
+    o.setTransform(ss / px.cell * px.w / MW, 0, 0, ss / px.cell * px.h / MH, 0, 0);
+    o.translate(-MX, -MY);
+    MARK.forEach(p => o.fill(p));
+    const data = o.getImageData(0, 0, off.width, off.height).data;
+    px.cells = [];
+    let seed = 7;
+    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      let a = 0;
+      for (let y = 0; y < ss; y++) for (let x = 0; x < ss; x++) a += data[((r * ss + y) * off.width + c * ss + x) * 4 + 3];
+      const cov = a / (ss * ss * 255);
+      if (cov < 0.12) continue;
+      const hx = px.x + (c + 0.5) * px.cell, hy = px.y + (r + 0.5) * px.cell;
+      px.cells.push({ hx, hy, u: (hx - px.x) / px.w, v: (hy - px.y) / px.h, cov: Math.min(1, cov * 1.15), ph: rnd() * 6.28, sw: rnd() < 0.5 ? -1 : 1, tint: rnd() < 0.07, d: rnd() });
+    }
+  }
+  const pointer = { x: -1e4, y: -1e4 };
+  addEventListener('pointermove', e => { pointer.x = e.clientX; pointer.y = e.clientY; }, { passive: true });
+
+  let ip = 0, zoom = 1;
+  function drawPixels(now) {
+    buildPixels();
+    const k = px.dpr, time = now / 1000;
+    ctx.setTransform(k, 0, 0, k, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    if (ip >= 1) return;
+    const t = clamp((ip - 0.02) / 0.8);
+    const L = logoOnScreen();
+    // the logo in the photo is magnified around its own spot, so the target grows with the zoom
+    const tw = L.w * zoom, th = tw * MH / MW, ca = Math.cos(ANG * smooth(t)), sa = Math.sin(ANG * smooth(t));
+    const tcell = px.cell * tw / px.w;
+    for (const p of px.cells) {
+      const start = 0.28 * Math.hypot(p.u - 0.5, (p.v - 0.5) * 0.4) + 0.12 * p.d;
+      const q = clamp((t - start) / 0.62), e = q * q * q * (q * (6 * q - 15) + 10);
+      const lu = (p.u - 0.5) * tw, lv = (p.v - 0.5) * th;
+      const tx = L.x + lu * ca - lv * sa, ty = L.y + lu * sa + lv * ca;
+      const dx = tx - p.hx, dy = ty - p.hy, sw = Math.sin(Math.PI * e) * 0.12 * p.sw;
+      let x = p.hx + dx * e - dy * sw, y = p.hy + dy * e + dx * sw;
+      let size = px.cell * (0.42 + 0.5 * p.cov);
+      if (t <= 0.001 && !reduce) {
+        size *= 0.9 + 0.1 * Math.sin(time * 1.6 + p.ph);
+        const ddx = x - pointer.x, ddy = y - pointer.y, dd = Math.hypot(ddx, ddy), rad = px.cell * 7;
+        if (dd < rad) { const f = (1 - dd / rad) ** 2 * px.cell * 1.6; x += ddx / (dd || 1) * f; y += ddy / (dd || 1) * f; }
+      }
+      size = size + (tcell * 0.9 - size) * e;
+      const a = 1 - smooth(clamp((e - 0.7) / 0.3));
+      if (a <= 0.01) continue;
+      ctx.globalAlpha = a;
+      ctx.fillStyle = p.tint ? '#9BCDD0' : '#ECECEA';
+      ctx.fillRect(x - size / 2, y - size / 2, size, size);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function update() {
+    W = innerWidth; H = innerHeight;
+    const y = -story.getBoundingClientRect().top;
+    ip = reduce ? 1 : clamp(y / (INTRO * H));
+    const intro = ip < 1;
+    stage.classList.toggle('is-intro', intro);
+    root.classList.toggle('in-intro', ip < 0.85);
+    stage.style.setProperty('--ip', ip.toFixed(4));
+    // the hero photo: from a macro of the logo out to Marcus's framing, fading in as the pixels land
+    const e = smooth(clamp((ip - 0.1) / 0.85));
+    zoom = 1 + (phone() ? 5 : 7) * (1 - e);
+    const L = logoOnScreen();
+    shot0.style.transformOrigin = `${L.x}px ${L.y}px`;
+    shot0.style.transform = zoom > 1.001 ? `scale(${zoom.toFixed(4)})` : '';
+    shot0.style.opacity = intro ? smooth(clamp((ip - 0.3) / 0.55)).toFixed(3) : '';
+    stage.style.setProperty('--gs', smooth(clamp((ip - 0.75) / 0.25)).toFixed(3));
+    hint.style.opacity = ip > 0.04 ? 0 : 0.8;
+    if (ip < 0.9) { setStep(-1); return; }
+    const rest = (y - INTRO * H) / H;
+    setStep(clamp(Math.floor(rest + 0.0001), 0, STEPS - 1));
+  }
+  // the pixels breathe at rest, so they draw every frame while the opening is on screen
+  // the pixels breathe while the opening is on screen; the loop stops once they have landed or the tab is hidden
+  let looping = false;
+  function frame(now) {
+    if (ip >= 1 || document.hidden) { looping = false; if (px.key) ctx.clearRect(0, 0, canvas.width, canvas.height); return; }
+    drawPixels(now);
+    requestAnimationFrame(frame);
+  }
+  const wake = () => { if (!looping && ip < 1 && !document.hidden) { looping = true; requestAnimationFrame(frame); } };
+
+  // sticky buy bar: after the story, out of the way over the shop and the footer
+  const buybar = document.getElementById('buybar'), shopSec = document.getElementById('shop');
+  function bar() {
+    const past = story.getBoundingClientRect().bottom < H * 0.4;
+    const r = shopSec.getBoundingClientRect();
+    const overShop = r.top < H * 0.9;
+    const on = past && !overShop;
+    buybar.classList.toggle('is-on', on);
+    buybar.setAttribute('aria-hidden', String(!on));
+    buybar.querySelector('a').tabIndex = on ? 0 : -1;
+  }
+  addEventListener('scroll', () => { update(); bar(); wake(); }, { passive: true });
+  addEventListener('resize', () => { px.key = ''; update(); bar(); wake(); });
+  document.addEventListener('visibilitychange', wake);
+  update(); bar(); wake();
+
+  // reveal on scroll
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -12% 0px' });
+  document.querySelectorAll('.rise, .card').forEach(el => io.observe(el));
+
+  // finish selector
+  const img = document.getElementById('shopImg');
+  const buy = document.getElementById('buyBtn');
+  const names = { steel: 'Steel', black: 'Black', copper: 'Copper' };
+  const finishName = document.getElementById('finishName'), barImg = document.querySelector('#buybar img');
+  document.querySelectorAll('.finishes button').forEach(btn => btn.addEventListener('click', () => {
+    const f = btn.dataset.finish;
+    document.querySelectorAll('.finishes button').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+    const url = `images/v8/${f}-00-hero.webp`, pre = new Image();
+    pre.src = url;
+    img.style.opacity = 0;
+    Promise.all([pre.decode().catch(() => {}), new Promise(r => setTimeout(r, 180))])
+      .then(() => { img.src = url; img.alt = `LAAS Ring-Lock in ${names[f]}`; img.style.opacity = 1; });
+    buy.href = `buy.html?finish=${f}`;
+    finishName.textContent = names[f];
+    barImg.src = `images/v8/${f}-00-hero-s.webp`;
+  }));
+
+  // draft notes toggle (remembered per viewer)
+  const toggle = document.querySelector('.notes-toggle');
+  const apply = on => {
+    document.body.classList.toggle('notes-on', on);
+    toggle.setAttribute('aria-pressed', String(on));
+    toggle.textContent = 'Utkastanteckningar: ' + (on ? 'på' : 'av');
+  };
+  let saved = null;
+  try { saved = localStorage.getItem('laas-start-notes'); } catch (e) {}
+  const q = new URLSearchParams(location.search).get('notes');
+  apply(q ? q !== '0' : saved !== 'off');
+  toggle.addEventListener('click', () => {
+    const on = !document.body.classList.contains('notes-on');
+    apply(on);
+    try { localStorage.setItem('laas-start-notes', on ? 'on' : 'off'); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>
