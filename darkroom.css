@@ -1700,7 +1700,7 @@ html.in-tale .lang a[aria-current="true"] { background: #ECECEA; color: #202F30;
   .how p { max-height: none; opacity: 1; margin-top: 6px; }
   .how b { color: #202F30; }
 }
-.how { align-self: stretch; width: 100%; max-width: 560px; }
+.how { align-self: center; width: 100%; max-width: 560px; }
 @media (max-width: 760px) { .void--how { align-items: stretch; } .void--how .void__left { align-self: stretch; } }
 
 /* ------------------------------------------- the smart header (all pages)
