@@ -1975,3 +1975,39 @@ html[data-tone="dark"] .nav__bag b, html.in-tale .nav__bag b { background: #ECEC
   #buy .slot { grid-column: 1; grid-row: 1; }
   #buy .void__right { grid-column: 2; grid-row: 1; }
 }
+
+/* 1 · the story, page one: every frame full-bleed, a big line, a counter, and story-style segments that fill as it plays */
+.tale__shot img { scale: 1.12; transition: scale calc(var(--tale-ms, 4200ms) * 1.6) cubic-bezier(.2, .6, .2, 1), opacity 1s; }
+.tale__shot.is-on img { scale: 1; }
+.tale__shot[data-i="0"] img { object-position: 60% 30%; }
+.tale__shot[data-i="1"] img { object-position: 50% 62%; }
+.tale__shot[data-i="2"] img { object-position: 85% 50%; }
+.tale__shot[data-i="3"] img { object-position: 50% 65%; }
+.tale__pin::after { background: linear-gradient(90deg, rgba(20, 32, 33, .82) 0%, rgba(20, 32, 33, .45) 38%, rgba(20, 32, 33, 0) 66%), linear-gradient(0deg, rgba(20, 32, 33, .7) 0%, rgba(20, 32, 33, 0) 42%); }
+.tale__copy { width: min(900px, 70vw); bottom: clamp(84px, 13vh, 150px); }
+.tale__line { font-size: clamp(56px, 7vw, 128px); line-height: .96; letter-spacing: -0.05em; text-wrap: balance; }
+.tale__line span { font-size: .36em; margin-top: .32em; letter-spacing: -0.02em; color: #ECECEA; opacity: .88; }
+.tale__index { color: #9BCDD0; margin-bottom: 22px; }
+.tale__count { font-variant-numeric: tabular-nums; color: rgba(236, 236, 234, .7); }
+.tale__count b { color: #ECECEA; }
+.tale__bar { display: none; }
+.tale__dots { top: auto; bottom: 30px; left: var(--gutter); right: calc(var(--gutter) + 64px); translate: none; display: flex; gap: 8px; grid-auto-flow: unset; }
+.tale__dots li { flex: 1; display: block; }
+.tale__dots button { position: relative; width: 100%; height: 22px; display: block; }
+.tale__dots button::before, .tale__dots li.is-on button::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 3px; width: auto; margin-top: -1.5px; border-radius: 3px; background: rgba(236, 236, 234, .28); scale: 1; }
+.tale__dots button::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 3px; margin-top: -1.5px; border-radius: 3px; background: #ECECEA; transform-origin: left; transform: scaleX(0); }
+.tale__dots li:has(~ li.is-on) button::after, .tale__dots li.is-on button::after { transform: scaleX(1); }
+.tale.is-playing .tale__dots li.is-on button::after { animation: tale-bar var(--tale-ms, 4200ms) linear; }
+@keyframes tale-bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.tale__dots button:hover::before { background: rgba(236, 236, 234, .5); }
+.tale__pause { bottom: 19px; }
+@media (max-width: 760px) {
+  .tale__copy { left: var(--gutter); right: var(--gutter); width: auto; bottom: 78px; }
+  .tale__line { font-size: clamp(40px, 11.5vw, 54px); }
+  .tale__line span { font-size: .42em; }
+  .tale__pin::after { background: linear-gradient(0deg, rgba(20, 32, 33, .92) 0%, rgba(20, 32, 33, .6) 30%, rgba(20, 32, 33, 0) 58%); }
+  .tale__dots { bottom: 28px; right: calc(var(--gutter) + 56px); gap: 5px; }
+  .tale__pause { bottom: 17px; }
+  .tale__shot[data-i="2"] img { object-position: 60% 30% !important; }
+}
+@media (min-width: 761px) and (max-width: 1100px) and (max-aspect-ratio: 1/1) { .tale__copy { width: auto; right: var(--gutter); } .tale__line { font-size: clamp(54px, 9vw, 84px); } }

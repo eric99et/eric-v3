@@ -40,7 +40,7 @@ const DA = {
   'Charge twice a year': 'Oplad to gange om året', '90 minutes over USB-C lasts about six months.': '90 minutter via USB-C holder cirka seks måneder.',
   'Everyday': 'Hverdag', 'Moved? Forgot where you parked?': 'Flyttet? Glemt, hvor du parkerede?',
   'The bike was moved to make room, or the street looked different on the way back. It happens to everyone.': 'Cyklen blev flyttet for at gøre plads, eller gaden så anderledes ud på vej tilbage. Det sker for alle.',
-  'Busy day.': 'Travl dag.', 'Your iPhone knows where it is.': 'Din iPhone ved, hvor den er.', 'Right where you left it.': 'Lige hvor du stillede den.', 'One tap.': 'Ét tryk.', 'Unlocked with the LAAS app.': 'Låst op med LAAS-appen.', 'Pause story': 'Sæt historien på pause', 'Play story': 'Afspil historien', 'Who we are': 'Hvem vi er', 'Designed in Copenhagen, by people who ride every day.': 'Designet i København af folk, der cykler hver dag.', 'Founder, LAAS': 'Stifter, LAAS', 'Questions? Write to us at': 'Spørgsmål? Skriv til os på', '. A person answers.': '. Et menneske svarer.',
+  'Busy day.': 'Travl dag.', 'Your phone is already looking.': 'Din telefon leder allerede.', 'A day with the Ring-Lock': 'En dag med Ring-Lock', 'Right where you left it.': 'Lige hvor du stillede den.', 'One tap.': 'Ét tryk.', 'Unlocked with the LAAS app.': 'Låst op med LAAS-appen.', 'Pause story': 'Sæt historien på pause', 'Play story': 'Afspil historien', 'Who we are': 'Hvem vi er', 'Designed in Copenhagen, by people who ride every day.': 'Designet i København af folk, der cykler hver dag.', 'Founder, LAAS': 'Stifter, LAAS', 'Questions? Write to us at': 'Spørgsmål? Skriv til os på', '. A person answers.': '. Et menneske svarer.',
   'Put a ring on it.': 'Sæt en ring på den.', 'Steel, copper or black. Same lock, same price. You have 57 days to fall in love with it.': 'Steel, Copper eller Black. Samme lås, samme pris. Du har 57 dage til at forelske dig i den.',
   'LAAS began with a Swedish carpenter, Marcus Kjellsson, who lost his bike keys once too often. He wanted a lock with no keyhole at all, opened by the phone already in your pocket. The name plays on lås, Danish for lock.': 'LAAS begyndte med en svensk tømrer, Marcus Kjellsson, der mistede sine cykelnøgler én gang for meget. Han ville have en lås helt uden nøglehul, som åbnes med den telefon, du allerede har i lommen. Navnet leger med ordet lås.',
   'It took four factories to get the ring right, and 2,500 backers on Kickstarter and Indiegogo who said yes before it existed.': 'Det krævede fire fabrikker at få ringen rigtig, og 2.500 backere på Kickstarter og Indiegogo, der sagde ja, før den fandtes.',
@@ -93,6 +93,7 @@ const DA = {
   'Help & Guides': 'Hjælp og guides',
   'Locks you can love. · © 2026 LAAS ApS · Designed in Copenhagen': 'Locks you can love. · © 2026 LAAS ApS · Designet i København',
   'Support': 'Support', 'Help & Guides.': 'Hjælp og guides.', 'Find an answer, a guide, or someone who can help.': 'Find et svar, en guide eller en, der kan hjælpe.', 'Talk to us': 'Tal med os', 'Call us': 'Ring til os', 'Write to us': 'Skriv til os', 'My lock won’t open.': 'Min lås vil ikke åbne.', 'Keep You Moving': 'Keep You Moving', 'I lost my phone.': 'Jeg har mistet min telefon.', 'My bike is missing.': 'Min cykel er væk.', 'Manual & guides.': 'Manual og guides.', 'Setup, everyday use and the full manual.': 'Opsætning, daglig brug og hele manualen.',
+  'Forgot where you parked?': 'Glemt, hvor du parkerede?', 'Happens to all of us.': 'Det sker for os alle.', 'Your iPhone shows the way.': 'Din iPhone viser vejen.', 'Locate it in the Apple Find My app.': 'Find den i Apple Find My-appen.', 'Unlock with one tap.': 'Lås op med ét tryk.', 'Your phone is the key.': 'Din telefon er nøglen.', 'And off you go.': 'Og så er du afsted.', 'No key. No cable. Just ride.': 'Ingen nøgle. Intet kabel. Bare kør.',
   'Park.': 'Parkér.', 'Push the bolt in. Click.': 'Skub bolten ind. Klik.', 'One tap in the app, and it opens.': 'Ét tryk i appen, og den åbner.', 'No key to dig for. Just ride.': 'Ingen nøgle at lede efter. Bare kør.', 'Moved?': 'Flyttet?', 'Forgot where you parked?': 'Glemt, hvor du parkerede?', 'Your bike, on the map.': 'Din cykel på kortet.', 'There it is.': 'Der er den.', 'Where did I park?': 'Hvor parkerede jeg?', 'Let’s find out.': 'Lad os finde ud af det.', 'Back to your day.': 'Tilbage til din dag.',
   'Why a Ring-Lock': 'Hvorfor en Ring-Lock', 'One lock that stays on your bike.': 'Én lås, der bliver på din cykel.',
   'Nothing to carry, nothing to forget, and no subscription.': 'Intet at bære på, intet at glemme og intet abonnement.',
@@ -514,7 +515,9 @@ function frameChrome(m) {
   setVar(heroSec, '--hp', hero.p.toFixed(4)); setVar(root, '--hp', hero.p.toFixed(4)); setVar(heroSec, '--hq', smooth(clamp((hero.p - 0.82) / 0.18)).toFixed(3));
   setVar(heroSec, '--hd', hd.toFixed(3));
   // the lock fades in, 0 → 100 %, as the hero leaves and the light page rises (it is not shown over the hero)
-  hero.fadeIn = reduce ? 1 : hr.bottom > 0 ? smooth(clamp(hd / 0.85)) : 1;
+  // (when the first chapter hides the lock, as the story does, it stays out of the slide down)
+  const nextHides = /"hide":\s*1/.test(sections[1]?.dataset.key || '');
+  hero.fadeIn = reduce ? 1 : hr.bottom > 0 ? (nextHides ? 0 : smooth(clamp(hd / 0.85))) : 1;
   setVar(stage, '--clip', 'none');
   // the lock appears as the pixels arrive on it
   hero.lock = reduce ? 1 : smooth(clamp((hero.p - 0.28) / 0.5));
@@ -916,7 +919,7 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
    push carries you from the pixel wordmark, through the lock, out to the first chapter. A chapter taller than the
    screen (a phone) gets a second stop at its bottom, so nothing in it is skipped. */
 {
-  const introEl = $('#intro');
+  const introEl = sections.find(sec => sec !== heroSec) || $('#intro');
   // the stops, measured fresh each time (fonts, a resize, an opened FAQ answer all move them)
   const stops = () => {
     const maxY = document.documentElement.scrollHeight - innerHeight, out = [0];
@@ -981,10 +984,10 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
     if (!busy()) intent(down ? 1 : -1);
   });
 }
-/* ------------------------------------------------- the everyday story: it plays itself, a frame every 3.2 s
+/* ------------------------------------------------- the everyday story: it plays itself, a frame every 3.6 s
    while it is on screen; the dots jump to a frame. Reduced motion: no autoplay, the dots still work. */
 {
-  const MS = 3200;
+  const MS = 3600;
   $$('.tale').forEach(t => {
     const frames = $$('[data-i]', t), dots = $$('.tale__dots li', t), n = dots.length;
     let i = 0, timer = 0, visible = false;
@@ -994,6 +997,7 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
       t.dataset.frame = i;
       frames.forEach(el => { const on = +el.dataset.i === i; el.classList.toggle('is-on', on); if (el.matches('h2')) el.setAttribute('aria-hidden', String(!on)); });
       dots.forEach((d, k2) => d.classList.toggle('is-on', k2 === i));
+      const cnt = t.querySelector('.tale__count b'); if (cnt) cnt.textContent = String(i + 1).padStart(2, '0');
       // restart the progress bar
       t.classList.remove('is-playing'); void t.offsetWidth; if (timer) t.classList.add('is-playing');
     };
