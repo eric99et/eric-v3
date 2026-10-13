@@ -1979,7 +1979,7 @@ html[data-tone="dark"] .nav__bag b, html.in-tale .nav__bag b { background: #ECEC
 /* 1 · the story, page one: every frame full-bleed, a big line, a counter, and story-style segments that fill as it plays */
 .tale__shot img { scale: 1.12; transition: scale calc(var(--tale-ms, 4200ms) * 1.6) cubic-bezier(.2, .6, .2, 1), opacity 1s; }
 .tale__shot.is-on img { scale: 1; }
-.tale__shot[data-i="0"] img { object-position: 60% 30%; }
+.tale__shot[data-i="0"] img { object-position: 50% 50%; }
 .tale__shot[data-i="1"] img { object-position: 85% 50%; }
 .tale__shot[data-i="2"] img { object-position: 85% 50%; }
 .tale__shot[data-i="3"] img { object-position: 50% 65%; }
@@ -2030,6 +2030,6 @@ html[data-tone="dark"] .nav__bag b, html.in-tale .nav__bag b { background: #ECEC
 
 /* the story's photos on phones: keep the subject in frame */
 @media (max-width: 760px) {
-  .tale__shot[data-i="0"] img { object-position: 56% 50% !important; }
+  .tale__shot[data-i="0"] img { object-position: 44% 50% !important; }
   .tale__shot[data-i="3"] img { object-position: 40% 50% !important; }
 }
