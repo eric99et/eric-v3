@@ -1003,7 +1003,13 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
     };
     const play = () => { if (reduce || timer) return; timer = setInterval(() => show(i + 1), MS); t.classList.add('is-playing'); };
     const stop = () => { clearInterval(timer); timer = 0; t.classList.remove('is-playing'); };
-    new IntersectionObserver(([e]) => { visible = e.isIntersecting && e.intersectionRatio > 0.6; visible && !document.hidden && !paused ? play() : stop(); }, { threshold: [0, 0.6, 1] }).observe(t);
+    // start only once the page has landed on the story, and always from frame 1 after it has been away,
+    // so the first photo stays put for a full beat instead of switching during the glide in
+    new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) { if (i) show(0); }
+      visible = e.isIntersecting && e.intersectionRect.height >= 0.97 * Math.min(e.boundingClientRect.height, innerHeight);
+      visible && !document.hidden && !paused ? play() : stop();
+    }, { threshold: [0, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.97, 0.99, 1] }).observe(t);
     document.addEventListener('visibilitychange', () => (document.hidden || !visible || paused ? stop() : play()));
     const pauseBtn = $('.tale__pause', t);
     let paused = false;
