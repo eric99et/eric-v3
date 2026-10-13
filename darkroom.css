@@ -2012,3 +2012,9 @@ html[data-tone="dark"] .nav__bag b, html.in-tale .nav__bag b { background: #ECEC
 }
 @media (min-width: 761px) and (max-width: 1100px) and (max-aspect-ratio: 1/1) { .tale__copy { width: auto; right: var(--gutter); } .tale__line { font-size: clamp(54px, 9vw, 84px); } }
 @media (min-width: 1101px) { .tale__pin::after { background: linear-gradient(90deg, rgba(20, 32, 33, .72) 0%, rgba(20, 32, 33, .3) 30%, rgba(20, 32, 33, 0) 46%), linear-gradient(0deg, rgba(20, 32, 33, .55) 0%, rgba(20, 32, 33, 0) 32%); } .tale__copy { width: min(620px, 36vw); } .tale__line { font-size: clamp(52px, 6vw, 112px); } }
+
+/* 04 · Find My: the phone shows the Find My Items screen (Ring-Lock first) instead of the drawn map */
+.fmp .fmp__screen { position: absolute; z-index: 3; inset: calc(var(--h) * .012); width: calc(100% - var(--h) * .024); height: calc(100% - var(--h) * .024); object-fit: cover; border-radius: calc(var(--h) * .064); }
+.fmp .map, .fmp .fmp__pin, .fmp .fmp__sheet { visibility: hidden; }
+.fmp::after { z-index: 4; }
+.radar { display: none !important; }

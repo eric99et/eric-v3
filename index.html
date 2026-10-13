@@ -22,7 +22,7 @@
 <link rel="preload" href="fonts/inter-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="images/lock/steel-00-800.webp" as="image" type="image/webp" media="(max-width: 900px)">
 <link rel="preload" href="images/lock/steel-00-1600.webp" as="image" type="image/webp" media="(min-width: 901px)">
-<link rel="stylesheet" href="darkroom.css?v=1019g">
+<link rel="stylesheet" href="darkroom.css?v=1019h">
 <script>
   // the loader only exists when scripts run; if the 3D engine never arrives, the page still opens
   document.documentElement.classList.add('is-loading');
@@ -118,6 +118,8 @@
   </svg>
   <!-- find my: the phone rides with the lock, the bike lying on its map -->
   <div class="fmp">
+    <!-- the Apple Find My Items screen, the Ring-Lock first in the list (the drawn map and sheet below stay for the script, hidden) -->
+    <img class="fmp__screen" src="images/story/findmy-screen.webp" alt="" decoding="async">
     <svg class="map" viewBox="590 300 520 1130" preserveAspectRatio="xMidYMin slice">
       <rect x="0" y="0" width="1600" height="1400" fill="#ECECEA"/>
       <path class="map__water" d="M1180 -20 C1150 120 1210 230 1170 360 C1135 470 1215 560 1240 690 C1262 800 1215 900 1250 1030 C1270 1150 1230 1260 1250 1400 L1620 1400 L1620 -20 Z"/>
@@ -197,7 +199,7 @@
   <section class="tale" id="moved" data-nav-section="intro" data-tone="dark" data-bg="#202F30" data-key='{"hide":1}' aria-labelledby="h1c">
     <div class="tale__pin">
       <figure class="tale__shot is-on" data-i="0"><picture><source media="(max-width: 760px)" srcset="images/story/crowd-m.webp"><img src="images/story/crowd-wide.webp" alt="She looks around a park, trying to remember where she parked" decoding="async"></picture></figure>
-      <figure class="tale__shot" data-i="1"><picture><source media="(max-width: 760px)" srcset="images/story/findmy-m.webp"><img src="images/story/findmy-wide.webp?v=3" alt="On her iPhone, a map shows where her bike is" decoding="async"></picture></figure>
+      <figure class="tale__shot" data-i="1"><picture><source media="(max-width: 760px)" srcset="images/story/findmy-m.webp?v=2"><img src="images/story/findmy-wide.webp?v=4" alt="On her iPhone, a map shows where her bike is" decoding="async"></picture></figure>
       <figure class="tale__shot" data-i="2"><picture><source media="(max-width: 760px)" srcset="images/story/search-m.webp"><img src="images/story/search-wide.webp?v=4" alt="She taps Unlock in the LAAS app" decoding="async" loading="lazy"></picture></figure>
       <figure class="tale__shot" data-i="3"><picture><source media="(max-width: 760px)" srcset="images/story/ride-m.webp"><img src="images/story/ride-wide.webp" alt="She rides away across the square" decoding="async" loading="lazy"></picture></figure>
       <div class="tale__copy">
