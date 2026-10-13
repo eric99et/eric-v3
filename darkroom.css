@@ -2022,11 +2022,14 @@ html[data-tone="dark"] .nav__bag b, html.in-tale .nav__bag b { background: #ECEC
 /* frames 2 and 3 are the photos as they are (no fill): the phone sits left, so on wide screens their line sits right */
 @media (min-width: 1101px) {
   .tale__copy { left: var(--gutter); right: calc(var(--gutter) + 72px); width: auto; }
-  .tale__line { max-width: min(620px, 36vw); justify-self: start; }
-  .tale__line[data-i="1"], .tale__line[data-i="2"] { justify-self: end; text-align: right; }
-  .tale__index { justify-self: start; transition: opacity .3s; }
-  .tale[data-frame="1"] .tale__index, .tale[data-frame="2"] .tale__index { justify-self: end; }
-  .tale__pin::after { transition: background .6s; }
-  .tale[data-frame="1"] .tale__pin::after, .tale[data-frame="2"] .tale__pin::after { background: linear-gradient(270deg, rgba(20, 32, 33, .72) 0%, rgba(20, 32, 33, .3) 30%, rgba(20, 32, 33, 0) 46%), linear-gradient(0deg, rgba(20, 32, 33, .55) 0%, rgba(20, 32, 33, 0) 32%); }
+  .tale__line { max-width: min(620px, 36vw); justify-self: end; text-align: right; }
+  .tale__index { justify-self: end; }
+  .tale__pin::after { background: linear-gradient(270deg, rgba(20, 32, 33, .72) 0%, rgba(20, 32, 33, .3) 30%, rgba(20, 32, 33, 0) 46%), linear-gradient(0deg, rgba(20, 32, 33, .55) 0%, rgba(20, 32, 33, 0) 32%); }
   .tale__shot[data-i="1"] img, .tale__shot[data-i="2"] img { object-position: 50% 50%; }
+}
+
+/* the story's photos on phones: keep the subject in frame */
+@media (max-width: 760px) {
+  .tale__shot[data-i="0"] img { object-position: 56% 50% !important; }
+  .tale__shot[data-i="3"] img { object-position: 40% 50% !important; }
 }
