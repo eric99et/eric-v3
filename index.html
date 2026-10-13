@@ -108,8 +108,6 @@
 <!-- one lock, fixed, behind everything that scrolls, with the drawings that belong to it -->
 <!-- hero → intro: the light page rises as one sheet behind the lock, with a clean edge (no grey in between) -->
 <div class="sheet" id="sheet" aria-hidden="true"></div>
-<!-- the intro's photo: under the lock, cut to the intro's own rectangle as it scrolls (darkroom.js) -->
-<div class="backdrop" id="backdrop" aria-hidden="true"></div>
 <div class="stage" id="stage" aria-hidden="true">
   <div class="stage__ground"></div>
   <!-- the reveal: the chapters, written around the ring -->
@@ -215,26 +213,6 @@
     </div>
   </section>
 
-  <!-- 0b · the whole lock, as a poster: two big words bracket the ring (never over it), the four things it does run
-       along the bottom as a drawn spec strip -->
-  <section class="void void--intro" id="intro" data-nav-section="intro" data-tone="dark" data-bg="#202F30" data-key='{"img":"00","yaw":-0.42,"pitch":0.2,"size":0.46,"msize":0.62,"my":-0.04}' aria-labelledby="h0">
-    <h2 class="visually-hidden" id="h0">No key. No cable. One ring of stainless steel that stays on your bike.</h2>
-    <div class="void__left">
-      <p class="void__index label"><b>LAAS</b> Ring-Lock</p>
-      <p class="intro__word split" aria-hidden="true">No key.</p>
-    </div>
-    <div class="slot" aria-hidden="true"></div>
-    <div class="void__right">
-      <p class="intro__word split" aria-hidden="true">No cable.</p>
-      <p class="body">One ring of stainless steel that stays on your bike. Nothing to carry, nothing to forget. Just you and your bike.</p>
-    </div>
-    <ol class="specs">
-      <li><a href="#keyless"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="2.75" width="11" height="18.5" rx="2.75"/><path d="M10.5 5.75h3"/><circle cx="12" cy="13" r="2.75"/></svg><span class="label">01</span><b>Opens with your phone</b></a></li>
-      <li><a href="#approved"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.75l2.3 1.6 2.8-.1.9 2.6 2.2 1.7-.8 2.7.8 2.7-2.2 1.7-.9 2.6-2.8-.1-2.3 1.6-2.3-1.6-2.8.1-.9-2.6-2.2-1.7.8-2.7-.8-2.7 2.2-1.7.9-2.6 2.8.1z"/><path d="M8.75 12.25l2.25 2.25 4.25-4.5"/></svg><span class="label">02</span><b>Insurance-approved in Denmark</b></a></li>
-      <li><a href="#fit"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.25"/><circle cx="12" cy="12" r="3"/><path d="M12 2.75V9M12 15v6.25M2.75 12H9M15 12h6.25"/></svg><span class="label">03</span><b>Fits most bikes</b></a></li>
-      <li><a href="#returns"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span class="label">04</span><b>57 days to fall in love</b></a></li>
-    </ol>
-  </section>
 
   <!-- 1 · keyless -->
   <section class="void void--macro" id="keyless" data-nav-section="keyless" data-keyless data-bg="#FFFFFF" data-key='{"img":"01","yaw":0.1,"pitch":0.05,"roll":-1.6,"mroll":0,"size":0.74,"x":0.52,"y":0.05,"free":1,"msize":0.62,"mx":0.2,"my":-0.06}' aria-labelledby="h1">
