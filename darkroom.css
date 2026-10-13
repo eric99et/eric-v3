@@ -1980,7 +1980,7 @@ html[data-tone="dark"] .nav__bag b, html.in-tale .nav__bag b { background: #ECEC
 .tale__shot img { scale: 1.12; transition: scale calc(var(--tale-ms, 4200ms) * 1.6) cubic-bezier(.2, .6, .2, 1), opacity 1s; }
 .tale__shot.is-on img { scale: 1; }
 .tale__shot[data-i="0"] img { object-position: 60% 30%; }
-.tale__shot[data-i="1"] img { object-position: 50% 62%; }
+.tale__shot[data-i="1"] img { object-position: 85% 50%; }
 .tale__shot[data-i="2"] img { object-position: 85% 50%; }
 .tale__shot[data-i="3"] img { object-position: 50% 65%; }
 .tale__pin::after { background: linear-gradient(90deg, rgba(20, 32, 33, .82) 0%, rgba(20, 32, 33, .45) 38%, rgba(20, 32, 33, 0) 66%), linear-gradient(0deg, rgba(20, 32, 33, .7) 0%, rgba(20, 32, 33, 0) 42%); }
@@ -2011,3 +2011,4 @@ html[data-tone="dark"] .nav__bag b, html.in-tale .nav__bag b { background: #ECEC
   .tale__shot[data-i="2"] img { object-position: 60% 30% !important; }
 }
 @media (min-width: 761px) and (max-width: 1100px) and (max-aspect-ratio: 1/1) { .tale__copy { width: auto; right: var(--gutter); } .tale__line { font-size: clamp(54px, 9vw, 84px); } }
+@media (min-width: 1101px) { .tale__pin::after { background: linear-gradient(90deg, rgba(20, 32, 33, .72) 0%, rgba(20, 32, 33, .3) 30%, rgba(20, 32, 33, 0) 46%), linear-gradient(0deg, rgba(20, 32, 33, .55) 0%, rgba(20, 32, 33, 0) 32%); } .tale__copy { width: min(620px, 36vw); } .tale__line { font-size: clamp(52px, 6vw, 112px); } }
