@@ -1636,8 +1636,8 @@ html[data-tone="dark"] .nav__price { background: rgba(32, 47, 48, .12); }
 @media (max-width: 760px) {
   /* on a phone every frame reads the same way: the words at the bottom, the picture above them */
   .tale__shot img { object-position: 50% 40% !important; }
-  .tale__shot[data-i="1"] img { object-position: 45% 30% !important; }
-  .tale__shot[data-i="2"] img { object-position: 50% 45% !important; }
+  .tale__shot[data-i="1"] img { object-position: 32% 50% !important; }
+  .tale__shot[data-i="2"] img { object-position: 30% 50% !important; }
   .tale__index { margin-bottom: 16px; }
 }
 @media (prefers-reduced-motion: reduce) { .tale__shot, .tale__shot img, .tale__line { transition: none; } }
@@ -2008,7 +2008,7 @@ html[data-tone="dark"] .nav__bag b, html.in-tale .nav__bag b { background: #ECEC
   .tale__pin::after { background: linear-gradient(0deg, rgba(20, 32, 33, .92) 0%, rgba(20, 32, 33, .6) 30%, rgba(20, 32, 33, 0) 58%); }
   .tale__dots { bottom: 28px; right: calc(var(--gutter) + 56px); gap: 5px; }
   .tale__pause { bottom: 17px; }
-  .tale__shot[data-i="2"] img { object-position: 50% 45% !important; }
+  .tale__shot[data-i="2"] img { object-position: 30% 50% !important; }
 }
 @media (min-width: 761px) and (max-width: 1100px) and (max-aspect-ratio: 1/1) { .tale__copy { width: auto; right: var(--gutter); } .tale__line { font-size: clamp(54px, 9vw, 84px); } }
 @media (min-width: 1101px) { .tale__pin::after { background: linear-gradient(90deg, rgba(20, 32, 33, .72) 0%, rgba(20, 32, 33, .3) 30%, rgba(20, 32, 33, 0) 46%), linear-gradient(0deg, rgba(20, 32, 33, .55) 0%, rgba(20, 32, 33, 0) 32%); } .tale__copy { width: min(620px, 36vw); } .tale__line { font-size: clamp(52px, 6vw, 112px); } }
