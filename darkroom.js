@@ -266,9 +266,6 @@ const swap = { sweep: 0 };
 function show(f) {
   finish = f;
   stage.dataset.metal = f; $('#buy').dataset.metal = f;
-  // the drawn phone names the lock you see: the near card is this finish, the far one another
-  const heads = $$('#keyless .app__head b'), LOCK = { steel: 'Steel lock', copper: 'Copper lock', black: 'Black lock' };
-  if (heads.length === 2) { heads[0].textContent = t(LOCK[f]); heads[1].textContent = t(f === 'steel' ? LOCK.copper : LOCK.steel); }
   // the angles in view first, then the rest of the turn
   return Promise.all(['00', '01'].map(a => fetchImg(srcOf(f, a)))).then(() => { ANGLES.forEach(a => fetchImg(srcOf(f, a)).catch(() => {})); });
 }
@@ -680,17 +677,19 @@ function loop(now) {
   setVar(stage, '--lx', dx.toFixed(1) + 'px'); setVar(stage, '--ly', dy.toFixed(1) + 'px'); setVar(stage, '--lr', (px / 2).toFixed(0) + 'px');
   // the angle: each chapter names its view; in the buy chapter your own turn picks it; between two, a cross-fade
   const angOf = (P, idx) => idx === productIdx ? ANGLES[((user.angle % 6) + 6) % 6] : (P.img || '00');
-  const aA = angOf(a, i), aB = angOf(b, Math.min(i + 1, poses.length - 1));
-  const mixB = aA === aB ? 0 : t;
+  const iB = Math.min(i + 1, poses.length - 1), aA = angOf(a, i), aB = angOf(b, iB);
+  // the lock is steel everywhere; only the buy chapter shows the finish you pick
+  const fA = i === productIdx ? finish : 'steel', fB = iB === productIdx ? finish : 'steel';
+  const same = aA === aB && fA === fB, mixB = same ? 0 : t;
   const place = { W, H, dx, dy, px, roll };
-  paintLayer(layers[0], aA, 1 - mixB, place);
-  paintLayer(layers[1], aB, aA === aB ? 0 : mixB, place);
+  paintLayer(layers[0], aA, 1 - mixB, place, fA);
+  paintLayer(layers[1], aB, same ? 0 : mixB, place, fB);
   drawPixels(now);
 }
 // one image layer: a new picture only once it has arrived, so nothing ever flashes empty
 // each view is placed by its own geometry: the ring's centre on the lock's place, its extent px wide
-function paintLayer(L, ang, op, p) {
-  const src = srcOf(finish, ang), g = GEO[ang] || RING, S = p.px / (2 * g.r);
+function paintLayer(L, ang, op, p, f = finish) {
+  const src = srcOf(f, ang), g = GEO[ang] || RING, S = p.px / (2 * g.r);
   const st = L.img.style;
   st.width = st.height = S.toFixed(1) + 'px';
   st.transformOrigin = `${g.cx * 100}% ${g.cy * 100}%`;
