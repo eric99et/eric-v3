@@ -195,7 +195,7 @@
   if (!btn || !menu) return;
   btn.addEventListener('click', () => {
     // buy, cart and checkout open it from their own scripts; the landing page from darkroom.js when it ran
-    if (window.LAAS_UI || document.querySelector('script[src="buy.js"], script[src="shop-v2.js"]')) return;
+    if (window.LAAS_UI || document.querySelector('script[src*="buy.js"], script[src*="shop-v2.js"]')) return;
     const open = menu.hidden;
     menu.hidden = !open; menu.classList.toggle('is-open', open);
     btn.setAttribute('aria-expanded', String(open)); btn.textContent = (window.LAAS_I18N ? window.LAAS_I18N.t : x => x)(open ? 'Close' : 'Menu');
@@ -204,7 +204,7 @@
 
 // the nav capsule floats (with its glass) once the page scrolls, on pages that have no script of their own for it
 (() => {
-  if (document.getElementById('stage') || document.querySelector('script[src="buy.js"], script[src="shop-v2.js"]')) return;
+  if (document.getElementById('stage') || document.querySelector('script[src*="buy.js"], script[src*="shop-v2.js"]')) return;
   const root = document.documentElement, on = () => root.classList.toggle('nav-float', scrollY > 8);
   addEventListener('scroll', on, { passive: true }); on();
 })();

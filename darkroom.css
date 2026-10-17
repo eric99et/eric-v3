@@ -2807,3 +2807,24 @@ html[data-tone="dark"] .nav__shell::before { background: color-mix(in srgb, #202
 /* the Varefakta link in the insurance chapter */
 .ins2__vk { display: flex; flex-wrap: wrap; gap: 0 18px; margin: 14px 0 0; font-size: 14px; }
 .ins2__vk a { display: inline-flex; align-items: center; min-height: 44px; color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+/* footer on a phone: Returns and Call LAAS share the last row, so no link is left alone on one side;
+   the intro, the copyright line and the trademark line wrap evenly, no word left alone on a line */
+@media (max-width: 560px) {
+  .foot2__nav a[href^="tel:"] { grid-column: auto; }
+}
+.foot2__intro, .foot2__legal span, .foot2__legal small { text-wrap: balance; }
+
+/* the hero: the descenders of the headline (the y in "keys") never touch the line below it */
+.hero__title span { margin-top: .48em; line-height: 1.08; }
+
+/* the open menu is light (Chalk) on every page: the bar above it and the language switch inside it use the
+   light colours too, also over a dark chapter or the story, so the logo, the close button, the bag and the
+   inactive language stay visible */
+html:has(#menu:not([hidden])) .nav__logo svg { fill: #202F30; }
+html:has(#menu:not([hidden])) .nav .nav__menu, html:has(#menu:not([hidden])) .nav__bag { color: #202F30; background: rgba(255, 255, 255, .6); border-color: rgba(32, 47, 48, .2); box-shadow: inset 0 0 0 1px rgba(32, 47, 48, .14); }
+html:has(#menu:not([hidden])) .nav__bag svg { stroke: #202F30; }
+html:has(#menu:not([hidden])) .nav__shell { background: transparent; border-color: transparent; box-shadow: none; }
+.menu .lang, html[data-tone="dark"] .menu .lang, html.in-tale .menu .lang { box-shadow: inset 0 0 0 1px rgba(32, 47, 48, .14); }
+.menu .lang a, html[data-tone="dark"] .menu .lang a, html.in-tale .menu .lang a, html.in-tale .menu .lang i { color: #606A74; }
+.menu .lang a[aria-current="true"], html[data-tone="dark"] .menu .lang a[aria-current="true"], html.in-tale .menu .lang a[aria-current="true"] { background: #202F30; color: #ECECEA; }
