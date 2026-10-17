@@ -2356,7 +2356,7 @@ img.how__m { object-position: 50% 0; background: #FFFFFF; }
   #buy > .tpb { padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
   /* tap targets */
   .hero__more { display: inline-flex; align-items: center; min-height: 44px; padding-bottom: 0; border-bottom: 0; text-decoration: underline dashed rgba(236, 236, 234, .55); text-underline-offset: 6px; }
-  .tale__dots button { height: 44px; }
+  .tale__dots button { height: 44px; margin-block: -11px; }
   .void--ins .link { display: inline-block; padding-block: 12px; margin-block: -12px; }
   .foot2__legal a { display: inline-block; padding: 12px 4px; margin: -12px -4px; }
   .qty button { width: 44px; height: 44px; }
@@ -2791,17 +2791,16 @@ html[data-tone="dark"] .nav__shell::before { background: color-mix(in srgb, #202
    Price and trust copy at least 14 px, everything else at least 12 px; every tap target at least 44 px high.
    The bigger tap areas grow by padding with the same negative margin, so nothing moves. */
 .price-was small, .price-line .label, .badge--tp > span:last-child, .rv__note, .trust-row { font-size: 14px; }
-.badge--57 span, .badge--kym span, .badge--trial span { font-size: 12px; }
-.ins__film figcaption { font-size: 12px; }
-.tale__dots button { height: 44px; }
+.tale__dots button { height: 44px; margin-block: -11px; }
 /* the switch keeps its look; an invisible area above and below makes it 44 px to tap */
 .lang a { position: relative; }
 .lang a::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 44px; translate: 0 -50%; }
-.pdp-faq__all { display: inline-flex; align-items: center; min-height: 44px; }
+/* the FAQ link keeps its own look; an invisible area makes it 44 px to tap (::after is its arrow) */
+.pdp-faq__all { position: relative; }
+.pdp-faq__all::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 44px; translate: 0 -50%; }
 @media (max-width: 760px) { .price-line .label { font-size: 13px; } }
 @media (max-width: 760px) {
   #buy .trust-row { font-size: 14px; }
-  .void--ins2 .ins__film figcaption { font-size: 11px; }
 }
 
 /* the Varefakta link in the insurance chapter */
@@ -2828,3 +2827,54 @@ html:has(#menu:not([hidden])) .nav__shell { background: transparent; border-colo
 .menu .lang, html[data-tone="dark"] .menu .lang, html.in-tale .menu .lang { box-shadow: inset 0 0 0 1px rgba(32, 47, 48, .14); }
 .menu .lang a, html[data-tone="dark"] .menu .lang a, html.in-tale .menu .lang a, html.in-tale .menu .lang i { color: #606A74; }
 .menu .lang a[aria-current="true"], html[data-tone="dark"] .menu .lang a[aria-current="true"], html.in-tale .menu .lang a[aria-current="true"] { background: #202F30; color: #ECECEA; }
+
+/* the shop on wide screens (audit, 17 Oct) */
+/* the cart and checkout column keeps a normal inner padding on very wide screens (the page gutter grows to
+   192 px at 1920 and squeezed the 520 px column to 136 px of content) */
+@media (min-width: 1600px) { body.buy-page main { --gutter: 32px; } }
+/* the four numbers on the buy page fit their cards in every language and at every width */
+.dnum b { font-size: clamp(18px, 1.35vw, 23px); }
+.dnum li { min-width: 0; }
+.dnum span, .dbox li { overflow-wrap: anywhere; hyphens: auto; }
+/* the buy page's first screen: the product sits in the middle of the screen, not at the top with an empty band below */
+@media (min-width: 1025px) { .pdp--v2 { align-content: center; } }
+
+/* audit round 2 (17 Oct) */
+/* the Varefakta link in the insurance chapter costs the phone layout almost nothing: the lab film keeps its size */
+@media (max-width: 760px) {
+  .ins2__vk { margin-top: 6px; }
+  .ins2__vk a { min-height: 0; padding-block: 12px; margin-block: -12px; }
+  .void--ins2 .heading { font-size: clamp(27px, 8.6vw, 42px); }
+}
+/* portrait tablets: the photos crop to the lock, not to the seat tube */
+@media (min-width: 761px) and (max-aspect-ratio: 1/1) {
+  .hero--photo .hero__shot--bike { transform: none; }
+  .hero--photo .hero__shot--bike img { object-position: 55% 40%; }
+  .void--fit3 .fit3__photo img { transform: none; object-position: 55% 45%; }
+}
+/* the long Danish trial link in the phone footer wraps instead of running off the screen */
+@media (max-width: 560px) {
+  :lang(da) .foot2__nav a[href$="#trial"] { white-space: normal; text-align: center; line-height: 1.25; padding: 6px 12px; }
+}
+/* the smallest phones: two footer links side by side always fit on one line each */
+@media (max-width: 380px) {
+  .foot2__nav a { padding-inline: 6px; font-size: 13.5px; white-space: nowrap; }
+  :lang(da) .foot2__nav a[href$="#trial"] { white-space: normal; }
+}
+/* very wide screens: the buy page's product lines up with the logo and the bag in the bar */
+@media (min-width: 1600px) { body.buy-page .pdp--v2, body.buy-page main > .details, body.buy-page main > .rv { max-width: 1240px; padding-left: 23px; padding-right: 23px; } }
+
+/* audit round 3 (17 Oct): states */
+/* narrow tablets (761-860 px): the bar fits; the price leaves the Pre-order pill and About LAAS leaves the bar (it is in the menu) */
+@media (min-width: 761px) and (max-width: 860px) {
+  .nav__price { display: none; }
+  .nav__shell:has(.nav__buy) .nav__links a[href$="about.html"] { display: none; }
+}
+/* the floating bar keeps its glass over the story photos, so its white text never sits on a white sky */
+html.in-tale.nav-float .nav__shell::before { opacity: 1; }
+/* a hidden bar shows itself when the keyboard reaches it */
+html.in-foot .nav:focus-within, html.in-hero .nav:focus-within { translate: 0 0; opacity: 1; pointer-events: auto; }
+/* the language switch's focus ring sits on the bubble, not on the pill's border */
+.lang a:focus-visible { outline-offset: 0; }
+/* touch tablets: the language pill is as tall as the Pre-order pill; its 44 px tap area is the invisible ::after */
+@media (min-width: 761px) and (max-width: 1100px) and (pointer: coarse) { .lang a { min-height: 0; } }
