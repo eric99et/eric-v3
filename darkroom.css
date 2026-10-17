@@ -2841,11 +2841,16 @@ html:has(#menu:not([hidden])) .nav__shell { background: transparent; border-colo
 
 /* audit round 2 (17 Oct) */
 /* the Varefakta link in the insurance chapter costs the phone layout almost nothing: the lab film keeps its size */
+/* on every screen: one slim line, with a 44 px tap area that takes no layout space */
+.ins2__vk { margin-top: 10px; }
+.ins2__vk a { min-height: 0; padding-block: 12px; margin-block: -12px; }
 @media (max-width: 760px) {
   .ins2__vk { margin-top: 6px; }
-  .ins2__vk a { min-height: 0; padding-block: 12px; margin-block: -12px; }
   .void--ins2 .heading { font-size: clamp(27px, 8.6vw, 42px); }
 }
+.ins__film figcaption { text-wrap: balance; }
+/* the Varefakta mark is shown whole: no circle crop over its letters, no white square behind it */
+.badge--vf img { border-radius: 0; background: transparent; }
 /* portrait tablets: the photos crop to the lock, not to the seat tube */
 @media (min-width: 761px) and (max-aspect-ratio: 1/1) {
   .hero--photo .hero__shot--bike { transform: none; }

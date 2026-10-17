@@ -266,7 +266,7 @@ const DA = {
   "Manual & guides.": "Manual og guides.",
   "Setup, everyday use and the full manual.": "Opsætning, hverdagsbrug og hele manualen.",
   // the SEO round (17 Oct)
-  "You bet. The Ring-Lock fits nearly every bike, from city bikes to e‑bikes and cargo bikes, with tyres up to 60 mm. The only bike it’s not suitable for is ‘fat bikes’.": "Det kan du tro. Ring-Lock passer til næsten alle cykler, fra bycykler til elcykler og ladcykler, med dæk op til 60 mm. Den eneste cykel, den ikke passer til, er fatbikes.",
+  "You bet. The Ring-Lock fits nearly every bike, from city bikes to e‑bikes and cargo bikes, with tyres up to 60 mm. The only bike it’s not suitable for is ‘fat bikes’.": "Det kan du tro. Ring-Lock passer til næsten alle cykler, fra bycykler til elcykler og ladcykler, med dæk op til 60 mm. Den eneste cykel, den ikke passer til, er fatbikes.",
   "Charge twice a year": "Oplad to gange om året",
   "A 90-minute charge over USB-C lasts about 6 months": "90 minutters opladning via USB-C holder i cirka 6 måneder",
   "Meet LAAS. The keyless ring lock that is insurance-approved in Denmark.": "Mød LAAS. Den nøglefri ringlås, der er forsikringsgodkendt i Danmark.",
