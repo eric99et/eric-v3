@@ -1,13 +1,25 @@
 // LAAS · English by default, Danish on request (the EN / DA switch in the bar), with the prices in kroner.
 // One place for the language and the prices: buy.js, shop-v2.js and cart-nav.js read window.LAAS_I18N.
-// The choice is kept in localStorage ('laas-lang', the same key the landing page uses) and ?lang=da|en sets it.
-// The cart stores what is chosen, not what it costs: every page prices a line from the table below, so a cart
-// filled in English shows kroner after a switch to Danish, and the other way round.
+// Each language has its own address: English at the root, Danish under /da/ (built by tools/build-da.py, so search
+// engines see real Danish pages). The page's <html lang> is the language; data-alt holds the other language's page
+// and data-root the way back to the site root ('../' under /da/), for the pictures the scripts load.
+// The choice is kept in localStorage ('laas-lang'): ?lang=da|en (old links) and a stored choice send you to that
+// language's address. The cart stores what is chosen, not what it costs: every page prices a line from the table
+// below, so a cart filled in English shows kroner on the Danish pages, and the other way round.
 (() => {
-  const q = new URLSearchParams(location.search).get('lang');
-  let lang = 'en';
-  try { if (q) localStorage.setItem('laas-lang', q); lang = q || localStorage.getItem('laas-lang') || 'en'; } catch { lang = q || 'en'; }
-  if (lang !== 'da') lang = 'en';
+  const H = document.documentElement;
+  const ROOT = H.dataset.root || '';
+  window.LAAS_ROOT = ROOT;
+  const lang = H.lang === 'da' ? 'da' : 'en';
+  const alt = H.dataset.alt;
+  const go = to => { const u = new URL(alt, location.href); u.search = location.search.replace(/[?&]lang=\w+/, '').replace(/^&/, '?'); u.hash = location.hash; location.replace(u.href); };
+  let want = null;
+  try {
+    const q = new URLSearchParams(location.search).get('lang');
+    if (q === 'da' || q === 'en') localStorage.setItem('laas-lang', q);
+    want = q || localStorage.getItem('laas-lang');
+  } catch {}
+  if (alt && (want === 'da' || want === 'en') && want !== lang) { go(); return; }
 
   // a lock, every second lock, a Flex-Mount and shipping (Marcus, 16 Oct): the first lock 129 / 999, every second one
   // 119 / 899, the third back at 129 / 999; two locks ship free. 'free' stays only for old callers
@@ -122,7 +134,7 @@
   "Keep You Moving warranty: how it works": "Keep You Moving-løftet: sådan virker det",
   "Introductory price through 31 December 2026": "Introduktionspris til 31. december 2026",
   "Too cool for keys": "For cool til nøgler",
-  "The first keyless bike lock to work with Apple Find My": "Den første nøglefri cykellås, der virker med Apple Find My",
+  "The first keyless bike lock to work with Apple Find My": "Den første nøglefri ringlås, der virker med Apple Find My",
   "Stressing it’s stolen?": "Bange for, at den er stjålet?",
   "Lost, stolen, or rusty memory?": "Væk, stjålet eller bare en rusten hukommelse?",
   "Find it instantly with your phone": "Find den med det samme med din telefon",
@@ -226,15 +238,47 @@
   "Marcus Kjellsson, founder of LAAS, with his bike in a Copenhagen courtyard": "Marcus Kjellsson, stifter af LAAS, med sin cykel i en københavnsk gård",
   "Marcus in the workshop, holding a sign that says: You're about to catch feelings for a lock": "Marcus i værkstedet med et skilt, hvor der står: You’re about to catch feelings for a lock",
   "An early prototype of the Ring-Lock, opened up on the workbench": "En tidlig prototype af Ring-Lock, åbnet på arbejdsbænken",
+  // the SEO round (17 Oct)
+  "You bet. The Ring-Lock fits nearly every bike, from city bikes to e‑bikes and cargo bikes, with tyres up to 60 mm. The only bike it’s not suitable for is ‘fat bikes’.": "Det kan du tro. Ring-Lock passer til næsten alle cykler, fra bycykler til elcykler og ladcykler, med dæk op til 60 mm. Den eneste cykel, den ikke passer til, er fatbikes.",
+  "Charge twice a year": "Oplad to gange om året",
+  "A 90-minute charge over USB-C lasts about 6 months": "90 minutters opladning via USB-C holder i cirka 6 måneder",
+  "Meet LAAS. The keyless ring lock that is insurance-approved in Denmark.": "Mød LAAS. Den nøglefri ringlås, der er forsikringsgodkendt i Danmark.",
+  "The LAAS Ring-Lock, the keyless ring lock, in": "LAAS Ring-Lock, den nøglefri ringlås, i",
+  "A new key for every unlock": "En ny nøgle hver gang",
+  "The LAAS Ring-Lock in Steel, a keyless ring lock for the rear wheel": "LAAS Ring-Lock i Steel, en nøglefri ringlås til baghjulet",
+  // About: our story (17 Oct)
+  "Our story": "Vores historie",
+  "From O-Lock to Ring-Lock": "Fra O-Lock til Ring-Lock",
+  "LAAS ApS was founded in Copenhagen in 2019 by Marcus Kjellsson. The idea was simple: a bike lock with no key to lose, fixed to the frame, that opens with your phone.": "LAAS ApS blev grundlagt i København i 2019 af Marcus Kjellsson. Idéen var enkel: en cykellås uden nøgle, du kan miste, fast monteret på stellet, som åbner med din telefon.",
+  "The first version was the LAAS O-Lock. We took it to Kickstarter in 2022, and our backers have tried every version since. You may have read about it under that name. The Ring-Lock is its successor: the same idea, rebuilt from the inside.": "Den første version var LAAS O-Lock. Vi tog den på Kickstarter i 2022, og vores backere har prøvet alle versioner siden. Måske har du læst om den under det navn. Ring-Lock er dens efterfølger: samme idé, bygget om indefra.",
+  "A 2 mm stainless-steel pipe, a 9 mm hardened-steel shackle through the rear wheel, and one watertight electronics unit. 504 g in all, and made to come apart, so the electronics and the metals can each be recycled.": "Et 2 mm rør i rustfrit stål, en 9 mm bolt i hærdet stål gennem baghjulet og én vandtæt elektronikenhed. 504 g i alt, og lavet til at blive skilt ad, så elektronikken og metallerne kan genbruges hver for sig.",
+  "In July 2025 the Ring-Lock was approved by Varefakta, the independent Danish labelling scheme that insurers rely on. Its standard for electronic locks also tests resistance to electric and magnetic opening attempts and to heat. The Ring-Lock is listed as an electronic, app-controlled ring lock under VK 37868. Look it up yourself on": "I juli 2025 blev Ring-Lock godkendt af Varefakta, den uafhængige danske mærkningsordning, som forsikringsselskaberne lægger vægt på. Varefaktas forskrift for elektroniske låse tester også modstand mod elektriske og magnetiske åbningsforsøg og mod varme. Ring-Lock står på listen som en elektronisk app-kontrolleret ringlås under VK 37868. Slå den selv op på",
+  "The Ring-Lock is designed in Copenhagen. The LAAS app is on the App Store and Google Play.": "Ring-Lock er designet i København. LAAS-appen findes i App Store og Google Play.",
+  // the landing page: quick answers, the Varefakta links (17 Oct)
+  "What is the LAAS Ring-Lock?": "Hvad er LAAS Ring-Lock?",
+  "Is it insurance-approved?": "Er den forsikringsgodkendt?",
+  "How long does the battery last?": "Hvor længe holder batteriet?",
+  "Does it work with Apple Find My?": "Virker den med Apple Find My?",
+  "A keyless ring lock, fixed to your bike frame around the rear wheel. Lock it by hand, then unlock it with the LAAS app over Bluetooth, even without internet. It weighs 504 g, has a 9 mm hardened-steel shackle and fits tyres up to 60 mm.": "En nøglefri ringlås, fast monteret på stellet om baghjulet. Du låser den med hånden og låser op med LAAS-appen via Bluetooth, også uden internet. Den vejer 504 g, har en 9 mm bolt i hærdet stål og passer til dæk op til 60 mm.",
+  "Yes, in Denmark. Varefakta lists the Ring-Lock as an electronic, app-controlled ring lock under VK 37868, tested to VF 5029:4. Most Danish insurers ask for a Varefakta-approved lock and the lock certificate, which is in the box. Check your own policy.": "Ja, i Danmark. Varefakta har Ring-Lock på listen som en elektronisk app-kontrolleret ringlås under VK 37868, testet efter VF 5029:4. De fleste danske forsikringsselskaber kræver en Varefakta-godkendt lås og låsebeviset, som ligger i æsken. Tjek din egen police.",
+  "About six months per charge. A full charge over USB-C takes 90 minutes, and the lock can stay on the bike while it charges. The app warns you when the battery is low.": "Cirka seks måneder pr. opladning. En fuld opladning via USB-C tager 90 minutter, og låsen kan blive siddende på cyklen imens. Appen giver besked, når batteriet er lavt.",
+  "Yes. The Ring-Lock works with Apple Find My on iPhone, iPad and Mac: you see your bike on the map in the Find My app, and unlock it in the LAAS app. Press the button on the lock three times to pair it.": "Ja. Ring-Lock virker med Apple Find My på iPhone, iPad og Mac: du ser din cykel på kortet i Find My-appen og låser op i LAAS-appen. Tryk tre gange på knappen på låsen for at parre den.",
+  "Quick answers": "Hurtige svar",
+  "All questions": "Alle spørgsmål",
+  "See VK 37868 on varefakta.dk": "Se VK 37868 på varefakta.dk",
+  "What insurance-approved means": "Hvad forsikringsgodkendt betyder",
+  "· tested to VF 5029:4": "· testet efter VF 5029:4",
+  "How to check an insurance-approved lock": "Sådan tjekker du en forsikringsgodkendt lås",
+  "Approval": "Godkendelse",
   };
   const t = s => (lang === 'da' && DA[s]) || s;
   window.LAAS_I18N = { lang, P, money, t, lockSum, shipFor };
 
   // the landing page translates itself (darkroom.js); here only its prices are shared
-  if (document.getElementById('stage')) return;
+  if (document.getElementById('stage')) { wire(); return; }
 
-  if (lang === 'da') {
-    document.documentElement.lang = 'da';
+  // a Danish page that was not built (a preview of a new page): translate it here
+  if (lang === 'da' && !H.dataset.built) {
     document.title = t(document.title);
     const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     const nodes = []; let n; while ((n = w.nextNode())) if (!n.parentElement.closest('script, style, [lang="en"], [data-lang-block]')) nodes.push(n);
@@ -252,16 +296,23 @@
   const sw = cls => {
     const p = document.createElement('p');
     p.className = 'lang label' + (cls ? ' ' + cls : ''); p.setAttribute('role', 'group'); p.setAttribute('aria-label', t('Language'));
-    p.innerHTML = '<a href="?lang=en" data-lang="en" hreflang="en">EN</a><i aria-hidden="true">/</i><a href="?lang=da" data-lang="da" hreflang="da">DA</a>';
-    p.querySelectorAll('a').forEach(a => {
-      a.setAttribute('aria-current', String(a.dataset.lang === lang));
-      // keep the rest of the address (the finish, the quantity) when switching
-      const u = new URL(location.href); u.searchParams.set('lang', a.dataset.lang); a.href = u.pathname + u.search + u.hash;
-    });
+    p.innerHTML = '<a data-lang="en" hreflang="en">EN</a><i aria-hidden="true">/</i><a data-lang="da" hreflang="da">DA</a>';
+    p.querySelectorAll('a').forEach(a => { if (!a.hasAttribute('href')) a.setAttribute('href', a.dataset.lang === lang ? location.pathname.split('/').pop() || './' : alt || '#'); });
     return p;
   };
+  // every switch on the page (the landing page has its own in the markup): mark the current language, keep the
+  // rest of the address (the finish, the quantity) and remember the choice
+  function wire() { document.querySelectorAll('.lang a[data-lang]').forEach(a => {
+    a.setAttribute('aria-current', String(a.dataset.lang === lang));
+    a.addEventListener('click', e => {
+      try { localStorage.setItem('laas-lang', a.dataset.lang); } catch {}
+      if (a.dataset.lang === lang) { e.preventDefault(); return; }
+      if (alt) { e.preventDefault(); const u = new URL(alt, location.href); u.search = location.search; u.hash = location.hash; location.href = u.href; }
+    });
+  }); }
   const end = document.querySelector('.nav__end');
   if (end && !end.querySelector('.lang')) end.insertBefore(sw(''), end.firstChild);
   const menu = document.getElementById('menu');
   if (menu && !menu.querySelector('.lang')) menu.appendChild(sw('lang--menu'));
+  wire();
 })();

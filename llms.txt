@@ -1,0 +1,25 @@
+# LAAS Ring-Lock
+
+> The LAAS Ring-Lock is a keyless ring lock for bikes, designed in Copenhagen by LAAS ApS. It is fixed to the frame round the rear wheel, locked by hand and unlocked with the LAAS app over Bluetooth (iPhone and Android), even without internet. It is insurance-approved in Denmark: Varefakta VK 37868, tested to VF 5029:4.
+
+Key facts:
+- Price: €129 / 999 kr (introductory price through 31 December 2026), shipping €9 / 75 kr, free with two locks. Pre-order.
+- Weight 504 g. 9 mm hardened-steel shackle, 2 mm stainless-steel pipe. Tyres up to 60 mm, mount spacing 75 to 100 mm. Not for fat bikes.
+- Battery about six months per charge; a full charge over USB-C takes 90 minutes.
+- Finishes: Steel, Copper, Black. Frames without frame-lock holes use the Flex-Mount (€9.99 / 75 kr).
+- 57 days to return it, and the two-year right to complain under Danish law.
+- Works with Apple Find My (iPhone, iPad, Mac).
+- The successor to the LAAS O-Lock (Kickstarter, 2022). LAAS ApS, Sankt Hans Gade 24, st., 2200 København N, CVR 40942491, +45 31 33 82 13, support@laaslocks.com.
+
+## Pages
+- [Ring-Lock: buy, specs, in the box](https://eric99et.github.io/eric-v3/buy.html)
+- [FAQ](https://eric99et.github.io/eric-v3/faq.html)
+- [Insurance-approved bike lock: how to check it](https://eric99et.github.io/eric-v3/insurance-approved-bike-lock.html)
+- [Shipping and returns](https://eric99et.github.io/eric-v3/shipping.html)
+- [About LAAS](https://eric99et.github.io/eric-v3/about.html)
+- [Manual and guides](https://laaslocks.com/guides/)
+- [Help](https://laaslocks.com/help/)
+
+## Dansk
+- [LAAS Ring-Lock på dansk](https://eric99et.github.io/eric-v3/da/)
+- [Forsikringsgodkendt cykellås: sådan tjekker du den](https://eric99et.github.io/eric-v3/da/forsikringsgodkendt-cykellaas.html)

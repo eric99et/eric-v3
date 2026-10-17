@@ -70,9 +70,9 @@
     stage.setAttribute('aria-label', tr('The LAAS Ring-Lock in') + ' ' + name + '. ' + tr('Drag, or use the arrow keys, to turn it.'));
     syncTabs();
     if (first) {
-      if (photo) { photo.src = 'images/lock/' + finish + '-05-800.webp'; photo.alt = tr('The LAAS Ring-Lock in') + ' ' + name; }
+      if (photo) { photo.src = (window.LAAS_ROOT || '') + 'images/lock/' + finish + '-05-800.webp'; photo.alt = tr('The LAAS Ring-Lock in') + ' ' + name; }
     } else {
-      swapImg(photo, 'images/lock/' + finish + '-05-800.webp', tr('The LAAS Ring-Lock in') + ' ' + name);
+      swapImg(photo, (window.LAAS_ROOT || '') + 'images/lock/' + finish + '-05-800.webp', tr('The LAAS Ring-Lock in') + ' ' + name);
       // keep the choice in the address, so a reload or a shared link opens on it
       const u = new URL(location.href);
       u.searchParams.set('finish', finish);
@@ -114,7 +114,7 @@
     // in turning order round the lock (left 3/4, front, hero, side, from behind, from above), starting on the hero view
     const ANGLES = ['00', '03', '04', '05', '02', '01'];
     const res = () => stage.clientWidth * Math.min(devicePixelRatio || 1, 2) > 900 ? 1600 : 800;
-    const src = (f, a) => `images/lock/${f}-${a}-${res()}.webp`;
+    const src = (f, a) => `${(window.LAAS_ROOT || '')}images/lock/${f}-${a}-${res()}.webp`;
     const cache = new Map();
     const get = u => cache.get(u) || (cache.set(u, new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(u); im.onerror = no; im.src = u; })), cache.get(u));
     let angle = 0, want = '';

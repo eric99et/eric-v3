@@ -214,7 +214,7 @@ const DA = {
   "Keep You Moving warranty: how it works": "Keep You Moving-løftet: sådan virker det",
   "Introductory price through 31 December 2026": "Introduktionspris til 31. december 2026",
   "Too cool for keys": "For cool til nøgler",
-  "The first keyless bike lock to work with Apple Find My": "Den første nøglefri cykellås, der virker med Apple Find My",
+  "The first keyless bike lock to work with Apple Find My": "Den første nøglefri ringlås, der virker med Apple Find My",
   "Stressing it’s stolen?": "Bange for, at den er stjålet?",
   "Lost, stolen, or rusty memory?": "Væk, stjålet eller bare en rusten hukommelse?",
   "Find it instantly with your phone": "Find den med det samme med din telefon",
@@ -265,11 +265,20 @@ const DA = {
   "My bike is missing.": "Min cykel er væk.",
   "Manual & guides.": "Manual og guides.",
   "Setup, everyday use and the full manual.": "Opsætning, hverdagsbrug og hele manualen.",
+  // the SEO round (17 Oct)
+  "You bet. The Ring-Lock fits nearly every bike, from city bikes to e‑bikes and cargo bikes, with tyres up to 60 mm. The only bike it’s not suitable for is ‘fat bikes’.": "Det kan du tro. Ring-Lock passer til næsten alle cykler, fra bycykler til elcykler og ladcykler, med dæk op til 60 mm. Den eneste cykel, den ikke passer til, er fatbikes.",
+  "Charge twice a year": "Oplad to gange om året",
+  "A 90-minute charge over USB-C lasts about 6 months": "90 minutters opladning via USB-C holder i cirka 6 måneder",
+  "Meet LAAS. The keyless ring lock that is insurance-approved in Denmark.": "Mød LAAS. Den nøglefri ringlås, der er forsikringsgodkendt i Danmark.",
+  "The LAAS Ring-Lock, the keyless ring lock, in": "LAAS Ring-Lock, den nøglefri ringlås, i",
+  "A new key for every unlock": "En ny nøgle hver gang",
+  "The LAAS Ring-Lock in Steel, a keyless ring lock for the rear wheel": "LAAS Ring-Lock i Steel, en nøglefri ringlås til baghjulet",
 };
-const lang = (() => { const q = new URLSearchParams(location.search).get('lang'); try { if (q) localStorage.setItem('laas-lang', q); return q || localStorage.getItem('laas-lang') || 'en'; } catch { return q || 'en'; } })();
+// the page's language is its address (English at the root, Danish under /da/, see i18n.js)
+const lang = document.documentElement.lang === 'da' ? 'da' : 'en';
 const t = en => (lang === 'da' && DA[en]) || en;
-if (lang === 'da') {
-  document.documentElement.lang = 'da'; document.title = 'LAAS Ring-Lock · Nøglefri cykellås';
+// the Danish page is built already translated (tools/build-da.py); this only runs on a preview that was not built
+if (lang === 'da' && !document.documentElement.dataset.built) {
   const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   const nodes = []; let n; while ((n = w.nextNode())) if (!n.parentElement.closest('script,style')) nodes.push(n);
   nodes.forEach(n => { const key = n.nodeValue.replace(/ /g, ' ').replace(/\s+/g, ' ').trim(); if (DA[key]) n.nodeValue = n.nodeValue.replace(n.nodeValue.trim(), DA[key]); });
@@ -370,7 +379,7 @@ lockEl.innerHTML = '<img alt="" decoding="async" draggable="false"><img alt="" d
 stage.prepend(lockEl);
 const layers = $$('img', lockEl).map(img => ({ img, src: '' }));
 let res = Math.min(innerWidth, innerHeight) * Math.min(devicePixelRatio || 1, 2) > 900 ? 1600 : 800;
-const srcOf = (f, a) => `images/lock/${f}-${a}-${res}.webp`;
+const srcOf = (f, a) => `${(window.LAAS_ROOT || '')}images/lock/${f}-${a}-${res}.webp`;
 const cache = new Map();
 const fetchImg = src => cache.get(src) || (cache.set(src, new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(src); i.onerror = no; i.src = src; })), cache.get(src));
 let finish = 'steel', lockReady = false;

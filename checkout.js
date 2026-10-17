@@ -20,7 +20,7 @@
   const unitOf = i => isLock(i) ? I.P.lock : isFlex(i) ? I.P.flex : (+i.unit || 0);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const FIN = { Steel: 'steel', Copper: 'copper', Black: 'black' };
-  const thumb = i => isFlex(i) ? 'images/flexmount-thumb.webp' : 'images/scenes/thumb-' + (FIN[i.finish] || 'steel') + '.webp';
+  const thumb = i => (window.LAAS_ROOT || '') + (isFlex(i) ? 'images/flexmount-thumb.webp' : 'images/scenes/thumb-' + (FIN[i.finish] || 'steel') + '.webp');
 
   /* ================================================================ checkout */
   const form = $('#checkout-form');
@@ -197,7 +197,7 @@
         dispatchEvent(new Event('laas-cart'));
         ss.del(FORM_KEY);
         try { sessionStorage.removeItem('laas-flex'); } catch { /* private mode */ }
-        location.replace('order-confirmed.html' + (I.lang === 'da' ? '?lang=da' : ''));
+        location.replace('order-confirmed.html');
       }, reduce ? 300 : 1100);
     });
     // Back from the confirmation, out of the browser's cache: the buttons are buttons again

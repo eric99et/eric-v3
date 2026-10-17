@@ -1,3 +1,9 @@
+# LAAS · laaslocks.com
+# Every crawler is welcome, search engines and AI assistants alike (OAI-SearchBot, ChatGPT-User, GPTBot,
+# Claude-SearchBot, Claude-User, ClaudeBot, PerplexityBot, Google-Extended, Applebot-Extended, CCBot):
+# the pages are here to be read and quoted. The cart and the checkout carry noindex instead of a Disallow,
+# so crawlers can still see that.
 User-agent: *
 Allow: /
+
 Sitemap: https://eric99et.github.io/eric-v3/sitemap.xml

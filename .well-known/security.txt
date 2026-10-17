@@ -1,0 +1,4 @@
+Contact: mailto:support@laaslocks.com
+Expires: 2027-10-17T00:00:00.000Z
+Preferred-Languages: en, da
+Canonical: https://eric99et.github.io/eric-v3/.well-known/security.txt

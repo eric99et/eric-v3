@@ -590,7 +590,7 @@ main.shop.legal { max-width: none; font: inherit; letter-spacing: normal; }
 .fq__a { padding: 0 18px 16px; }
 .pr .fq__a p { font-size: 15px; line-height: 1.55; }
 .fq__img { display: block; width: 100%; max-height: 260px; margin-top: 14px; border-radius: 14px; object-fit: cover; background: #ECECEA; }
-.fq__img[src$="varefakta-badge.jpg"] { width: 96px; height: 96px; object-fit: contain; background: none; }
+.fq__img[src$="varefakta-badge.webp"] { width: 96px; height: 96px; object-fit: contain; background: none; }
 .pr .fq__a .fq__rate { align-items: center; gap: 6px; margin-top: 12px; font-size: 13px; color: var(--muted); }
 .fq__rate span { margin-right: 4px; }
 .fq__rate button { min-height: 30px; padding: 0 12px; border-radius: 999px; font-size: 13px; }
@@ -888,3 +888,10 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 
 /* round 4: on a phone the two add-on tiles stack, so all three finish swatches of the second lock fit and can be tapped */
 @media (max-width: 760px) { .addons { flex-direction: column; } .cart__box .addons .addon { flex: none; } }
+
+/* the guides (insurance-approved-bike-lock.html): plain reading pages in the legal-page frame */
+.guide .pr__card h2 { margin: 0 0 12px; }
+.guide .pr__card p { max-width: 42em; line-height: 1.6; }
+.guide .pr__card p + p { margin-top: 12px; }
+.guide__src ul { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; line-height: 1.45; }
+.guide .pill-btn { margin-top: 8px; }

@@ -58,7 +58,7 @@
   let secondFin = null;
   const paintSecond = () => {
     const box = $('#offer-second'); if (!box || !secondFin) return;
-    const im = $('img', box), src = 'images/scenes/thumb-' + secondFin + '.webp';
+    const im = $('img', box), src = (window.LAAS_ROOT || '') + 'images/scenes/thumb-' + secondFin + '.webp';
     if (im.getAttribute('src') !== src) im.src = src;
     $$('[data-pick]', box).forEach(b => { const on = b.dataset.pick === secondFin; b.setAttribute('aria-checked', String(on)); b.tabIndex = on ? 0 : -1; });
     setText('#offer-second-fin', Object.keys(FIN).find(k => FIN[k] === secondFin));
@@ -73,8 +73,8 @@
   });
   const lockCount = items => items.reduce((n, i) => n + (isLock(i) ? i.qty || 1 : 0), 0);
   const full = (i, items) => isLock(i) ? lockCount(items) >= MAX : i.qty >= MAX;
-  const thumb = i => isFlex(i) ? 'images/flexmount-thumb.webp'
-    : FIN[i.finish] ? 'images/scenes/thumb-' + FIN[i.finish] + '.webp' : (i.img || 'images/scenes/thumb-steel.webp');
+  const thumb = i => (window.LAAS_ROOT || '') + (isFlex(i) ? 'images/flexmount-thumb.webp'
+    : FIN[i.finish] ? 'images/scenes/thumb-' + FIN[i.finish] + '.webp' : (i.img || 'images/scenes/thumb-steel.webp'));
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
   /* ---------------------------------------------------------------- paint */
