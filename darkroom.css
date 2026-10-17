@@ -2732,3 +2732,55 @@ img.how__m.is-on { animation: how-kb 9s ease-out .6s forwards; }
   .hero--photo .hero__shot--hand img { object-position: 50% 50%; }
   .hero--photo .hero__shot--black img { object-position: 46% 34%; }
 }
+
+/* ------------------------------------------- the steady header (17 Oct, kept last so it wins)
+   The bar never changes size or place. Floating, clear or over a photo it keeps one shape; only its glass fades in and
+   out, on a layer of its own (opacity only), so a change of state never re-lays-out the bar or makes it jump. */
+.nav__shell, html.nav-float .nav__shell, html.nav-float.nav-compact .nav__shell {
+  max-width: 1240px !important; height: 64px !important; padding: 0 8px 0 22px !important;
+  background: transparent !important; border-color: transparent !important; box-shadow: none !important;
+  -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  isolation: isolate; transition: none !important;
+}
+.nav__shell::before {
+  content: ""; position: absolute; inset: -1px; z-index: -1; border-radius: inherit; pointer-events: none;
+  border: 1px solid rgba(32, 47, 48, .1);
+  background: color-mix(in srgb, var(--paper) 74%, transparent);
+  -webkit-backdrop-filter: saturate(170%) blur(16px); backdrop-filter: saturate(170%) blur(16px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), 0 14px 40px -20px rgba(32, 47, 48, .45);
+  opacity: 0; transition: opacity .35s var(--ease), background-color .4s, border-color .4s;
+}
+html.nav-float:not(.nav-clear):not(.in-tale) .nav__shell::before { opacity: 1; }
+html[data-tone="dark"] .nav__shell::before { background: color-mix(in srgb, #202F30 55%, transparent); border-color: rgba(236, 236, 234, .14); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 14px 40px -20px rgba(0, 0, 0, .6); }
+/* a phone: the same slim bar as before, solid instead of glass (glass over the moving lock costs frames there) */
+@media (max-width: 760px) {
+  .nav__shell, html.nav-float .nav__shell, html.nav-float.nav-compact .nav__shell { height: 56px !important; padding: 0 6px !important; }
+  .nav__shell::before { -webkit-backdrop-filter: none; backdrop-filter: none; background: color-mix(in srgb, var(--paper) 96%, transparent); }
+  html[data-tone="dark"] .nav__shell::before { background: color-mix(in srgb, #1D5F63 96%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) { .nav__shell::before { transition: none; } }
+
+/* ------------------------------------------- how it works, the same for all four steps (17 Oct, kept last so it wins)
+   One window for every step (the films are cut to 540 × 760, without their captions or title cards), one crossfade
+   with the same soft settle, and no slow zoom on the still: the four steps now move the same way. */
+.how__media { aspect-ratio: 540 / 760 !important; }
+.how__m, img.how__m { object-fit: cover !important; object-position: 50% 0 !important; transform: scale(1.03); transform-origin: 50% 50%; animation: none !important; transition: opacity .6s var(--ease), transform .9s var(--ease); }
+.how__m.is-on, img.how__m.is-on { transform: none; }
+@media (prefers-reduced-motion: reduce) { .how__m, img.how__m { transform: none; transition: none; } }
+
+/* ------------------------------------------- the footer on a phone (17 Oct, kept last so it wins)
+   Tighter, so the whole footer fits on one screen of a common phone: the logo, the line, the links, the socials and the
+   fine print together. On a shorter phone the page stops at the footer's top first (darkroom.js), then at its end. */
+@media (max-width: 560px) {
+  .foot:has(.foot2) { padding-top: 40px; }
+  .foot2__top { gap: 18px; padding-bottom: 26px; }
+  .foot2__logo { width: 120px; }
+  .foot2__intro { margin-top: -4px; font-size: 14px; }
+  .foot2__nav { gap: 0; }
+  .foot2__nav a { min-height: 38px; }
+  .foot2__social a { width: 44px; height: 44px; }
+  .foot2__band { display: none; }
+  .foot2__legal { gap: 8px; padding-top: 20px; border-top: 1px solid rgba(236, 236, 234, .12); margin-inline: var(--gutter); padding-inline: 0; }
+  .foot2__legal span { font-size: 13px; }
+  .foot2__legal small { font-size: 11px; line-height: 1.55; }
+}

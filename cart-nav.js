@@ -320,7 +320,8 @@
   // things that do not take the pointer still count when they are visible under the bar
   const QUIET = '.map, .void__right, .lockimg, .slot';
   const quietContent = stack => stack.some(e => e.matches && e.matches(QUIET) && !e.closest('[data-key*="\\"hide\\":1"]') && getComputedStyle(e).opacity > 0.05);
-  let raf = 0;
+  // a change of state has to be seen twice in a row before the bar follows it, so it never flickers on an edge
+  let raf = 0, pending = null;
   const check = () => {
     raf = 0;
     if (root.classList.contains('in-foot') || root.classList.contains('in-hero')) return;
@@ -329,7 +330,8 @@
     const r = { top: nav.offsetTop + shell.offsetTop, left: nav.offsetLeft + shell.offsetLeft, width: shell.offsetWidth, height: shell.offsetHeight };
     r.bottom = r.top + r.height; r.right = r.left + r.width;
     let under = false;
-    outer: for (let y = r.top + 4; y <= r.bottom + 4; y += 10) for (let x = r.left + 12; x < r.right - 12; x += Math.max(40, r.width / 16)) {
+    // three lines across the bar (its top, middle and bottom edge) are enough to see what is under it
+    outer: for (const y of [r.top + 4, r.top + r.height / 2, r.bottom + 2]) for (let x = r.left + 12; x < r.right - 12; x += Math.max(40, r.width / 16)) {
       const stack = document.elementsFromPoint(x, y).filter(el => !nav.contains(el));
       if (isContent(stack[0]) || quietContent(stack)) { under = true; break outer; }
     }
@@ -342,15 +344,19 @@
       const darkBg = (0.2126 * R + 0.7152 * G + 0.0722 * B) < 128;
       if (darkBg !== (root.dataset.tone === 'dark')) under = true;
     }
-    root.classList.toggle('nav-clear', !under);
+    const want = !under;
+    if (root.classList.contains('nav-clear') === want) { pending = null; return; }
+    if (pending === want || !root.classList.contains('nav-float')) { pending = null; root.classList.toggle('nav-clear', want); return; }
+    pending = want; setTimeout(schedule, 90);
   };
   const schedule = () => { if (!raf) raf = requestAnimationFrame(check); };
-  let lastY = -1;
-  addEventListener('scroll', () => { if (Math.abs(scrollY - lastY) > 6) { lastY = scrollY; schedule(); } }, { passive: true });
-  addEventListener('scrollend', schedule);
+  let lastY = -1, idle = 0;
+  addEventListener('scroll', () => {
+    if (Math.abs(scrollY - lastY) > 6) { lastY = scrollY; schedule(); }
+    // once the page has come to rest (the landing page also fades its colour as it lands): look twice more
+    clearTimeout(idle); idle = setTimeout(() => { schedule(); setTimeout(schedule, 500); }, 140);
+  }, { passive: true });
   addEventListener('resize', schedule);
   addEventListener('load', schedule);
-  // the landing page glides between chapters and fades its colour: look again while the page settles
-  setInterval(() => { if (!document.hidden) schedule(); }, 700);
   schedule();
 })();

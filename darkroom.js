@@ -224,6 +224,7 @@ const DA = {
   "Less keys. More breeze.": "Færre nøgler. Mere medvind.",
   "Love it.": "Elsk den.",
   "Lend it.": "Lån den ud.",
+  "No more complex handover of keys. Just send a link. They can find and unlock your bike with their phone.": "Slut med besværlige nøgleoverdragelser. Send bare et link. Så kan de finde og låse din cykel op med deres telefon.",
   "No more complex handover of keys. No stressed calls explaining where the bike is. Just send a link. They can find and unlock your bike with their phone. And when you need it back, you can find it instantly.": "Slut med besværlige nøgleoverdragelser. Slut med stressede opkald om, hvor cyklen står. Send bare et link. Så kan de finde og låse din cykel op med deres telefon. Og når du skal bruge den igen, finder du den med det samme.",
   "Meet the Ring‑Lock": "Mød Ring‑Lock",
   "Keyless. Apple Find My. Share with a link": "Nøglefri. Apple Find My. Del med et link",
@@ -991,14 +992,13 @@ if (fine && !reduce) addEventListener('pointermove', e => { user.px = e.clientX 
 
 /* -------------------------------------------------------- the nav capsule */
 {
-  const navEl = $('#nav'), links = $('.nav__links'), hover = $('.nav__hover'), lamp = $('.nav__lamp');
+  const links = $('.nav__links'), hover = $('.nav__hover'), lamp = $('.nav__lamp');
   let lastY = scrollY;
   const onScroll = () => {
     const y = scrollY, d = y - lastY; lastY = y;
     root.classList.toggle('nav-float', y > 8);
     if (d > 4 && y > innerHeight * 0.6) root.classList.add('nav-compact');
     else if (d < -4 || y < 8) root.classList.remove('nav-compact');
-    navEl.style.setProperty('--sp', (y / Math.max(1, document.documentElement.scrollHeight - innerHeight)).toFixed(4));
   };
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
   // the pill under the pointer
@@ -1047,7 +1047,8 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
     sections.forEach(sec => {
       if (sec === heroSec) return;
       const top = Math.round(sec.getBoundingClientRect().top + scrollY), h = Math.max(sec.offsetHeight, sec.scrollHeight);
-      if (sec.matches('footer')) { out.push(maxY); return; }
+      // the footer ends the page; one taller than the screen (a phone) stops at its top first, so its logo and links are seen
+      if (sec.matches('footer')) { if (h > innerHeight + 8) out.push(Math.min(top, maxY)); out.push(maxY); return; }
       out.push(Math.min(top, maxY));
       // a story chapter (data-steps) stops once per frame
       const steps = +sec.dataset.steps || 0; // (no chapter uses steps now; kept for a story that stops per frame)
