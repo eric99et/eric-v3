@@ -1,6 +1,6 @@
 // LAAS · the cart and the checkout, in the new design (cart-v2.html, checkout-v2.html)
 // The data is exactly the old cart's (laas.js): localStorage 'laas.cart.v1.en', an
-// array of {name, finish, unit, qty, img}. €129 a lock, €9.99 a Flex Mount, €9 flat
+// array of {name, finish, unit, qty, img}. €129 a lock, €9.99 a Flex-Mount, €9 flat
 // shipping, free over €250. Old carts are normalised on every read the way laas.js
 // does it, so both designs can read and write the same cart.
 // The checkout's steps and its demo order are in checkout.js. Nothing is sent anywhere.
@@ -12,7 +12,7 @@
 
   /* ---------------------------------------------------------------- store */
   const KEY = 'laas.cart.v1.en';
-  // at most 15 locks in one order (all finishes together), and so at most 15 Flex Mounts.
+  // at most 15 locks in one order (all finishes together), and so at most 15 Flex-Mounts.
   // The prices come from i18n.js: euro in English, kroner in Danish. A line is priced by what it is, never by
   // the number stored with it, so the same cart reads right in either language.
   const I = window.LAAS_I18N || { lang: 'en', P: { lock: 129, flex: 9.99, ship: 9, free: 250 }, t: s => s, money: n => '€' + n };
@@ -33,7 +33,7 @@
       delete i.trial; delete i.trialFlex;
       // the stored unit stays in euro (what the shop is priced in); the page prices from unitOf()
       if (/^Ring-Lock/.test(i.name)) { i.unit = 129; i.id = 'ring-lock'; }
-      if (/Flex/.test(i.name)) { i.unit = 9.99; i.id = 'flex-mount'; }
+      if (/Flex/.test(i.name)) { i.unit = 9.99; i.id = 'flex-mount'; i.name = 'Flex-Mount'; }
       // the finish is Steel (as in the Drive copy); carts from before say Silver
       if (/^(Silver|Sølv|Stål)$/.test(i.finish || '')) i.finish = 'Steel';
       i.qty = Math.min(MAX, Math.max(1, parseInt(i.qty, 10) || 1));
@@ -45,10 +45,13 @@
   const read = () => { try { return migrate(JSON.parse(localStorage.getItem(KEY))); } catch { return []; } };
   // laas-cart tells the bag in the nav (cart-nav.js) to recount
   const write = items => { try { localStorage.setItem(KEY, JSON.stringify(items)); } catch { /* private mode */ } paint(); dispatchEvent(new Event('laas-cart')); };
+  // the lines at list price; every second lock comes off as its own row (the second-lock offer); two locks ship free
   const totals = items => {
     const sub = items.reduce((n, i) => n + unitOf(i) * (i.qty || 1), 0);
-    const ship = sub > FREE_SHIP || !sub ? 0 : FLAT_SHIP;
-    return { sub, ship, total: sub + ship, count: items.reduce((n, i) => n + (i.qty || 1), 0) };
+    const locks = items.reduce((n, i) => n + (/^Ring-Lock/.test(i.name) ? (i.qty || 1) : 0), 0);
+    const disc = I.lockSum ? locks * LOCK - I.lockSum(locks) : 0;
+    const ship = !sub ? 0 : I.shipFor ? I.shipFor(locks) : sub > FREE_SHIP ? 0 : FLAT_SHIP;
+    return { sub, disc, locks, ship, total: sub - disc + ship, count: items.reduce((n, i) => n + (i.qty || 1), 0) };
   };
   const isLock = i => /^Ring-Lock/.test(i.name), isFlex = i => /Flex/.test(i.name);
   // the second-lock offer: three finish dots, the picture follows the pick
@@ -129,6 +132,8 @@
     });
 
     setSum('[data-subtotal]', money(t.sub));
+    $$('[data-pair-row]').forEach(el => { el.hidden = !t.disc; });
+    setSum('[data-pair]', '−' + money(t.disc));
     setSum('[data-shipping]', !t.sub ? money(0) : t.ship ? money(t.ship) : tr('Free'));
     setSum('[data-total]', money(t.total));
     setText('[data-count]', t.count ? t.count + ' ' + tr(t.count === 1 ? 'item' : 'items') : '');
@@ -138,18 +143,17 @@
     // the free-shipping meter: live math from the real subtotal
     const meter = $('#meter');
     if (meter) {
-      const capped = Math.min(t.sub, FREE_SHIP);
-      meter.setAttribute('aria-valuenow', String(Math.round(capped)));
-      meter.style.setProperty('--fill', (capped / FREE_SHIP * 100).toFixed(1) + '%');
-      setText('#meter-label', t.sub > FREE_SHIP ? 'Free shipping on this order' : money(Math.max(0.01, FREE_SHIP - t.sub)) + ' more for free shipping');
+      meter.setAttribute('aria-valuenow', String(Math.min(2, t.locks)));
+      meter.style.setProperty('--fill', (Math.min(2, t.locks) / 2 * 100) + '%');
+      setText('#meter-label', t.locks >= 2 ? 'Free shipping on this order' : 'Add a second Ring-Lock and get free shipping');
     }
 
-    // the two offers: a Flex Mount until one is in the cart; a second lock while it would make shipping free
+    // the two offers: a Flex-Mount until one is in the cart; a second lock (at the second-lock price, shipping free) while there is one
     const flex = $('#offer-flex'), second = $('#offer-second'), first = items.find(isLock);
     let saidNo = false; try { saidNo = sessionStorage.getItem('laas-flex') === 'no'; } catch {}
     if (flex) flex.hidden = !first || items.some(isFlex) || saidNo;
     if (second) {
-      second.hidden = !first || t.sub > FREE_SHIP;
+      second.hidden = !first || t.locks !== 1;
       // the second lock's finish: the first lock's until someone picks another
       if (first && !secondFin) secondFin = FIN[first.finish] || 'steel';
       if (first) paintSecond();
@@ -176,7 +180,7 @@
       // − at 1 takes the line out
       if (i.qty + +step.dataset.d < 1) {
         const out = () => {
-          // only this line goes: the Flex Mount is its own line, with its own bin (owner, 10 Oct)
+          // only this line goes: the Flex-Mount is its own line, with its own bin (owner, 10 Oct)
           const rest = read(); const k = rest.findIndex(x => x.name === i.name && x.finish === i.finish);
           if (k > -1) rest.splice(k, 1);
           write(rest); say(i.name + ' ' + tr('removed from your cart.'));
@@ -207,12 +211,12 @@
     if (add) {
       const items = read();
       if (add.dataset.add === 'flex') {
-        // one Flex Mount per lock, as the old question on the way to checkout added
+        // one Flex-Mount per lock, as the old question on the way to checkout added
         const locks = items.filter(isLock).reduce((n, i) => n + i.qty, 0);
         const fm = items.find(isFlex);
         if (fm) fm.qty = Math.min(MAX, fm.qty + 1);
-        else items.push({ id: 'flex-mount', name: 'Flex Mount', finish: '', unit: 9.99, qty: Math.min(MAX, Math.max(1, locks)), img: 'images/flexmount.jpg' });
-        write(items); say(tr('Flex Mount added.'));
+        else items.push({ id: 'flex-mount', name: 'Flex-Mount', finish: '', unit: 9.99, qty: Math.min(MAX, Math.max(1, locks)), img: 'images/flexmount.jpg' });
+        write(items); say(tr('Flex-Mount added.'));
       } else {
         const fin = secondFin || 'steel', name = Object.keys(FIN).find(k => FIN[k] === fin);
         if (lockCount(items) < MAX) {

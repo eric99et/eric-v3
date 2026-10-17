@@ -151,8 +151,8 @@
 
   // Buy: the locks go in the cart, then the cart page
   // Buy puts the locks in the cart right here, no new page and no question on the way (the cart offers the
-  // Flex Mount); cart-nav.js shows what was added, with Check out one tap away
-  // first one question, the Flex Mount (cart-nav.js asks it, on every page that sells)
+  // Flex-Mount); cart-nav.js shows what was added, with Check out one tap away
+  // first one question, the Flex-Mount (cart-nav.js asks it, on every page that sells)
   const buy = () => {
     if (inCart()) { location.href = 'checkout-v2.html'; return; }
     if (C() && C().ask) C().ask(put); else put(false);
@@ -236,11 +236,11 @@
   render(true);
   paintCart();
 
-  /* ------------------------------------------- the Flex Mount on its own */
+  /* ------------------------------------------- the Flex-Mount on its own */
   const flexBtn = $('#flex-add');
   flexBtn?.addEventListener('click', () => {
     const n = window.LAAS_CART && window.LAAS_CART.addFlexOnly ? window.LAAS_CART.addFlexOnly(1) : 0;
-    $('#buy-status').textContent = n ? 'Flex Mount, ' + tr('added to your cart.') : n === 0 ? '15 ' + tr('is the most in one order') : tr('Your browser blocked the cart. Allow site data for this page and try again.');
+    $('#buy-status').textContent = n ? 'Flex-Mount, ' + tr('added to your cart.') : n === 0 ? '15 ' + tr('is the most in one order') : tr('Your browser blocked the cart. Allow site data for this page and try again.');
     if (!n) return;
     flexBtn.classList.add('is-added'); flexBtn.textContent = tr('Added');
     setTimeout(() => { flexBtn.classList.remove('is-added'); flexBtn.textContent = tr('Add to cart'); }, 1600);

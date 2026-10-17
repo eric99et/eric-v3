@@ -11,9 +11,9 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/poppins-600-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/inter-400-600-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="darkroom.css?v=1018b">
-<link rel="stylesheet" href="buy.css?v=1017a">
-<link rel="stylesheet" href="shop-v2.css?v=1017a">
+<link rel="stylesheet" href="darkroom.css?v=1016h3">
+<link rel="stylesheet" href="buy.css?v=1016a2">
+<link rel="stylesheet" href="shop-v2.css?v=1016m3">
 </head>
 <body class="buy-page shop-page cart-page oc-page" data-shop>
 <a class="skip label" href="#oc-h">Skip to content</a>
@@ -37,10 +37,9 @@
     <a class="nav__logo" href="index.html" aria-label="LAAS, home"><svg viewBox="0 0 343.43 88.44" aria-hidden="true"><use href="#laas-mark"/></svg></a>
     <nav class="nav__links label" aria-label="Sections">
       <span class="nav__hover" aria-hidden="true"></span>
-      <a href="buy.html">Ring-Lock</a>
-      <a href="faq.html" data-nav="faq">FAQ</a>
-      <a href="shipping.html">Shipping</a>
-      <a href="index.html#help">Support</a>
+      <a href="buy.html#details">Every last detail</a>
+      <a href="about.html">About LAAS</a>
+      <a href="index.html#help">Help &amp; Guides</a>
     </nav>
     <div class="nav__end">
       <button class="ghost label nav__menu" id="menu-open" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
@@ -50,10 +49,11 @@
 
 <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
   <nav aria-label="Menu">
-    <a class="display" href="buy.html"><span class="label">01</span>Ring-Lock</a>
-    <a class="display" href="faq.html"><span class="label">02</span>FAQ</a>
-    <a class="display" href="shipping.html"><span class="label">03</span>Shipping</a>
-    <a class="display" href="index.html#help"><span class="label">04</span>Support</a>
+    <a class="display" href="index.html"><span class="label">01</span>Home</a>
+    <a class="display" href="buy.html"><span class="label">02</span>Shop</a>
+    <a class="display" href="buy.html#details"><span class="label">03</span>Every last detail</a>
+    <a class="display" href="about.html"><span class="label">04</span>About LAAS</a>
+    <a class="display" href="index.html#help"><span class="label">05</span>Help &amp; Guides</a>
   </nav>
 </div>
 
@@ -75,6 +75,7 @@
         <ul class="lines lines--ro" data-oc-lines></ul>
         <dl class="sums">
           <div><dt>Subtotal</dt><dd data-oc-sub></dd></div>
+          <div data-oc-pair-row hidden><dt>Second-lock offer</dt><dd data-oc-pair></dd></div>
           <div><dt>Shipping</dt><dd data-oc-ship></dd></div>
           <div class="sums__total"><dt>Total <small>incl. VAT</small></dt><dd data-oc-total></dd></div>
         </dl>
@@ -117,22 +118,22 @@
     <div class="foot2">
       <div class="foot2__top">
         <a href="index.html" class="foot2__home" aria-label="LAAS, home"><svg class="foot2__logo" viewBox="0 0 343.43 88.44" aria-hidden="true"><use href="#laas-mark"/></svg></a>
-        <nav class="foot2__nav" aria-label="Footer"><a href="buy.html">Ring-Lock</a><a href="faq.html">FAQ</a><a href="shipping.html">Shipping</a><a href="shipping.html#returns">Returns</a><a href="index.html#help">Support</a></nav>
+        <nav class="foot2__nav" aria-label="Footer"><a href="about.html">About LAAS</a><a href="faq.html">FAQ</a><a href="index.html#help">Help &amp; guides</a><a href="https://laaslocks.com/app/">Get the app</a><a href="promises.html#trial">57-day trial: Fall in love or your money back</a><a href="promises.html#keep-moving">Keep You Moving warranty</a><a href="buy.html">Ring-Lock</a><a href="shipping.html">Shipping</a><a href="shipping.html#returns">Returns</a><a href="tel:+4531338213">Call LAAS ↗</a></nav>
         <p class="foot2__social">
           <a href="https://www.instagram.com/laaslocks/" target="_blank" rel="noopener" aria-label="LAAS on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.3-3.6a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6z"/></svg></a>
           <a href="https://www.facebook.com/laas" target="_blank" rel="noopener" aria-label="LAAS on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
         </p>
       </div>
       <i class="foot2__band" aria-hidden="true"></i>
-      <p class="foot2__legal"><span>© 2026 LAAS ApS · Designed in Copenhagen</span><small>Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · <a href="tel:+4531338213">+45 31 33 82 13</a> · <a href="terms.html">Terms of sale</a> · <a href="privacy.html">Privacy</a></small></p>
+      <p class="foot2__legal"><span>Locks you can love. · © 2026 LAAS ApS · Designed in Copenhagen</span><small>Sankt Hans Gade 24, st., 2200 København N · CVR 40942491 · <a href="tel:+4531338213">+45 31 33 82 13</a> · <a href="terms.html">Terms of sale</a> · <a href="privacy.html">Privacy</a></small></p>
     </div>
   </footer>
 </main>
 
 <p class="visually-hidden" id="status" role="status" aria-live="polite"></p>
-<script src="i18n.js?v=1018b"></script>
-<script src="shop-v2.js?v=1018b" defer></script>
-<script src="checkout.js" defer></script>
-<script src="cart-nav.js?v=1016a"></script>
+<script src="i18n.js?v=1016m3"></script>
+<script src="shop-v2.js?v=1016m3" defer></script>
+<script src="checkout.js?v=1016m3" defer></script>
+<script src="cart-nav.js?v=1016m3"></script>
 </body>
 </html>

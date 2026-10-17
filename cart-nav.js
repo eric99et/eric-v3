@@ -66,8 +66,8 @@
     const flex = finish === 'flex';
     card.querySelector('.added__pic').src = flex ? 'images/flexmount-thumb.webp' : 'images/scenes/thumb-' + finish + '.webp';
     card.querySelector('.added__h').textContent = qty ? T.added : T.full;
-    card.querySelector('.added__p').textContent = flex ? `Flex Mount${qty > 1 ? ' × ' + qty : ''} · ${L().money((L().P.flex || 9.99) * qty)}`
-      : (qty ? `Ring-Lock, ${NAME[finish]}${qty > 1 ? ' × ' + qty : ''} · ${L().money(L().P.lock * qty)}` : '') + (note ? (qty ? '. ' : '') + note : '');
+    card.querySelector('.added__p').textContent = flex ? `Flex-Mount${qty > 1 ? ' × ' + qty : ''} · ${L().money((L().P.flex || 9.99) * qty)}`
+      : (qty ? `Ring-Lock, ${NAME[finish]}${qty > 1 ? ' × ' + qty : ''} · ${L().money(L().lockSum ? L().lockSum(qty) : L().P.lock * qty)}` : '') + (note ? (qty ? '. ' : '') + note : '');
     card.hidden = false;
     requestAnimationFrame(() => card.classList.add('is-on'));
     clearTimeout(timer); timer = setTimeout(hide, 7000);
@@ -109,7 +109,7 @@
     const others = items.reduce((m, i) => m + (i && i !== line && /^Ring-Lock/.test(i.name) ? (+i.qty || 1) : 0), 0);
     n = Math.max(0, Math.min(n | 0, MAX_LOCKS - others));
     if (n) line.qty = n; else items.splice(items.indexOf(line), 1);
-    // the Flex Mount is its own line: it stays when the last lock goes (owner, 10 Oct)
+    // the Flex-Mount is its own line: it stays when the last lock goes (owner, 10 Oct)
     try { localStorage.setItem(KEY, JSON.stringify(items)); } catch { return false; }
     dispatchEvent(new Event('laas-cart'));
     return n;
@@ -117,14 +117,14 @@
   const hasFlex = () => read().some(i => i && /Flex/.test(i.name));
   const addFlex = n => {
     const items = read(), f = items.find(i => i && /Flex/.test(i.name));
-    if (f) f.qty = Math.max(+f.qty || 1, n); else items.push({ id: 'flex-mount', name: 'Flex Mount', finish: '', unit: 9.99, qty: Math.max(1, n | 0), img: 'images/flexmount.jpg' });
+    if (f) f.qty = Math.max(+f.qty || 1, n); else items.push({ id: 'flex-mount', name: 'Flex-Mount', finish: '', unit: 9.99, qty: Math.max(1, n | 0), img: 'images/flexmount.jpg' });
     try { localStorage.setItem(KEY, JSON.stringify(items)); } catch { return false; }
     dispatchEvent(new Event('laas-cart'));
     return true;
   };
   // before locks go in the cart: one question, so nobody gets a lock they cannot mount. done(true) adds the Flex
-  // Mount too, done(false) not; closing it (X, Esc, backdrop) still puts the locks in, without the Flex Mount.
-  // Not asked when a Flex Mount is in the cart already, or once the visitor has said the frame has holes.
+  // Mount too, done(false) not. The mounting choice is required (Marcus, 16 Oct): closing it (X, Esc, backdrop) adds nothing.
+  // Not asked when a Flex-Mount is in the cart already, or once the visitor has said the frame has holes.
   let dlg = null, onPick = null;
   const remember = v => { try { sessionStorage.setItem('laas-flex', v); } catch { /* private mode */ } };
   const saidHoles = () => { try { return sessionStorage.getItem('laas-flex') === 'no'; } catch { return false; } };
@@ -136,12 +136,12 @@
       dlg.className = 'flex-ask'; dlg.setAttribute('aria-labelledby', 'flex-ask-h');
       document.body.append(dlg);
       // the answer is taken from the click itself (the close event can lag); a tap on the backdrop closes it
-      // closed without an answer (X, Esc, backdrop): the locks still go in, the cart offers the Flex Mount again
+      // closed without an answer (X, Esc, backdrop): nothing goes in the cart
       const finish = v => {
         const cb = onPick; onPick = null;
         if (dlg.open) dlg.close();
         if (v === 'no') remember('no');
-        if (cb) cb(v === 'flex');
+        if (cb && v !== 'cancel') cb(v === 'flex');
       };
       dlg.addEventListener('click', e => {
         const b = e.target.closest('button[value]');
@@ -151,26 +151,26 @@
       dlg.addEventListener('cancel', e => { e.preventDefault(); finish('cancel'); });
       dlg.addEventListener('close', () => finish('cancel'));
     }
-    // two photos answer the question before any words do: the frame-lock hole (ringed), and the Flex Mount on a frame without
+    // two photos answer the question before any words do: the frame-lock hole (ringed), and the Flex-Mount on a frame without
     dlg.innerHTML = `<form method="dialog"><div class="flex-ask__pics">
       <figure><img src="images/ask-holes.webp" alt="" width="480" height="480"><svg class="flex-ask__ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44" pathLength="1"/></svg><figcaption>${da ? 'Huller' : 'Holes'}</figcaption></figure>
-      <figure><img src="images/ask-flex.webp" alt="" width="480" height="480"><figcaption>${da ? 'Ingen huller: Flex Mount' : 'No holes: Flex Mount'}</figcaption></figure></div>
+      <figure><img src="images/ask-flex.webp" alt="" width="480" height="480"><figcaption>${da ? 'Ingen huller: Flex-Mount' : 'No holes: Flex-Mount'}</figcaption></figure></div>
       <button class="flex-ask__x" value="cancel" aria-label="${da ? 'Luk' : 'Close'}"></button>
       <div class="flex-ask__body"><p class="flex-ask__kicker label">${da ? 'Før den kommer i kurven' : 'Before it goes in the cart'}</p>
-      <h2 id="flex-ask-h">${da ? 'Har dit stel huller til en ringlås?' : 'Does your frame have holes for a frame lock?'}</h2>
-      <button class="flex-ask__no" value="no">${da ? 'Ja, der er huller' : 'Yes, it has holes'}</button>
-      <button class="flex-ask__no" value="flex">${da ? 'Ingen huller: tilføj Flex Mount' : 'No holes: add the Flex Mount'} · ${flex}</button>
-      <button class="flex-ask__unsure" value="cancel">${da ? 'Ikke sikker? Læg låsen i kurven, og tjek senere.' : 'Not sure? Add the lock now and check later.'}</button></div></form>`;
+      <h2 id="flex-ask-h">${da ? 'Har dit stel monteringshuller?' : 'Does your frame have mounting holes?'}</h2>
+      <p class="flex-ask__hint">${da ? 'Kig ved baghjulet.' : 'Look near the rear wheel.'}</p>
+      <button class="flex-ask__no" value="no">${da ? 'Ja, der er monteringshuller.' : 'Yes, it has mounting holes.'}</button>
+      <button class="flex-ask__no" value="flex">${da ? 'Nej, tilføj Flex-Mount.' : 'No, add Flex-Mount.'} · ${flex}</button></div></form>`;
     onPick = done; dlg.returnValue = ''; dlg.showModal();
   };
-  // the whole Buy: ask, then put the locks (and the Flex Mount) in the cart; then(n) after
+  // the whole Buy: ask, then put the locks (and the Flex-Mount) in the cart; then(n) after
   const buy = (finish, qty, then) => ask(flex => { const n = add(finish, qty); if (flex && n) addFlex(n === true ? qty : n); then && then(n); });
-  // the Flex Mount on its own (the accessory on the buy page): n more, at most 15, no question first; the card says so
+  // the Flex-Mount on its own (the accessory on the buy page): n more, at most 15, no question first; the card says so
   const addFlexOnly = n => {
     const items = read(), f = items.find(i => i && /Flex/.test(i.name)), have = f ? (+f.qty || 1) : 0;
     const q = Math.max(0, Math.min(Math.max(1, n | 0), MAX_LOCKS - have));
     if (!q) return 0;
-    if (f) f.qty = have + q; else items.push({ id: 'flex-mount', name: 'Flex Mount', finish: '', unit: 9.99, qty: q, img: 'images/flexmount.jpg' });
+    if (f) f.qty = have + q; else items.push({ id: 'flex-mount', name: 'Flex-Mount', finish: '', unit: 9.99, qty: q, img: 'images/flexmount.jpg' });
     try { localStorage.setItem(KEY, JSON.stringify(items)); } catch { return false; }
     dispatchEvent(new Event('laas-cart'));
     show('flex', q);
@@ -235,8 +235,8 @@
   const KEY = 'laas.cart.v1.en';
   const I = () => window.LAAS_I18N || { lang: 'en', P: { lock: 129, flex: 9.99, ship: 9, free: 250 }, money: n => '€' + n };
   const read = () => { try { const v = JSON.parse(localStorage.getItem(KEY)); return Array.isArray(v) ? v.filter(Boolean) : []; } catch { return []; } };
-  const W = da => da ? { cart: 'Din kurv', empty: 'Din kurv er tom.', shop: 'Se Ring-Lock', sub: 'Subtotal', left: n => `${n} til gratis fragt`, free: 'Gratis fragt', go: 'Gå til kassen', view: 'Se kurven', items: n => n === 1 ? '1 vare' : n + ' varer', rm: 'Fjern', less: 'Færre', more: 'Flere' }
-    : { cart: 'Your cart', empty: 'Your cart is empty.', shop: 'See the Ring-Lock', sub: 'Subtotal', left: n => `${n} to free shipping`, free: 'Free shipping', go: 'Check out', view: 'View cart', items: n => n === 1 ? '1 item' : n + ' items', rm: 'Remove', less: 'Fewer', more: 'More' };
+  const W = da => da ? { cart: 'Din kurv', empty: 'Din kurv er tom.', shop: 'Se Ring-Lock', sub: 'Subtotal', left: () => 'Tilføj en Ring-Lock mere, og få gratis fragt', free: 'Gratis fragt', go: 'Gå til kassen', view: 'Se kurven', items: n => n === 1 ? '1 vare' : n + ' varer', rm: 'Fjern', less: 'Færre', more: 'Flere' }
+    : { cart: 'Your cart', empty: 'Your cart is empty.', shop: 'See the Ring-Lock', sub: 'Subtotal', left: () => 'Add a second Ring-Lock and get free shipping', free: 'Free shipping', go: 'Check out', view: 'View cart', items: n => n === 1 ? '1 item' : n + ' items', rm: 'Remove', less: 'Fewer', more: 'More' };
   const pop = document.createElement('div');
   pop.className = 'minicart'; pop.hidden = true; pop.setAttribute('role', 'dialog'); pop.setAttribute('aria-label', 'Cart');
   document.body.append(pop);
@@ -245,17 +245,19 @@
     const isFlex = i => /Flex/.test(i.name);
     const unit = i => isFlex(i) ? (P.flex ?? 9.99) : P.lock;
     const n = items.reduce((s, i) => s + (+i.qty || 1), 0);
-    const sub = items.reduce((s, i) => s + unit(i) * (+i.qty || 1), 0);
+    // every second lock at the second-lock price, and two locks ship free (as the cart counts it)
+    const locks = items.reduce((s, i) => s + (isFlex(i) ? 0 : (+i.qty || 1)), 0);
+    const sub = items.reduce((s, i) => s + unit(i) * (+i.qty || 1), 0) - (window.LAAS_I18N && window.LAAS_I18N.lockSum ? locks * P.lock - window.LAAS_I18N.lockSum(locks) : 0);
     if (!items.length) { pop.innerHTML = `<p class="minicart__h">${w.cart}</p><p class="minicart__empty">${w.empty}</p><a class="buy-btn minicart__go" href="buy.html">${w.shop}</a>`; return; }
-    const free = P.free ?? 250, pct = Math.min(1, sub / free);
+    const pct = Math.min(1, locks / 2);
     pop.innerHTML = `<p class="minicart__h">${w.cart} <span>${w.items(n)}</span></p><ul class="minicart__lines">` + items.map((i, k) => {
       const fin = (i.finish || '').toLowerCase().replace('silver', 'steel');
       const img = isFlex(i) ? 'images/flexmount-thumb.webp' : `images/scenes/thumb-${fin || 'steel'}.webp`;
-      const q = +i.qty || 1, name = isFlex(i) ? 'Flex Mount' : 'Ring-Lock';
+      const q = +i.qty || 1, name = isFlex(i) ? 'Flex-Mount' : 'Ring-Lock';
       return `<li data-line="${k}"><img src="${img}" alt="" width="48" height="48"><span><b>${name}</b>${isFlex(i) ? '' : `<small>${i.finish}</small>`}<em>${money(Math.round(unit(i) * q * 100) / 100)}</em></span>`
         + `<span class="minicart__qty"><button type="button" data-d="-1" class="${q === 1 ? 'is-bin' : ''}" aria-label="${q === 1 ? w.rm : w.less} ${name}">${q === 1 ? '' : '−'}</button><b aria-live="polite">${q}</b><button type="button" data-d="1" aria-label="${w.more} ${name}">+</button></span></li>`;
     }).join('') + `</ul><p class="minicart__sub"><span>${w.sub}</span><b>${money(sub)}</b></p>`
-      + `<p class="minicart__ship"><span>${pct >= 1 ? w.free : w.left(money(Math.round((free - sub) * 100) / 100))}</span><i style="--p:${pct}"></i></p>`
+      + `<p class="minicart__ship"><span>${pct >= 1 ? w.free : w.left()}</span><i style="--p:${pct}"></i></p>`
       + `<div class="minicart__btns"><a class="buy-btn minicart__go" href="checkout-v2.html">${w.go}</a><a class="minicart__view" href="cart-v2.html">${w.view}</a></div>`;
   };
   let t = 0;
@@ -272,7 +274,7 @@
   pop.addEventListener('focusout', e => { if (!e.relatedTarget || pop.contains(e.relatedTarget) || e.relatedTarget === bag || pop.matches(':hover')) return; close(); });
   addEventListener('keydown', e => { if (e.key === 'Escape' && !pop.hidden) { pop.classList.remove('is-on'); pop.hidden = true; } });
   addEventListener('laas-cart', () => { if (!pop.hidden) render(); });
-  // − and + on each line change the cart right here; − at 1 (a bin) takes the line out (the Flex Mount is its own line)
+  // − and + on each line change the cart right here; − at 1 (a bin) takes the line out (the Flex-Mount is its own line)
   pop.addEventListener('click', e => {
     const b = e.target.closest('[data-d]');
     if (!b) return;

@@ -173,7 +173,10 @@
       const btns = $$('[data-pay-btn], [data-bar-btn]');
       btns.forEach(b => { b.disabled = true; b.classList.add('is-busy'); b.dataset.label = b.textContent; b.textContent = tr('Placing your order…'); });
       const sub = items.reduce((n, i) => n + unitOf(i) * (+i.qty || 1), 0);
-      const ship = sub > I.P.free ? 0 : I.P.ship;
+      // every second lock at the second-lock price, and two locks ship free (as the cart counts it, shop-v2.js)
+      const locks = items.reduce((n, i) => n + (isLock(i) ? (+i.qty || 1) : 0), 0);
+      const disc = I.lockSum ? locks * I.P.lock - I.lockSum(locks) : 0;
+      const ship = I.shipFor ? I.shipFor(locks) : sub > I.P.free ? 0 : I.P.ship;
       const g = n => (input(n)?.value || '').trim();
       const c = input('country');
       const d = new Date(), pad = n => String(n).padStart(2, '0');
@@ -181,8 +184,8 @@
       const order = {
         no, at: d.toISOString(), lang: I.lang, demo: true,
         // the amounts as they were shown when the order was placed (euro, or kroner on the Danish page)
-        lines: items.map(i => ({ name: isFlex(i) ? 'Flex Mount' : 'Ring-Lock', finish: i.finish || '', qty: +i.qty || 1, img: thumb(i), unit: money(unitOf(i)), sum: money(unitOf(i) * (+i.qty || 1)) })),
-        sub: money(sub), ship: ship ? money(ship) : null, total: money(sub + ship),
+        lines: items.map(i => ({ name: isFlex(i) ? 'Flex-Mount' : 'Ring-Lock', finish: i.finish || '', qty: +i.qty || 1, img: thumb(i), unit: money(unitOf(i)), sum: money(unitOf(i) * (+i.qty || 1)) })),
+        sub: money(sub), pair: disc ? '−' + money(disc) : null, ship: ship ? money(ship) : null, total: money(sub - disc + ship),
         count: items.reduce((n, i) => n + (+i.qty || 1), 0),
         to: { first: g('first'), last: g('last'), email: g('email'), address: g('address'), address2: g('address2'), postal: g('postal').toUpperCase(), city: g('city'), country: c.options[c.selectedIndex].textContent },
         method: (form.querySelector('input[name="method"]:checked') || {}).value || 'card',
@@ -257,6 +260,8 @@
       set('[data-oc-no]', esc(o.no));
       set('[data-oc-email]', esc(o.to.email));
       set('[data-oc-sub]', esc(o.sub));
+      $$('[data-oc-pair-row]').forEach(el => { el.hidden = !o.pair; });
+      set('[data-oc-pair]', esc(o.pair || ''));
       set('[data-oc-ship]', o.ship ? esc(o.ship) : tr('Free'));
       set('[data-oc-total]', esc(o.total));
       set('[data-oc-count]', o.count + ' ' + tr(o.count === 1 ? 'item' : 'items'));

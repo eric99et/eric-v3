@@ -73,7 +73,7 @@ const DA = {
   'We’re always happy to speak to you, whatever your question. Call': 'Vi taler altid gerne med dig, uanset hvad du vil spørge om. Ring på',
   'or write to': 'eller skriv til',
   'Which bikes does it fit?': 'Hvilke cykler passer den til?',
-  'Most city, commuter, hybrid, electric, cargo and family bikes. It is not designed for fat bikes. No mounting holes? Use Flex Mount, an optional accessory for frames without ring-lock mounting holes.': 'De fleste by-, pendler-, hybrid-, el-, lad- og familiecykler. Den er ikke lavet til fatbikes. Ingen monteringshuller? Brug Flex Mount, et ekstra tilbehør til stel uden huller til ringlås.',
+  'Most city, commuter, hybrid, electric, cargo and family bikes. It is not designed for fat bikes. No mounting holes? Use Flex-Mount, an optional accessory for frames without ring-lock mounting holes.': 'De fleste by-, pendler-, hybrid-, el-, lad- og familiecykler. Den er ikke lavet til fatbikes. Ingen monteringshuller? Brug Flex-Mount, et ekstra tilbehør til stel uden huller til ringlås.',
   'Do I need an account?': 'Skal jeg have en konto?',
   'No. Signing in with Google or Apple makes it easier to regain access if you lose your phone.': 'Nej. Logger du ind med Google eller Apple, er det nemmere at få adgang igen, hvis du mister din telefon.',
   'How safe is Ring-Lock?': 'Hvor sikker er Ring-Lock?',
@@ -91,8 +91,8 @@ const DA = {
   'Can I try it before committing?': 'Kan jeg prøve den, før jeg beslutter mig?',
   'Yes. You have 57 days to fall in love with it. If you’re not obsessed by then, you’ll get your money back. Tell us at': 'Ja. Du har 57 dage til at forelske dig i den. Er du ikke helt solgt til den tid, får du pengene tilbage. Giv os besked på',
   'Help & Guides': 'Hjælp og guides',
-  'Locks you can love. · © 2026 LAAS ApS · Designed in Copenhagen': 'Locks you can love. · © 2026 LAAS ApS · Designet i København',
-  'Support': 'Support', 'Help & Guides.': 'Hjælp og guides.', 'Find an answer, a guide, or someone who can help.': 'Find et svar, en guide eller en, der kan hjælpe.', 'Talk to us': 'Tal med os', 'Call us': 'Ring til os', 'Write to us': 'Skriv til os', 'My lock won’t open.': 'Min lås vil ikke åbne.', 'Keep You Moving': 'Keep You Moving', 'I lost my phone.': 'Jeg har mistet min telefon.', 'My bike is missing.': 'Min cykel er væk.', 'Manual & guides.': 'Manual og guides.', 'Setup, everyday use and the full manual.': 'Opsætning, daglig brug og hele manualen.',
+  'Locks worth stealing. · © 2026 LAAS ApS · Designed in Copenhagen': 'Locks worth stealing. · © 2026 LAAS ApS · Designet i København',
+  'Support': 'Support', 'Help & Guides.': 'Hjælp og guides.', 'Find an answer, a guide, or someone who can help.': 'Find et svar, en guide eller en, der kan hjælpe.', 'Talk to us': 'Tal med os', 'Call us': 'Ring til os', 'Write to us': 'Skriv til os', 'My lock won’t open.': 'Min lås vil ikke åbne.', 'My lock will not open.': 'Min lås vil ikke åbne.', 'Keep You Moving': 'Keep You Moving', 'I lost my phone.': 'Jeg har mistet min telefon.', 'My bike is missing.': 'Min cykel er væk.', 'Manual & guides.': 'Manual og guides.', 'Setup, everyday use and the full manual.': 'Opsætning, daglig brug og hele manualen.',
   'Forgot where you parked?': 'Glemt, hvor du parkerede?', 'Happens to all of us.': 'Det sker for os alle.', 'Your iPhone shows the way.': 'Din iPhone viser vejen.', 'Locate it in the Apple Find My app.': 'Find den i Apple Find My-appen.', 'Unlock with one tap.': 'Lås op med ét tryk.', 'Your phone is the key.': 'Din telefon er nøglen.', 'And off you go.': 'Og så er du afsted.', 'No key. No cable. Just ride.': 'Ingen nøgle. Intet kabel. Bare kør.',
   'Park.': 'Parkér.', 'Push the bolt in. Click.': 'Skub bolten ind. Klik.', 'One tap in the app, and it opens.': 'Ét tryk i appen, og den åbner.', 'No key to dig for. Just ride.': 'Ingen nøgle at lede efter. Bare kør.', 'Moved?': 'Flyttet?', 'Forgot where you parked?': 'Glemt, hvor du parkerede?', 'Your bike, on the map.': 'Din cykel på kortet.', 'There it is.': 'Der er den.', 'Where did I park?': 'Hvor parkerede jeg?', 'Let’s find out.': 'Lad os finde ud af det.', 'Back to your day.': 'Tilbage til din dag.',
   'Why a Ring-Lock': 'Hvorfor en Ring-Lock', 'One lock that stays on your bike.': 'Én lås, der bliver på din cykel.',
@@ -120,10 +120,10 @@ const DA = {
   'Tyre width': 'Dækbredde', 'Up to 35 mm': 'Op til 35 mm', 'Over 60 mm': 'Over 60 mm', 'tyre': 'dæk', 'Holes for a frame lock?': 'Huller til en ringlås?', 'Yes': 'Ja', 'No': 'Nej',
   'It is printed on the side of the tyre: in 42-622, the 42 is the width in mm.': 'Det står på siden af dækket: i 42-622 er 42 bredden i mm.',
   'Two small threaded holes, either side of the rear wheel, 75 to 100 mm apart.': 'To små gevindhuller, på hver side af baghjulet, 75 til 100 mm fra hinanden.',
-  'It fits.': 'Den passer.', 'Too wide.': 'For bredt.', 'Need a Flex Mount?': 'Mangler du en Flex Mount?', 'It fits, with the Flex Mount.': 'Den passer, med Flex Mount.',
+  'It fits.': 'Den passer.', 'Too wide.': 'For bredt.', 'Need a Flex-Mount?': 'Mangler du en Flex-Mount?', 'It fits, with the Flex-Mount.': 'Den passer, med Flex-Mount.',
   'The screws are in the box.': 'Skruerne ligger i æsken.',
   'The ring takes tyres up to 60 mm.': 'Ringen tager dæk op til 60 mm.',
-  'Add the Flex Mount (€9.99) when you pre-order. It holds the lock on a frame without holes.': 'Tilføj Flex Mount (75 kr.), når du forudbestiller. Den holder låsen på et stel uden huller.',
+  'Add the Flex-Mount (€9.99) when you pre-order. It holds the lock on a frame without holes.': 'Tilføj Flex-Mount (75 kr.), når du forudbestiller. Den holder låsen på et stel uden huller.',
   // 05 buy (the finish names stay Steel, Copper and Black, as in the Drive copy)
   'Steel. Copper. Black.': 'Steel. Copper. Black.', 'Same lock, same price, three finishes. Pick the one that suits your bike.': 'Samme lås, samme pris, tre udgaver. Vælg den, der passer til din cykel.',
   'Drag to turn': 'Træk for at dreje', 'Intro price until 31 Dec 2026': 'Intropris til 31. dec. 2026',
@@ -135,7 +135,7 @@ const DA = {
   'Questions, answered.': 'Spørgsmål og svar.', 'Question not here? Call us on': 'Finder du ikke dit spørgsmål? Ring til os på',
   'Will my insurance accept it?': 'Godkender mit forsikringsselskab den?',
   'In Denmark, the Ring-Lock is insurance-approved: Varefakta VK 37868. Most Danish insurers ask for a Varefakta-approved lock and a lock certificate, and the certificate is in the box. Check your own policy. Outside Denmark, check what your policy asks for first.': 'I Danmark er Ring-Lock forsikringsgodkendt: Varefakta VK 37868. De fleste danske forsikringsselskaber kræver en Varefakta-godkendt lås og et låsecertifikat, og certifikatet ligger i æsken. Tjek din egen police. Uden for Danmark: tjek først, hvad din police kræver.',
-  'Most bikes, cargo bikes and e-bikes too: tyres up to 60 mm, mount spacing 75 to 100 mm. Not fat bikes. Frame holes? The mounting screws are in the box. No holes? The Flex Mount, €9.99.': 'De fleste cykler, også ladcykler og elcykler: dæk op til 60 mm, monteringsafstand 75 til 100 mm. Ikke fatbikes. Huller i stellet? Monteringsskruerne ligger i æsken. Ingen huller? Flex Mount, 75 kr.',
+  'Most bikes, cargo bikes and e-bikes too: tyres up to 60 mm, mount spacing 75 to 100 mm. Not fat bikes. Frame holes? The mounting screws are in the box. No holes? The Flex-Mount, €9.99.': 'De fleste cykler, også ladcykler og elcykler: dæk op til 60 mm, monteringsafstand 75 til 100 mm. Ikke fatbikes. Huller i stellet? Monteringsskruerne ligger i æsken. Ingen huller? Flex-Mount, 75 kr.',
   'What if the battery runs low?': 'Hvad hvis batteriet er ved at løbe tør?',
   'About six months per charge. A full charge over USB-C takes 90 minutes, and any USB-C cable works.': 'Cirka seks måneder pr. opladning. En fuld opladning via USB-C tager 90 minutter, og alle USB-C-kabler virker.',
   'How secure is it?': 'Hvor sikker er den?',
@@ -153,6 +153,117 @@ const DA = {
   'Turn left': 'Drej til venstre', 'Turn right': 'Drej til højre', 'Decrease quantity': 'Færre', 'Increase quantity': 'Flere', 'Accepted payment methods': 'Betalingsmetoder',
   'What you are covered by': 'Det er du dækket af', 'Your bike': 'Din cykel', 'Chapters': 'Kapitler', 'Sections': 'Sektioner', 'Language': 'Sprog', 'LAAS, back to the top': 'LAAS, til toppen',
   'LAAS on Instagram': 'LAAS på Instagram', 'LAAS on Facebook': 'LAAS på Facebook', 'Turn the lock: drag, or use the arrow keys': 'Drej låsen: træk, eller brug piletasterne', 'Footer': 'Sidefod',
+  // shorter copy, 14 Oct
+  'No mandatory account. Tap Unlock. Ride.': 'Ingen påkrævet konto. Tryk Lås op. Kør.',
+  'The LAAS app, on iPhone and Android.': 'LAAS-appen, til iPhone og Android.',
+  'In the LAAS app.': 'I LAAS-appen.',
+  'No app needed.': 'Ingen app nødvendig.',
+  'Over Bluetooth, within about 10 metres.': 'Via Bluetooth, inden for cirka 10 meter.',
+  'Every six months, over USB-C.': 'Hver sjette måned, via USB-C.',
+  'Locate it in the Apple Find My app on iPhone, iPad or Mac. End-to-end encrypted.': 'Find den i Apple Find My-appen på iPhone, iPad eller Mac. End-to-end-krypteret.',
+  '(VK 37868).': '(VK 37868).',
+  'Most city, commuter, electric and cargo bikes. Not fat bikes.': 'De fleste by-, pendler-, el- og ladcykler. Ikke fatbikes.',
+  'Two threaded holes by the rear wheel.': 'To gevindhuller ved baghjulet.',
+  'Nothing to carry. No subscription.': 'Intet at bære på. Intet abonnement.',
+  'Steel, copper or black. Same price.': 'Stål, kobber eller sort. Samme pris.',
+  '57 days to fall in love with it, or your money back.': '57 dage til at forelske dig i den, ellers får du pengene tilbage.',
+  'A bike that seems gone has often just been moved or borrowed. Helping people get back to their bikes became our mission.': 'En cykel, der ser ud til at være væk, er ofte bare flyttet eller lånt. At hjælpe folk tilbage til deres cykel blev vores mission.',
+  'Call': 'Ring på',
+  'Answers, guides and people who can help.': 'Svar, guider og folk, der kan hjælpe.',
+  'Insurance-approved in Denmark (Varefakta)': 'Forsikringsgodkendt i Danmark (Varefakta)',
+  'Try it on your own bike for 57 days. If it doesn’t fit, send it back.': 'Prøv den på din egen cykel i 57 dage. Passer den ikke, så send den tilbage.',
+  // the rebuild, 14 Oct: the photo opening, sharing, a simple fit, insurance in depth, step by step
+  'Story': 'Historien', 'Sharing': 'Deling', 'Insurance': 'Forsikring',
+  'Keyless.': 'Nøglefri.', 'The bike lock that opens with your phone.': 'Cykellåsen, der åbner med din telefon.', 'See how it works': 'Se, hvordan den virker', 'Scroll to the story': 'Rul til historien',
+  'She checks her phone, and the Ring-Lock on her rear wheel opens': 'Hun kigger på sin telefon, og Ring-Lock på baghjulet åbner', 'She takes her bike and rides off': 'Hun tager sin cykel og kører afsted',
+  'Send a link.': 'Send et link.', 'Not a key.': 'Ikke en nøgle.', 'Send an invitation. They accept it and unlock with their phone.': 'Send en invitation. De accepterer den og låser op med deres telefon.',
+  'Guest': 'Gæst', 'Can unlock the bike.': 'Kan låse cyklen op.', 'Owner': 'Ejer', 'Can unlock and manage access.': 'Kan låse op og styre adgangen.',
+  'No account needed. Take access back any time, with no key to get back.': 'Ingen konto nødvendig. Tag adgangen tilbage når som helst, uden en nøgle at få retur.',
+  'A rider locks his bike. A friend asks to borrow it, he sends her an invitation, she accepts it on her phone, and the lock opens': 'En cyklist låser sin cykel. En ven vil låne den, han sender hende en invitation, hun accepterer den på sin telefon, og låsen åbner',
+  'Yes. Ring-Lock fits most bikes, from city bikes to e‑bikes and cargo bikes. Not for fat bikes.': 'Ja. Ring-Lock passer til de fleste cykler, fra bycykler til elcykler og ladcykler. Ikke til fatbikes.',
+  'Please do not measure. Try it on your own bike for 57 days. If it does not fit, send it back.': 'Du behøver ikke måle. Prøv den på din egen cykel i 57 dage. Passer den ikke, så send den tilbage.',
+  'Varefakta is Denmark’s independent consumer-labeling body, so its mark means the claims were verified by people who do not work for us.': 'Varefakta er Danmarks uafhængige mærkningsordning for forbrugere, så mærket betyder, at påstandene er kontrolleret af folk, der ikke arbejder for os.',
+  'The only one on the list.': 'Den eneste på listen.', 'The certificate is in the box.': 'Certifikatet ligger i æsken.',
+  'Most Danish insurers ask for a Varefakta-approved lock and a lock certificate. Check your own policy.': 'De fleste danske forsikringsselskaber kræver en Varefakta-godkendt lås og et låsecertifikat. Tjek din egen police.',
+  'Built for it.': 'Bygget til det.', 'A 2 mm stainless-steel ring and a 9 mm hardened-steel bolt.': 'En 2 mm ring af rustfrit stål og en 9 mm bolt af hærdet stål.',
+  'Video from the actual lab test': 'Video fra den rigtige laboratorietest', 'Replay video': 'Afspil igen', 'Six-second lab test: the tester pulls on the bicycle and tumbles backward': 'Seks sekunders laboratorietest: testeren trækker i cyklen og vælter bagover',
+  'No passwords. No email verification. No pet’s name.': 'Ingen adgangskoder. Ingen e-mailbekræftelse. Ikke dit kæledyrs navn.',
+  'Set up your lock.': 'Sæt din lås op.', 'Enter the serial number. Give your lock a name.': 'Indtast serienummeret. Giv din lås et navn.',
+  'Lock manually.': 'Lås med hånden.', 'Like any other bike lock.': 'Som enhver anden cykellås.',
+  'Unlock with the app.': 'Lås op med appen.', 'Even without internet.': 'Også uden internet.',
+  'Charge it twice a year.': 'Oplad den to gange om året.',
+  // review round 2 (14 Oct): copy
+  'Watch the story': 'Se historien', 'No account needed. Take access back any time.': 'Ingen konto nødvendig. Tag adgangen tilbage når som helst.',
+  'Hardened steel.': 'Hærdet stål.',
+  'Yes. Ring-Lock fits most bikes, from city bikes to e‑bikes and cargo bikes.': 'Ja. Ring-Lock passer til de fleste cykler, fra bycykler til elcykler og ladcykler.',
+  'Not for fat bikes.': 'Ikke til fatbikes.', 'days': 'dage', 'Will it fit': 'Passer den', 'my bike?': 'til min cykel?',
+  'Please don’t measure. Try it on your own bike for 57 days. If it doesn’t fit, send it back.': 'Du behøver ikke måle. Prøv den på din egen cykel i 57 dage. Passer den ikke, så send den tilbage.', 'No key. No cable.': 'Ingen nøgle. Intet kabel.',
+  'Story frames': 'Historiens billeder', 'Frame 1': 'Billede 1', 'Frame 2': 'Billede 2', 'Frame 3': 'Billede 3', 'Frame 4': 'Billede 4', 'Finish': 'Finish',
+  '5 out of 5': '5 ud af 5', '4 out of 5': '4 ud af 5', '3.8 out of 5': '3,8 ud af 5',
+  'Hundreds of bikes parked side by side under a long shelter': 'Hundredvis af cykler parkeret side om side under et langt halvtag',
+  'On her iPhone, a map shows where her bike is': 'På hendes iPhone viser et kort, hvor cyklen er',
+  'A copper LAAS Ring-Lock fitted to a blue city bike': 'En LAAS Ring-Lock i kobber monteret på en blå bycykel',
+  'A light blue city bike with a LAAS Ring-Lock around the rear wheel': 'En lyseblå bycykel med en LAAS Ring-Lock om baghjulet',
+  // Liz's copy (16 Oct)
+  "Help & guides": "Hjælp og guides",
+  "Get the app": "Hent appen",
+  "57-day trial: Fall in love or your money back": "57 dages prøvetid: Forelsk dig, eller få pengene tilbage",
+  "Keep You Moving warranty": "Keep You Moving-løftet",
+  "Call LAAS ↗": "Ring til LAAS ↗",
+  "warranty": "løfte",
+  "Keep You Moving warranty: how it works": "Keep You Moving-løftet: sådan virker det",
+  "Introductory price through 31 December 2026": "Introduktionspris til 31. december 2026",
+  "Too cool for keys": "For cool til nøgler",
+  "The first keyless bike lock to work with Apple Find My": "Den første nøglefri cykellås, der virker med Apple Find My",
+  "Stressing it’s stolen?": "Bange for, at den er stjålet?",
+  "Lost, stolen, or rusty memory?": "Væk, stjålet eller bare en rusten hukommelse?",
+  "Find it instantly with your phone": "Find den med det samme med din telefon",
+  "Let’s find out": "Lad os finde ud af det",
+  "It’s never lost with LAAS": "Med LAAS er den aldrig væk",
+  "A snitch for your bike": "En sladrehank til din cykel",
+  "Less keys. More breeze.": "Færre nøgler. Mere medvind.",
+  "Love it.": "Elsk den.",
+  "Lend it.": "Lån den ud.",
+  "No more complex handover of keys. No stressed calls explaining where the bike is. Just send a link. They can find and unlock your bike with their phone. And when you need it back, you can find it instantly.": "Slut med besværlige nøgleoverdragelser. Slut med stressede opkald om, hvor cyklen står. Send bare et link. Så kan de finde og låse din cykel op med deres telefon. Og når du skal bruge den igen, finder du den med det samme.",
+  "Meet the Ring‑Lock": "Mød Ring‑Lock",
+  "Keyless. Apple Find My. Share with a link": "Nøglefri. Apple Find My. Del med et link",
+  "You bet. The Ring-Lock fits 99% of bikes, from city bikes to e‑bikes or cargo bikes. The only bike it’s not suitable for is ‘fat bikes’.": "Det kan du tro. Ring-Lock passer til 99 % af alle cykler, fra bycykler til elcykler og ladcykler. Den eneste cykel, den ikke passer til, er fatbikes.",
+  "Insurance‑approved in Denmark by Varefakta": "Forsikrings­godkendt i Danmark af Varefakta",
+  "Don’t just take our word for it. Denmark’s independent consumer-labelling body, Varefakta, has given LAAS locks its seal of approval.": "Tag ikke bare vores ord for det. Varefakta, Danmarks uafhængige mærkningsordning for forbrugere, har givet LAAS-låse sit godkendelsesstempel.",
+  "No password. No email verification. No pet’s name required.": "Ingen adgangskode. Ingen e-mailbekræftelse. Intet kæledyrsnavn påkrævet.",
+  "Set up your lock": "Sæt din lås op",
+  "Enter the serial number": "Indtast serienummeret",
+  "Give your lock a name": "Giv din lås et navn",
+  "Done": "Færdig",
+  "Charging it for 1 hour powers it for the next 6 months": "Oplad den i 1 time, så kører den de næste 6 måneder",
+  "Meet LAAS. Denmark’s first insurance-approved, app-controlled bike lock.": "Mød LAAS. Danmarks første forsikringsgodkendte, app-styrede cykellås.",
+  // the whole-site handoff (16 Oct): Marcus's naming and wording
+  "warranty": "garanti",
+  "Keep You Moving warranty": "Keep You Moving-garantien",
+  "Keep You Moving warranty: how it works": "Keep You Moving-garantien: sådan virker det",
+  "57-day trial:": "57 dages prøvetid:",
+  "Fall in love or your money back": "Forelsk dig, eller få pengene tilbage",
+  "57-day trial: Fall in love or your money back": "57 dages prøvetid: Forelsk dig, eller få pengene tilbage",
+  "Every last detail": "Alle detaljer",
+  "About LAAS": "Om LAAS",
+  "Home": "Forside",
+  "Shop": "Shop",
+  "Help & Guides": "Hjælp og guides",
+  "Help & guides": "Hjælp og guides",
+  "Get the app": "Hent appen",
+  "Call LAAS ↗": "Ring til LAAS ↗",
+  "Ring-Lock": "Ring-Lock",
+  "Locks you can love. · © 2026 LAAS ApS · Designed in Copenhagen": "Locks you can love. · © 2026 LAAS ApS · Designet i København",
+  "Shipping €9, free with two locks": "Fragt 75 kr., gratis med to låse",
+  "Lock manually like any other bike lock.": "Lås med hånden som enhver anden cykellås.",
+  "Unlock with the app, even without internet.": "Lås op med appen, også uden internet.",
+  "Don’t measure. 57-day trial: Fall in love or your money back": "Du behøver ikke måle. 57 dages prøvetid: Forelsk dig, eller få pengene tilbage",
+  "Help & Guides.": "Hjælp og guides.",
+  "My lock won’t open.": "Min lås vil ikke åbne.",
+  "I lost my phone.": "Jeg har mistet min telefon.",
+  "My bike is missing.": "Min cykel er væk.",
+  "Manual & guides.": "Manual og guides.",
+  "Setup, everyday use and the full manual.": "Opsætning, hverdagsbrug og hele manualen.",
 };
 const lang = (() => { const q = new URLSearchParams(location.search).get('lang'); try { if (q) localStorage.setItem('laas-lang', q); return q || localStorage.getItem('laas-lang') || 'en'; } catch { return q || 'en'; } })();
 const t = en => (lang === 'da' && DA[en]) || en;
@@ -164,6 +275,7 @@ if (lang === 'da') {
   // prices in kroner, as the Danish cart and checkout show them (i18n.js)
   $$('.price-line strong').forEach(el => { el.textContent = '999 kr'; }); $$('.price-line [data-price="was"]').forEach(el => { el.textContent = '1.099 kr'; }); $$('[data-price="lock"]').forEach(el => { el.textContent = '999 kr'; });
   $$('[aria-label]').forEach(el => { const v = DA[el.getAttribute('aria-label')]; if (v) el.setAttribute('aria-label', v); });
+  $$('[alt]').forEach(el => { const v = DA[el.getAttribute('alt')]; if (v) el.setAttribute('alt', v); });
 }
 $$('.lang a').forEach(a => a.setAttribute('aria-current', String(a.dataset.lang === lang)));
 
@@ -205,7 +317,7 @@ let loadedAt = 0;
 function tickLoader(dt) {
   if (progress.done) return;
   const target = progress.img * 0.25 + progress.glb * 0.75;
-  progress.shown = Math.min(target, progress.shown + dt * (target >= 1 ? 2.6 : 1.4));
+  progress.shown = target; // bar and counter are hidden: nothing to animate
   ringFill.style.transform = `scaleX(${progress.shown.toFixed(4)})`;
   pctEl.textContent = String(Math.round(progress.shown * 100)).padStart(3, '0');
   if (progress.shown >= 0.999 && !loadedAt) { loadedAt = performance.now(); setTimeout(reveal, 220); }
@@ -271,9 +383,10 @@ function show(f) {
 }
 // steel first: it is the bestseller and the one the page opens on
 {
-  let n = 0;
-  const first = ['00', '01'].map(a => fetchImg(srcOf('steel', a)).then(() => { progress.glb = ++n / 2; }));
-  Promise.all(first).then(() => { lockReady = true; progress.glb = 1; show('steel'); }, () => { progress.glb = 1; lockEl.remove(); });
+  progress.glb = 1; // the lock only comes forward in the shop: the page no longer waits for it
+  const loadLock = () => fetchImg(srcOf('steel', '00')).then(() => { lockReady = true; }, () => { lockEl.remove(); });
+  if (location.hash === '#buy' || document.readyState === 'complete') loadLock();
+  else addEventListener('load', () => (window.requestIdleCallback ? requestIdleCallback(loadLock, { timeout: 1500 }) : loadLock()), { once: true });
 }
 const loadOthers = () => ['copper', 'black'].forEach(f => fetchImg(srcOf(f, '00')).catch(() => {}));
 $$('[data-finish]').forEach(b => ['pointerenter', 'focus', 'touchstart'].forEach(ev => b.addEventListener(ev, loadOthers, { passive: true })));
@@ -334,7 +447,7 @@ function glideTick(now) {
 /* ------------------------------------------------- the pixel wordmark
    The supplied LAAS artwork, sampled onto a grid of square pixels (a deliberate, owner-approved exception to the
    logo rules, 9 Oct). Scrolling, every pixel is pulled into the same letter of the laser-marked logo on the lock. */
-const pxCanvas = $('#px'), pctx = pxCanvas.getContext('2d');
+const pxCanvas = $('#px'), pctx = pxCanvas ? pxCanvas.getContext('2d') : null;
 const logoRect = { cx: 0, cy: 0, w: 0, h: 0, ang: 0, ok: false };
 const MARK_PATHS = [...document.querySelectorAll('#laas-mark path')].map(p => new Path2D(p.getAttribute('d')));
 const MARK_W = 343.43, MARK_H = 88.44, MARK_X = 966, MARK_Y = 758.556;
@@ -378,6 +491,8 @@ $$('.hero__shot img').forEach(img => img.decode?.().catch(() => {}));
 const pxPointer = { x: -1e4, y: -1e4 };
 addEventListener('pointermove', e => { pxPointer.x = e.clientX; pxPointer.y = e.clientY; }, { passive: true });
 function drawPixels(now) {
+  // the photo opening (14 Oct) has no pixel wordmark
+  if (!pxCanvas) return;
   const t = reduce ? 1 : clamp((hero.p - 0.04) / 0.78);
   const show = hero.on && root.classList.contains('is-loaded');
   setVar(root, '--pxo', show ? '1' : '0');
@@ -544,7 +659,7 @@ function frameChrome(m) {
   // the footer has its own logo, links and buy button: the nav and the rail step aside for it
   const fr = rects[rects.length - 1];
   root.classList.toggle('in-foot', fr.top < H * 0.96);
-  root.classList.toggle('in-hero', rects[1].top > H * 0.9);
+  // the opening keeps the same header as every other chapter (14 Oct): the nav is never hidden over it
   setVar(rail, '--ro', hd > 0.9 && nav !== 'buy' && fr.top > H * 0.9 ? '1' : '0');
   // the nav changes colour on the green chapters
   const tone = s.dataset.tone || 'light';
@@ -660,7 +775,7 @@ function loop(now) {
   const tilt = findIdx < 0 ? 0 : (1 - smooth(clamp(+(sections[findIdx]['_--r'] || 0)))) * 20;
   setVar(stage, '--ft', tilt.toFixed(2) + 'deg');
   setVar(stage, '--sh', (alpha * (1 - cur.hide) * (1 - cur.radar) * (1 - cur.logo) * (1 - cur.fit) * (1 - cur.seal) * (1 - cur.bike)).toFixed(3));
-  if (alpha < 0.005 && !hero.on) { drawPixels(now); return; }
+  if (shown < 0.005) return; // lock hidden: nothing to paint
 
   const time = (now - t0) / 1000;
   // size: the ring's diameter on screen
@@ -705,6 +820,7 @@ requestAnimationFrame(loop);
 
 /* ------------------------------------------------------------ keyless UI */
 const unlockBtn = $('#unlock'), unlockState = $('#unlock-state'), unlockCta = $('#unlock-cta');
+if (unlockBtn) {
 function setLock(v, byUser) {
   user.lockWant = v;
   const open = v === 0;
@@ -724,21 +840,23 @@ unlockBtn.classList.add('is-nudge');
   if (kl && 'IntersectionObserver' in window) new IntersectionObserver(([e]) => kl.classList.toggle('is-live', e.isIntersecting)).observe(kl);
   else if (kl) kl.classList.add('is-live');
 }
+}
 
 /* -------------------------------------------------------- will it fit */
+if ($('#fitg')) {
 const fitg = $('#fitg'), verdict = $('#verdict'), vHead = $('#verdict-head'), vBody = $('#verdict-body'), fitDim = $('#fit-dim');
 const fitState = { mm: 42, holes: true };
 function renderFit() {
   const { mm, holes } = fitState;
-  // the box: tyres up to 60 mm go through the ring's 63 mm clearance; without frame holes, the Flex Mount holds it
+  // the box: tyres up to 60 mm go through the ring's 63 mm clearance; without frame holes, the Flex-Mount holds it
   const no = mm > 60;
   verdict.dataset.state = no ? 'no' : 'yes'; fitg.dataset.state = no ? 'no' : 'yes';
-  vHead.textContent = t(no ? 'Too wide.' : holes ? 'It fits.' : 'It fits, with the Flex Mount.');
+  vHead.textContent = t(no ? 'Too wide.' : holes ? 'It fits.' : 'It fits, with the Flex-Mount.');
   vBody.textContent = no ? t('The ring takes tyres up to 60 mm.')
     : holes ? t('The screws are in the box.')
-    : t('Add the Flex Mount (€9.99) when you pre-order. It holds the lock on a frame without holes.');
-  // no holes: a quiet way to the Flex Mount on its own (the buy page's accessory)
-  if (!no && !holes) { const a = document.createElement('a'); a.className = 'link verdict__more'; a.href = 'buy.html#flex-mount'; a.textContent = t('Need a Flex Mount?'); vBody.append(' ', a); }
+    : t('Add the Flex-Mount (€9.99) when you pre-order. It holds the lock on a frame without holes.');
+  // no holes: a quiet way to the Flex-Mount on its own (the buy page's accessory)
+  if (!no && !holes) { const a = document.createElement('a'); a.className = 'link verdict__more'; a.href = 'buy.html#flex-mount'; a.textContent = t('Need a Flex-Mount?'); vBody.append(' ', a); }
   verdict.classList.remove('is-swap'); void verdict.offsetWidth; verdict.classList.add('is-swap');
   // the tyre, to scale: the drawn hole is the ring's 105 mm inside (v8 model); the 63 mm clearance sits between the mounts
   fitg.style.setProperty('--tw', Math.min(1, mm / 105).toFixed(3));
@@ -791,6 +909,7 @@ radio('tyre', b => { fitState.mm = +b.dataset.mm; });
 // the answer is kept for the Pre-order question: holes means it is not asked again (cart-nav.js)
 radio('holes', b => { fitState.holes = b.dataset.holes === '1'; try { if (fitState.holes) sessionStorage.setItem('laas-flex', 'no'); else sessionStorage.removeItem('laas-flex'); } catch { /* private mode */ } });
 renderFit();
+}
 
 /* ------------------------------------------- finishes: one sliding outline */
 // António's buy block: the dots name the finish, the price stays above the button, the button just says Buy (owner, 10 Oct)
@@ -821,7 +940,7 @@ $$('[data-qty]').forEach(b => b.addEventListener('click', () => {
 renderBuy();
 addEventListener('laas-cart', renderBuy);
 addEventListener('storage', renderBuy);
-// Buy: one question (the Flex Mount), then the locks go in the cart right here; in the cart already, Check out
+// Buy: one question (the Flex-Mount), then the locks go in the cart right here; in the cart already, Check out
 $('#buy-label').addEventListener('click', e => {
   if (inCart() || !C() || !C().buy) return;
   e.preventDefault();
@@ -950,8 +1069,7 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
     const to = dir > 0 ? S.find(v => v > y + 4) : [...S].reverse().find(v => v < y - 4);
     if (to == null) return false;
     // the opening is the long, slow one; every other step is a quick, soft one
-    const opening = Math.min(to, y) < (introEl.getBoundingClientRect().top + scrollY) - 4;
-    glide(to, opening ? 2600 : Math.min(1100, 650 + Math.abs(to - y) * 0.35));
+    glide(to, Math.min(1100, 650 + Math.abs(to - y) * 0.35));
     return true;
   };
   const insideScroller = el => el && el.closest && el.closest('.menu');
@@ -986,70 +1104,174 @@ addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
     if (!busy()) intent(down ? 1 : -1);
   });
 }
-/* ------------------------------------------------- the everyday story: it plays itself, a frame every 3.6 s
-   while it is on screen; the dots jump to a frame. Reduced motion: no autoplay, the dots still work. */
+/* ------------------------------------------------- the everyday story: it plays itself while it is on screen.
+   A photo holds for 3.6 s; a film frame (the unlock, the ride off) plays to its end, from its first frame, and then
+   the story moves on, so frames 3 and 4 run as one short film. The dots jump to a frame. Reduced motion: no autoplay,
+   the films show their first frame, the dots still work. */
+const wideMQ = matchMedia('(min-width: 761px) and (min-aspect-ratio: 1/1)');
+// a film's source follows the screen: the landscape cut on wide screens, the portrait cut on phones
+function pickFilm(v) {
+  const k = wideMQ.matches ? 'wide' : 'm';
+  if (v.dataset.on === k) return;
+  v.dataset.on = k;
+  v.poster = v.dataset['poster' + (k === 'wide' ? 'Wide' : 'M')];
+  v.src = v.dataset[k];
+}
+const playSafe = v => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
 {
   const MS = 3600;
   $$('.tale').forEach(t => {
     const frames = $$('[data-i]', t), dots = $$('.tale__dots li', t), n = dots.length;
-    let i = 0, timer = 0, visible = false;
-    t.style.setProperty('--tale-ms', MS + 'ms');
+    const films = $$('.tale__shot video', t);
+    films.forEach(pickFilm);
+    wideMQ.addEventListener?.('change', () => films.forEach(pickFilm));
+    let i = 0, timer = 0, visible = false, paused = false;
+    const filmOf = k => $(`.tale__shot[data-i="${k}"] video`, t);
     const show = k => {
       i = (k + n) % n;
       t.dataset.frame = i;
       frames.forEach(el => { const on = +el.dataset.i === i; el.classList.toggle('is-on', on); if (el.matches('h2')) el.setAttribute('aria-hidden', String(!on)); });
       dots.forEach((d, k2) => d.classList.toggle('is-on', k2 === i));
       const cnt = t.querySelector('.tale__count b'); if (cnt) cnt.textContent = String(i + 1).padStart(2, '0');
-      // restart the progress bar
-      t.classList.remove('is-playing'); void t.offsetWidth; if (timer) t.classList.add('is-playing');
+      // only the frame in view runs; every film starts again from its first frame when it comes back
+      // the film going out keeps moving through the crossfade, then rests on its first frame
+      films.forEach(v => { if (v !== filmOf(i) && !v.paused) setTimeout(() => { if (v !== filmOf(i)) { v.pause(); try { v.currentTime = 0; } catch { /* fine */ } } }, 1100); else if (v !== filmOf(i)) { try { v.currentTime = 0; } catch { /* not loaded yet */ } } });
+      // the next film starts loading while this frame is on
+      const next = filmOf((i + 1) % n); if (next && next.preload !== 'auto') { next.preload = 'auto'; next.load(); }
     };
-    const play = () => { if (reduce || timer) return; timer = setInterval(() => show(i + 1), MS); t.classList.add('is-playing'); };
-    const stop = () => { clearInterval(timer); timer = 0; t.classList.remove('is-playing'); };
+    const stop = () => { clearTimeout(timer); timer = 0; t.classList.remove('is-playing'); const v = filmOf(i); if (v) v.pause(); };
+    // one frame's turn: a photo for MS, a film for as long as it runs (the progress bar follows either)
+    const run = () => {
+      clearTimeout(timer); timer = 0;
+      if (reduce || paused || !visible) return;
+      const v = filmOf(i);
+      const go = ms => {
+        t.style.setProperty('--tale-ms', ms + 'ms');
+        t.classList.remove('is-playing'); void t.offsetWidth; t.classList.add('is-playing');
+        timer = setTimeout(() => { show(i + 1); run(); }, ms);
+      };
+      if (!v) { go(MS); return; }
+      if (v.preload !== 'auto') { v.preload = 'auto'; v.load(); }
+      const start = () => {
+        if (filmOf(i) !== v || paused || !visible) return;
+        try { v.currentTime = 0; } catch { /* fine */ }
+        playSafe(v);
+        // film into film (the unlock, then the ride off): the next one comes in while this one still moves, like one cut
+        const nextFilm = filmOf((i + 1) % n);
+        go(Math.round((v.duration || 4) * 1000) + (nextFilm ? -700 : 250));
+      };
+      // a film that cannot load never stalls the story: it holds like a photo
+      if (v.error) go(MS); else if (v.readyState >= 1 && v.duration) start(); else { v.addEventListener('loadedmetadata', start, { once: true }); v.addEventListener('error', () => { if (filmOf(i) === v && visible && !paused) go(MS); }, { once: true }); }
+    };
     // start only once the page has landed on the story, and always from frame 1 after it has been away,
     // so the first photo stays put for a full beat instead of switching during the glide in
     new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) { if (i) show(0); }
+      const was = visible;
       visible = e.isIntersecting && e.intersectionRect.height >= 0.97 * Math.min(e.boundingClientRect.height, innerHeight);
-      visible && !document.hidden && !paused ? play() : stop();
+      if (visible && !was && !document.hidden) run(); else if (!visible) stop();
     }, { threshold: [0, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.97, 0.99, 1] }).observe(t);
-    document.addEventListener('visibilitychange', () => (document.hidden || !visible || paused ? stop() : play()));
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : run()));
     const pauseBtn = $('.tale__pause', t);
-    let paused = false;
-    const setPaused = p => { paused = p; pauseBtn?.setAttribute('aria-pressed', String(p)); pauseBtn?.setAttribute('aria-label', p ? 'Play story' : 'Pause story'); p ? stop() : (visible && play()); };
+    // (t is this story here, so the label goes through DA directly)
+    const say = s => (lang === 'da' && DA[s]) || s;
+    const setPaused = p => { paused = p; pauseBtn?.setAttribute('aria-pressed', String(p)); pauseBtn?.setAttribute('aria-label', say(p ? 'Play story' : 'Pause story')); p ? stop() : run(); };
     pauseBtn?.addEventListener('click', () => setPaused(!paused));
-    dots.forEach((d, k) => d.querySelector('button').addEventListener('click', () => { stop(); show(k); if (visible && !paused) play(); }));
-    // the nav goes clear over the photos
-    const shellEl = document.querySelector('.nav__shell'), menuEl = document.getElementById('menu');
-    const nav = () => {
-      const r = t.getBoundingClientRect(), n = shellEl ? shellEl.offsetTop + shellEl.offsetHeight + 12 : 80;
-      document.documentElement.classList.toggle('in-tale', r.top <= 4 && r.bottom >= n && (!menuEl || menuEl.hidden));
-    };
-    addEventListener('scroll', nav, { passive: true }); addEventListener('resize', nav);
-    if (menuEl) new MutationObserver(nav).observe(menuEl, { attributes: true, attributeFilter: ['hidden'] });
-    nav(); show(0);
+    dots.forEach((d, k) => d.querySelector('button').addEventListener('click', () => { stop(); show(k); run(); }));
+    show(0);
   });
+  // the nav goes clear over the photos: the opening and the story
+  const shellEl = document.querySelector('.nav__shell'), menuEl = document.getElementById('menu');
+  const dark = $$('.hero--photo, .tale, .void--share, .void--fit3');
+  const nav = () => {
+    const nb = shellEl ? shellEl.offsetTop + shellEl.offsetHeight + 12 : 80;
+    const over = dark.some(el => { const r = el.getBoundingClientRect(); return r.top <= 4 && r.bottom >= nb; });
+    document.documentElement.classList.toggle('in-tale', over && (!menuEl || menuEl.hidden));
+  };
+  addEventListener('scroll', nav, { passive: true }); addEventListener('resize', nav);
+  if (menuEl) new MutationObserver(nav).observe(menuEl, { attributes: true, attributeFilter: ['hidden'] });
+  nav();
 }
-/* ------------------------------------------------- how it works: the steps light up one by one while on screen */
+
+/* ------------------------------------------------- films that play while they are on screen
+   Sharing and the lab test loop while on screen. Reduced motion: the poster stays. */
 {
-  const MS = 2400;
-  $$('.how').forEach(list => {
-    const items = $$('li', list), n = items.length;
-    let i = 0, timer = 0;
+  const watch = (v, onIn) => {
+    if (!v || !('IntersectionObserver' in window)) return;
+    // fetch the film one chapter ahead, so it is there when you arrive
+    if (!reduce) new IntersectionObserver(([e], o) => { if (e.isIntersecting) { v.preload = 'auto'; o.disconnect(); } }, { rootMargin: '100% 0px' }).observe(v);
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && e.intersectionRatio > 0.55) { if (v.preload !== 'auto') { v.preload = 'auto'; } if (!reduce) onIn(); }
+      else v.pause();
+    }, { threshold: [0, 0.55, 0.8] }).observe(v);
+  };
+  const share = $('.share__film video');
+  watch(share, () => playSafe(share));
+  // the lab test loops while it is on screen (Eric, 14 Oct: no replay button)
+  const lab = $('.ins__film video');
+  watch(lab, () => playSafe(lab));
+}
+
+/* ------------------------------------------------- how it works: the steps light up one by one while on screen.
+   Each step shows its own picture beside the list; a step with a film stays until its film has run */
+{
+  const MS = 3200;
+  $$('.void--how').forEach(sec => {
+    const list = $('.how', sec); if (!list) return;
+    const items = $$('li', list), n = items.length, media = $$('.how__m', sec);
+    let i = 0, timer = 0, on = false, held = false;
+    const mediaOf = k => media.find(m => +m.dataset.step === k);
+    // the connector runs from the first circle's centre to the last one's, and the teal part stops on the current circle
+    const ics = items.map(li => $('.how__ic', li));
+    const place = () => {
+      if (!ics[0] || !ics[n - 1]) return;
+      const lb = list.getBoundingClientRect(), mid = el => { const b = el.getBoundingClientRect(); return b.top + b.height / 2 - lb.top; };
+      const a = mid(ics[0]), z = mid(ics[n - 1]), c = mid(ics[i]);
+      if (z <= a) return;
+      list.style.setProperty('--how-a', a.toFixed(1) + 'px');
+      list.style.setProperty('--how-z', (lb.height - z).toFixed(1) + 'px');
+      list.style.setProperty('--how-p', ((c - a) / (z - a)).toFixed(3));
+    };
+    if ('ResizeObserver' in window) new ResizeObserver(place).observe(list);
+    list.addEventListener('transitionend', e => { if (e.target.tagName === 'P') place(); });
+    // the focus ring on a step's circle is for the keyboard only, never after a tap or click
+    list.addEventListener('pointerdown', () => list.classList.add('is-pointer'));
+    list.addEventListener('keydown', () => list.classList.remove('is-pointer'));
     const show = k => {
       i = (k + n) % n;
       items.forEach((li, j) => { li.classList.toggle('is-on', j === i); li.setAttribute('aria-current', String(j === i)); });
       list.style.setProperty('--how-p', (i / (n - 1)).toFixed(3));
+      place();
+      media.forEach(m => { const me = m === mediaOf(i); m.classList.toggle('is-on', me); if (m.tagName === 'VIDEO' && !me) m.pause(); });
+      const next = mediaOf((i + 1) % n); if (on && next && next.tagName === 'VIDEO' && next.preload !== 'auto') next.preload = 'auto';
     };
-    const play = () => { if (reduce || timer) return; timer = setInterval(() => show(i + 1), MS); };
-    const stop = () => { clearInterval(timer); timer = 0; };
-    new IntersectionObserver(([e]) => (e.isIntersecting && !document.hidden ? play() : stop()), { threshold: 0.5 }).observe(list);
+    const run = () => {
+      clearTimeout(timer); timer = 0;
+      if (reduce || !on || held) return;
+      const m = mediaOf(i);
+      if (m && m.tagName === 'VIDEO') {
+        m.preload = 'auto';
+        const start = () => { if (mediaOf(i) !== m || !on) return; try { m.currentTime = 0; } catch { /* fine */ } playSafe(m); timer = setTimeout(() => { show(i + 1); run(); }, Math.max(MS, Math.round((m.duration || 3) * 1000) + 300)); };
+        if (m.readyState >= 1 && m.duration) start(); else m.addEventListener('loadedmetadata', start, { once: true });
+      } else timer = setTimeout(() => { show(i + 1); run(); }, MS);
+    };
+    const stop = () => { clearTimeout(timer); timer = 0; const m = mediaOf(i); if (m && m.tagName === 'VIDEO') m.pause(); };
+    new IntersectionObserver(([e]) => { on = e.isIntersecting && !document.hidden; on ? run() : stop(); }, { threshold: 0.5 }).observe(list);
     items.forEach((li, j) => {
       li.tabIndex = 0;
-      const pick = () => { stop(); show(j); play(); };
+      // a picked step stays put (WCAG 2.2.2): its film plays once, the list stops moving
+      const pick = () => { stop(); show(j); held = true; const m = mediaOf(j); if (m && m.tagName === 'VIDEO' && !reduce) playSafe(m); };
       li.addEventListener('click', pick);
       li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
     });
     show(0);
   });
+}
+// loops that are off screen (the hero photos, the review band) stop costing anything
+if ('IntersectionObserver' in window) { const away = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('is-away', !e.isIntersecting))); $$('.hero').forEach(el => away.observe(el)); }
+// the review strip: one review at a time, a calm crossfade (none with reduced motion)
+{
+  const qs = $$('.tpr__quotes q');
+  if (qs.length > 1 && !reduce) { let k = 0; setInterval(() => { if (document.hidden) return; qs[k].classList.remove('is-on'); k = (k + 1) % qs.length; qs[k].classList.add('is-on'); }, 5200); }
 }
 window.LAAS_UI = true;

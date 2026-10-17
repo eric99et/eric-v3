@@ -318,3 +318,64 @@ html.reveal-on .dnum[data-reveal]:not(.is-in), html.reveal-on .dbox[data-reveal]
 /* the eyebrow stays on one line at every width; the dash takes what is left */
 .pdp__head .void__index { gap: 10px; white-space: nowrap; }
 .pdp__head .void__index::after { flex: 1 1 0; width: auto; min-width: 12px; }
+
+/* Liz's copy (16 Oct) ---------------------------------------------------------------------------------------------- */
+/* the shop card: her line under the finishes, and her 57-day line under the badges */
+.buybox .buy__polish { margin: -8px 0 0; }
+.buy__day57 { margin: 0; font-size: 13px; line-height: 1.4; color: #606A74; text-align: center; }
+.buy__day57 a { color: inherit; text-decoration: none; }
+.buy__day57 a:hover { color: #1D5F63; text-decoration: underline; }
+/* in the box: her eyebrow over the heading */
+.details__kicker { margin: 36px 0 0; color: var(--muted); font-size: 11px; }
+.details--v2 .details__kicker + .details__h--box { margin-top: 6px; }
+/* under the hood: four white cards, then the security note on dark */
+.hood .details__text { max-width: 1200px; }
+.hood__lead { margin: 0 0 18px; max-width: 34em; font-size: 16px; line-height: 1.5; color: var(--ink); }
+.hood__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.hood__grid li { padding: 20px 22px; border-radius: 18px; background: #FFFFFF; }
+.hood__grid h3 { margin: 0 0 6px; font: 600 16px/1.2 var(--display); letter-spacing: -0.01em; color: var(--ink); }
+.hood__grid p { margin: 0; font-size: 14.5px; line-height: 1.5; color: var(--muted); }
+.hood__sec { margin-top: 10px; padding: 26px 24px; border-radius: 18px; background: #202F30; color: #ECECEA; }
+.hood__sec .label { margin: 0 0 10px; color: #9BCDD0; font-size: 11px; }
+.hood__sec h3 { margin: 0; font: 600 clamp(22px, 2.2vw, 28px)/1.1 var(--display); letter-spacing: -0.02em; }
+.hood__sub { margin: 6px 0 12px; font-size: 15px; color: #9BCDD0; }
+.hood__sec p:last-child { margin: 0; max-width: 40em; font-size: 15px; line-height: 1.55; }
+html.reveal-on .hood [data-reveal]:not(.is-in) { opacity: 0; transform: translateY(18px); }
+html.reveal-on .hood [data-reveal] { transition: opacity .7s var(--ease), transform .7s var(--ease); }
+@media (max-width: 760px) { .hood__grid { grid-template-columns: 1fr; } .hood__grid li { padding: 18px; } .hood__sec { padding: 22px 18px; } }
+/* the cart and the checkout: what you are covered by, under the sum */
+.co-trust { margin-top: 18px !important; }
+.co-final { margin: 12px 0 0; }
+
+
+
+/* the promises page: the trial as words only (its logo is not approved yet), and Marcus's warranty terms */
+.pr__head--text { grid-template-columns: 1fr; }
+.pr__terms { margin-top: 24px; padding: 20px 22px; border-radius: 18px; background: var(--paper, #ECECEA); }
+.pr__terms h3 { margin: 18px 0 6px; font: 600 16px/1.2 var(--display); color: var(--ink); }
+.pr__terms h3:first-child { margin-top: 0; }
+.pr__terms p, .pr__terms li { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink-2); }
+.pr__terms ul { margin: 6px 0 10px; padding-left: 20px; display: grid; gap: 4px; }
+.pr__contact { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px !important; }
+/* About LAAS: the founder photo under the heading, two cards, the workshop and the prototype between them */
+.ab__hero, .ab__pics figure { margin: 0; overflow: hidden; border-radius: 24px; background: #DADDDC; }
+.ab__hero { margin-top: 24px; aspect-ratio: 16 / 9; }
+.ab__hero img, .ab__pics img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.ab__card h2 { margin: 6px 0 12px; font: 600 clamp(24px, 3vw, 32px)/1.1 var(--display); letter-spacing: -0.02em; color: var(--ink); }
+.ab__card p { margin: 0 0 10px; max-width: 38em; font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+.ab__card p:last-child { margin-bottom: 0; }
+.ab__kicker { margin: 0 !important; color: var(--muted) !important; font-size: 11px !important; }
+.ab__lead { font: 600 18px/1.4 var(--display) !important; color: var(--ink) !important; }
+.ab__sign { display: grid; gap: 2px; margin-top: 16px !important; }
+.ab__sign b { font: 600 16px/1.2 var(--display); color: var(--ink); }
+.ab__pics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+.ab__pics figure { aspect-ratio: 4 / 5; }
+.ab__team { font: 500 17px/1.5 var(--display) !important; color: var(--ink) !important; }
+@media (max-width: 760px) { .ab__hero { aspect-ratio: 4 / 5; border-radius: 20px; } .ab__pics { gap: 8px; } .ab__pics figure { border-radius: 18px; } }
+/* About: the pictures fill their frames (a picture element is inline by default), and the founder photo is framed on
+   Marcus and his bike, not the wall above him */
+.ab__hero picture, .ab__pics picture { display: block; height: 100%; }
+.ab__hero { aspect-ratio: 4 / 3; }
+.ab__hero img { object-position: 50% 64%; }
+.ab__pics figure:first-child img { object-position: 22% 50%; }
+@media (max-width: 760px) { .ab__hero { aspect-ratio: 4 / 5; } .ab__hero img { object-position: 50% 60%; } }
