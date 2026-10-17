@@ -14,7 +14,6 @@ Key facts:
 ## Pages
 - [Ring-Lock: buy, specs, in the box](https://eric99et.github.io/eric-v3/buy.html)
 - [FAQ](https://eric99et.github.io/eric-v3/faq.html)
-- [Insurance-approved bike lock: how to check it](https://eric99et.github.io/eric-v3/insurance-approved-bike-lock.html)
 - [Shipping and returns](https://eric99et.github.io/eric-v3/shipping.html)
 - [About LAAS](https://eric99et.github.io/eric-v3/about.html)
 - [Manual and guides](https://laaslocks.com/guides/)
@@ -22,4 +21,3 @@ Key facts:
 
 ## Dansk
 - [LAAS Ring-Lock på dansk](https://eric99et.github.io/eric-v3/da/)
-- [Forsikringsgodkendt cykellås: sådan tjekker du den](https://eric99et.github.io/eric-v3/da/forsikringsgodkendt-cykellaas.html)

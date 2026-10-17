@@ -889,9 +889,3 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 /* round 4: on a phone the two add-on tiles stack, so all three finish swatches of the second lock fit and can be tapped */
 @media (max-width: 760px) { .addons { flex-direction: column; } .cart__box .addons .addon { flex: none; } }
 
-/* the guides (insurance-approved-bike-lock.html): plain reading pages in the legal-page frame */
-.guide .pr__card h2 { margin: 0 0 12px; }
-.guide .pr__card p { max-width: 42em; line-height: 1.6; }
-.guide .pr__card p + p { margin-top: 12px; }
-.guide__src ul { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; line-height: 1.45; }
-.guide .pill-btn { margin-top: 8px; }

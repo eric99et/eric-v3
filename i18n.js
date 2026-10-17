@@ -246,29 +246,9 @@
   "The LAAS Ring-Lock, the keyless ring lock, in": "LAAS Ring-Lock, den nøglefri ringlås, i",
   "A new key for every unlock": "En ny nøgle hver gang",
   "The LAAS Ring-Lock in Steel, a keyless ring lock for the rear wheel": "LAAS Ring-Lock i Steel, en nøglefri ringlås til baghjulet",
-  // About: our story (17 Oct)
-  "Our story": "Vores historie",
-  "From O-Lock to Ring-Lock": "Fra O-Lock til Ring-Lock",
-  "LAAS ApS was founded in Copenhagen in 2019 by Marcus Kjellsson. The idea was simple: a bike lock with no key to lose, fixed to the frame, that opens with your phone.": "LAAS ApS blev grundlagt i København i 2019 af Marcus Kjellsson. Idéen var enkel: en cykellås uden nøgle, du kan miste, fast monteret på stellet, som åbner med din telefon.",
-  "The first version was the LAAS O-Lock. We took it to Kickstarter in 2022, and our backers have tried every version since. You may have read about it under that name. The Ring-Lock is its successor: the same idea, rebuilt from the inside.": "Den første version var LAAS O-Lock. Vi tog den på Kickstarter i 2022, og vores backere har prøvet alle versioner siden. Måske har du læst om den under det navn. Ring-Lock er dens efterfølger: samme idé, bygget om indefra.",
-  "A 2 mm stainless-steel pipe, a 9 mm hardened-steel shackle through the rear wheel, and one watertight electronics unit. 504 g in all, and made to come apart, so the electronics and the metals can each be recycled.": "Et 2 mm rør i rustfrit stål, en 9 mm bolt i hærdet stål gennem baghjulet og én vandtæt elektronikenhed. 504 g i alt, og lavet til at blive skilt ad, så elektronikken og metallerne kan genbruges hver for sig.",
-  "In July 2025 the Ring-Lock was approved by Varefakta, the independent Danish labelling scheme that insurers rely on. Its standard for electronic locks also tests resistance to electric and magnetic opening attempts and to heat. The Ring-Lock is listed as an electronic, app-controlled ring lock under VK 37868. Look it up yourself on": "I juli 2025 blev Ring-Lock godkendt af Varefakta, den uafhængige danske mærkningsordning, som forsikringsselskaberne lægger vægt på. Varefaktas forskrift for elektroniske låse tester også modstand mod elektriske og magnetiske åbningsforsøg og mod varme. Ring-Lock står på listen som en elektronisk app-kontrolleret ringlås under VK 37868. Slå den selv op på",
-  "The Ring-Lock is designed in Copenhagen. The LAAS app is on the App Store and Google Play.": "Ring-Lock er designet i København. LAAS-appen findes i App Store og Google Play.",
-  // the landing page: quick answers, the Varefakta links (17 Oct)
-  "What is the LAAS Ring-Lock?": "Hvad er LAAS Ring-Lock?",
-  "Is it insurance-approved?": "Er den forsikringsgodkendt?",
-  "How long does the battery last?": "Hvor længe holder batteriet?",
-  "Does it work with Apple Find My?": "Virker den med Apple Find My?",
-  "A keyless ring lock, fixed to your bike frame around the rear wheel. Lock it by hand, then unlock it with the LAAS app over Bluetooth, even without internet. It weighs 504 g, has a 9 mm hardened-steel shackle and fits tyres up to 60 mm.": "En nøglefri ringlås, fast monteret på stellet om baghjulet. Du låser den med hånden og låser op med LAAS-appen via Bluetooth, også uden internet. Den vejer 504 g, har en 9 mm bolt i hærdet stål og passer til dæk op til 60 mm.",
-  "Yes, in Denmark. Varefakta lists the Ring-Lock as an electronic, app-controlled ring lock under VK 37868, tested to VF 5029:4. Most Danish insurers ask for a Varefakta-approved lock and the lock certificate, which is in the box. Check your own policy.": "Ja, i Danmark. Varefakta har Ring-Lock på listen som en elektronisk app-kontrolleret ringlås under VK 37868, testet efter VF 5029:4. De fleste danske forsikringsselskaber kræver en Varefakta-godkendt lås og låsebeviset, som ligger i æsken. Tjek din egen police.",
-  "About six months per charge. A full charge over USB-C takes 90 minutes, and the lock can stay on the bike while it charges. The app warns you when the battery is low.": "Cirka seks måneder pr. opladning. En fuld opladning via USB-C tager 90 minutter, og låsen kan blive siddende på cyklen imens. Appen giver besked, når batteriet er lavt.",
-  "Yes. The Ring-Lock works with Apple Find My on iPhone, iPad and Mac: you see your bike on the map in the Find My app, and unlock it in the LAAS app. Press the button on the lock three times to pair it.": "Ja. Ring-Lock virker med Apple Find My på iPhone, iPad og Mac: du ser din cykel på kortet i Find My-appen og låser op i LAAS-appen. Tryk tre gange på knappen på låsen for at parre den.",
-  "Quick answers": "Hurtige svar",
-  "All questions": "Alle spørgsmål",
+  // the Varefakta links (17 Oct)
   "See VK 37868 on varefakta.dk": "Se VK 37868 på varefakta.dk",
-  "What insurance-approved means": "Hvad forsikringsgodkendt betyder",
   "· tested to VF 5029:4": "· testet efter VF 5029:4",
-  "How to check an insurance-approved lock": "Sådan tjekker du en forsikringsgodkendt lås",
   "Approval": "Godkendelse",
   };
   const t = s => (lang === 'da' && DA[s]) || s;
