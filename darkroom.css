@@ -2887,3 +2887,15 @@ html.in-foot .nav:focus-within, html.in-hero .nav:focus-within { translate: 0 0;
 @media (min-width: 761px) and (max-width: 1100px) and (pointer: coarse) { .lang a { min-height: 0; } }
 /* the smallest phones: the long trial link wraps in English too, so the footer never touches the edges */
 @media (max-width: 380px) { .foot2__nav a[href$="#trial"] { white-space: normal; text-align: center; line-height: 1.3; padding-block: 6px; } }
+/* portrait tablets: the insurance chapter clears the bar (the mark sat right under it) */
+@media (min-width: 761px) and (max-width: 1100px) and (max-aspect-ratio: 1/1) {
+  .void--ins2 { padding-top: 104px; padding-bottom: 40px; row-gap: 24px; }
+  .void--ins2 .ins__film { height: 38vh; }
+}
+/* phones: the manual card's title stays on one line, its line of text goes below it */
+@media (max-width: 760px) {
+  .help__manual a { grid-template-columns: 1fr auto; row-gap: 4px; }
+  .help__manual b { white-space: nowrap; }
+  .help__manual small { grid-column: 1; grid-row: 2; font-size: 14px; color: #3C4A4B; }
+  .help__manual .help__go { grid-column: 2; grid-row: 1 / 3; }
+}
