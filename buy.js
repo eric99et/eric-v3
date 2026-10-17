@@ -206,6 +206,10 @@
       bar.classList.toggle('is-on', on);
       bar.setAttribute('aria-hidden', String(!on));
       $('#buybar-btn').tabIndex = on ? 0 : -1;
+      // the computer's version of the bar: the nav's Pre-order pill, back up to the buy card
+      // (it stays over the footer too: it sits in the nav, not on top of the page)
+      root.classList.toggle('pdp-box-gone', boxGone);
+      const pill = $('.nav__buy--pdp'); if (pill) pill.tabIndex = boxGone ? 0 : -1;
     };
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(([e]) => { boxGone = !e.isIntersecting && e.boundingClientRect.top < 0; set(); }).observe(box);

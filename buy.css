@@ -89,6 +89,9 @@ html { scroll-snap-type: none; scroll-behavior: smooth; scroll-padding-top: 96px
 
 /* ------------------------------------------------------------ the mobile buy bar */
 .buybar { display: none; }
+.nav__buy--pdp { display: none !important; }
+@media (min-width: 761px) { html.pdp-box-gone .nav__buy--pdp { display: inline-flex !important; animation: pdp-pill .35s cubic-bezier(.2, .7, .2, 1); } }
+@keyframes pdp-pill { from { opacity: 0; translate: 0 -6px; } }
 
 /* ------------------------------------------------------------ phones */
 @media (max-width: 760px) {

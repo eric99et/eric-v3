@@ -539,6 +539,8 @@ main.shop.legal { max-width: none; font: inherit; letter-spacing: normal; }
 .pr .fq__a .fq__rate { display: flex; gap: 8px; margin-top: 16px; }
 .fq__rate[hidden], .fq__thanks[hidden] { display: none !important; }
 .fq__rate button { display: inline-flex; align-items: center; gap: 7px; min-height: 38px; padding: 0 14px; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--line); font: 500 14px/1 var(--display); color: var(--ink); transition: box-shadow .2s; }
+.fq__rate button { position: relative; }
+.fq__rate button::before { content: ""; position: absolute; inset: -3px 0; }   /* a 44 px target */
 .fq__rate button:hover { box-shadow: inset 0 0 0 1px var(--ink); }
 .fq__rate svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; }
 .pr .fq__a .fq__thanks { margin-top: 14px; font-size: 14px; color: var(--green); }
@@ -547,7 +549,7 @@ main.shop.legal { max-width: none; font: inherit; letter-spacing: normal; }
   .fq { grid-template-columns: 1fr; gap: 14px; }
   .fq__tabs { position: static; display: flex; gap: 6px; overflow-x: auto; margin: 0 calc(-1 * var(--gutter)); padding: 0 var(--gutter) 4px; scrollbar-width: none; }
   .fq__tabs::-webkit-scrollbar { display: none; }
-  .fq__tab { flex: none; width: auto; min-height: 40px; padding: 0 14px; border-radius: 999px; font-size: 14px; gap: 8px; background: rgba(255, 255, 255, .5); }
+  .fq__tab { flex: none; width: auto; min-height: 44px; padding: 0 14px; border-radius: 999px; font-size: 14px; gap: 8px; background: rgba(255, 255, 255, .5); }
   .fq__tab svg { width: 17px; height: 17px; }
   .fq__q summary { padding: 16px 16px; font-size: 16px; }
   .fq__a { padding: 0 16px 16px; }
@@ -574,7 +576,7 @@ main.shop.legal { max-width: none; font: inherit; letter-spacing: normal; }
 .fq__pop a:hover { text-decoration-color: var(--ink); }
 .pr .fq__none { margin: 18px 0 0; font-size: 15px; }
 .fq { grid-template-columns: 210px minmax(0, 1fr); gap: 32px; margin-top: 28px; }
-.fq__tab { min-height: 40px; padding: 0 12px; gap: 10px; border-radius: 12px; font-size: 14px; }
+.fq__tab { min-height: 44px; padding: 0 12px; gap: 10px; border-radius: 12px; font-size: 14px; }
 .fq__tab svg { width: 18px; height: 18px; }
 .fq__tab em { margin-left: auto; font: 500 12px/1 var(--body); font-style: normal; color: var(--muted); }
 .fq__help { display: grid; gap: 4px; margin-top: 18px; padding: 16px 14px; border-radius: 16px; background: #FFFFFF; font-size: 13px; line-height: 1.45; color: var(--muted); }

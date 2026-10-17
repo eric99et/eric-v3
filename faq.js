@@ -27,10 +27,14 @@
       const q = norm(search.value.trim());
       fq.classList.toggle('is-search', !!q);
       if (!q) { panels.forEach(p => p.querySelectorAll('details').forEach(d => (d.hidden = false))); pick(current); none.hidden = true; return; }
+      // every word somewhere in the question or its answer, in any order ("battery charge" finds "charge the battery");
+      // the "Did this help?" lines under each answer do not count, or "support" would find every question
+      const words = q.split(/\s+/);
+      const text = d => norm(d.querySelector('summary').textContent + ' ' + [...d.querySelectorAll('.fq__a > :not(.fq__rate):not(.fq__thanks)')].map(e => e.textContent).join(' '));
       let hits = 0;
       panels.forEach(p => {
         let n = 0;
-        p.querySelectorAll('details').forEach(d => { const on = norm(d.textContent).includes(q); d.hidden = !on; if (on) n++; });
+        p.querySelectorAll('details').forEach(d => { const txt = text(d), on = words.every(w => txt.includes(w)); d.hidden = !on; if (on) n++; });
         p.hidden = !n; hits += n;
       });
       none.hidden = !!hits;

@@ -135,7 +135,8 @@ html:not(.is-loading):not(.is-loaded) .rise, html:not(.is-loading):not(.is-loade
 html.nav-float .nav__shell { max-width: 1180px; height: 60px; padding: 0 8px 0 20px; background: color-mix(in srgb, var(--paper) 74%, transparent); -webkit-backdrop-filter: saturate(170%) blur(16px); backdrop-filter: saturate(170%) blur(16px); border-color: rgba(32, 47, 48, .1); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), 0 14px 40px -20px rgba(32, 47, 48, .45); }
 /* scrolling down it narrows to the essentials; scrolling up brings the links back */
 html.nav-float.nav-compact .nav__shell { max-width: 560px; height: 54px; }
-.nav__logo { width: 120px; justify-self: start; }
+.nav__logo { width: 120px; justify-self: start; position: relative; }
+.nav__logo::after { content: ""; position: absolute; inset: 50% -8px auto; height: 44px; translate: 0 -50%; }   /* a 44 px target round the mark */
 .nav__logo svg { width: 100%; height: auto; fill: var(--ink); transition: fill .4s; }
 .nav__links { position: relative; display: flex; align-items: center; gap: 2px; height: 100%; max-width: 620px; overflow: visible; transition: max-width .45s var(--ease), opacity .3s; }
 html.nav-float.nav-compact .nav__links { max-width: 0; opacity: 0; pointer-events: none; overflow: hidden; }
@@ -849,6 +850,7 @@ html:not(.is-loaded) .hero__hint { opacity: 0; }
 }
 .lang--menu { margin-top: auto !important; }
 #buy-label.buy-btn { display: inline-flex; }
+#buy-label.is-added { background: var(--ink); }   /* Added, for a beat, before it says Check out (as on buy.html) */
 
 /* ---------------- find my, closer to the real app: a slimmer titanium-dark bezel, the map buttons top right,
    the bike as a pin where the route ends (the 3D lock steps aside here), a cleaner sheet */
@@ -929,8 +931,8 @@ html[data-tone="dark"] .nav__bag { color: #ECECEA; background: rgba(236, 236, 23
 .added__pic { width: 64px; height: 64px; object-fit: contain; border-radius: 14px; }
 .added__h { margin: 0; font: 600 15px/1.2 var(--display); letter-spacing: -0.01em; }
 .added__p { margin: 3px 0 0; font-size: 13px; color: #606A74; }
-.added__x { align-self: start; width: 32px; height: 32px; border-radius: 50%; position: relative; }
-.added__x::before, .added__x::after { content: ""; position: absolute; left: 9px; right: 9px; top: 50%; border-top: 1.5px solid #202F30; rotate: 45deg; }
+.added__x { align-self: start; width: 44px; height: 44px; margin: -6px -6px 0 0; border-radius: 50%; position: relative; }   /* 44 px to hit, the cross as before */
+.added__x::before, .added__x::after { content: ""; position: absolute; left: 15px; right: 15px; top: 50%; border-top: 1.5px solid #202F30; rotate: 45deg; }
 .added__x::after { rotate: -45deg; }
 .added__x:hover { background: #ECECEA; }
 .added__btns { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; margin-top: 12px; }

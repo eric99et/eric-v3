@@ -128,7 +128,7 @@ const DA = {
   'Steel. Copper. Black.': 'Steel. Copper. Black.', 'Same lock, same price, three finishes. Pick the one that suits your bike.': 'Samme lås, samme pris, tre udgaver. Vælg den, der passer til din cykel.',
   'Drag to turn': 'Træk for at dreje', 'Intro price until 31 Dec 2026': 'Intropris til 31. dec. 2026',
   'Price until 31 Dec 2026': 'Pris til 31. dec. 2026', 'from 1 Jan 2027': 'fra 1. jan. 2027',
-  'Pre-order': 'Forudbestil', 'promise': 'løfte', 'Shipping €9, free over €250': 'Fragt 75 kr, gratis over 1.900 kr',
+  'Pre-order': 'Forudbestil', 'Added': 'Tilføjet', 'promise': 'løfte', 'Shipping €9, free over €250': 'Fragt 75 kr, gratis over 1.900 kr',
   'From Trustpilot, shortened where marked […]. LAAS does not check them; Trustpilot shows all reviews, including the less positive ones. Most are from our Kickstarter backers.': 'Fra Trustpilot, forkortet hvor der står […]. LAAS kontrollerer dem ikke; Trustpilot viser alle anmeldelser, også de mindre positive. De fleste er fra vores Kickstarter-backere.',
   '57-day returns': '57 dages returret', 'Day trial': 'dages prøvetid', 'Promise': 'Løfte', 'Read our reviews': 'Læs vores anmeldelser', 'Pre-order: ships in October': 'Forudbestilling: sendes i oktober', 'Cancel before it ships and get all your money back (your legal right)': 'Annullér, før den sendes, og få alle pengene tilbage (din ret efter loven)', '3.8': '3,8', 'Free shipping over €250': 'Gratis fragt over 1.900 kr', '6 reviews': '6 anmeldelser', 'LAAS on Trustpilot: 3.8 out of 5 from 6 reviews': 'LAAS på Trustpilot: 3,8 ud af 5 fra 6 anmeldelser', 'Ringo W., Germany': 'Ringo W., Tyskland', 'D. A., Switzerland': 'D. A., Schweiz', 'R. I., United Kingdom': 'R. I., Storbritannien', 'Two-year right to complain': '2 års reklamationsret',
   // 06 faq
@@ -929,6 +929,7 @@ let qty = 1;
 // and takes it out, and Buy becomes Check out
 const C = () => window.LAAS_CART;
 const inCart = () => (C() && C().qtyOf ? C().qtyOf(finish) : 0);
+let added = 0; // the moment the locks went in: the button says Added for a beat before it turns into Check out
 function renderBuy() {
   const n = inCart();
   $('#qty-value').textContent = n || qty;
@@ -937,7 +938,9 @@ function renderBuy() {
   minus.classList.toggle('is-trash', n === 1);
   minus.setAttribute('aria-label', t(n === 1 ? 'Remove from cart' : 'Decrease quantity'));
   $('.qty-row').classList.toggle('is-cart', !!n);
-  $('#buy-label').textContent = t(n ? 'Check out' : 'Pre-order');
+  const just = n && Date.now() - added < 1600;
+  $('#buy-label').classList.toggle('is-added', !!just);
+  $('#buy-label').textContent = t(just ? 'Added' : n ? 'Check out' : 'Pre-order');
   // the link is the fallback when the cart script is missing: the buy page, with the choice
   $('#buy-label').href = n ? 'checkout-v2.html' : `buy.html?finish=${finish}&qty=${qty}`;
   $('#finish-name').textContent = FIN_NAME[finish];
@@ -954,7 +957,7 @@ addEventListener('storage', renderBuy);
 $('#buy-label').addEventListener('click', e => {
   if (inCart() || !C() || !C().buy) return;
   e.preventDefault();
-  C().buy(finish, qty, () => { qty = 1; renderBuy(); });
+  C().buy(finish, qty, () => { qty = 1; if (inCart()) { added = Date.now(); setTimeout(renderBuy, 1600); } renderBuy(); });
 });
 // the finish dots are one radio group (as on buy.html): one tab stop, the arrow keys move and pick
 const dots = $$('[data-finish]');
