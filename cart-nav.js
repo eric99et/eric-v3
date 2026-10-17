@@ -13,6 +13,23 @@
   const read = () => { try { const v = JSON.parse(localStorage.getItem(KEY)); return Array.isArray(v) ? v : []; } catch { return []; } };
   const count = () => read().reduce((n, i) => n + ((i && +i.qty) || 1), 0);
 
+  // after a real order: the checkout is Shopify's (shop.laaslocks.com), and its pixel (Shopify admin → Customer events,
+  // tools/shopify-pixel.js) sets the cookie laas_ordered=<time> for all of laaslocks.com when an order is placed.
+  // Here, the cart that went to that checkout (shopify.js keeps the time it left, laas.handoff) is emptied once, so the
+  // bag does not keep showing locks that are already bought. A cart filled after the order stays.
+  const ordered = () => {
+    const m = document.cookie.match(/(?:^|;\s*)laas_ordered=(\d+)/); if (!m) return;
+    document.cookie = 'laas_ordered=; path=/; max-age=0; domain=' + location.hostname.replace(/^(www|shop)\./, '');
+    document.cookie = 'laas_ordered=; path=/; max-age=0';
+    try {
+      const left = +localStorage.getItem('laas.handoff') || 0;
+      if (left && left <= +m[1]) { localStorage.removeItem(KEY); localStorage.removeItem('laas.handoff'); dispatchEvent(new Event('laas-cart')); }
+    } catch { /* private mode */ }
+  };
+  ordered();
+  addEventListener('pageshow', ordered);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) ordered(); });
+
   const end = document.querySelector('.nav__end');
   const always = document.body.hasAttribute('data-shop');
   let a = null;

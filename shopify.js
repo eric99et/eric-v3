@@ -34,6 +34,9 @@
   // on the checkout page: straight on to Shopify (back and forward keep working: replace, not push)
   // an empty cart has nothing to check out: back to the cart
   if (ready() && document.documentElement.dataset.checkout === 'shopify') {
-    location.replace(url() || 'cart-v2.html');
+    const to = url();
+    // the time this cart left for Shopify: after the order, cart-nav.js empties it (the laas_ordered cookie)
+    if (to) try { localStorage.setItem('laas.handoff', String(Date.now())); } catch {}
+    location.replace(to || 'cart-v2.html');
   }
 })();
