@@ -889,3 +889,9 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 /* round 4: on a phone the two add-on tiles stack, so all three finish swatches of the second lock fit and can be tapped */
 @media (max-width: 760px) { .addons { flex-direction: column; } .cart__box .addons .addon { flex: none; } }
 
+
+/* audit (17 Oct): the reading column keeps a normal inner padding on very wide screens, the trial card's
+   title uses the whole card, and every page headline is Ink */
+.legal__wrap { padding-left: min(var(--gutter), 32px); padding-right: min(var(--gutter), 32px); }
+.pr__head.pr__head--text { grid-template-columns: 1fr; }
+.legal__wrap .cart__h { color: var(--ink); }
