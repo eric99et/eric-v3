@@ -30,8 +30,8 @@
   };
   window.LAAS_SHOPIFY = { ready, url };
   // on the checkout page: straight on to Shopify (back and forward keep working: replace, not push)
+  // an empty cart has nothing to check out: back to the cart
   if (ready() && document.documentElement.dataset.checkout === 'shopify') {
-    const to = url();
-    if (to) location.replace(to);
+    location.replace(url() || 'cart-v2.html');
   }
 })();

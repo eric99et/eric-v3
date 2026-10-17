@@ -247,6 +247,7 @@
   "A new key for every unlock": "En ny nøgle hver gang",
   "The LAAS Ring-Lock in Steel, a keyless ring lock for the rear wheel": "LAAS Ring-Lock i Steel, en nøglefri ringlås til baghjulet",
   // the Varefakta links (17 Oct)
+  "Opening the secure checkout…": "Åbner den sikre kasse …",
   "See VK 37868 on varefakta.dk": "Se VK 37868 på varefakta.dk",
   "· tested to VF 5029:4": "· testet efter VF 5029:4",
   "Approval": "Godkendelse",
