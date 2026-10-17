@@ -10,7 +10,6 @@
   const H = document.documentElement;
   const ROOT = H.dataset.root || '';
   window.LAAS_ROOT = ROOT;
-  const lang = H.lang === 'da' ? 'da' : 'en';
   const alt = H.dataset.alt;
   const go = to => { const u = new URL(alt, location.href); u.search = location.search.replace(/[?&]lang=\w+/, '').replace(/^&/, '?'); u.hash = location.hash; location.replace(u.href); };
   let want = null;
@@ -19,6 +18,9 @@
     if (q === 'da' || q === 'en') localStorage.setItem('laas-lang', q);
     want = q || localStorage.getItem('laas-lang');
   } catch {}
+  // a page with one address for both languages (the 404 page) follows the choice and translates itself
+  const lang = alt ? (H.lang === 'da' ? 'da' : 'en') : (want === 'da' ? 'da' : 'en');
+  if (!alt) H.lang = lang;
   if (alt && (want === 'da' || want === 'en') && want !== lang) { go(); return; }
 
   // a lock, every second lock, a Flex-Mount and shipping (Marcus, 16 Oct): the first lock 129 / 999, every second one
@@ -278,7 +280,7 @@
     const p = document.createElement('p');
     p.className = 'lang label' + (cls ? ' ' + cls : ''); p.setAttribute('role', 'group'); p.setAttribute('aria-label', t('Language'));
     p.innerHTML = '<a data-lang="en" hreflang="en">EN</a><i aria-hidden="true">/</i><a data-lang="da" hreflang="da">DA</a>';
-    p.querySelectorAll('a').forEach(a => { if (!a.hasAttribute('href')) a.setAttribute('href', a.dataset.lang === lang ? location.pathname.split('/').pop() || './' : alt || '#'); });
+    p.querySelectorAll('a').forEach(a => { if (!a.hasAttribute('href')) a.setAttribute('href', a.dataset.lang === lang ? location.pathname.split('/').pop() || './' : alt || '?lang=' + a.dataset.lang); });
     return p;
   };
   // every switch on the page (the landing page has its own in the markup): mark the current language, keep the
@@ -289,6 +291,7 @@
       try { localStorage.setItem('laas-lang', a.dataset.lang); } catch {}
       if (a.dataset.lang === lang) { e.preventDefault(); return; }
       if (alt) { e.preventDefault(); const u = new URL(alt, location.href); u.search = location.search; u.hash = location.hash; location.href = u.href; }
+      else { e.preventDefault(); location.reload(); }
     });
   }); }
   const end = document.querySelector('.nav__end');
