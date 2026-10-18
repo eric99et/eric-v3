@@ -173,3 +173,7 @@ html:not(.cta-in-view) .nav__buy { animation: t-cta-in .3s cubic-bezier(.2, .7, 
 /* no 3D lock behind Help & Guides: cart-nav.js sets .help-in-view while Help owns the middle of the screen */
 #stage { transition: opacity .4s ease, visibility 0s linear 0s; }
 html.help-in-view #stage { opacity: 0; visibility: hidden; transition: opacity .4s ease, visibility 0s linear .4s; }
+
+/* near the footer (and over the hero) the nav slides away; it stayed half-visible after a mouse click in it
+   (focus-within), white logo on a light page. Only keyboard focus keeps it now (owner, 18 Oct). */
+html.in-foot .nav:focus-within:not(:has(:focus-visible)), html.in-hero .nav:focus-within:not(:has(:focus-visible)) { translate: 0 -130%; opacity: 0; pointer-events: none; }
