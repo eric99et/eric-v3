@@ -394,3 +394,18 @@ window.LAAS_SITE = window.LAAS_SITE || (() => {
   addEventListener('load', schedule);
   schedule();
 })();
+
+// LAAS · never two Pre-order buttons at once (owner, 18 Oct): while a Pre-order button on the page itself
+// (the hero's, the buy box's, the cart's) is on screen, the one in the nav steps aside. tactile.css hides it.
+(() => {
+  const root = document.documentElement;
+  const ctas = [...document.querySelectorAll('.hero__buy, .buy-btn, .pill-btn, .item__go')]
+    .filter((el) => !el.closest('.nav, .menu, .minicart'));
+  if (!ctas.length || !('IntersectionObserver' in window)) return;
+  const seen = new Set();
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) e.isIntersecting ? seen.add(e.target) : seen.delete(e.target);
+    root.classList.toggle('cta-in-view', seen.size > 0);
+  }, { rootMargin: '-64px 0px 0px 0px' });
+  ctas.forEach((el) => io.observe(el));
+})();
