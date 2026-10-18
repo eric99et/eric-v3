@@ -2899,3 +2899,53 @@ html.in-foot .nav:focus-within, html.in-hero .nav:focus-within { translate: 0 0;
   .help__manual small { grid-column: 1; grid-row: 2; font-size: 14px; color: #3C4A4B; }
   .help__manual .help__go { grid-column: 2; grid-row: 1 / 3; }
 }
+
+/* ===================================================================== design pass: chrome (18 Oct, round 2)
+   One bar, one menu and one footer on every page (the help centre wears the same, help-static/laas-skin.css).
+   The bar: logo · Every last detail · About LAAS · FAQ · Help & Guides · EN/DA · Pre-order €129 · the bag. */
+/* the bag is on every page now, beside the pill */
+.nav__end { flex-wrap: nowrap; }
+/* narrow tablets (761-900 px): all four links stay in the bar (no Menu button there), a little smaller; the price
+   leaves the pill first */
+@media (min-width: 761px) and (max-width: 900px) {
+  .nav__shell, html.nav-float .nav__shell { grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 8px; padding-inline: 10px 6px; }
+  .nav__links { justify-self: center; }
+  .nav__logo { width: 96px; }
+  .nav__links a { padding: 10px 6px; font-size: 13px; }
+  .nav__shell:has(.nav__buy) .nav__links a[href$="about.html"] { display: inline-block; }
+  .nav__end { gap: 8px; }
+  .nav__price { display: none; }
+  .nav__buy { padding-inline: 16px; }
+}
+/* the open menu is Chalk on every page, also over the home page's dark first chapters: the pill stays Deep Teal
+   with white type, and the close cross is Ink */
+html:has(#menu:not([hidden])) .nav__buy, html[data-tone="dark"]:has(#menu:not([hidden])) .nav__buy { background: var(--green); color: #FFFFFF; }
+html:has(#menu:not([hidden])) .nav__buy .nav__price { background: rgba(239, 239, 236, .16); color: #FFFFFF; }
+html:has(#menu:not([hidden])) .ghost.nav__menu::before, html:has(#menu:not([hidden])) .ghost.nav__menu::after,
+html[data-tone="dark"]:has(#menu:not([hidden])) .ghost.nav__menu::before, html[data-tone="dark"]:has(#menu:not([hidden])) .ghost.nav__menu::after,
+html.in-tale:has(#menu:not([hidden])) .ghost.nav__menu::before, html.in-tale:has(#menu:not([hidden])) .ghost.nav__menu::after { background: #202F30; }
+html:has(#menu:not([hidden])) .nav__bag b { background: var(--green); color: #FFFFFF; }
+/* the menu's six items come in one after the other */
+.menu.is-open nav a:nth-child(5) { transition-delay: .24s; } .menu.is-open nav a:nth-child(6) { transition-delay: .3s; }
+/* six items on a short phone: a little tighter so the language switch stays on the screen */
+@media (max-width: 760px) and (max-height: 760px) { .menu nav a { padding: 10px 0; font-size: clamp(34px, 9.6vw, 48px); } }
+/* the narrowest phones (up to 360 px): logo, Pre-order, the bag and the menu button fit side by side */
+@media (max-width: 360px) {
+  .nav__logo { width: 80px; }
+  .nav__end { gap: 4px; margin-left: 8px; }
+  .nav__buy { padding: 0 12px; font-size: 13px; }
+}
+/* the narrowest phones: the menu's words stay on one line */
+@media (max-width: 360px) { .menu nav a { font-size: clamp(28px, 8.8vw, 34px); white-space: nowrap; } }
+/* the glass hides what scrolls under it: denser on a computer (text behind the links never reads through) */
+@media (min-width: 761px) {
+  html.nav-float:not(.nav-clear) .nav__shell::before { background: color-mix(in srgb, var(--paper) 88%, transparent); }
+  html[data-tone="dark"].nav-float:not(.nav-clear) .nav__shell::before { background: color-mix(in srgb, #202F30 78%, transparent); }
+}
+/* the footer's legal line on a phone: each link's tap area stays on its own line (the Danish line wraps between
+   the phone number and the links) */
+@media (max-width: 760px) {
+  .foot2__legal small { line-height: 2.1; }
+  .foot2__legal a { padding: 4px 4px; margin: -4px -4px; }
+}
+/* ===================================================================== end of design pass: chrome */

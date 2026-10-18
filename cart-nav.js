@@ -1,9 +1,16 @@
-// LAAS · the bag in the nav: one icon with the number of things in the cart, on every page.
-// The landing page shows it once something is in the cart; the shop pages show it always (they have no Buy pill).
+// LAAS · the bag in the nav: one icon with the number of things in the cart, on every page (the help centre too).
+// It is always there, beside the Pre-order pill; the number shows once something is in the cart.
 // It also owns "add to cart": LAAS_CART.add(finish, qty) puts the locks in the cart where you are (no new page),
 // counts the bag up and shows a small card with Check out and View cart. At most 15 locks in one order, all
 // finishes together: add() puts in what still fits and returns how many (0 when the cart is full, false when
 // the browser blocks storage).
+// where the site is: the folder this script was loaded from (the root of the site, wherever the page sits: /da/,
+// a nested 404, /help/...), and the shop pages in the page's language (Danish under da/)
+window.LAAS_SITE = window.LAAS_SITE || (() => {
+  const src = document.currentScript && document.currentScript.src;
+  const root = src ? new URL('.', src).href : new URL(window.LAAS_ROOT || '', location.href).href;
+  return { root, shop: root + (document.documentElement.lang === 'da' ? 'da/' : '') };
+})();
 (() => {
   const KEY = 'laas.cart.v1.en';
   const PRICE = 129, MAX_LOCKS = 15;
@@ -31,18 +38,16 @@
   document.addEventListener('visibilitychange', () => { if (!document.hidden) ordered(); });
 
   const end = document.querySelector('.nav__end');
-  const always = document.body.hasAttribute('data-shop');
   let a = null;
   if (end) {
     a = document.createElement('a');
-    a.className = 'nav__bag'; a.href = 'cart-v2.html';
+    a.className = 'nav__bag'; a.href = LAAS_SITE.shop + 'cart-v2.html';
     a.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><b></b>';
     end.insertBefore(a, end.querySelector('.nav__menu'));
   }
   const paint = () => {
     if (!a) return;
     const n = count();
-    a.hidden = !always && n === 0;
     a.querySelector('b').textContent = n;
     a.querySelector('b').hidden = n === 0;
     const tr = L().t; a.setAttribute('aria-label', n ? `${tr('Cart')}, ${n} ${tr(n === 1 ? 'item' : 'items')}` : tr('Cart, empty'));
@@ -70,7 +75,7 @@
       card.innerHTML = `<img class="added__pic" alt="" width="64" height="64">
         <div class="added__what"><p class="added__h"></p><p class="added__p"></p></div>
         <button class="added__x" type="button" aria-label="${T.close}"></button>
-        <div class="added__btns"><a class="buy-btn added__go" href="checkout-v2.html">${T.go}</a><a class="added__cart" href="cart-v2.html">${T.cart}</a></div>`;
+        <div class="added__btns"><a class="buy-btn added__go" href="${LAAS_SITE.shop}checkout-v2.html">${T.go}</a><a class="added__cart" href="${LAAS_SITE.shop}cart-v2.html">${T.cart}</a></div>`;
       document.body.append(card);
       card.querySelector('.added__x').addEventListener('click', hide);
       card.addEventListener('pointerenter', () => clearTimeout(timer));
@@ -81,7 +86,7 @@
       addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
     }
     const flex = finish === 'flex';
-    card.querySelector('.added__pic').src = (window.LAAS_ROOT || '') + (flex ? 'images/flexmount-thumb.webp' : 'images/scenes/thumb-' + finish + '.webp');
+    card.querySelector('.added__pic').src = LAAS_SITE.root + (flex ? 'images/flexmount-thumb.webp' : 'images/scenes/thumb-' + finish + '.webp');
     card.querySelector('.added__h').textContent = qty ? T.added : T.full;
     card.querySelector('.added__p').textContent = flex ? `Flex-Mount${qty > 1 ? ' × ' + qty : ''} · ${L().money((L().P.flex || 9.99) * qty)}`
       : (qty ? `Ring-Lock, ${NAME[finish]}${qty > 1 ? ' × ' + qty : ''} · ${L().money(L().lockSum ? L().lockSum(qty) : L().P.lock * qty)}` : '') + (note ? (qty ? '. ' : '') + note : '');
@@ -170,8 +175,8 @@
     }
     // two photos answer the question before any words do: the frame-lock hole (ringed), and the Flex-Mount on a frame without
     dlg.innerHTML = `<form method="dialog"><div class="flex-ask__pics">
-      <figure><img src="${(window.LAAS_ROOT || '')}images/ask-holes.webp" alt="" width="480" height="480"><svg class="flex-ask__ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44" pathLength="1"/></svg><figcaption>${da ? 'Huller' : 'Holes'}</figcaption></figure>
-      <figure><img src="${(window.LAAS_ROOT || '')}images/ask-flex.webp" alt="" width="480" height="480"><figcaption>${da ? 'Ingen huller: Flex-Mount' : 'No holes: Flex-Mount'}</figcaption></figure></div>
+      <figure><img src="${LAAS_SITE.root}images/ask-holes.webp" alt="" width="480" height="480"><svg class="flex-ask__ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44" pathLength="1"/></svg><figcaption>${da ? 'Huller' : 'Holes'}</figcaption></figure>
+      <figure><img src="${LAAS_SITE.root}images/ask-flex.webp" alt="" width="480" height="480"><figcaption>${da ? 'Ingen huller: Flex-Mount' : 'No holes: Flex-Mount'}</figcaption></figure></div>
       <button class="flex-ask__x" value="cancel" aria-label="${da ? 'Luk' : 'Close'}"></button>
       <div class="flex-ask__body"><p class="flex-ask__kicker label">${da ? 'Før den kommer i kurven' : 'Before it goes in the cart'}</p>
       <h2 id="flex-ask-h">${da ? 'Har dit stel monteringshuller?' : 'Does your frame have mounting holes?'}</h2>
@@ -265,17 +270,17 @@
     // every second lock at the second-lock price, and two locks ship free (as the cart counts it)
     const locks = items.reduce((s, i) => s + (isFlex(i) ? 0 : (+i.qty || 1)), 0);
     const sub = items.reduce((s, i) => s + unit(i) * (+i.qty || 1), 0) - (window.LAAS_I18N && window.LAAS_I18N.lockSum ? locks * P.lock - window.LAAS_I18N.lockSum(locks) : 0);
-    if (!items.length) { pop.innerHTML = `<p class="minicart__h">${w.cart}</p><p class="minicart__empty">${w.empty}</p><a class="buy-btn minicart__go" href="buy.html">${w.shop}</a>`; return; }
+    if (!items.length) { pop.innerHTML = `<p class="minicart__h">${w.cart}</p><p class="minicart__empty">${w.empty}</p><a class="buy-btn minicart__go" href="${LAAS_SITE.shop}buy.html">${w.shop}</a>`; return; }
     const pct = Math.min(1, locks / 2);
     pop.innerHTML = `<p class="minicart__h">${w.cart} <span>${w.items(n)}</span></p><ul class="minicart__lines">` + items.map((i, k) => {
       const fin = (i.finish || '').toLowerCase().replace('silver', 'steel');
-      const img = (window.LAAS_ROOT || '') + (isFlex(i) ? 'images/flexmount-thumb.webp' : `images/scenes/thumb-${fin || 'steel'}.webp`);
+      const img = LAAS_SITE.root + (isFlex(i) ? 'images/flexmount-thumb.webp' : `images/scenes/thumb-${fin || 'steel'}.webp`);
       const q = +i.qty || 1, name = isFlex(i) ? 'Flex-Mount' : 'Ring-Lock';
       return `<li data-line="${k}"><img src="${img}" alt="" width="48" height="48"><span><b>${name}</b>${isFlex(i) ? '' : `<small>${i.finish}</small>`}<em>${money(Math.round(unit(i) * q * 100) / 100)}</em></span>`
         + `<span class="minicart__qty"><button type="button" data-d="-1" class="${q === 1 ? 'is-bin' : ''}" aria-label="${q === 1 ? w.rm : w.less} ${name}">${q === 1 ? '' : '−'}</button><b aria-live="polite">${q}</b><button type="button" data-d="1" aria-label="${w.more} ${name}">+</button></span></li>`;
     }).join('') + `</ul><p class="minicart__sub"><span>${w.sub}</span><b>${money(sub)}</b></p>`
       + `<p class="minicart__ship"><span>${pct >= 1 ? w.free : w.left()}</span><i style="--p:${pct}"></i></p>`
-      + `<div class="minicart__btns"><a class="buy-btn minicart__go" href="checkout-v2.html">${w.go}</a><a class="minicart__view" href="cart-v2.html">${w.view}</a></div>`;
+      + `<div class="minicart__btns"><a class="buy-btn minicart__go" href="${LAAS_SITE.shop}checkout-v2.html">${w.go}</a><a class="minicart__view" href="${LAAS_SITE.shop}cart-v2.html">${w.view}</a></div>`;
   };
   let t = 0;
   const place = () => { const r = bag.getBoundingClientRect(); pop.style.top = (r.bottom + 10) + 'px'; pop.style.right = Math.max(12, innerWidth - r.right - 8) + 'px'; };
@@ -334,8 +339,19 @@
     const filled = cs.backgroundImage !== 'none' || !clear(cs.backgroundColor);
     return filled && !/^(HTML|BODY|MAIN|SECTION|FOOTER|HEADER)$/.test(el.tagName) && el.offsetHeight < innerHeight * 0.9;
   };
+  // look through clear layers (an empty stage, a transparent wrapper) to the first thing that shows: text or a
+  // picture counts; a filled background hides whatever is below it
+  const seen = stack => {
+    for (const el of stack) {
+      if (isContent(el)) return true;
+      if (/^(HTML|BODY)$/.test(el.tagName)) return false;
+      const cs = getComputedStyle(el);
+      if (!clear(cs.backgroundColor) || cs.backgroundImage !== 'none') return false;
+    }
+    return false;
+  };
   // things that do not take the pointer still count when they are visible under the bar
-  const QUIET = '.map, .void__right, .lockimg, .slot';
+  const QUIET = '.map, .void__right, .lockimg, .slot, .lock3d';
   const quietContent = stack => stack.some(e => e.matches && e.matches(QUIET) && !e.closest('[data-key*="\\"hide\\":1"]') && getComputedStyle(e).opacity > 0.05);
   // a change of state has to be seen twice in a row before the bar follows it, so it never flickers on an edge
   let raf = 0, pending = null;
@@ -347,10 +363,11 @@
     const r = { top: nav.offsetTop + shell.offsetTop, left: nav.offsetLeft + shell.offsetLeft, width: shell.offsetWidth, height: shell.offsetHeight };
     r.bottom = r.top + r.height; r.right = r.left + r.width;
     let under = false;
-    // three lines across the bar (its top, middle and bottom edge) are enough to see what is under it
-    outer: for (const y of [r.top + 4, r.top + r.height / 2, r.bottom + 2]) for (let x = r.left + 12; x < r.right - 12; x += Math.max(40, r.width / 16)) {
+    // a grid across the bar, every 8 px down and every 28 px across, so even one short line of text under it is seen
+    const ys = []; for (let y = r.top + 2; y < r.bottom + 4; y += 8) ys.push(y);
+    outer: for (const y of ys) for (let x = r.left + 8; x < r.right - 8; x += Math.max(28, r.width / 48)) {
       const stack = document.elementsFromPoint(x, y).filter(el => !nav.contains(el));
-      if (isContent(stack[0]) || quietContent(stack)) { under = true; break outer; }
+      if (seen(stack) || quietContent(stack)) { under = true; break outer; }
     }
     // contrast guard
     if (!under) {
