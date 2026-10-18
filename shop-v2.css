@@ -996,15 +996,9 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 /* the speech-bubble drawing stays at the top right of the heading column, smaller where that column is narrow */
 .faq-page .fq__q[open] { box-shadow: none; }
 .faq-page .fq__tab[aria-selected="true"] { box-shadow: none; }
-@media (min-width: 1101px) {
-  .faq-page .ip__grid--faq { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.25fr); grid-template-rows: auto 1fr; column-gap: clamp(32px, 5vw, 90px); align-items: start; }
-  .faq-page .ip__grid--faq > .fq__top { grid-column: 1; grid-row: 1 / span 2; }
-  .faq-page .ip__grid--faq > .fq__none { grid-column: 2; grid-row: 1; margin: 0 0 16px; }
-  .faq-page .ip__grid--faq > .fq { grid-column: 2; grid-row: 2; margin-top: 0; grid-template-columns: 200px minmax(0, 1fr); gap: 24px; }
-  .faq-page .fq__search { max-width: 420px; margin-top: 28px; }
 }
 /* a tablet keeps the FAQ in one column: heading on top, topics beside the questions below it */
-@media (min-width: 761px) and (max-width: 1100px) { .faq-page .fq { margin-top: 36px; } }
+@media (min-width: 761px) { .faq-page .fq { margin-top: 36px; } }
 /* ---- 404: the home page's heading and button, in the middle of the first screen */
 .legal-page .ip--short { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
 .legal-page .ip--short .legal__lead { margin-bottom: 32px !important; }
@@ -1036,8 +1030,6 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
   .faq-page .ip__grid--faq .fq__q { border-radius: 20px; }
 }
 /* the line under "Ask away" stays clear of the drawing beside the heading */
-/* (a smaller drawing on a computer, so it ends above the line under the heading) */
-@media (min-width: 1101px) { .faq-page .ip__grid--faq .fq__art { width: 164px; top: -8px; } }
 
 /* ---- the order confirmation keeps the cart's centred column (it is the last step of the checkout); only its
    thank-you takes the home page's heading voice */
@@ -1065,7 +1057,6 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 .legal-page .pr__terms li, .legal-page .pr__steps p { text-wrap: pretty; }
 @media (min-width: 761px) and (max-width: 1100px) and (min-aspect-ratio: 1/1) { .about-page .ip { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); } }
 @media (max-width: 760px) { .shipping-page .sh__end--b { bottom: -6px; } }
-@media (min-width: 1101px) and (max-width: 1299px) { .faq-page .ip__grid--faq .fq__top .pr__lead { max-width: calc(100% - 180px); } }
 
 /* ===================================================================== design pass: shop pages (18 Oct)
    The cart and the checkout in the home page's voice: the page title at the home page's chapter size, and on a
@@ -1134,7 +1125,6 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 @media (min-width: 1101px) and (min-height: 620px), (min-width: 761px) and (max-width: 1100px) and (min-aspect-ratio: 1/1) and (min-height: 620px) {
   .legal-page .ip > .ip__head, .legal-page .ip > .pr__top, .legal-page .ip__grid:not(.ip__grid--faq) > .pr__top { position: sticky; top: 112px; }
 }
-@media (min-width: 1101px) and (min-height: 620px) { .faq-page .ip__grid--faq > .fq__top { position: sticky; top: 112px; } }
 @media (max-height: 759px) { .faq-page .fq__tabs { position: static; } }
 
 /* ---- round 2: the order confirmation takes the cart's layout (the thank-you on the left, the order on the right), so the
@@ -1212,3 +1202,115 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 @media (min-width: 761px) { .oc-page .item--empty .item__pic { max-width: none; width: clamp(240px, 18vw, 320px); } }
 @media (max-width: 760px) { .shipping-page .pr .sh__bars ~ .pr__fine { margin-top: 4px; } }
 @container ipbody (min-width: 481px) and (max-width: 640px) { .shipping-page .pr .sh__bars ~ .pr__fine { margin-top: 4px; } }
+
+/* ---- Eric, 18 Oct: the FAQ keeps the layout he liked at 1085 px at every width from a tablet up: the heading, the
+   line, the search and Popular across the top with the drawing at its top right; below them the topics with Still stuck?
+   beside the questions. The page keeps the 1536 px measure from 1600 px. A phone is unchanged. */
+@media (min-width: 1101px) {
+  .faq-page .fq { grid-template-columns: 260px minmax(0, 1fr); gap: 48px; margin-top: 44px; }
+  .faq-page .fq__search { max-width: 560px; }
+}
+
+/* ---- the FAQ on a phone (Eric, 18 Oct: "unclear, unstructured, not clean"): one calm column in the home page's language.
+   A header block (eyebrow, title, line, the search as the main action), Popular as a row of outlined pills, the eight
+   topics as a two-column grid of white tiles (the picked one Deep Teal, its count beside it), the questions of a topic in
+   one white card with hairlines, and Still stuck? as the closing card. Every edge on the same 16 px inset. */
+@media (max-width: 760px) { .faq-page main.shop.legal .legal__wrap { padding-top: 104px; } }
+@media (max-width: 1023px) {
+  .faq-page .fq__search { margin-top: 22px; }
+  .faq-page .fq__search input { height: 52px; box-shadow: inset 0 0 0 1px var(--line-2), 0 1px 0 rgba(32, 47, 48, .04); }
+
+  /* Popular: a label on its own line, then the questions as outlined pills */
+  .faq-page .pr .fq__pop { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
+  .faq-page .fq__pop > span { flex-basis: 100%; margin: 0 0 2px; font: 500 13px/1.2 var(--display); color: var(--muted); }
+  .faq-page .fq__pop a { display: inline-flex; align-items: center; min-height: 40px; padding: 8px 14px; border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(32, 47, 48, .18); font: 500 14px/1.25 var(--display); color: var(--ink); text-decoration: none; }
+  .faq-page .fq__pop a:active { background: #FFFFFF; }
+
+  /* the topics: the tab list lays its tabs into the page grid, two to a row; Still stuck? goes to the end */
+  .faq-page .fq { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 28px; }
+  .faq-page .fq__tabs { display: contents; }
+  .faq-page .fq__tab { order: 0; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px; width: 100%; min-height: 52px; padding: 0 14px; border-radius: 16px; background: #FFFFFF; color: var(--ink); font: 500 14.5px/1.2 var(--display); text-align: left; box-shadow: none; }
+  .faq-page .fq__tab svg { width: 18px; height: 18px; color: var(--green); }
+  .faq-page .fq__tab em { display: block; font: 500 12px/1 var(--body); font-style: normal; color: var(--muted); }
+  .faq-page .fq__tab[aria-selected="true"] { background: var(--green); color: #FFFFFF; }
+  .faq-page .fq__tab[aria-selected="true"] svg { color: #FFFFFF; }
+  .faq-page .fq__tab[aria-selected="true"] em { color: rgba(255, 255, 255, .72); }
+  .faq-page .fq.is-search .fq__tab[aria-selected="true"] { background: #FFFFFF; color: var(--ink); }
+  .faq-page .fq.is-search .fq__tab[aria-selected="true"] svg { color: var(--green); }
+  .faq-page .fq.is-search .fq__tab[aria-selected="true"] em { color: var(--muted); }
+  .faq-page .fq__panels { order: 1; grid-column: 1 / -1; display: grid; gap: 12px; margin-top: 12px; }
+
+  /* a topic's questions: one white card, hairlines between them, the topic name as its small heading */
+  .faq-page .fq__panel:not([hidden]) { display: block; padding: 4px 0; border-radius: 20px; background: #FFFFFF; }
+  .faq-page .fq__h { margin: 0 !important; padding: 14px 18px 6px; }
+  .faq-page.faq-page .fq.is-search .fq__panel + .fq__panel .fq__h { margin-top: 0 !important; }
+  .faq-page .fq__q, .faq-page .fq__q[open] { border-radius: 0; background: none; box-shadow: none; }
+  .faq-page .fq__q:not([open]) + .fq__q:not([open]) summary { box-shadow: none; }
+  .faq-page .fq__q + .fq__q { border-top: 1px solid var(--line-2); }
+  .faq-page .fq__q summary { padding: 16px 18px; }
+  .faq-page .fq__a { padding: 0 18px 18px; }
+
+  /* Still stuck?: the closing card */
+  .faq-page .fq__help { order: 2; grid-column: 1 / -1; display: grid; gap: 4px; margin-top: 12px; padding: 18px; border-radius: 20px; background: #FFFFFF; font-size: 14px; }
+  .faq-page .fq__help b { font-size: 17px; margin-bottom: 2px; }
+  .faq-page .fq__help a { display: inline-flex; align-items: center; min-height: 36px; font-size: 15px; }
+}
+@media (max-width: 359px) { .faq-page .fq__tab { padding: 0 10px; gap: 8px; font-size: 13.5px; } }
+@media (max-width: 1023px) {
+  /* Popular as a short list in a white card, one question per row with an arrow, as the home page's Help & Guides rows */
+  .faq-page .pr .fq__pop { display: grid; gap: 0; margin: 18px 0 0; padding: 4px 0; border-radius: 20px; background: #FFFFFF; }
+  .faq-page .fq__pop > span { margin: 0; padding: 12px 18px 4px; font: 500 12px/1.2 var(--display); letter-spacing: .04em; color: var(--muted); }
+  .faq-page .fq__pop a { display: flex; justify-content: space-between; gap: 12px; min-height: 48px; padding: 12px 18px; border-radius: 0; box-shadow: none; font: 500 15px/1.3 var(--display); }
+  .faq-page .fq__pop a + a { border-top: 1px solid var(--line-2); }
+  .faq-page .fq__pop a::after { content: ""; flex: none; align-self: center; width: 7px; height: 7px; border-top: 1.5px solid currentColor; border-right: 1.5px solid currentColor; rotate: 45deg; margin-right: 3px; color: var(--muted); }
+  .faq-page .fq__pop a:active { background: rgba(32, 47, 48, .04); }
+
+  /* topic tiles: the icon and the count on top, the name below on one line */
+  .faq-page .fq__tab { grid-template-columns: 1fr auto; grid-template-areas: "ic ct" "nm nm"; align-content: space-between; align-items: center; row-gap: 10px; min-height: 76px; padding: 14px; }
+  .faq-page .fq__tab svg { grid-area: ic; }
+  .faq-page .fq__tab em { grid-area: ct; }
+  .faq-page .fq__tab > span { grid-area: nm; text-wrap: balance; }
+}
+@media (max-width: 359px) { .faq-page .fq__tab { padding: 12px; font-size: 14px; } }
+/* a portrait tablet and a large phone held sideways: the same structure, four topic tiles to a row, the search no wider
+   than the Popular card */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .faq-page .fq { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .faq-page .pr .fq__pop, .faq-page .fq__search { max-width: none; }
+}
+/* critic: while a search is typed the matches come straight under the search (Popular and the tiles step aside); tiles in
+   a row share one height and keep two to a row until there is room for four; one 20 px rhythm between the blocks; the
+   card labels in one eyebrow voice; text in tiles on the cards' 18 px inset; Yes/No and the Still stuck? links at 44 px */
+@media (max-width: 1023px) {
+  .faq-page .ip__grid--faq:has(.fq.is-search) .fq__pop { display: none; }
+  .faq-page .fq.is-search .fq__tab { display: none; }
+  .faq-page .fq.is-search .fq__panels { margin-top: 0; }
+  .faq-page .fq { align-items: stretch; margin-top: 20px; }
+  .faq-page .pr .fq__pop { margin-top: 20px; }
+  .faq-page .fq__panels, .faq-page .fq__help { margin-top: 12px; }
+  .faq-page .fq__tab { padding-inline: 18px; }
+  .faq-page .fq__pop > span { font: 500 12px/1.2 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .faq-page .pr .fq__a .fq__rate button { min-height: 40px; padding: 0 16px; }
+  .faq-page .fq__rate button::before { inset: -2px 0; }
+  .faq-page .fq__help { justify-items: start; gap: 6px; }
+  .faq-page .fq__help a { min-height: 44px; padding: 0 18px; border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(32, 47, 48, .18); border-bottom: 0; text-decoration: none; font: 500 15px/1 var(--display); color: var(--ink); }
+  .faq-page .fq__help a:first-of-type { margin-top: 6px; }
+}
+@media (min-width: 600px) and (max-width: 719px) { .faq-page .fq { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 359px) { .faq-page .fq__tab { padding-inline: 12px; } }
+/* the tactile family (tactile.css, Eric 18 Oct) on the phone FAQ: topic tiles are white keys with a hairline edge and a
+   small lift; the open topic is the pressed dark key, as the chosen chip elsewhere (Deep Teal stays the one filled
+   button); Still stuck?'s phone and email are white keys too. These win over tactile.css by being more specific. */
+@media (max-width: 1023px) {
+  .faq-page .fq__tab { border-radius: 12px; background: var(--t-chalk, #FFFFFF); box-shadow: var(--t-chalk-shadow, 0 0 0 1px rgba(32, 47, 48, .12)); transition: box-shadow .2s, background .2s, scale .1s; }
+  .faq-page .fq__tab:hover { background: #FFFFFF; box-shadow: inset 0 1px 0 #FFFFFF, 0 0 0 1px var(--t-edge-2, rgba(32, 47, 48, .2)), var(--t-lift-hi, none); }
+  .faq-page .fq__tab:active { scale: .985; }
+  .faq-page .fq__tab[aria-selected="true"], .faq-page .fq__tab[aria-selected="true"]:hover {
+    background: linear-gradient(180deg, #2C3D3E 0%, #202F30 100%); color: #ECECEA;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 0 0 1px #121c1d, 0 1px 2px rgba(0, 0, 0, .2);
+  }
+  .faq-page .fq__tab[aria-selected="true"] svg { color: #9BCDD0; }
+  .faq-page .fq__tab[aria-selected="true"] em { color: rgba(236, 236, 234, .7); }
+  .faq-page .fq__help a { border-radius: 10px; background: var(--t-chalk, #FFFFFF); box-shadow: var(--t-chalk-shadow, inset 0 0 0 1px rgba(32, 47, 48, .18)); }
+  .faq-page .fq__help a:hover { background: #FFFFFF; box-shadow: inset 0 1px 0 #FFFFFF, 0 0 0 1px var(--t-edge-2, rgba(32, 47, 48, .2)), var(--t-lift-hi, none); }
+}
