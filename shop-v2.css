@@ -1036,7 +1036,8 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
   .faq-page .ip__grid--faq .fq__q { border-radius: 20px; }
 }
 /* the line under "Ask away" stays clear of the drawing beside the heading */
-@media (min-width: 1101px) { .faq-page .ip__grid--faq .fq__top .pr__lead { max-width: calc(100% - 216px); } }
+/* (a smaller drawing on a computer, so it ends above the line under the heading) */
+@media (min-width: 1101px) { .faq-page .ip__grid--faq .fq__art { width: 164px; top: -8px; } }
 
 /* ---- the order confirmation keeps the cart's centred column (it is the last step of the checkout); only its
    thank-you takes the home page's heading voice */
@@ -1058,3 +1059,10 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 @media (max-width: 760px) { .faq-page .fq__q summary { font-size: 16px; } }
 /* the smallest phones (320 px): the Danish "Forudbestilling:" is wider than a fact card at 16 px */
 @media (max-width: 359px) { .shipping-page .sh__feats b { font-size: 14px; overflow-wrap: anywhere; } .shipping-page .sh__feats li { padding-inline: 8px; } }
+/* critic round 2: even rags in the small cards, the About title on two lines on a landscape tablet,
+   the parcel clear of YOUR DOOR on a phone (it sat on the label before this pass too) */
+.shipping-page .sh__feats b, .shipping-page .sh__feats li > span:last-child, .faq-page .fq__help span { text-wrap: balance; }
+.legal-page .pr__terms li, .legal-page .pr__steps p { text-wrap: pretty; }
+@media (min-width: 761px) and (max-width: 1100px) and (min-aspect-ratio: 1/1) { .about-page .ip { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); } }
+@media (max-width: 760px) { .shipping-page .sh__end--b { bottom: -6px; } }
+@media (min-width: 1101px) and (max-width: 1299px) { .faq-page .ip__grid--faq .fq__top .pr__lead { max-width: calc(100% - 180px); } }
