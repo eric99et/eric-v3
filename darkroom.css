@@ -2948,10 +2948,15 @@ html:has(#menu:not([hidden])) .nav__bag b { background: var(--green); color: #FF
   .foot2__legal small { line-height: 2.1; }
   .foot2__legal a { padding: 4px 4px; margin: -4px -4px; }
 }
-/* wide screens (1600 px and up): the bar spans the page's own measure, so the logo starts on the titles' edge and
+/* computers (1024 px and up): the bar spans the page's own measure, so the logo starts on the titles' edge and
    the bag ends on the content's right edge (the logo sits 23 px inside the shell, the bag 9 px), at rest and floating */
-@media (min-width: 1600px) {
+@media (min-width: 1024px) {
   .nav { padding-left: calc(var(--gutter) - 23px); padding-right: calc(var(--gutter) - 9px); }
   .nav__shell, html.nav-float .nav__shell, html.nav-float.nav-compact .nav__shell { max-width: none !important; }
+}
+/* phone centring (18 Oct): the hero's Pre-order pill spans the column on a phone (label left, price right, as in
+   the menu), so it sits evenly inset under the left-set title instead of stopping a third of the way across */
+@media (max-width: 760px) {
+  .hero__buy { width: 100%; justify-content: space-between; }
 }
 /* ===================================================================== end of design pass: chrome */

@@ -1203,6 +1203,7 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 @media (max-width: 760px) { .shipping-page .pr .sh__bars ~ .pr__fine { margin-top: 4px; } }
 @container ipbody (min-width: 481px) and (max-width: 640px) { .shipping-page .pr .sh__bars ~ .pr__fine { margin-top: 4px; } }
 
+<<<<<<< HEAD
 /* ---- Eric, 18 Oct: the FAQ keeps the layout he liked at 1085 px at every width from a tablet up: the heading, the
    line, the search and Popular across the top with the drawing at its top right; below them the topics with Still stuck?
    beside the questions. The page keeps the 1536 px measure from 1600 px. A phone is unchanged. */
@@ -1313,4 +1314,15 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
   .faq-page .fq__tab[aria-selected="true"] em { color: rgba(236, 236, 234, .7); }
   .faq-page .fq__help a { border-radius: 10px; background: var(--t-chalk, #FFFFFF); box-shadow: var(--t-chalk-shadow, inset 0 0 0 1px rgba(32, 47, 48, .18)); }
   .faq-page .fq__help a:hover { background: #FFFFFF; box-shadow: inset 0 1px 0 #FFFFFF, 0 0 0 1px var(--t-edge-2, rgba(32, 47, 48, .2)), var(--t-lift-hi, none); }
+=======
+/* phone centring (18 Oct): on a phone a lone call to action spans the column, and the short "nothing here" pages
+   (404, order-confirmed without an order) sit centred, picture, words and button, instead of hugging the left edge */
+@media (max-width: 760px) {
+  .legal-page .ip--short, .oc-page .item--empty { text-align: center; }
+  .legal-page .ip--short { align-items: stretch; }
+  .legal-page .ip--short .cart__go { display: flex !important; justify-content: center; width: 100%; }
+  .oc-page .item--empty { justify-items: center; }
+  .oc-page .item--empty .item__pic { justify-self: center; margin-inline: auto; }
+  .oc-page .item--empty .item__go { justify-self: stretch; justify-content: center; text-align: center; }
+>>>>>>> refs/heads/design-pass/chrome
 }

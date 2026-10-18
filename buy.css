@@ -509,3 +509,17 @@ html.reveal-on .hood [data-reveal] { transition: opacity .7s var(--ease), transf
 }
 /* round 3: the page title in the shared heading size (it is clipped for screen readers only, so nothing visible moves) */
 .pdp__fins { font-size: var(--fs-heading); line-height: 1; }
+
+/* phone centring (18 Oct): on the narrowest phones the Pre-order button stays inside the buy box (it ran 12 px past
+   the card's right padding at 320 px, so the row sat 20 px from the left edge and 8 px from the right) */
+@media (max-width: 360px) {
+  .buybox .qty-row { grid-template-columns: auto minmax(0, 1fr); }
+  .buybox .qty-row .buy-btn { min-width: 0; padding-inline: 12px; }
+}
+
+/* phone centring (18 Oct): the lock still takes its render's own offset (--lx, --ly from buy.js), so the ring stands
+   optically centred in the stage at every angle and width */
+.lock3d__still { translate: calc(-50% + var(--lx, 0%)) calc(-50% + var(--ly, 0%)); }
+/* the stage's keyboard focus (arrow keys turn the lock): drawn on the stage's own edge in the cards' shape (24 px
+   corners, a faint teal wash), so it reads as the stage lighting up, evenly inset, not as a stray outline 8 px inside */
+.lock3d:focus-visible { outline: 2px solid var(--green); outline-offset: -2px; border-radius: 24px; background: rgba(29, 95, 99, .05); }
