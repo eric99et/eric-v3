@@ -1278,3 +1278,23 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
   .faq-page .fq { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .faq-page .pr .fq__pop, .faq-page .fq__search { max-width: none; }
 }
+/* critic: while a search is typed the matches come straight under the search (Popular and the tiles step aside); tiles in
+   a row share one height and keep two to a row until there is room for four; one 20 px rhythm between the blocks; the
+   card labels in one eyebrow voice; text in tiles on the cards' 18 px inset; Yes/No and the Still stuck? links at 44 px */
+@media (max-width: 1023px) {
+  .faq-page .ip__grid--faq:has(.fq.is-search) .fq__pop { display: none; }
+  .faq-page .fq.is-search .fq__tab { display: none; }
+  .faq-page .fq.is-search .fq__panels { margin-top: 0; }
+  .faq-page .fq { align-items: stretch; margin-top: 20px; }
+  .faq-page .pr .fq__pop { margin-top: 20px; }
+  .faq-page .fq__panels, .faq-page .fq__help { margin-top: 12px; }
+  .faq-page .fq__tab { padding-inline: 18px; }
+  .faq-page .fq__pop > span { font: 500 12px/1.2 var(--display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .faq-page .pr .fq__a .fq__rate button { min-height: 40px; padding: 0 16px; }
+  .faq-page .fq__rate button::before { inset: -2px 0; }
+  .faq-page .fq__help { justify-items: start; gap: 6px; }
+  .faq-page .fq__help a { min-height: 44px; padding: 0 18px; border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(32, 47, 48, .18); border-bottom: 0; text-decoration: none; font: 500 15px/1 var(--display); color: var(--ink); }
+  .faq-page .fq__help a:first-of-type { margin-top: 6px; }
+}
+@media (min-width: 600px) and (max-width: 719px) { .faq-page .fq { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 359px) { .faq-page .fq__tab { padding-inline: 12px; } }
