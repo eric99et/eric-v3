@@ -1018,7 +1018,7 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
   .shipping-page .sh__bars li { grid-template-columns: 1fr auto; row-gap: 8px; }
   .shipping-page .sh__track { grid-column: 1 / -1; grid-row: 2; }
   .shipping-page .sh__days { grid-column: 1 / -1; grid-row: 3; text-align: left; }
-  .shipping-page .sh__scale { display: block; margin-top: 10px; text-align: center; }
+  .shipping-page .sh__scale { display: none; }   /* round 3: no caption without its bar column (as on a phone) */
 }
 @container ipbody (min-width: 481px) and (max-width: 740px) {
   .shipping-page .pr__steps--line { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; row-gap: 24px !important; }
@@ -1175,3 +1175,33 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 @container ipbody (min-width: 741px) { .shipping-page .pr__steps--line h3 { min-height: 2.5em; } }
 @media (min-width: 761px) and (max-width: 1100px) { .faq-page .fq { grid-template-columns: 232px minmax(0, 1fr); } }
 @media (max-width: 400px) { .faq-page .fq__search input { text-overflow: ellipsis; } }
+
+/* ---- round 3: from 1600 px the content keeps the home page's 1536 px measure and centres it, as home, buy and cart do
+   (set on the content wrappers only, so the header and the footer inside <main> are untouched) */
+@media (min-width: 1600px) {
+  body.legal-page main .legal__wrap, body.oc-page main .cart__wrap { --gutter: max(32px, calc((100vw - 1536px) / 2)); }
+}
+/* ---- round 3: the order confirmation opened without an order is a page of its own, as the 404 is: the line in the
+   home page's heading voice, the note under it in the body voice, the 56 px button, the lock beside it; middle of the
+   first screen. No card: the words are the page. */
+.oc-page .cart__wrap > .item--empty { background: none; box-shadow: none; border-radius: 0; padding: 0; }
+.oc-page .item--empty .item__name { margin: 0; font: 600 var(--fs-heading)/1.02 var(--display); letter-spacing: -0.04em; color: var(--ink); text-wrap: balance; }
+.oc-page .item--empty .item__meta { margin: 22px 0 0; max-width: 26em; font: 400 clamp(18px, 1.35vw, 21px)/1.38 var(--body); letter-spacing: -0.012em; color: var(--ink-2); text-wrap: pretty; }
+.oc-page .item--empty .item__go { justify-self: start; margin-top: 32px; padding: 0 28px; font-size: 17px; }
+.oc-page .item--empty .item__pic { width: 100%; max-width: 300px; aspect-ratio: 1; border-radius: 0; background: none; }
+@media (min-width: 761px) {
+  .oc-page .cart__wrap > .item--empty { justify-self: stretch; max-width: none; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.25fr); grid-template-rows: auto auto; column-gap: clamp(32px, 5vw, 90px); align-items: center; }
+  .oc-page .item--empty .item__what { grid-column: 1; grid-row: 1; align-self: end; }
+  .oc-page .item--empty .item__go { grid-column: 1; grid-row: 2; align-self: start; }
+  .oc-page .item--empty .item__pic { grid-column: 2; grid-row: 1 / span 2; justify-self: center; }
+}
+@media (max-width: 760px) {
+  .oc-page .cart__wrap > .item--empty { grid-template-columns: 1fr; justify-items: start; gap: 0; margin-top: 8px; }
+  .oc-page .item--empty .item__pic { max-width: 132px; margin-bottom: 20px; }
+  .oc-page .item--empty .item__name { font-size: clamp(30px, 8.6vw, 36px); line-height: 1.04; }
+  .oc-page .item--empty .item__meta { margin-top: 12px; font-size: 17px; }
+  .oc-page .item--empty .item__go { margin-top: 28px; }   /* content-wide, as the 404's button */
+}
+/* (it fills the first screen and sits in its middle, so the footer starts below the fold, as on the 404) */
+.oc-page .cart__wrap:has(> .item--empty:not([hidden])) { min-height: 100vh; min-height: 100svh; box-sizing: border-box; align-content: center; padding-top: 104px; padding-bottom: 72px; }
+@media (max-width: 760px) { .oc-page .cart__wrap:has(> .item--empty:not([hidden])) { padding-top: 88px; } }
