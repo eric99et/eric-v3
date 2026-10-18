@@ -996,7 +996,6 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 /* the speech-bubble drawing stays at the top right of the heading column, smaller where that column is narrow */
 .faq-page .fq__q[open] { box-shadow: none; }
 .faq-page .fq__tab[aria-selected="true"] { box-shadow: none; }
-}
 /* a tablet keeps the FAQ in one column: heading on top, topics beside the questions below it */
 @media (min-width: 761px) { .faq-page .fq { margin-top: 36px; } }
 /* ---- 404: the home page's heading and button, in the middle of the first screen */
