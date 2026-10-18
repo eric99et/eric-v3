@@ -897,3 +897,172 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 .legal__wrap { padding-left: min(var(--gutter), 32px); padding-right: min(var(--gutter), 32px); }
 .pr__head.pr__head--text { grid-template-columns: 1fr; }
 .legal__wrap .cart__h { color: var(--ink); }
+
+/* design pass: info pages */
+/* =====================================================================
+   design pass: info pages (18 Oct)
+   About, FAQ, promises, shipping, terms, privacy and 404 take the home page's light chapters as their pattern
+   (the Set up once and Help & Guides chapters): the same gutter-to-gutter width, the heading on the left and
+   the content on the right on a computer or a landscape tablet, the home page's heading and body sizes,
+   white cards with the home page's 20 px corner and no shadow. Scoped to .legal-page, so cart and
+   checkout are untouched.
+   ===================================================================== */
+.legal-page main.shop.legal .legal__wrap {
+  width: 100%; max-width: none; min-height: 100vh; min-height: 100svh; box-sizing: border-box; margin: 0;
+  padding: 148px var(--gutter) clamp(72px, 8vw, 128px);
+}
+/* the page title: the home page's chapter heading */
+.legal-page .legal__wrap h1.cart__h, .legal-page .legal__wrap .fq__top h1.cart__h {
+  margin: 0; font: 600 var(--fs-heading)/1 var(--display); letter-spacing: -0.04em; color: var(--ink); text-wrap: balance;
+}
+.legal-page .pr__top, .legal-page .ip__head { margin: 0; }
+.legal-page .legal__wrap .pr__kicker { margin: 0 0 18px; font: 500 12px/1.2 var(--display); letter-spacing: .12em; color: var(--muted); }
+/* the line under it: the home page's body voice */
+.legal-page .legal__wrap .pr__lead, .legal-page .legal__wrap .legal__lead {
+  margin: 22px 0 0 !important; max-width: 26em; font: 400 clamp(18px, 1.35vw, 21px)/1.38 var(--body) !important;
+  letter-spacing: -0.012em; color: var(--ink-2) !important; text-wrap: pretty;
+}
+/* the body column: cards one rhythm apart */
+.legal-page .ip__body { display: grid; gap: 16px; align-content: start; min-width: 0; container: ipbody / inline-size; }
+.legal-page .ip__body > * { margin: 0 !important; min-width: 0; }
+.legal-page .legal__wrap .pr__card { padding: clamp(24px, 2.6vw, 40px); border-radius: 20px; box-shadow: none; }
+.legal-page .legal__wrap .pr__card h2 { font: 600 clamp(24px, 2.1vw, 32px)/1.1 var(--display); letter-spacing: -0.03em; color: var(--ink); }
+.legal-page .legal__wrap .pr__sum { font-size: 17px; line-height: 1.55; }
+
+/* a computer: the heading stays on the left while the content scrolls on the right (as Help & Guides) */
+@media (min-width: 1101px) {
+  .legal-page .ip, .legal-page .ip__grid:not(.ip__grid--faq) { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.25fr); column-gap: clamp(32px, 5vw, 90px); align-items: start; }
+  .legal-page .ip > .ip__head, .legal-page .ip > .pr__top, .legal-page .ip__grid > .pr__top { grid-column: 1; position: sticky; top: 132px; }
+  .legal-page .ip__body { grid-column: 2; min-width: 0; }
+}
+/* a landscape tablet keeps two columns, as the home page does */
+@media (min-width: 761px) and (max-width: 1100px) and (min-aspect-ratio: 1/1) {
+  .legal-page .ip, .legal-page .ip__grid:not(.ip__grid--faq) { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); column-gap: 40px; align-items: start; }
+  .legal-page .ip > .ip__head, .legal-page .ip > .pr__top, .legal-page .ip__grid > .pr__top { grid-column: 1; position: sticky; top: 112px; }
+  .legal-page .ip__body { grid-column: 2; min-width: 0; }
+  .legal-page main.shop.legal .legal__wrap { padding-top: 124px; }
+}
+/* a portrait tablet and a phone: one column, the heading on top */
+@media (max-width: 1100px) and (max-aspect-ratio: 1/1), (max-width: 760px) {
+  .legal-page .ip__body { margin-top: 36px; }
+  .legal-page main.shop.legal .legal__wrap { padding-top: 124px; }
+}
+@media (max-width: 760px) {
+  .legal-page main.shop.legal .legal__wrap { padding-top: 92px; padding-bottom: 64px; }
+  .legal-page .legal__wrap h1.cart__h, .legal-page .legal__wrap .fq__top h1.cart__h { font-size: clamp(32px, 8.6vw, 40px); line-height: 1.04; }
+  .legal-page .legal__wrap .pr__kicker { margin-bottom: 12px; }
+  .legal-page .legal__wrap .pr__lead, .legal-page .legal__wrap .legal__lead { margin-top: 14px !important; font-size: 17px !important; }
+  .legal-page .ip__body { margin-top: 28px; }
+  .legal-page .ip__body { gap: 12px; }
+  .legal-page .legal__wrap .pr__card { padding: 22px 18px; }
+  .legal-page .legal__wrap .pr__card h2 { font-size: clamp(22px, 6.4vw, 26px); }
+  .legal-page .legal__wrap .pr__sum { font-size: 16px; }
+}
+
+/* ---- terms and privacy: reading text, section heads in the card-heading voice */
+.legal-page .ip--legal .ip__body h2 { margin: 48px 0 12px; font: 600 clamp(20px, 1.6vw, 24px)/1.25 var(--display); letter-spacing: -0.02em; color: var(--ink); }
+.legal-page .ip--legal .ip__body [data-lang-block] > h2:first-child, .legal-page .ip--legal .ip__body > div > h2:first-child { margin-top: 0; }
+.legal-page .ip--legal .ip__body p { max-width: 40em; margin: 0 0 12px; font: 400 17px/1.6 var(--body); color: var(--ink-2); }
+.legal-page .ip--legal .legal__form { max-width: 680px; margin-top: 12px; padding: clamp(22px, 2.4vw, 32px); border-radius: 20px; }
+.legal-page .ip--legal .legal__form p { font-size: 16px; }
+@media (max-width: 760px) {
+  .legal-page .ip--legal .ip__body h2 { margin-top: 36px; font-size: 20px; }
+  .legal-page .ip--legal .ip__body p { font-size: 16px; }
+  .legal-page .ip--legal .legal__form { padding: 20px 18px; }
+}
+
+/* ---- about: the founder photo and the cards in the right column */
+.about-page .ab__hero { margin-top: 0; border-radius: 20px; }
+.about-page .ab__pics figure { border-radius: 20px; }
+.about-page .ab__card h2 { margin: 10px 0 14px; }
+.about-page .ab__kicker { font-size: 12px !important; }
+.about-page .ab__lead { font-size: 19px !important; }
+.about-page .ab__card p { font-size: 17px; }
+.about-page .ab__team { font-size: 19px !important; }
+@media (max-width: 760px) {
+  .about-page .ab__hero, .about-page .ab__pics figure { border-radius: 20px; }
+  .about-page .ab__card p { font-size: 16px; }
+  .about-page .ab__lead, .about-page .ab__team { font-size: 17px !important; }
+}
+
+/* ---- promises: the steps and the small print inside the wider card */
+.promise-page .pr__steps li { border-radius: 16px; }
+.promise-page .pr__terms { border-radius: 16px; }
+
+/* ---- shipping: the four facts and the route, in the right column */
+.shipping-page .sh__feats li { border-radius: 20px; }
+
+/* ---- FAQ: the heading, the search and the topics on the left, the questions on the right */
+/* the speech-bubble drawing stays at the top right of the heading column, smaller where that column is narrow */
+.faq-page .fq__q[open] { box-shadow: none; }
+.faq-page .fq__tab[aria-selected="true"] { box-shadow: none; }
+@media (min-width: 1101px) {
+  .faq-page .ip__grid--faq { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.25fr); grid-template-rows: auto 1fr; column-gap: clamp(32px, 5vw, 90px); align-items: start; }
+  .faq-page .ip__grid--faq > .fq__top { grid-column: 1; grid-row: 1 / span 2; }
+  .faq-page .ip__grid--faq > .fq__none { grid-column: 2; grid-row: 1; margin: 0 0 16px; }
+  .faq-page .ip__grid--faq > .fq { grid-column: 2; grid-row: 2; margin-top: 0; grid-template-columns: 200px minmax(0, 1fr); gap: 24px; }
+  .faq-page .fq__search { max-width: 420px; margin-top: 28px; }
+}
+/* a tablet keeps the FAQ in one column: heading on top, topics beside the questions below it */
+@media (min-width: 761px) and (max-width: 1100px) { .faq-page .fq { margin-top: 36px; } }
+/* ---- 404: the home page's heading and button, in the middle of the first screen */
+.legal-page .ip--short { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+.legal-page .ip--short .legal__lead { margin-bottom: 32px !important; }
+.legal-page .ip--short .pill-btn { min-height: 56px !important; font-size: 17px; }
+
+/* ---- the right column is narrower than the old centred column on a landscape tablet or a laptop: there the
+   delivery bars and the return steps fold the way they do on a portrait tablet (a phone keeps its own layout) */
+@container ipbody (min-width: 481px) and (max-width: 640px) {
+  .shipping-page .sh__feats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .shipping-page .sh__feats li { padding: 18px 12px; }
+  .shipping-page .sh__bars li { grid-template-columns: 1fr auto; row-gap: 8px; }
+  .shipping-page .sh__track { grid-column: 1 / -1; grid-row: 2; }
+  .shipping-page .sh__days { grid-column: 1 / -1; grid-row: 3; text-align: left; }
+  .shipping-page .sh__scale { display: block; margin-top: 10px; text-align: center; }
+}
+@container ipbody (min-width: 481px) and (max-width: 740px) {
+  .shipping-page .pr__steps--line { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; row-gap: 24px !important; }
+  .shipping-page .pr__steps--line::before { display: none; }
+}
+/* four steps in a row: the dashed line runs from the first number to the last, not past it */
+@container ipbody (min-width: 741px) { .shipping-page .pr__steps--line::before { left: 20px; right: calc(25% - 28px); top: 20px; } }
+
+/* the questions read like the home page's Help & Guides rows: Poppins Medium, larger, one hairline apart */
+@media (min-width: 1101px) {
+  .faq-page .ip__grid--faq .fq__q summary { padding: 20px 20px; font: 500 clamp(18px, 1.4vw, 21px)/1.25 var(--display); letter-spacing: -0.02em; }
+  .faq-page .ip__grid--faq .fq__q summary i { width: 9px; height: 9px; }
+  .faq-page .ip__grid--faq .fq__a { padding: 0 20px 20px; }
+  .faq-page .ip__grid--faq .fq__a p { font-size: 16px; }
+  .faq-page .ip__grid--faq .fq__q { border-radius: 20px; }
+}
+/* the line under "Ask away" stays clear of the drawing beside the heading */
+/* (a smaller drawing on a computer, so it ends above the line under the heading) */
+@media (min-width: 1101px) { .faq-page .ip__grid--faq .fq__art { width: 164px; top: -8px; } }
+
+/* ---- the order confirmation keeps the cart's centred column (it is the last step of the checkout); only its
+   thank-you takes the home page's heading voice */
+.oc-page .oc__h { font: 600 clamp(34px, 3.4vw, 48px)/1.02 var(--display); letter-spacing: -0.04em; }
+@media (max-width: 760px) { .oc-page .oc__h { font-size: clamp(30px, 8.6vw, 36px); } }
+/* three trial steps need about 800 px side by side (the email address is one long word: a 1280 px laptop clipped it),
+   four shipping facts about 720 px */
+@container ipbody (max-width: 800px) { .promise-page .pr__steps { grid-template-columns: 1fr; } }
+@container ipbody (max-width: 720px) {
+  .shipping-page .sh__feats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+}
+
+/* no lonely last word in a heading, calmer rags in the copy */
+.legal-page main h2, .legal-page main h3, .oc-page main h2 { text-wrap: balance; }
+.legal-page .ip__body p, .legal-page .pr__steps p, .legal-page .fq__a p { text-wrap: pretty; }
+/* the questions in one voice at every size: Poppins Medium, as the home page's Help & Guides rows */
+.faq-page .fq__q summary { font-weight: 500; letter-spacing: -0.01em; }
+@media (max-width: 1100px) { .faq-page .fq__q summary { font-size: 17px; } }
+@media (max-width: 760px) { .faq-page .fq__q summary { font-size: 16px; } }
+/* the smallest phones (320 px): the Danish "Forudbestilling:" is wider than a fact card at 16 px */
+@media (max-width: 359px) { .shipping-page .sh__feats b { font-size: 14px; overflow-wrap: anywhere; } .shipping-page .sh__feats li { padding-inline: 8px; } }
+/* critic round 2: even rags in the small cards, the About title on two lines on a landscape tablet,
+   the parcel clear of YOUR DOOR on a phone (it sat on the label before this pass too) */
+.shipping-page .sh__feats b, .shipping-page .sh__feats li > span:last-child, .faq-page .fq__help span { text-wrap: balance; }
+.legal-page .pr__terms li, .legal-page .pr__steps p { text-wrap: pretty; }
+@media (min-width: 761px) and (max-width: 1100px) and (min-aspect-ratio: 1/1) { .about-page .ip { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); } }
+@media (max-width: 760px) { .shipping-page .sh__end--b { bottom: -6px; } }
+@media (min-width: 1101px) and (max-width: 1299px) { .faq-page .ip__grid--faq .fq__top .pr__lead { max-width: calc(100% - 180px); } }
