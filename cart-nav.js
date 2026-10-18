@@ -409,3 +409,13 @@ window.LAAS_SITE = window.LAAS_SITE || (() => {
   }, { rootMargin: '-64px 0px 0px 0px' });
   ctas.forEach((el) => io.observe(el));
 })();
+
+// LAAS · no 3D lock behind Help & Guides (owner, 18 Oct): the section asks the stage to hide, but the lock
+// still showed through as a big pale ring behind the text. While Help owns the middle of the screen,
+// tactile.css fades the whole stage out.
+(() => {
+  const help = document.getElementById('help');
+  if (!help || !document.getElementById('stage') || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(([e]) => document.documentElement.classList.toggle('help-in-view', e.isIntersecting),
+    { rootMargin: '-50% 0px -50% 0px' }).observe(help);
+})();
