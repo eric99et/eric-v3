@@ -488,3 +488,16 @@ html.reveal-on .hood [data-reveal] { transition: opacity .7s var(--ease), transf
 .buy-page:not(.shop-page) .pdp__head .void__index::after { flex: 0 1 auto; width: 80px; min-width: 12px; }
 @media (max-width: 760px) { .buy-page:not(.shop-page) .pdp__head .void__index::after { flex: 1 1 0; width: auto; max-width: 80px; } }
 /* ===================================================================== end of design pass: buy page */
+
+/* design pass round 2 (18 Oct): overlaps */
+/* the buy page's bar at the bottom of a phone: nearly solid, so the page never shows through it as a second layer of
+   text while it scrolls beneath (the same 96% the phone header uses); its button at the 56 px standard */
+@media (max-width: 760px) {
+  .buybar { background: color-mix(in srgb, var(--paper) 96%, transparent); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .buybar__btn { min-height: 56px; padding: 0 24px; font-size: 16px; }
+}
+/* a 320 px phone: the label over the lock ran 9 px past the screen (sideways scroll); it may use two lines there */
+@media (max-width: 359px) {
+  .pdp__head .void__index { white-space: normal; flex-wrap: wrap; letter-spacing: .08em; }
+  .buy-page:not(.shop-page) .pdp__head .void__index::after { display: none; }
+}
