@@ -1066,3 +1066,64 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 @media (min-width: 761px) and (max-width: 1100px) and (min-aspect-ratio: 1/1) { .about-page .ip { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); } }
 @media (max-width: 760px) { .shipping-page .sh__end--b { bottom: -6px; } }
 @media (min-width: 1101px) and (max-width: 1299px) { .faq-page .ip__grid--faq .fq__top .pr__lead { max-width: calc(100% - 180px); } }
+
+/* ===================================================================== design pass: shop pages (18 Oct)
+   The cart and the checkout in the home page's voice: the page title at the home page's chapter size, and on a
+   computer or a landscape tablet the home page's Help & Guides layout from gutter to gutter (the title on the
+   left, the cart on the right). The quantity stepper is the buy card's white pill. Scoped to cart-v2.html
+   (.cart-page without .oc-page) and checkout-v2.html (.co-page). */
+.cart-page:not(.oc-page) .cart__h, .co-page .cart__h {
+  flex-wrap: wrap; align-items: baseline; column-gap: 14px; row-gap: 6px; margin: 0 0 10px;
+  font: 600 var(--fs-heading)/.98 var(--display); letter-spacing: -0.04em; color: var(--ink);
+}
+.cart-page:not(.oc-page) .cart__n, .co-page .cart__n { font: 500 15px/1 var(--body); letter-spacing: 0; color: var(--muted); }
+/* the cart's card: the same white card and radius as the buy card */
+.cart-page:not(.oc-page) .cart__box, .cart-page:not(.oc-page) .item--empty { border-radius: 24px; box-shadow: 0 1px 1px rgba(32, 47, 48, .04), 0 24px 60px -30px rgba(32, 47, 48, .35); }
+.cart-page:not(.oc-page) .cart__box { padding: 8px 24px 24px; }
+.cart-page:not(.oc-page) .cart__box .item { padding: 18px 0; }
+/* the stepper as on the buy card: one white pill with a hairline, round buttons inside */
+.cart-page:not(.oc-page) .item__qty { gap: 0; padding: 3px; border-radius: 999px; background: #FFFFFF; box-shadow: 0 0 0 1px var(--line-2, rgba(32, 47, 48, .16)); }
+.cart-page:not(.oc-page) .item__qty button { width: 40px; height: 40px; border-radius: 999px; background: transparent; font: 500 20px/1 var(--display); }
+.cart-page:not(.oc-page) .item__qty button:hover:not(:disabled) { background: #ECECEA; }
+.cart-page:not(.oc-page) .item__qty button:disabled { background: transparent; }
+.cart-page:not(.oc-page) .item__qty button::before { inset: -2px; }
+.cart-page:not(.oc-page) .item__qty span { min-width: 24px; font-size: 16px; }
+.cart-page:not(.oc-page) .item__tag { white-space: nowrap; }
+/* the sum: the total in the price voice of the buy card */
+.cart-page:not(.oc-page) .sums__total dd { font-size: clamp(24px, 2vw, 28px); letter-spacing: -0.03em; }
+.cart-page:not(.oc-page) .cart__go { min-height: 54px; font-size: 17px; }
+@media (max-width: 760px) {
+  .cart-page:not(.oc-page) .cart__box { padding: 4px 16px 18px; border-radius: 22px; }
+  .cart-page:not(.oc-page) .cart__box .item { padding: 14px 0; }
+  .cart-page:not(.oc-page) .item__qty { padding: 2px; }
+  .cart-page:not(.oc-page) .item__qty button { width: 34px; height: 34px; font-size: 18px; }
+  .cart-page:not(.oc-page) .item__qty button::before { inset: -5px; }
+  .cart-page:not(.oc-page) .item__qty span { min-width: 22px; }
+}
+/* a portrait tablet: one column across the page, as the home page's chapters */
+@media (min-width: 761px) {
+  .cart-page:not(.oc-page) .cart__wrap { max-width: none; width: 100%; margin: 0; padding: 120px var(--gutter) clamp(72px, 8vw, 120px); }
+}
+/* a computer and a landscape tablet: the title on the left, the cart on the right (the home page's .void--help grid) */
+@media (min-width: 1101px), (min-width: 761px) and (min-aspect-ratio: 1/1) {
+  .cart-page:not(.oc-page) .cart__wrap { grid-template-columns: minmax(0, .9fr) minmax(0, 1.25fr); column-gap: clamp(32px, 5vw, 90px); row-gap: 0; align-items: start; align-content: start; }
+  .cart-page:not(.oc-page) .cart__wrap > * { grid-column: 2; width: 100%; }
+  .cart-page:not(.oc-page) .cart__wrap > .cart__h { grid-column: 1; grid-row: 1 / span 2; max-width: none; justify-self: start; margin: 0; position: sticky; top: 120px; }
+  html.is-empty .cart-page:not(.oc-page) .cart__wrap { align-content: center; }
+}
+@media (min-width: 761px) and (max-width: 1100px) and (min-aspect-ratio: 1/1) {
+  .cart-page:not(.oc-page) .cart__wrap { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); column-gap: 40px; }
+}
+/* critic round 1 ---------------------------------------------------------------------------------------------------- */
+/* the cart starts where the home page's (and the buy page's) content column starts */
+@media (min-width: 1101px), (min-width: 761px) and (min-aspect-ratio: 1/1) {
+  .cart-page:not(.oc-page) .cart__wrap > * { justify-self: stretch; max-width: none; }
+  /* an empty cart: the title and the small card side by side in the middle of the space above the footer */
+  html.is-empty .cart-page:not(.oc-page) .cart__wrap { align-items: center; }
+  html.is-empty .cart-page:not(.oc-page) .cart__wrap > .cart__h { position: static; }
+}
+/* no lone words: the Flex-Mount link and the cancel line break where they balance */
+.cart-page:not(.oc-page) .item__more, .cart-page:not(.oc-page) .cart__fine { text-wrap: balance; }
+/* very wide screens: the home page's shared edge (darkroom.css pins the shop pages to 32 px) */
+@media (min-width: 1600px) { body.cart-page:not(.oc-page) main, body.co-page main { --gutter: max(32px, calc((100vw - 1536px) / 2)); } }
+/* ===================================================================== end of design pass: shop pages */

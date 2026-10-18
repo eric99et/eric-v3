@@ -382,3 +382,109 @@ html.reveal-on .hood [data-reveal] { transition: opacity .7s var(--ease), transf
 .ab__hero img { object-position: 50% 64%; }
 .ab__pics figure:first-child img { object-position: 22% 50%; }
 @media (max-width: 760px) { .ab__hero { aspect-ratio: 4 / 5; } .ab__hero img { object-position: 50% 60%; } }
+
+/* ===================================================================== design pass: buy page (18 Oct)
+   The buy page in the home page's voice: the section headings at the home page's chapter size, every section from
+   gutter to gutter, and on a computer or a landscape tablet the home page's Help & Guides layout (the heading on the
+   left, the content on the right). The first screen as the home page's shop chapter: the label top left, the lock
+   large on the left, the card on the right. Scoped to buy.html (the only .buy-page without .shop-page). */
+.buy-page:not(.shop-page) h2.details__h { margin: 0; font: 600 var(--fs-heading)/.98 var(--display); letter-spacing: -0.04em; text-wrap: balance; color: var(--ink); }
+.buy-page:not(.shop-page) :is(.details, .rv, .acc, .pdp-faq) { max-width: none; margin: 0; padding: 0 var(--gutter) clamp(72px, 8vw, 128px); }
+.buy-page:not(.shop-page) .details .details__text, .buy-page:not(.shop-page) .hood .details__text { max-width: none; }
+.buy-page:not(.shop-page) .hood__lead { max-width: 26em; font-size: var(--fs-body); line-height: 1.38; }
+.buy-page:not(.shop-page) .acc__card, .buy-page:not(.shop-page) .pdp-faq > * { max-width: none; margin-inline: 0; }
+/* one column (phones and portrait tablets): the heading on top, the content under it */
+.buy-page:not(.shop-page) .details--v2 h2.details__h { margin-bottom: 22px; }
+.buy-page:not(.shop-page) .hood h2.details__h { margin-bottom: 18px; }
+.buy-page:not(.shop-page) .hood__lead { margin-bottom: 26px; }
+.buy-page:not(.shop-page) .rv__top { align-items: flex-end; }
+.buy-page:not(.shop-page) .pdp-faq__head { align-items: baseline; margin-bottom: 22px; }
+
+/* two columns: a computer, and a tablet held sideways (the home page's .void--help grid) */
+@media (min-width: 1101px), (min-width: 761px) and (min-aspect-ratio: 1/1) {
+  .buy-page:not(.shop-page) :is(.details--v2, .hood, .acc, .pdp-faq) {
+    display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.25fr); column-gap: clamp(32px, 5vw, 90px); row-gap: 0; align-items: start;
+  }
+  .buy-page:not(.shop-page) :is(.details--v2, .hood) .details__text { display: contents; }
+  .buy-page:not(.shop-page) :is(.details--v2, .hood, .acc, .pdp-faq) > *,
+  .buy-page:not(.shop-page) :is(.details--v2, .hood) .details__text > * { grid-column: 2; }
+  .buy-page:not(.shop-page) :is(.details--v2, .hood) h2.details__h { grid-column: 1; grid-row: 1; margin: 0; }
+  /* details: the heading, and the photo under it on the left; the numbers, the rows and the box on the right */
+  .buy-page:not(.shop-page) .details--v2 { grid-template-rows: repeat(6, auto) 1fr; }
+  .buy-page:not(.shop-page) .details--v2 .details__photo { grid-column: 1; grid-row: 2 / -1; position: sticky; top: 104px; margin: 28px 0 0; width: min(100%, 520px); }
+  .buy-page:not(.shop-page) .details--v2 .dnum { grid-row: 1; }
+  /* under the hood: the heading and the line under it on the left, the cards on the right */
+  .buy-page:not(.shop-page) .hood { grid-template-rows: auto 1fr auto; }
+  .buy-page:not(.shop-page) .hood .hood__lead { grid-column: 1; grid-row: 2; margin: 26px 0 0; }
+  .buy-page:not(.shop-page) .hood .hood__grid { grid-row: 1 / span 2; }
+  .buy-page:not(.shop-page) .hood .hood__sec { grid-row: 3; }
+  /* the Flex-Mount card in the content column */
+  .buy-page:not(.shop-page) .acc__card { grid-column: 2; }
+  /* questions: the heading, the link to all questions and the two ways to ask on the left (as Help & Guides) */
+  .buy-page:not(.shop-page) .pdp-faq { grid-template-rows: auto 1fr; }
+  .buy-page:not(.shop-page) .pdp-faq__head { grid-column: 1; grid-row: 1; display: grid; justify-items: start; gap: 18px; margin: 0; }
+  .buy-page:not(.shop-page) .pdp-faq .faq { grid-column: 2; grid-row: 1 / span 2; }
+  .buy-page:not(.shop-page) .pdp-faq__ask { grid-column: 1; grid-row: 2; align-self: start; grid-template-columns: 1fr; max-width: 360px; margin-top: 28px; }
+  .buy-page:not(.shop-page) .pdp-faq .qa summary { min-height: 0; padding: 20px 0; font: 600 clamp(18px, 1.45vw, 22px)/1.25 var(--display); letter-spacing: -0.02em; }
+}
+@media (min-width: 761px) and (max-width: 1100px) and (min-aspect-ratio: 1/1) {
+  .buy-page:not(.shop-page) :is(.details--v2, .hood, .acc, .pdp-faq) { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); column-gap: 40px; }
+  .buy-page:not(.shop-page) .dnum, .buy-page:not(.shop-page) .dbox { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+/* the first screen, as the home page's shop chapter on a computer and a landscape tablet: the label pinned top left,
+   the lock as large as the screen allows on the left, the card on the right */
+@media (min-width: 1101px), (min-width: 761px) and (min-aspect-ratio: 1/1) {
+  .buy-page:not(.shop-page) .pdp--v2 {
+    position: relative; max-width: none; margin: 0; grid-template-columns: minmax(0, 1fr) minmax(380px, 420px); column-gap: clamp(32px, 5vw, 90px);
+    padding: 120px var(--gutter) 72px; --lh: clamp(380px, calc(100svh - 250px), 680px);
+  }
+  .buy-page:not(.shop-page) .pdp--v2 .pdp__head { position: absolute; top: 120px; left: var(--gutter); grid-column: auto; margin: 0; padding: 0; }
+  .buy-page:not(.shop-page) .pdp--v2 .pdp__stage { grid-column: 1; grid-row: 1; }
+  .buy-page:not(.shop-page) .pdp--v2 .pdp__col { grid-column: 2; grid-row: 1; }
+  .buy-page:not(.shop-page) .pdp--v2 .lock3d { height: var(--lh); }
+  .buy-page:not(.shop-page) .pdp--v2 .lock3d__still { width: auto; height: 100%; max-width: 100%; }
+}
+@media (min-width: 761px) and (max-width: 1100px) and (min-aspect-ratio: 1/1) {
+  .buy-page:not(.shop-page) .pdp--v2 { grid-template-columns: minmax(0, 1fr) minmax(340px, 380px); column-gap: 24px; padding-top: 104px; --lh: clamp(360px, calc(100svh - 200px), 600px); }
+  .buy-page:not(.shop-page) .pdp--v2 .pdp__head { top: 104px; }
+}
+/* a portrait tablet: the lock as large as on the home page (the studio renders carry a margin round the ring) */
+@media (min-width: 761px) and (max-width: 1100px) and (max-aspect-ratio: 1/1) {
+  .buy-page:not(.shop-page) .pdp--v2 .lock3d__still { width: 128%; max-width: none; }
+}
+/* a phone: the link to all questions under the heading, not squeezed beside it */
+@media (max-width: 760px) {
+  .buy-page:not(.shop-page) .pdp-faq__head { display: grid; justify-items: start; gap: 10px; }
+  .buy-page:not(.shop-page) .rv__top { align-items: flex-start; flex-direction: column; gap: 14px; }
+}
+/* a phone: the Trustpilot line keeps its stars full size; the count goes under it when it does not fit */
+@media (max-width: 760px) {
+  .buy-page:not(.shop-page) .rv__sum { flex-wrap: wrap; row-gap: 10px; }
+  .buy-page:not(.shop-page) .rv__stars { flex: none; }
+  .buy-page:not(.shop-page) .rv__stars svg { flex: none; }
+  .buy-page:not(.shop-page) .rv__count { white-space: nowrap; }
+}
+/* critic round 1 ---------------------------------------------------------------------------------------------------- */
+/* the label's dash: the home page's 80 px, also when the label is pinned top left */
+@media (min-width: 1101px), (min-width: 761px) and (min-aspect-ratio: 1/1) {
+  /* the turn arrows sit just under the ring (the renders carry a margin round it), as on the home page */
+  .buy-page:not(.shop-page) .pdp--v2 .pdp__turn { margin-top: calc(var(--lh) * -0.12); }
+  /* the Flex-Mount card across the content width, in line with the reviews above it */
+  .buy-page:not(.shop-page) .acc__card { grid-column: 1 / -1; grid-template-columns: 240px minmax(0, 1fr) auto; gap: 28px; padding: 16px 28px 16px 16px; border-radius: 24px; }
+}
+@media (min-width: 761px) and (max-width: 1100px) and (max-aspect-ratio: 1/1) {
+  .buy-page:not(.shop-page) .pdp--v2 .pdp__turn { margin-top: -64px; }
+  /* details on a portrait tablet: one column as on a phone, the photo under the box (not a small square beside it) */
+  .buy-page:not(.shop-page) .details.details--v2 { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
+  .buy-page:not(.shop-page) .details--v2 .details__photo { position: static; margin: 32px 0 0; aspect-ratio: 16 / 10; border-radius: 24px; }
+}
+/* a landscape tablet: the four hood cards one under the other, so their lines do not break every two words */
+@media (min-width: 761px) and (max-width: 1100px) and (min-aspect-ratio: 1/1) {
+  .buy-page:not(.shop-page) .hood__grid { grid-template-columns: 1fr; }
+}
+/* very wide screens: the home page's shared edge (darkroom.css pins the buy pages to 32 px) */
+@media (min-width: 1600px) { body.buy-page:not(.shop-page) main { --gutter: max(32px, calc((100vw - 1536px) / 2)); } }
+/* the label's dash at every size: the home page's 80 px, shorter only where the line would not fit (a phone) */
+.buy-page:not(.shop-page) .pdp__head .void__index::after { flex: 0 1 auto; width: 80px; min-width: 12px; }
+@media (max-width: 760px) { .buy-page:not(.shop-page) .pdp__head .void__index::after { flex: 1 1 0; width: auto; max-width: 80px; } }
+/* ===================================================================== end of design pass: buy page */
