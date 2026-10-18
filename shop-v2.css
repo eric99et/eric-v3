@@ -1298,3 +1298,19 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 }
 @media (min-width: 600px) and (max-width: 719px) { .faq-page .fq { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 359px) { .faq-page .fq__tab { padding-inline: 12px; } }
+/* the tactile family (tactile.css, Eric 18 Oct) on the phone FAQ: topic tiles are white keys with a hairline edge and a
+   small lift; the open topic is the pressed dark key, as the chosen chip elsewhere (Deep Teal stays the one filled
+   button); Still stuck?'s phone and email are white keys too. These win over tactile.css by being more specific. */
+@media (max-width: 1023px) {
+  .faq-page .fq__tab { border-radius: 12px; background: var(--t-chalk, #FFFFFF); box-shadow: var(--t-chalk-shadow, 0 0 0 1px rgba(32, 47, 48, .12)); transition: box-shadow .2s, background .2s, scale .1s; }
+  .faq-page .fq__tab:hover { background: #FFFFFF; box-shadow: inset 0 1px 0 #FFFFFF, 0 0 0 1px var(--t-edge-2, rgba(32, 47, 48, .2)), var(--t-lift-hi, none); }
+  .faq-page .fq__tab:active { scale: .985; }
+  .faq-page .fq__tab[aria-selected="true"], .faq-page .fq__tab[aria-selected="true"]:hover {
+    background: linear-gradient(180deg, #2C3D3E 0%, #202F30 100%); color: #ECECEA;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 0 0 1px #121c1d, 0 1px 2px rgba(0, 0, 0, .2);
+  }
+  .faq-page .fq__tab[aria-selected="true"] svg { color: #9BCDD0; }
+  .faq-page .fq__tab[aria-selected="true"] em { color: rgba(236, 236, 234, .7); }
+  .faq-page .fq__help a { border-radius: 10px; background: var(--t-chalk, #FFFFFF); box-shadow: var(--t-chalk-shadow, inset 0 0 0 1px rgba(32, 47, 48, .18)); }
+  .faq-page .fq__help a:hover { background: #FFFFFF; box-shadow: inset 0 1px 0 #FFFFFF, 0 0 0 1px var(--t-edge-2, rgba(32, 47, 48, .2)), var(--t-lift-hi, none); }
+}
