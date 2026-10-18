@@ -2959,4 +2959,10 @@ html:has(#menu:not([hidden])) .nav__bag b { background: var(--green); color: #FF
 @media (max-width: 760px) {
   .hero__buy { width: 100%; justify-content: space-between; }
 }
+/* tablets (761-1023 px): the floating bar keeps the phone's 10 px from the screen's edge, and its inside padding
+   takes the rest of the gutter, so the logo starts on the titles' edge and the bag ends on the content's right edge */
+@media (min-width: 761px) and (max-width: 1023px) {
+  .nav { padding-left: 10px; padding-right: 10px; }
+  .nav__shell, html.nav-float .nav__shell, html.nav-float.nav-compact .nav__shell { max-width: none !important; padding-left: calc(var(--gutter) - 11px) !important; padding-right: calc(var(--gutter) - 11px) !important; }
+}
 /* ===================================================================== end of design pass: chrome */

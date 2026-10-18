@@ -1324,3 +1324,9 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
   .oc-page .item--empty .item__pic { justify-self: center; margin-inline: auto; }
   .oc-page .item--empty .item__go { justify-self: stretch; justify-content: center; text-align: center; }
 }
+
+/* phone title size (18 Oct): the shop pages' page titles in the info and help pages' phone size (32 px at 375,
+   up to 40), so a title is the same size wherever it is on a phone */
+@media (max-width: 760px) {
+  .cart-page:not(.oc-page) .cart__h, .co-page .cart__h, .oc-page .oc__h, .oc-page .item--empty .item__name { font-size: clamp(32px, 8.6vw, 40px); line-height: 1.04; }
+}
