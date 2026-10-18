@@ -1205,3 +1205,10 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 /* (it fills the first screen and sits in its middle, so the footer starts below the fold, as on the 404) */
 .oc-page .cart__wrap:has(> .item--empty:not([hidden])) { min-height: 100vh; min-height: 100svh; box-sizing: border-box; align-content: center; padding-top: 104px; padding-bottom: 72px; }
 @media (max-width: 760px) { .oc-page .cart__wrap:has(> .item--empty:not([hidden])) { padding-top: 88px; } }
+/* round 3 critic: where the delivery bars stack (a phone, a narrow column) the "Two or more locks" row has no bar, so it
+   does not keep an empty bar row; the lock beside "No recent order" grows a little on wide screens (to its real 320 px) */
+@media (max-width: 760px) { .shipping-page .sh__free .sh__track { display: none; } .shipping-page .sh__free .sh__days { grid-row: 2; } }
+@container ipbody (min-width: 481px) and (max-width: 640px) { .shipping-page .sh__free .sh__track { display: none; } .shipping-page .sh__free .sh__days { grid-row: 2; } }
+@media (min-width: 761px) { .oc-page .item--empty .item__pic { max-width: none; width: clamp(240px, 18vw, 320px); } }
+@media (max-width: 760px) { .shipping-page .pr .sh__bars ~ .pr__fine { margin-top: 4px; } }
+@container ipbody (min-width: 481px) and (max-width: 640px) { .shipping-page .pr .sh__bars ~ .pr__fine { margin-top: 4px; } }
