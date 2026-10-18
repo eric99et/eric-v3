@@ -1212,3 +1212,14 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 @media (min-width: 761px) { .oc-page .item--empty .item__pic { max-width: none; width: clamp(240px, 18vw, 320px); } }
 @media (max-width: 760px) { .shipping-page .pr .sh__bars ~ .pr__fine { margin-top: 4px; } }
 @container ipbody (min-width: 481px) and (max-width: 640px) { .shipping-page .pr .sh__bars ~ .pr__fine { margin-top: 4px; } }
+
+/* phone centring (18 Oct): on a phone a lone call to action spans the column, and the short "nothing here" pages
+   (404, order-confirmed without an order) sit centred, picture, words and button, instead of hugging the left edge */
+@media (max-width: 760px) {
+  .legal-page .ip--short, .oc-page .item--empty { text-align: center; }
+  .legal-page .ip--short { align-items: stretch; }
+  .legal-page .ip--short .cart__go { display: flex !important; justify-content: center; width: 100%; }
+  .oc-page .item--empty { justify-items: center; }
+  .oc-page .item--empty .item__pic { justify-self: center; margin-inline: auto; }
+  .oc-page .item--empty .item__go { justify-self: stretch; justify-content: center; text-align: center; }
+}
