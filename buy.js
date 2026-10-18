@@ -119,10 +119,15 @@
     const get = u => cache.get(u) || (cache.set(u, new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(u); im.onerror = no; im.src = u; })), cache.get(u));
     let angle = 0, want = '';
     const hint = $('#lock-hint');
+    // where the lock's centre sits in each render (shares of the frame, as darkroom.js measures them): the still is
+    // nudged by the difference, so every angle stands optically centred in the stage instead of up to 2% off
+    const GEO = { '00': [0.5128, 0.4881], '01': [0.4997, 0.5093], '02': [0.4844, 0.4878], '03': [0.5228, 0.4872], '04': [0.5109, 0.4866], '05': [0.4862, 0.48] };
+    const centre = a => { const [cx, cy] = GEO[a]; still.style.setProperty('--lx', ((0.5 - cx) * 100).toFixed(2) + '%'); still.style.setProperty('--ly', ((0.5 - cy) * 100).toFixed(2) + '%'); };
     const paint = () => {
-      const u = src(finish, ANGLES[((angle % 6) + 6) % 6]); want = u;
-      get(u).then(() => { if (want === u) still.src = u; }, () => {});
+      const a = ANGLES[((angle % 6) + 6) % 6], u = src(finish, a); want = u;
+      get(u).then(() => { if (want === u) { still.src = u; centre(a); } }, () => {});
     };
+    centre('00');
     const warm = () => ANGLES.forEach(a => get(src(finish, a)).catch(() => {}));
     const step = d => { angle += d; hint?.classList.add('is-used'); paint(); warm(); };
     let down = null, lastX = 0, acc = 0;
