@@ -501,3 +501,9 @@ html.reveal-on .hood [data-reveal] { transition: opacity .7s var(--ease), transf
   .pdp__head .void__index { white-space: normal; flex-wrap: wrap; letter-spacing: .08em; }
   .buy-page:not(.shop-page) .pdp__head .void__index::after { display: none; }
 }
+/* round 2 critic: the bar is solid and sits on a strip of the page colour down to the screen's edge, so no line of the
+   page shows through it or peeks out below it; a little more room round its button */
+@media (max-width: 760px) {
+  .buybar { background: var(--paper); padding-block: 8px; }
+  .buybar::before { content: ""; position: absolute; z-index: -1; left: -10px; right: -10px; top: -10px; bottom: calc(-60px - env(safe-area-inset-bottom, 0px)); background: var(--paper); border-top: 1px solid rgba(32, 47, 48, .1); pointer-events: none; }
+}

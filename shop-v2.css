@@ -1169,3 +1169,9 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 .cart-page:not(.oc-page) .addons .addon__btn { min-height: 56px; font-size: 16px; }
 .cart-page:not(.oc-page) .cart__go { min-height: 56px; }
 .item--empty .item__go { min-height: 56px; padding: 0 26px; font-size: 16px; }
+/* round 2 critic: "1–3" never splits across two lines; the four return steps start their text on one line; the FAQ
+   topics column a little wider on a tablet so "Still stuck?" reads in two calm lines */
+.nw { white-space: nowrap; }
+@container ipbody (min-width: 741px) { .shipping-page .pr__steps--line h3 { min-height: 2.5em; } }
+@media (min-width: 761px) and (max-width: 1100px) { .faq-page .fq { grid-template-columns: 232px minmax(0, 1fr); } }
+@media (max-width: 400px) { .faq-page .fq__search input { text-overflow: ellipsis; } }
