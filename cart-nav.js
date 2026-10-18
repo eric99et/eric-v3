@@ -394,3 +394,28 @@ window.LAAS_SITE = window.LAAS_SITE || (() => {
   addEventListener('load', schedule);
   schedule();
 })();
+
+// LAAS · never two Pre-order buttons at once (owner, 18 Oct): while a Pre-order button on the page itself
+// (the hero's, the buy box's, the cart's) is on screen, the one in the nav steps aside. tactile.css hides it.
+(() => {
+  const root = document.documentElement;
+  const ctas = [...document.querySelectorAll('.hero__buy, .buy-btn, .pill-btn, .item__go')]
+    .filter((el) => !el.closest('.nav, .menu, .minicart'));
+  if (!ctas.length || !('IntersectionObserver' in window)) return;
+  const seen = new Set();
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) e.isIntersecting ? seen.add(e.target) : seen.delete(e.target);
+    root.classList.toggle('cta-in-view', seen.size > 0);
+  }, { rootMargin: '-64px 0px 0px 0px' });
+  ctas.forEach((el) => io.observe(el));
+})();
+
+// LAAS · no 3D lock behind Help & Guides (owner, 18 Oct): the section asks the stage to hide, but the lock
+// still showed through as a big pale ring behind the text. While Help owns the middle of the screen,
+// tactile.css fades the whole stage out.
+(() => {
+  const help = document.getElementById('help');
+  if (!help || !document.getElementById('stage') || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(([e]) => document.documentElement.classList.toggle('help-in-view', e.isIntersecting),
+    { rootMargin: '-50% 0px -50% 0px' }).observe(help);
+})();
