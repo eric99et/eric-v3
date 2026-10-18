@@ -931,13 +931,13 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 
 /* a computer: the heading stays on the left while the content scrolls on the right (as Help & Guides) */
 @media (min-width: 1101px) {
-  .legal-page .ip, .legal-page .ip__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.25fr); column-gap: clamp(32px, 5vw, 90px); align-items: start; }
+  .legal-page .ip, .legal-page .ip__grid:not(.ip__grid--faq) { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.25fr); column-gap: clamp(32px, 5vw, 90px); align-items: start; }
   .legal-page .ip > .ip__head, .legal-page .ip > .pr__top, .legal-page .ip__grid > .pr__top { grid-column: 1; position: sticky; top: 132px; }
   .legal-page .ip__body { grid-column: 2; min-width: 0; }
 }
 /* a landscape tablet keeps two columns, as the home page does */
 @media (min-width: 761px) and (max-width: 1100px) and (min-aspect-ratio: 1/1) {
-  .legal-page .ip, .legal-page .ip__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); column-gap: 40px; align-items: start; }
+  .legal-page .ip, .legal-page .ip__grid:not(.ip__grid--faq) { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); column-gap: 40px; align-items: start; }
   .legal-page .ip > .ip__head, .legal-page .ip > .pr__top, .legal-page .ip__grid > .pr__top { grid-column: 1; position: sticky; top: 112px; }
   .legal-page .ip__body { grid-column: 2; min-width: 0; }
   .legal-page main.shop.legal .legal__wrap { padding-top: 124px; }
@@ -963,7 +963,7 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 .legal-page .ip--legal .ip__body h2 { margin: 48px 0 12px; font: 600 clamp(20px, 1.6vw, 24px)/1.25 var(--display); letter-spacing: -0.02em; color: var(--ink); }
 .legal-page .ip--legal .ip__body [data-lang-block] > h2:first-child, .legal-page .ip--legal .ip__body > div > h2:first-child { margin-top: 0; }
 .legal-page .ip--legal .ip__body p { max-width: 40em; margin: 0 0 12px; font: 400 17px/1.6 var(--body); color: var(--ink-2); }
-.legal-page .ip--legal .legal__form { max-width: none; margin-top: 12px; padding: clamp(22px, 2.4vw, 32px); border-radius: 20px; }
+.legal-page .ip--legal .legal__form { max-width: 680px; margin-top: 12px; padding: clamp(22px, 2.4vw, 32px); border-radius: 20px; }
 .legal-page .ip--legal .legal__form p { font-size: 16px; }
 @media (max-width: 760px) {
   .legal-page .ip--legal .ip__body h2 { margin-top: 36px; font-size: 20px; }
@@ -994,45 +994,41 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 
 /* ---- FAQ: the heading, the search and the topics on the left, the questions on the right */
 /* the speech-bubble drawing stays at the top right of the heading column, smaller where that column is narrow */
-@media (min-width: 761px) and (max-width: 1100px) and (min-aspect-ratio: 1/1) { .faq-page .fq__art { width: 132px; top: -2px; } }
 .faq-page .fq__q[open] { box-shadow: none; }
 .faq-page .fq__tab[aria-selected="true"] { box-shadow: none; }
-@media (min-width: 1101px), (min-width: 761px) and (min-aspect-ratio: 1/1) {
+@media (min-width: 1101px) {
   .faq-page .ip__grid--faq { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.25fr); grid-template-rows: auto 1fr; column-gap: clamp(32px, 5vw, 90px); align-items: start; }
-  .faq-page .ip__grid--faq > .fq__top { grid-column: 1; grid-row: 1; }
-  .faq-page .ip__grid--faq > .fq { display: contents; }
-  .faq-page .ip__grid--faq .fq__tabs { grid-column: 1; grid-row: 2; position: static; margin-top: 36px; max-width: 420px; }
-  .faq-page .ip__grid--faq .fq__panels { grid-column: 2; grid-row: 1 / span 2; min-width: 0; }
-  .faq-page .ip__grid--faq > .fq__none { grid-column: 2; grid-row: 1; margin: 0; }
+  .faq-page .ip__grid--faq > .fq__top { grid-column: 1; grid-row: 1 / span 2; }
+  .faq-page .ip__grid--faq > .fq__none { grid-column: 2; grid-row: 1; margin: 0 0 16px; }
+  .faq-page .ip__grid--faq > .fq { grid-column: 2; grid-row: 2; margin-top: 0; grid-template-columns: 200px minmax(0, 1fr); gap: 24px; }
   .faq-page .fq__search { max-width: 420px; margin-top: 28px; }
 }
-@media (min-width: 761px) and (max-width: 1100px) and (min-aspect-ratio: 1/1) {
-  .faq-page .ip__grid--faq { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); column-gap: 40px; }
-}
-@media (max-width: 1100px) and (max-aspect-ratio: 1/1) and (min-width: 761px) {
-  .faq-page .fq { margin-top: 36px; }
-}
-
+/* a tablet keeps the FAQ in one column: heading on top, topics beside the questions below it */
+@media (min-width: 761px) and (max-width: 1100px) { .faq-page .fq { margin-top: 36px; } }
 /* ---- 404: the home page's heading and button, in the middle of the first screen */
 .legal-page .ip--short { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
 .legal-page .ip--short .legal__lead { margin-bottom: 32px !important; }
 .legal-page .ip--short .pill-btn { min-height: 56px !important; font-size: 17px; }
 
-/* ---- the right column is narrower than the old centred column on a landscape tablet or a small laptop:
-   below 640 px the steps, the delivery bars and the four facts fold the way they do on a portrait tablet */
-@container ipbody (max-width: 640px) {
-  .promise-page .pr__steps { grid-template-columns: 1fr; }
+/* ---- the right column is narrower than the old centred column on a landscape tablet or a laptop: there the
+   delivery bars and the return steps fold the way they do on a portrait tablet (a phone keeps its own layout) */
+@container ipbody (min-width: 481px) and (max-width: 640px) {
   .shipping-page .sh__feats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .shipping-page .sh__feats li { padding: 18px 12px; }
   .shipping-page .sh__bars li { grid-template-columns: 1fr auto; row-gap: 8px; }
   .shipping-page .sh__track { grid-column: 1 / -1; grid-row: 2; }
   .shipping-page .sh__days { grid-column: 1 / -1; grid-row: 3; text-align: left; }
   .shipping-page .sh__scale { display: block; margin-top: 10px; text-align: center; }
+}
+@container ipbody (min-width: 481px) and (max-width: 740px) {
   .shipping-page .pr__steps--line { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; row-gap: 24px !important; }
   .shipping-page .pr__steps--line::before { display: none; }
 }
+/* four steps in a row: the dashed line runs from the first number to the last, not past it */
+@container ipbody (min-width: 741px) { .shipping-page .pr__steps--line::before { left: 20px; right: calc(25% - 28px); top: 20px; } }
+
 /* the questions read like the home page's Help & Guides rows: Poppins Medium, larger, one hairline apart */
-@media (min-width: 1101px), (min-width: 761px) and (min-aspect-ratio: 1/1) {
+@media (min-width: 1101px) {
   .faq-page .ip__grid--faq .fq__q summary { padding: 20px 20px; font: 500 clamp(18px, 1.4vw, 21px)/1.25 var(--display); letter-spacing: -0.02em; }
   .faq-page .ip__grid--faq .fq__q summary i { width: 9px; height: 9px; }
   .faq-page .ip__grid--faq .fq__a { padding: 0 20px 20px; }
@@ -1041,9 +1037,24 @@ main.promise .legal__wrap { min-height: 100vh; min-height: 100svh; }
 }
 /* the line under "Ask away" stays clear of the drawing beside the heading */
 @media (min-width: 1101px) { .faq-page .ip__grid--faq .fq__top .pr__lead { max-width: calc(100% - 216px); } }
-@media (min-width: 761px) and (max-width: 1100px) and (min-aspect-ratio: 1/1) { .faq-page .ip__grid--faq .fq__top .pr__lead { max-width: calc(100% - 148px); } }
 
 /* ---- the order confirmation keeps the cart's centred column (it is the last step of the checkout); only its
    thank-you takes the home page's heading voice */
 .oc-page .oc__h { font: 600 clamp(34px, 3.4vw, 48px)/1.02 var(--display); letter-spacing: -0.04em; }
 @media (max-width: 760px) { .oc-page .oc__h { font-size: clamp(30px, 8.6vw, 36px); } }
+/* three trial steps need about 800 px side by side (the email address is one long word: a 1280 px laptop clipped it),
+   four shipping facts about 720 px */
+@container ipbody (max-width: 800px) { .promise-page .pr__steps { grid-template-columns: 1fr; } }
+@container ipbody (max-width: 720px) {
+  .shipping-page .sh__feats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+}
+
+/* no lonely last word in a heading, calmer rags in the copy */
+.legal-page main h2, .legal-page main h3, .oc-page main h2 { text-wrap: balance; }
+.legal-page .ip__body p, .legal-page .pr__steps p, .legal-page .fq__a p { text-wrap: pretty; }
+/* the questions in one voice at every size: Poppins Medium, as the home page's Help & Guides rows */
+.faq-page .fq__q summary { font-weight: 500; letter-spacing: -0.01em; }
+@media (max-width: 1100px) { .faq-page .fq__q summary { font-size: 17px; } }
+@media (max-width: 760px) { .faq-page .fq__q summary { font-size: 16px; } }
+/* the smallest phones (320 px): the Danish "Forudbestilling:" is wider than a fact card at 16 px */
+@media (max-width: 359px) { .shipping-page .sh__feats b { font-size: 14px; overflow-wrap: anywhere; } .shipping-page .sh__feats li { padding-inline: 8px; } }
