@@ -9,7 +9,7 @@ Key facts:
 - Finishes: Steel, Copper, Black. Frames without frame-lock holes use the Flex-Mount (€9.99 / 75 kr).
 - 57 days to return it, and the two-year right to complain under Danish law.
 - Works with Apple Find My (iPhone, iPad, Mac).
-- The successor to the LAAS O-Lock (Kickstarter, 2022). LAAS ApS, Sankt Hans Gade 24, st., 2200 København N, CVR 40942491, +45 31 33 82 13, support@laaslocks.com.
+- The successor to the LAAS O-Lock (Kickstarter, 2022). LAAS ApS, Sankt Hans Gade 24E, st., 2200 København N, CVR 40942491, +45 31 33 82 13, support@laaslocks.com.
 
 ## Pages
 - [Ring-Lock: buy, specs, in the box](https://eric99et.github.io/eric-v3/buy.html)
