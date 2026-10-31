@@ -708,7 +708,7 @@ function loop(now) {
   glideTick(now);
   tickLoader(dt);
   // the 9 s safety net opened the page without the loader: start the entrance anyway
-  if (intro.t < 0 && root.classList.contains('is-loaded')) { progress.done = true; intro.t = now; goToHash(); }
+  if (intro.t < 0 && root.classList.contains('is-loaded')) { progress.done = true; intro.t = now; root.classList.remove('no-engine'); goToHash(); }
 
   const M = measure(), rects = M.rects;
   frameChrome(M);
