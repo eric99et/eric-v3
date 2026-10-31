@@ -1,0 +1,128 @@
+/* =====================================================================
+   About LAAS, laid out after Eric's references (31 Oct)
+   A centred title over a staggered strip of rider photos that runs edge to edge, the mission read in as it
+   scrolls past (about.js), the founder's words beside his photos and the LAAS mark, the team at the end.
+   Poppins and Inter, the brand palette, the site's 20 px corner, no shadows. The words are Liz's, unchanged.
+   ===================================================================== */
+.about-page .abx { --g: clamp(8px, 1vw, 16px); --g2: clamp(16px, 3vw, 48px); overflow-x: clip; }
+
+/* the eyebrow: a small Teal dot before it, as in the references */
+.about-page .legal__wrap .abx__kicker {
+  display: inline-flex; align-items: center; gap: 10px; margin: 0 0 18px; color: var(--muted);
+}
+.about-page .legal__wrap .abx__kicker::before { content: ''; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--green-hi); }
+
+/* ---------------------------------------------------------------- the title, centred */
+.about-page .abx__top { display: grid; justify-items: center; text-align: center; }
+.about-page .legal__wrap .abx__top h1.cart__h {
+  max-width: 11em; font-size: clamp(44px, 6.2vw, 112px); line-height: .96; letter-spacing: -0.045em;
+}
+.about-page .legal__wrap .abx__top .pr__lead { margin-top: clamp(18px, 2vw, 28px) !important; }
+
+/* ---------------------------------------------------------------- the strip: six photos, tallest in the middle */
+.about-page .abx__strip {
+  container-type: inline-size; display: flex; align-items: flex-end; justify-content: center; gap: var(--g);
+  margin: clamp(40px, 5vw, 88px) calc(-1 * var(--gutter)) 0; overflow: clip;
+}
+.about-page .abx__strip figure {
+  --w: calc((100cqw - 5 * var(--g)) / 5.4);   /* six cells over 5.4 widths: the outer two run off the edges */
+  flex: 0 0 var(--w); height: min(calc(var(--w) * 1.5 * var(--h)), calc(76svh * var(--h)));
+  margin: 0; overflow: hidden; border-radius: var(--r-card); background: #DADDDC;
+}
+.about-page .abx__strip figure:nth-child(1) { --h: .76; --i: 2; }
+.about-page .abx__strip figure:nth-child(2) { --h: .54; --i: 1; }
+.about-page .abx__strip figure:nth-child(3) { --h: .8;  --i: 1; }
+.about-page .abx__strip figure:nth-child(4) { --h: 1;   --i: 0; }
+.about-page .abx__strip figure:nth-child(5) { --h: .56; --i: 1; }
+.about-page .abx__strip figure:nth-child(6) { --h: .72; --i: 2; }
+.about-page .abx__strip img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (prefers-reduced-motion: no-preference) {
+  .about-page .abx__strip figure { animation: abx-rise .9s var(--ease) both; animation-delay: calc(120ms + var(--i) * 90ms); }
+}
+@keyframes abx-rise { from { opacity: 0; transform: translateY(40px); } }
+
+/* ---------------------------------------------------------------- shared section rhythm */
+.about-page .abx__sec { margin-top: clamp(96px, 11vw, 184px); }
+.about-page .legal__wrap .abx__sec h2 {
+  margin: 0; max-width: 12em; font: 600 var(--fs-heading)/1 var(--display); letter-spacing: -0.04em; color: var(--ink); text-wrap: balance;
+}
+
+/* ---------------------------------------------------------------- the mission: read in as it scrolls */
+.about-page .abx__mission { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--g2); }
+.about-page .abx__mission > * { grid-column: 1 / span 8; }
+.about-page .abx__mission > .abx__say { grid-column: 5 / -1; margin-top: clamp(40px, 5vw, 88px); }
+.about-page .legal__wrap .abx__say .ab__lead { margin: 0 0 20px; font: 600 clamp(18px, 1.4vw, 21px)/1.4 var(--display) !important; color: var(--ink) !important; }
+.about-page .abx__read {
+  margin: 0 0 .7em; font: 500 clamp(26px, 2.8vw, 46px)/1.16 var(--display); letter-spacing: -0.03em; color: var(--ink); text-wrap: pretty;
+}
+.about-page .abx__read:last-child { margin-bottom: 0; }
+.about-page .abx__read .w { color: rgba(32, 47, 48, .18); transition: color .4s var(--ease); }
+.about-page .abx__read .w.on { color: var(--ink); }
+
+/* ---------------------------------------------------------------- the founder: his words, his photos, the mark */
+.about-page .abx__founder { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--g2); align-items: start; }
+.about-page .abx__words { grid-column: 1 / span 5; }
+.about-page .legal__wrap .abx__words h2 { margin-bottom: clamp(24px, 2.6vw, 40px); }
+.about-page .abx__words p { margin: 0 0 14px; max-width: 32em; font: 400 var(--fs-body)/1.55 var(--body); letter-spacing: -0.01em; color: var(--ink-2); text-wrap: pretty; }
+.about-page .abx__words .abx__no { margin: 28px 0; font: 600 clamp(22px, 2vw, 30px)/1.22 var(--display); letter-spacing: -0.025em; color: var(--ink); }
+.about-page .abx__words .ab__sign { display: grid; gap: 4px; margin: 32px 0 0 !important; font-size: 16px; color: var(--muted); }
+.about-page .abx__words .ab__sign b { font: 600 18px/1.2 var(--display); color: var(--ink); }
+.about-page .abx__pics {
+  grid-column: 7 / -1; display: grid; grid-template-columns: 1.1fr 1fr; grid-template-rows: 1fr 1fr; gap: var(--g);
+  aspect-ratio: 1 / 1; position: sticky; top: 120px;
+}
+.about-page .abx__pics figure { margin: 0; min-height: 0; overflow: hidden; border-radius: var(--r-card); background: #DADDDC; }
+.about-page .abx__pics figure:first-child { grid-row: 1 / span 2; }
+.about-page .abx__pics picture, .about-page .abx__pics img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.about-page .abx__pics figure:first-child img { object-position: 30% 50%; }
+.about-page .abx__pics .abx__mark { display: grid; place-items: center; background: var(--green); }
+.about-page .abx__mark svg { width: max(120px, 58%); height: auto; fill: #FFFFFF; }
+
+/* ---------------------------------------------------------------- the team */
+.about-page .abx__team { display: grid; justify-items: center; text-align: center; }
+.about-page .abx__faces { display: flex; margin: 0 0 24px; }
+.about-page .abx__faces i {
+  display: grid; place-items: center; width: 54px; height: 54px; margin-left: -10px; border: 3px solid var(--paper); border-radius: 50%;
+  font: 600 18px/1 var(--display); font-style: normal; color: #FFFFFF;
+}
+.about-page .abx__faces i:first-child { margin-left: 0; }
+.about-page .abx__faces i:nth-child(1) { background: #1D5F63; }
+.about-page .abx__faces i:nth-child(2) { background: #9BCDD0; color: var(--ink); }
+.about-page .abx__faces i:nth-child(3) { background: #213D35; }
+.about-page .abx__faces i:nth-child(4) { background: #FFFFFF; color: var(--ink); }
+.about-page .abx__faces i:nth-child(5) { background: #202F30; }
+.about-page .abx__faces i:nth-child(6) { background: #606A74; }
+.about-page .legal__wrap .abx__team .ab__team {
+  margin: 0; max-width: 17em; font: 600 clamp(26px, 3vw, 48px)/1.14 var(--display) !important; letter-spacing: -0.035em; color: var(--ink) !important; text-wrap: balance;
+}
+
+/* ---------------------------------------------------------------- a portrait tablet: one column below the title */
+@media (max-width: 1100px) and (max-aspect-ratio: 1/1) {
+  .about-page .abx__mission > *, .about-page .abx__mission > .abx__say { grid-column: 1 / -1; }
+  .about-page .abx__words, .about-page .abx__pics { grid-column: 1 / -1; }
+  .about-page .abx__pics { position: static; margin-top: 48px; aspect-ratio: 5 / 4; }
+}
+
+/* ---------------------------------------------------------------- a phone */
+@media (max-width: 760px) {
+  .about-page .abx { --g: 8px; }
+  .about-page .legal__wrap .abx__top h1.cart__h { font-size: clamp(38px, 11.4vw, 50px); line-height: 1; }
+  .about-page .legal__wrap .abx__kicker { margin-bottom: 14px; }
+  /* three photos, Marcus whole in the middle, the two beside him running off the edges */
+  .about-page .abx__strip { margin-top: 40px; }
+  .about-page .abx__strip figure { --w: calc((100cqw - 2 * var(--g)) / 2.5); border-radius: 16px; }
+  .about-page .abx__strip figure:nth-child(-n+2), .about-page .abx__strip figure:nth-child(6) { display: none; }
+  .about-page .abx__strip figure:nth-child(3) { --h: .78; }
+  .about-page .abx__strip figure:nth-child(5) { --h: .7; }
+  .about-page .abx__sec { margin-top: 88px; }
+  .about-page .legal__wrap .abx__sec h2 { font-size: clamp(32px, 8.6vw, 40px); line-height: 1.04; }
+  .about-page .abx__mission > *, .about-page .abx__mission > .abx__say { grid-column: 1 / -1; }
+  .about-page .abx__mission > .abx__say { margin-top: 28px; }
+  .about-page .abx__read { font-size: clamp(24px, 6.6vw, 28px); line-height: 1.2; }
+  .about-page .abx__words, .about-page .abx__pics { grid-column: 1 / -1; }
+  .about-page .abx__words p { font-size: 17px; }
+  .about-page .abx__pics { position: static; margin-top: 36px; aspect-ratio: 1 / 1; }
+  .about-page .abx__pics figure { border-radius: 16px; }
+  .about-page .abx__faces i { width: 46px; height: 46px; font-size: 16px; }
+  .about-page .legal__wrap .abx__team .ab__team { font-size: clamp(24px, 6.8vw, 30px); }
+}

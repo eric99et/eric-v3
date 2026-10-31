@@ -33,6 +33,7 @@
 <link rel="stylesheet" href="../buy.css?v=1018m5">
 <link rel="stylesheet" href="../shop-v2.css?v=1018m5">
 <link rel="stylesheet" href="../tactile.css?v=1018t5">
+<link rel="stylesheet" href="../about.css?v=1031a">
 </head>
 <body class="buy-page shop-page legal-page about-page" data-shop>
 <a class="skip label" href="#about-h">Spring til indhold</a>
@@ -80,44 +81,57 @@
 </div>
 
 <main id="top" class="shop legal about">
-  <!-- About LAAS: Liz's copy (whole-site handoff, 16 Oct), with the photos and the team line the site already had -->
-  <article class="legal__wrap ab ip">
-    <header class="pr__top ab__top">
-      <p class="label pr__kicker">Om LAAS</p>
+  <!-- About LAAS: Liz's copy (whole-site handoff, 16 Oct), with the photos and the team line the site already had.
+       Laid out 31 Oct after Eric's references: a centred title over a staggered strip of rider photos, the mission
+       read in as it scrolls past (about.js), the founder's words beside his photos, the team at the end. -->
+  <article class="legal__wrap abx">
+    <header class="abx__top">
+      <p class="label abx__kicker">Om LAAS</p>
       <h1 class="cart__h" id="about-h" tabindex="-1">Verden er bedre, end vi troede</h1>
       <p class="pr__lead">Det har vores cyklister lært os.</p>
     </header>
-    <div class="ip__body">
-    <figure class="ab__hero"><picture><source media="(max-width: 760px)" srcset="../images/story/founder-m.webp"><img src="../images/story/founder.webp" alt="Marcus Kjellsson, stifter af LAAS, med sin cykel i en københavnsk gård" decoding="async"></picture></figure>
 
-    <section class="pr__card ab__card" aria-labelledby="ab1">
-      <p class="label ab__kicker">Vores mission</p>
-      <h2 id="ab1">Den mission, vi ikke så komme</h2>
-      <p class="ab__lead">Vi byggede en lås for at stoppe tyveri.</p>
-      <p>Så viste vores cyklister os noget andet. Nogle cykler, de troede var stjålet, var bare blevet flyttet, lånt eller glemt. En stor bytur kan gøre det.</p>
-      <p>At få bortkomne cykler hjem til deres ejere blev vores uventede mission, designet af vores kunder.</p>
-    </section>
-
-    <div class="ab__pics">
-      <figure><picture><source media="(max-width: 760px)" srcset="../images/story/workshop-m.webp"><img src="../images/story/workshop.webp" alt="Marcus i værkstedet med et skilt, hvor der står: You’re about to catch feelings for a lock" loading="lazy" decoding="async"></picture></figure>
-      <figure><picture><source media="(max-width: 760px)" srcset="../images/story/proto-m.webp"><img src="../images/story/proto.webp" alt="En tidlig prototype af Ring-Lock, åbnet på arbejdsbænken" loading="lazy" decoding="async"></picture></figure>
+    <div class="abx__strip">
+      <figure><img src="../images/about/strip-lost.webp" alt="" width="560" height="840" decoding="async"></figure>
+      <figure><img src="../images/about/strip-ride.webp" alt="" width="560" height="840" decoding="async"></figure>
+      <figure><img src="../images/about/strip-harbour.webp" alt="" width="560" height="840" decoding="async"></figure>
+      <figure><img src="../images/about/strip-founder.webp" alt="Marcus Kjellsson, stifter af LAAS, med sin cykel i en københavnsk gård" width="560" height="840" decoding="async"></figure>
+      <figure><img src="../images/about/strip-found.webp" alt="" width="560" height="840" decoding="async"></figure>
+      <figure><img src="../images/about/strip-offyougo.webp" alt="" width="560" height="840" decoding="async"></figure>
     </div>
 
-    <section class="pr__card ab__card" aria-labelledby="ab2">
-      <p class="label ab__kicker">Marcus, stifter</p>
-      <h2 id="ab2">Mit job er mest at sige nej</h2>
-      <p>Folk elsker at tilføje funktioner. Hvorfor gør I ikke det her? Hvorfor gør I ikke det der?</p>
-      <p>Mit job er at holde LAAS enkel. Låsen. Appen. Hjemmesiden. Kampagnerne.</p>
-      <p>Nej. Nej. Nej. Og en gang imellem ja til det rigtige.</p>
-      <p>Jeg har været besat af denne lås i mange år. Jeg håber, den gør det meget lettere og sjovere at finde, dele og låne din cykel ud. Og at du også bliver en lille smule besat.</p>
-      <p class="ab__sign"><b>Marcus Kjellsson</b>Stifter, LAAS</p>
+    <section class="abx__sec abx__mission" aria-labelledby="ab1">
+      <p class="label abx__kicker">Vores mission</p>
+      <h2 id="ab1">Den mission, vi ikke så komme</h2>
+      <div class="abx__say">
+        <p class="ab__lead">Vi byggede en lås for at stoppe tyveri.</p>
+        <p class="abx__read">Så viste vores cyklister os noget andet. Nogle cykler, de troede var stjålet, var bare blevet flyttet, lånt eller glemt. En stor bytur kan gøre det.</p>
+        <p class="abx__read">At få bortkomne cykler hjem til deres ejere blev vores uventede mission, designet af vores kunder.</p>
+      </div>
     </section>
 
-    <section class="pr__card ab__card" aria-labelledby="ab3">
+    <section class="abx__sec abx__founder" aria-labelledby="ab2">
+      <div class="abx__words">
+        <p class="label abx__kicker">Marcus, stifter</p>
+        <h2 id="ab2">Mit job er mest at sige nej</h2>
+        <p>Folk elsker at tilføje funktioner. Hvorfor gør I ikke det her? Hvorfor gør I ikke det der?</p>
+        <p>Mit job er at holde LAAS enkel. Låsen. Appen. Hjemmesiden. Kampagnerne.</p>
+        <p class="abx__no">Nej. Nej. Nej. Og en gang imellem ja til det rigtige.</p>
+        <p>Jeg har været besat af denne lås i mange år. Jeg håber, den gør det meget lettere og sjovere at finde, dele og låne din cykel ud. Og at du også bliver en lille smule besat.</p>
+        <p class="ab__sign"><b>Marcus Kjellsson</b>Stifter, LAAS</p>
+      </div>
+      <div class="abx__pics">
+        <figure><picture><source media="(max-width: 760px)" srcset="../images/story/workshop-m.webp"><img src="../images/story/workshop.webp" alt="Marcus i værkstedet med et skilt, hvor der står: You’re about to catch feelings for a lock" loading="lazy" decoding="async"></picture></figure>
+        <figure><picture><source media="(max-width: 760px)" srcset="../images/story/proto-m.webp"><img src="../images/story/proto.webp" alt="En tidlig prototype af Ring-Lock, åbnet på arbejdsbænken" loading="lazy" decoding="async"></picture></figure>
+        <figure class="abx__mark" aria-hidden="true"><svg viewBox="0 0 343.43 88.44"><use href="#laas-mark"/></svg></figure>
+      </div>
+    </section>
+
+    <section class="abx__sec abx__team" aria-labelledby="ab3">
       <h2 id="ab3" class="visually-hidden">Teamet</h2>
+      <p class="abx__faces" aria-hidden="true"><i>M</i><i>T</i><i>S</i><i>E</i><i>A</i><i>T</i></p>
       <p class="ab__team">Teamet: Marcus, Tin, Shyam, Eric, António og Thomas.</p>
     </section>
-  </div>
   </article>
   <footer class="foot">
     <!-- after 21st.dev "Footer section 1": the mark, one row of links, the socials, a hatched band, the copyright -->
@@ -139,5 +153,6 @@
 
 <script src="../i18n.js?v=1017seo"></script>
 <script src="../cart-nav.js?v=1018t4"></script>
+<script src="../about.js?v=1031a" defer></script>
 </body>
 </html>
