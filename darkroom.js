@@ -130,7 +130,7 @@ const DA = {
   'Price until 31 Dec 2026': 'Pris til 31. dec. 2026', 'from 1 Jan 2027': 'fra 1. jan. 2027',
   'Pre-order': 'Forudbestil', 'Added': 'Tilføjet', 'promise': 'løfte', 'Shipping €9, free over €250': 'Fragt 75 kr, gratis over 1.900 kr',
   'From Trustpilot, shortened where marked […]. LAAS does not check them; Trustpilot shows all reviews, including the less positive ones. Most are from our Kickstarter backers.': 'Fra Trustpilot, forkortet hvor der står […]. LAAS kontrollerer dem ikke; Trustpilot viser alle anmeldelser, også de mindre positive. De fleste er fra vores Kickstarter-backere.',
-  '57-day returns': '57 dages returret', 'Day trial': 'dages prøvetid', 'Promise': 'Løfte', 'Read our reviews': 'Læs vores anmeldelser', 'Pre-order: ships in November': 'Forudbestilling: sendes i november', 'Cancel before it ships and get all your money back (your legal right)': 'Annullér, før den sendes, og få alle pengene tilbage (din ret efter loven)', '3.8': '3,8', 'Free shipping over €250': 'Gratis fragt over 1.900 kr', '6 reviews': '6 anmeldelser', 'LAAS on Trustpilot: 3.8 out of 5 from 6 reviews': 'LAAS på Trustpilot: 3,8 ud af 5 fra 6 anmeldelser', 'Ringo W., Germany': 'Ringo W., Tyskland', 'D. A., Switzerland': 'D. A., Schweiz', 'R. I., United Kingdom': 'R. I., Storbritannien', 'Two-year right to complain': '2 års reklamationsret',
+  '57-day returns': '57 dages returret', 'Day trial': 'dages prøvetid', 'Promise': 'Løfte', 'Read our reviews': 'Læs vores anmeldelser', 'Pre-order: ships in November': 'Forudbestilling: sendes i november', 'Cancel before it ships and get all your money back (your legal right)': 'Annullér, før den sendes, og få alle pengene tilbage (din ret efter loven)', '3.7': '3,7', 'Free shipping over €250': 'Gratis fragt over 1.900 kr', '7 reviews': '7 anmeldelser', 'LAAS on Trustpilot: 3.7 out of 5 from 7 reviews': 'LAAS på Trustpilot: 3,7 ud af 5 fra 7 anmeldelser', 'Ringo W., Germany': 'Ringo W., Tyskland', 'D. A., Switzerland': 'D. A., Schweiz', 'R. I., United Kingdom': 'R. I., Storbritannien', 'Two-year right to complain': '2 års reklamationsret',
   // 06 faq
   'Questions, answered.': 'Spørgsmål og svar.', 'Question not here? Call us on': 'Finder du ikke dit spørgsmål? Ring til os på',
   'Will my insurance accept it?': 'Godkender mit forsikringsselskab den?',
@@ -199,7 +199,7 @@ const DA = {
   'Not for fat bikes.': 'Ikke til fatbikes.', 'days': 'dage', 'Will it fit': 'Passer den', 'my bike?': 'til min cykel?',
   'Please don’t measure. Try it on your own bike for 57 days. If it doesn’t fit, send it back.': 'Du behøver ikke måle. Prøv den på din egen cykel i 57 dage. Passer den ikke, så send den tilbage.', 'No key. No cable.': 'Ingen nøgle. Intet kabel.',
   'Story frames': 'Historiens billeder', 'Frame 1': 'Billede 1', 'Frame 2': 'Billede 2', 'Frame 3': 'Billede 3', 'Frame 4': 'Billede 4', 'Finish': 'Finish',
-  '5 out of 5': '5 ud af 5', '4 out of 5': '4 ud af 5', '3.8 out of 5': '3,8 ud af 5',
+  '5 out of 5': '5 ud af 5', '4 out of 5': '4 ud af 5', '3.7 out of 5': '3,7 ud af 5',
   'Hundreds of bikes parked side by side under a long shelter': 'Hundredvis af cykler parkeret side om side under et langt halvtag',
   'On her iPhone, a map shows where her bike is': 'På hendes iPhone viser et kort, hvor cyklen er',
   'A copper LAAS Ring-Lock fitted to a blue city bike': 'En LAAS Ring-Lock i kobber monteret på en blå bycykel',

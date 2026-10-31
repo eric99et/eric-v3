@@ -2689,7 +2689,7 @@ img.how__m.is-on { animation: how-kb 9s ease-out .6s forwards; }
 .tpr__stars { display: inline-flex; gap: 2px; }
 .tpr__stars svg { width: 18px; height: 18px; border-radius: 1px; }
 .tpr__stars rect { fill: #00B67A; } .tpr__stars path { fill: #FFFFFF; }
-.tpr__stars svg.part { background: linear-gradient(90deg, #00B67A 80%, #DCDCE6 80%); } .tpr__stars svg.part rect { fill: transparent; }
+.tpr__stars svg.part { background: linear-gradient(90deg, #00B67A 70%, #DCDCE6 70%); } .tpr__stars svg.off rect { fill: #DCDCE6; } .tpr__stars svg.part rect { fill: transparent; }
 .tpr__n { font-size: 14px; color: #606A74; } .tpr__n b { font: 600 15px/1 var(--display); color: #202F30; }
 .tpr__quotes { position: relative; display: grid; min-width: 0; padding-left: 28px; border-left: 1px solid rgba(32, 47, 48, .14); }
 .tpr__quotes q { grid-area: 1 / 1; font-size: 15px; line-height: 1.35; color: #3C4A4B; font-style: italic; quotes: "“" "”"; opacity: 0; translate: 0 6px; transition: opacity .7s var(--ease), translate .7s var(--ease); }
