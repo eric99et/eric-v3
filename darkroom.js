@@ -692,8 +692,9 @@ function frameChrome(m) {
     }
   }
   // the footer only lifts the buy chapter a little: the lock rides up with it
+  // (only right after the buy chapter: after a chapter without the lock, the footer keeps its own hidden pose)
   const fi = sections.length - 1, foot = sections[fi];
-  if (foot.matches('footer') && productIdx >= 0) {
+  if (foot.matches('footer') && productIdx >= 0 && productIdx === fi - 1) {
     const lift = rects[fi].height / H;
     Object.assign(poses[fi], poses[productIdx], { y: poses[productIdx].y - lift, my: (poses[productIdx].my ?? poses[productIdx].y) - lift, fade: 1 });
   }
