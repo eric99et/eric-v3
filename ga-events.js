@@ -1,11 +1,18 @@
-// LAAS · what visitors do on laaslocks.com, as Umami events. Only the live pages load it: tools/to-live.py puts it
-// right after Umami's own tag, which counts the page views. One listener catches every click and names it after what
+// LAAS · what visitors do on laaslocks.com, as Google Analytics 4 events. Only the live pages load it: tools/to-live.py
+// puts it right after consent.js, and nothing is sent unless the visitor said yes to statistics (window.laasConsent). One listener catches every click and names it after what
 // the visitor read on it ("click: Pre-order", with where on the page in "area"). On top of that: the cart's ins and
 // outs, the step to Shopify's checkout, how far down each page people scroll, the films that play, turns of the 3D
 // lock, searches and missing pages. Never what anyone types into a form, other than a search.
-// Umami counts every stored property as an event of its own, so no event carries more than two.
+// GA4 names: letters, digits and _, at most 40 characters; values at most 100.
 (() => {
-  const send = (name, data) => { try { if (window.umami) window.umami.track(name.slice(0, 50), data); } catch { /* blocked */ } };
+  const send = (name, data) => {
+    try {
+      if (!(window.laasConsent && window.laasConsent.statistics) || !window.gtag) return;
+      const d = {};
+      Object.keys(data || {}).forEach(k => { d[k] = typeof data[k] === 'string' ? data[k].slice(0, 100) : data[k]; });
+      window.gtag('event', name, d);
+    } catch { /* blocked */ }
+  };
 
   // what the visitor read on it: its aria-label, else the visible text, title or picture alt. Prices, counts and
   // trailing arrows go (a part that is only a number: the menu's "02", the FAQ tab's question count; the bag's
@@ -47,17 +54,18 @@
   document.addEventListener('click', e => {
     const el = e.target.closest && e.target.closest(CLICK);
     // a label's own click: its checkbox or radio gets a click of its own right after, which is the one counted
-    if (!el || el.closest('[data-umami-event]') || (el.matches('label') && el.control)) return;
+    if (!el || el.closest('[data-ga-skip]') || (el.matches('label') && el.control)) return;
     const name = label(el), where = area(el);
     if (name + where === last && e.timeStamp - lastAt < 500) return; // a double click is one
     last = name + where; lastAt = e.timeStamp;
     if (/checkout-v2\.html/.test(el.getAttribute('href') || '') || /^(check out|gå til kassen)$/i.test(name)) {
-      send('checkout', { area: where, locks: locks(tally()) });
+      send('begin_checkout', { area: where, locks: locks(tally()) });
       return;
     }
     const data = { area: where };
     if (el.matches('a[href]') && /^https?:$/.test(el.protocol) && el.host !== location.host) data.to = el.host.replace(/^www\./, '');
-    send('click: ' + name, data);
+    data.label = name;
+    send('ui_click', data);
   }, true);
 
   // in and out of the cart, from the buy page, the bag, the cart page or anywhere else (cart-nav.js says "laas-cart")
@@ -70,7 +78,7 @@
     // themselves are not counted here: on a fresh page cart-nav.js empties the cart before this script runs.)
     if (!(away && !handoff() && !Object.keys(now).length)) new Set([...Object.keys(had), ...Object.keys(now)]).forEach(k => {
       const d = (now[k] || 0) - (had[k] || 0);
-      if (d) send(d > 0 ? 'add to cart' : 'remove from cart', { item: k, qty: Math.abs(d) });
+      if (d) send(d > 0 ? 'add_to_cart' : 'remove_from_cart', { items: [{ item_name: k, quantity: Math.abs(d) }] });
     });
     had = now; away = handoff();
   });
@@ -83,7 +91,7 @@
     const room = document.documentElement.scrollHeight - innerHeight;
     if (room < 200) return; // a page that hardly scrolls says nothing
     const at = (scrollY + 2) / room * 100;
-    while (mark < MARKS.length && at >= MARKS[mark]) send('scroll ' + MARKS[mark++] + '%');
+    while (mark < MARKS.length && at >= MARKS[mark]) send('scroll_depth', { percent: MARKS[mark++] });
     if (mark === MARKS.length) removeEventListener('scroll', onScroll);
   };
   const onScroll = () => { if (!wait) wait = setTimeout(depth, 250); };
@@ -96,7 +104,7 @@
     const v = e.target;
     if (!(v instanceof HTMLVideoElement)) return;
     const name = (v.currentSrc || v.src || '').split('?')[0].split('/').slice(-2).join('/').replace(/(-wide|-m)?\.\w+$/, '');
-    if (name && !played.has(name)) { played.add(name); send('film: ' + name); }
+    if (name && !played.has(name)) { played.add(name); send('film_play', { film: name }); }
   }, true);
 
   // a turn of the 3D lock (home page, buy page): a drag of 30 px or more, once per page view and place
@@ -112,7 +120,7 @@
     from = null;
     if (Math.hypot(e.clientX - x, e.clientY - y) < 30 || turned.has(s.id)) return;
     turned.add(s.id);
-    send('turn the 3D lock', { area: s.id });
+    send('turn_3d_lock', { area: s.id });
   }, true);
 
   // searches (the FAQ and the help centre), once the visitor stops typing; never one that looks like an email or a phone number
@@ -125,12 +133,12 @@
       const q = f.value.trim().toLowerCase().replace(/\s+/g, ' ');
       if (q.length < 3 || q === said || /@|\d{5,}/.test(q.replace(/[\s+()-]/g, ''))) return;
       said = q;
-      send('search', { q: q.slice(0, 60), area: area(f) });
+      send('search', { search_term: q.slice(0, 60), area: area(f) });
     }, 1500);
   }, true);
 
   // a missing page (404.html answers for any address that does not exist; i18n.js may have put its title in Danish)
   if (/^(Page not found|Siden findes ikke)/.test(document.title)) {
-    send('page not found', { path: location.pathname.slice(0, 100) });
+    send('page_not_found', { path: location.pathname.slice(0, 100) });
   }
 })();
