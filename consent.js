@@ -6,7 +6,7 @@
 // Statistics grants analytics_storage; marketing grants ad_storage, ad_user_data and ad_personalization.
 // The choice lives in localStorage "laas-consent" ({v, s, m, t}): strictly necessary, so it needs no consent itself.
 (() => {
-  const GA = 'G-15GKG1M14Z';
+  const GA = 'G-NGTYFRNT34';
   const KEY = 'laas-consent', VERSION = 1, YEAR = 365 * 864e5;
   const ok = (() => { try { return /(^|\.)laaslocks\.com$/.test(location.hostname) || localStorage.getItem('laas-ga-test') === '1'; } catch { return false; } })();
   window.dataLayer = window.dataLayer || [];
