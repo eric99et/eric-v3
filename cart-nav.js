@@ -11,6 +11,22 @@ window.LAAS_SITE = window.LAAS_SITE || (() => {
   const root = src ? new URL('.', src).href : new URL(window.LAAS_ROOT || '', location.href).href;
   return { root, shop: root + (document.documentElement.lang === 'da' ? 'da/' : '') };
 })();
+// where the visitor came from, for the checkout (shopify.js adds it to the Shopify cart link, so the order in Shopify
+// and LAAS HQ shows the campaign). Only campaign labels and the referring site's host: no click IDs, no personal data.
+// A visit with utm_* tags or from another site replaces the last one (last touch); it is kept for 30 days.
+(() => {
+  try {
+    const q = new URLSearchParams(location.search), out = {};
+    ['source', 'medium', 'campaign', 'content', 'term'].forEach(k => { const v = q.get('utm_' + k); if (v) out[k] = v.slice(0, 100); });
+    let ref = '';
+    try { const r = document.referrer && new URL(document.referrer).hostname; if (r && !/(^|\.)laaslocks\.com$|^laas\.me$|github\.io$|^localhost$|^127\./.test(r) && r !== location.hostname) ref = r; } catch {}
+    if (!Object.keys(out).length && !ref) return;
+    if (ref) out.referrer = ref;
+    out.landing = location.pathname.slice(0, 100);
+    out.t = Date.now();
+    localStorage.setItem('laas.utm', JSON.stringify(out));
+  } catch { /* storage blocked: no attribution, the cart still works */ }
+})();
 (() => {
   const KEY = 'laas.cart.v1.en';
   const PRICE = 129, MAX_LOCKS = 15;

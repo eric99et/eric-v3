@@ -28,7 +28,18 @@
     // this runs before i18n.js (no stylesheet or script in the way): the stored choice, else the page's own language
     let lang = document.documentElement.lang === 'da' ? 'da' : 'en';
     try { const w = localStorage.getItem('laas-lang'); if (w === 'da' || w === 'en') lang = w; } catch {}
-    return `https://${SHOP.domain}/cart/${l.join(',')}?locale=${lang}&ref=laaslocks`;
+    // the campaign this visitor came from (cart-nav.js keeps it, 30 days): as utm_* on the link, so Shopify's own
+    // attribution sees it, and as order attributes (Additional details on the order), which LAAS HQ reads too
+    const p = new URLSearchParams({ locale: lang, ref: 'laaslocks' });
+    try {
+      const u = JSON.parse(localStorage.getItem('laas.utm'));
+      if (u && Date.now() - u.t < 30 * 864e5) {
+        ['source', 'medium', 'campaign', 'content', 'term'].forEach(k => { if (u[k]) { p.set('utm_' + k, u[k]); p.set(`attributes[utm_${k}]`, u[k]); } });
+        if (u.referrer) p.set('attributes[referrer]', u.referrer);
+        if (u.landing) p.set('attributes[landing]', u.landing);
+      }
+    } catch {}
+    return `https://${SHOP.domain}/cart/${l.join(',')}?${p}`;
   };
   window.LAAS_SHOPIFY = { ready, url };
   // on the checkout page: straight on to Shopify (back and forward keep working: replace, not push)
