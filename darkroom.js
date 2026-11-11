@@ -203,6 +203,11 @@ const DA = {
   'Hundreds of bikes parked side by side under a long shelter': 'Hundredvis af cykler parkeret side om side under et langt halvtag',
   'On her iPhone, a map shows where her bike is': 'På hendes iPhone viser et kort, hvor cyklen er',
   'A copper LAAS Ring-Lock fitted to a blue city bike': 'En LAAS Ring-Lock i kobber monteret på en blå bycykel',
+  'A black LAAS Ring-Lock on the rear wheel of a light blue city bike': 'En sort LAAS Ring-Lock på baghjulet af en lyseblå bycykel',
+  'Close-up of the steel LAAS Ring-Lock on a black bike frame': 'Nærbillede af LAAS Ring-Lock i stål på et sort cykelstel',
+  'A hand closes the LAAS Ring-Lock on a light blue city bike': 'En hånd lukker LAAS Ring-Lock på en lyseblå bycykel',
+  'Close-up of the black LAAS Ring-Lock by the rear tyre': 'Nærbillede af den sorte LAAS Ring-Lock ved baghjulet',
+  'The LAAS app asks for the 8-digit serial number printed on the lock': 'LAAS-appen beder om det 8-cifrede serienummer, der står på låsen',
   'A light blue city bike with a LAAS Ring-Lock around the rear wheel': 'En lyseblå bycykel med en LAAS Ring-Lock om baghjulet',
   // Liz's copy (16 Oct)
   "Help & guides": "Hjælp og guides",
