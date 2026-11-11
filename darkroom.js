@@ -378,13 +378,25 @@ const GEO = { '00': { cx: 0.5128, cy: 0.4881, r: 0.3787 }, '01': RING, '02': { c
   '03': { cx: 0.5228, cy: 0.4872, r: 0.3972 }, '04': { cx: 0.5109, cy: 0.4866, r: 0.3884 }, '05': { cx: 0.4862, cy: 0.48, r: 0.3912 } };
 // in turning order round the lock (left 3/4, front, hero, side, from behind, from above), starting on the hero view
 const ANGLES = ['00', '03', '04', '05', '02', '01'];
+// The buy chapter's own turn: 72 studio frames per finish, every 5° all the way round, rendered from the v8 model
+// (images/spin/<finish>/1200 and /2400, the same files as the buy page). The view key is 'S' + the frame (S06).
+// The lock starts on the front view and glides back to it 3 s after a turn. Frames load coarse to fine, and only
+// once the buy chapter comes near, so the first load of the page stays as light as it was.
+const SPIN_N = 72, SPIN_FRONT = 6, SPIN_HOME_MS = 3000;
+const SPIN_G = { cx: 0.5, cy: 0.5275, r: 0.4177 };   // the turn's axis and the ring's half width on the front view
+const SPIN_ORDER = [6, 3, 2, 1].flatMap((d, k, all) => [...Array(SPIN_N).keys()].filter(i => i % d === 0 && all.slice(0, k).every(e => i % e)));
+const spinKey = i => 'S' + String(i).padStart(2, '0');
+const spinWrap = i => ((i % SPIN_N) + SPIN_N) % SPIN_N;
+const spin = { pos: SPIN_FRONT, vel: 0, raf: 0, homeT: 0, moving: false, ok: new Set(), big: new Set(), started: {} };
 const lockEl = document.createElement('div');
 lockEl.className = 'lockimg';
 lockEl.innerHTML = '<img alt="" decoding="async" draggable="false"><img alt="" decoding="async" draggable="false">';
 stage.prepend(lockEl);
 const layers = $$('img', lockEl).map(img => ({ img, src: '' }));
 let res = Math.min(innerWidth, innerHeight) * Math.min(devicePixelRatio || 1, 2) > 900 ? 1600 : 800;
-const srcOf = (f, a) => `${(window.LAAS_ROOT || '')}images/lock/${f}-${a}-${res}.webp`;
+const srcOf = (f, a, big) => a[0] === 'S'
+  ? `${(window.LAAS_ROOT || '')}images/spin/${f}/${big ? 2400 : 1200}/${a.slice(1)}.webp`
+  : `${(window.LAAS_ROOT || '')}images/lock/${f}-${a}-${res}.webp`;
 const cache = new Map();
 const fetchImg = src => cache.get(src) || (cache.set(src, new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(src); i.onerror = no; i.src = src; })), cache.get(src));
 let finish = 'steel', lockReady = false;
@@ -760,7 +772,8 @@ function loop(now) {
   // buy: your own turn, kept while you are there, given back as you leave
   const wp = productIdx < 0 ? 0 : clamp(1 - Math.abs(centers[productIdx] - mid) / (H * 0.6));
   // leaving the buy chapter, the turn goes back to the first view
-  if (wp < 0.2) user.angle = 0;
+  if (wp < 0.2) { user.angle = 0; if (!user.dragging) { cancelAnimationFrame(spin.raf); clearTimeout(spin.homeT); spin.pos = SPIN_FRONT; spin.vel = 0; } }
+  if (wp > 0.02) spinFill(finish);
 
   // the page's own speed leans the ring a little, like something with weight
   const v = (scrollY - lastSY) / Math.max(dt, 1e-3) / 60; lastSY = scrollY;
@@ -807,7 +820,7 @@ function loop(now) {
   const roll = cur.roll + user.roll * (1 - still);
   setVar(stage, '--lx', dx.toFixed(1) + 'px'); setVar(stage, '--ly', dy.toFixed(1) + 'px'); setVar(stage, '--lr', (px / 2).toFixed(0) + 'px');
   // the angle: each chapter names its view; in the buy chapter your own turn picks it; between two, a cross-fade
-  const angOf = (P, idx) => idx === productIdx ? ANGLES[((user.angle % 6) + 6) % 6] : (P.img || '00');
+  const angOf = (P, idx) => idx === productIdx ? spinView() : (P.img || '00');
   const iB = Math.min(i + 1, poses.length - 1), aA = angOf(a, i), aB = angOf(b, iB);
   // the lock is steel everywhere; only the buy chapter shows the finish you pick
   const fA = i === productIdx ? finish : 'steel', fB = iB === productIdx ? finish : 'steel';
@@ -820,7 +833,10 @@ function loop(now) {
 // one image layer: a new picture only once it has arrived, so nothing ever flashes empty
 // each view is placed by its own geometry: the ring's centre on the lock's place, its extent px wide
 function paintLayer(L, ang, op, p, f = finish) {
-  const src = srcOf(f, ang), g = GEO[ang] || RING, S = p.px / (2 * g.r);
+  const isSpin = ang[0] === 'S', big = isSpin && spin.big.has(f + ang);
+  // the turn swaps the picture every few frames: decode it at once, so a frame never flashes empty
+  const dec = isSpin ? 'sync' : 'async'; if (L.img.decoding !== dec) L.img.decoding = dec;
+  const src = srcOf(f, ang, big), g = isSpin ? SPIN_G : GEO[ang] || RING, S = p.px / (2 * g.r);
   const st = L.img.style;
   st.width = st.height = S.toFixed(1) + 'px';
   st.transformOrigin = `${g.cx * 100}% ${g.cy * 100}%`;
@@ -987,17 +1003,69 @@ dots.forEach((btn, i) => {
 syncDots();
 
 /* ---------------------------------------------------------- buy: turn */
-// the six studio angles: a sideways drag steps through them (one step per 60 px), so do the arrows and the keys
+// the lock follows a sideways drag and coasts on; the arrows and the keys turn it 45°; 3 s after the last touch it
+// glides back to the front view, the short way round
+function spinFill(f) {
+  if (spin.started[f]) return; spin.started[f] = true;
+  let k = 0;
+  const next = () => {
+    if (k >= SPIN_N) return;
+    const b = SPIN_ORDER.slice(k, k + 6); k += 6;
+    Promise.all(b.map(i => fetchImg(srcOf(f, spinKey(i))).then(() => spin.ok.add(f + spinKey(i)), () => {}))).then(next);
+  };
+  next();
+}
+// the frame to show: the nearest one that has arrived; the front studio render until the first one has
+function spinView() {
+  const i = spinWrap(Math.round(spin.pos));
+  for (let d = 0; d <= SPIN_N / 2; d++) for (const j of [i + d, i - d]) {
+    const key = spinKey(spinWrap(j));
+    if (spin.ok.has(finish + key)) {
+      // resting on a large screen: the 2400 px frame, once it is in
+      if (d === 0 && res >= 1600 && !user.dragging && !spin.moving && !spin.big.has(finish + key)) {
+        const f = finish; fetchImg(srcOf(f, key, true)).then(() => spin.big.add(f + key), () => {});
+      }
+      return key;
+    }
+  }
+  return '01';
+}
+function spinHome() {
+  clearTimeout(spin.homeT);
+  spin.homeT = setTimeout(() => {
+    if (user.dragging) return;
+    let d = spinWrap(SPIN_FRONT - Math.round(spin.pos)); if (d > SPIN_N / 2) d -= SPIN_N;
+    if (d) spinTo(Math.round(spin.pos) + d, Math.min(1400, 450 + Math.abs(d) * 25), true);
+  }, SPIN_HOME_MS);
+}
+function spinTo(to, ms, inOut) {
+  cancelAnimationFrame(spin.raf); spin.vel = 0; spin.moving = true;
+  const from = spin.pos, t0 = performance.now(); ms = reduce ? 0 : ms;
+  const ease = x => inOut ? (x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2) : 1 - Math.pow(1 - x, 3);
+  const tick = now => {
+    const x = ms ? Math.min(1, (now - t0) / ms) : 1; spin.pos = from + (to - from) * ease(x);
+    if (x < 1) spin.raf = requestAnimationFrame(tick); else { spin.moving = false; if (!inOut) spinHome(); }
+  };
+  spin.raf = requestAnimationFrame(tick);
+}
+function spinCoast() {
+  spin.vel *= 0.93; spin.pos += spin.vel; spin.moving = true;
+  if (Math.abs(spin.vel) > 0.03) spin.raf = requestAnimationFrame(spinCoast);
+  else { spin.vel = 0; spin.moving = false; spin.pos = Math.round(spin.pos); spinHome(); }
+}
 const zone = $('#dragzone');
-let lastX = 0, acc = 0;
-const step = d => { user.angle += d; ANGLES.forEach(a2 => fetchImg(srcOf(finish, a2)).catch(() => {})); };
-zone.addEventListener('pointerdown', e => { user.dragging = true; lastX = e.clientX; acc = 0; zone.setPointerCapture(e.pointerId); });
+let lastX = 0, lastT = 0;
+const step = d => { spinFill(finish); clearTimeout(spin.homeT); spinTo(Math.round(spin.pos) + d * 9, 420); };
+zone.addEventListener('pointerdown', e => {
+  user.dragging = true; lastX = e.clientX; lastT = performance.now(); spinFill(finish);
+  cancelAnimationFrame(spin.raf); clearTimeout(spin.homeT); spin.vel = 0; zone.setPointerCapture(e.pointerId);
+});
 zone.addEventListener('pointermove', e => {
   if (!user.dragging) return;
-  acc += e.clientX - lastX; lastX = e.clientX;
-  while (Math.abs(acc) >= 60) { step(acc > 0 ? -1 : 1); acc -= Math.sign(acc) * 60; }
+  const now = performance.now(), d = (e.clientX - lastX) * SPIN_N / Math.max(240, zone.clientWidth * 1.3);
+  spin.pos += d; spin.vel = d / Math.max(1, now - lastT) * 16; lastX = e.clientX; lastT = now;
 });
-const endDrag = () => { user.dragging = false; };
+const endDrag = () => { if (!user.dragging) return; user.dragging = false; if (reduce) { spin.vel = 0; spinHome(); } else spinCoast(); };
 zone.addEventListener('pointerup', endDrag); zone.addEventListener('pointercancel', endDrag);
 $$('[data-turn]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); step(+b.dataset.turn); }));
 $$('[data-turn]').forEach(b => b.addEventListener('pointerdown', e => e.stopPropagation()));

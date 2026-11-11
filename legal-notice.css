@@ -90,3 +90,14 @@ body .lgn.lgn summary.lgn__band::-webkit-details-marker { display: none; }
 body .lgn.lgn summary.lgn__band:focus-visible { outline: 3px solid var(--lgn-yellow); outline-offset: -3px; }
 .lgn__chev { position: absolute; right: 16px; top: 50%; width: 20px; height: 20px; translate: 0 -50%; fill: none; stroke: #FFFFFF; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: rotate .25s ease; }
 .lgn__dd[open] .lgn__chev { rotate: 180deg; }
+
+/* tidier (Eric 11 Nov): folded, only the blue band shows, the shield whole as in the artwork, no grey frame;
+   it lines up with the questions above it (their content column on a large screen, the gutter on a phone) */
+.lgn-sec .lgn { margin: 0; }
+.lgn-sec .lgn:has(.lgn__dd:not([open])) { overflow: visible; border-color: transparent; padding-bottom: 20px; background: transparent; }
+@media (min-width: 1101px), (min-width: 761px) and (min-aspect-ratio: 1/1) {
+  .buy-page:not(.shop-page) .lgn-sec { max-width: none; margin: 0; padding: 0 var(--gutter) clamp(56px, 6vw, 96px);
+    display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.25fr); column-gap: clamp(32px, 5vw, 90px); }
+  .buy-page:not(.shop-page) .lgn-sec > * { grid-column: 2; }
+}
+.lgn-sec { margin-top: calc(-1 * clamp(24px, 3.5vw, 56px)); }
