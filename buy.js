@@ -113,9 +113,9 @@
   // fine (every 30°, 15°, 10°, 5°) once the page has settled, so the turn works early and fills in; the sharp
   // 2400 px frame comes in when the lock rests on a large screen.
   const lock3d = (() => {
-    // STEP: 2 while only every 10° is published, 1 once all 72 frames (every 5°) are in images/spin
+    // STEP: 1 = all 72 frames (every 5°); 2 would load every 10° only
     // FRONT: the front view (as Marcus's 01-front); the lock starts there and goes back there 3 s after a turn
-    const N = 72, STEP = 2, FRONT = 6, HOME_MS = 3000, base = (window.LAAS_ROOT || '') + 'images/spin/';
+    const N = 72, STEP = 1, FRONT = 6, HOME_MS = 3000, base = (window.LAAS_ROOT || '') + 'images/spin/';
     const ORDER = [6, 3, 2, 1].flatMap((d, k, all) => [...Array(N).keys()].filter(i => i % d === 0 && all.slice(0, k).every(e => i % e))).filter(i => i % STEP === 0);
     const pad = i => String(i).padStart(2, '0');
     const url = (f, i, big) => `${base}${f}/${big ? 2400 : 1200}/${pad(i)}.webp`;
