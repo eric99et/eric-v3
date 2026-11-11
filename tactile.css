@@ -177,3 +177,89 @@ html.help-in-view #stage { opacity: 0; visibility: hidden; transition: opacity .
 /* near the footer (and over the hero) the nav slides away; it stayed half-visible after a mouse click in it
    (focus-within), white logo on a light page. Only keyboard focus keeps it now (owner, 18 Oct). */
 html.in-foot .nav:focus-within:not(:has(:focus-visible)), html.in-hero .nav:focus-within:not(:has(:focus-visible)) { translate: 0 -130%; opacity: 0; pointer-events: none; }
+
+/* ────────────────────────────────────────────────────────────────────────
+   Less "AI template" pass (Eric, 11 Nov 2026). Part of tactile.css, which loads last on every page, help centre included.
+   From granskning/ai-look-2026-11-11/RAPPORT.md, priorities 1–4 plus hover.
+   No text is changed here. Remove this block to undo it.
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* ── 1. No fade-in on information: it is simply there ── */
+html.reveal-on [data-reveal],
+html.reveal-on [data-reveal] li,
+html.reveal-on [data-reveal]::before,
+.foot2.is-ready .foot2__top > *, .foot2.is-ready .foot2__band, .foot2.is-ready .foot2__legal {
+  opacity: 1 !important; transform: none !important; translate: none !important; transition: none !important;
+}
+html.reveal-on .sh__bars .sh__track i, html.reveal-on .pr__steps--line::before { scale: none !important; transition: none !important; }
+
+/* ── 2. No frosted glass: solid surfaces (the Find My phone sheet is a picture of iOS, so it keeps its own) ── */
+body *:not(.fmp__sheet), .nav__shell::before {
+  -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+}
+.nav__shell::before { background: var(--paper, #ECECEA) !important; }
+html[data-tone="dark"] .nav__shell::before, html.in-tale .nav__shell::before { background: #202F30 !important; }
+.buybar { background: var(--paper, #ECECEA) !important; }
+.nav__bag, .ghost.nav__menu { background: #FFFFFF; }
+html.nav-clear .nav__bag, html.nav-clear .nav .nav__menu { background: #FFFFFF; }
+html.in-tale .nav__bag, html.in-tale .nav .nav__menu { background: #202F30; border-color: transparent; }
+.tale__pause, .hero__down { background: #202F30; border-color: transparent; }
+.rail { background: var(--paper, #ECECEA); box-shadow: inset 0 0 0 1px rgba(32, 47, 48, .1); }
+.ins__film figcaption { background: #202F30; }
+.void--share .vf-corner { background: #202F30; box-shadow: none; }
+@media (min-width: 761px) { .void--share .roles div { background: #202F30; box-shadow: none; } }
+
+/* ── 3. No small caps label above the headline where the headline says it already ── */
+.abx__top .abx__kicker, .pr__kicker { display: none !important; }
+
+/* ── 4. Shipping: the four facts as one plain list, not four icon cards ── */
+.shipping-page .sh__feats {
+  grid-template-columns: 1fr !important; gap: 0 !important;
+  padding: 4px 24px; border-radius: 20px; background: #FFFFFF;
+}
+.shipping-page .sh__feats li {
+  grid-template-columns: 22px minmax(0, 1fr); justify-items: start; align-items: start; column-gap: 14px; row-gap: 2px;
+  padding: 16px 0 !important; border-radius: 0 !important; background: none; text-align: left;
+  border-bottom: 1px solid rgba(32, 47, 48, .1); box-shadow: none !important;
+}
+.shipping-page .sh__feats li:last-child { border-bottom: 0; }
+.shipping-page .sh__feats .sh__ic { grid-row: 1 / span 2; width: 22px; height: 22px; margin: 1px 0 0; border-radius: 0; background: none; }
+.shipping-page .sh__feats b, .shipping-page .sh__feats li > span:last-child { grid-column: 2; text-wrap: pretty; }
+.shipping-page .sh__feats b { font-size: 16px !important; }
+@media (max-width: 560px) { .shipping-page .sh__feats { padding: 2px 18px; } }
+
+/* ── 5. Nothing goes see-through on hover ── */
+.badge--tp:hover, .badge--vf:hover, a.badge--57:hover, a.badge--kym:hover { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
+.turn:hover, .pdp__turn .turn:hover { opacity: 1; background: rgba(32, 47, 48, .07) !important; }
+
+/* ── 6. The rest of the labels: drop the ones the headline repeats, keep the useful ones as plain text ── */
+.abx__mission .abx__kicker, .details__kicker, .hood__sec .label { display: none !important; }
+.details--v2 .details__h--box { margin-top: 36px !important; }
+.abx__founder .abx__kicker, .acc__kicker {
+  text-transform: none !important; letter-spacing: 0 !important; font: 500 15px/1.4 var(--body, 'Inter'), sans-serif !important; color: var(--muted) !important;
+}
+.about-page .legal__wrap .abx__kicker::before { display: none !important; }
+.void__index { text-transform: none !important; letter-spacing: 0 !important; font-size: 14px !important; }
+.void__index b, .void__index strong { letter-spacing: 0 !important; }
+
+/* ── 7. Buy: the four numbers as a spec row, "In the box" as a plain list (no tiles) ── */
+.dnum { gap: 14px 0 !important; padding: 2px 0 14px !important; border-bottom: 1px solid rgba(32, 47, 48, .12); }
+.dnum li { padding: 12px 16px 0 0 !important; border-radius: 0 !important; background: none !important; box-shadow: none !important; }
+.dbox { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 0 28px !important; border-top: 1px solid rgba(32, 47, 48, .12); }
+.dbox li {
+  grid-template-columns: 22px minmax(0, 1fr) !important; justify-items: start !important; align-items: center !important; gap: 12px !important;
+  padding: 13px 0 !important; border-radius: 0 !important; box-shadow: none !important; background: none !important;
+  border-bottom: 1px solid rgba(32, 47, 48, .12); text-align: left !important; font-size: 15px !important;
+}
+.dbox svg { width: 22px !important; height: 22px !important; }
+@media (max-width: 760px) { .dbox { grid-template-columns: minmax(0, 1fr) !important; } }
+
+/* ── 8. Two corner sizes: 20 px for cards and big media, 12 px for things inside them ── */
+.hood__sec, .hood__grid li, .buybox, .details__photo, .acc__card, .void__right, .ins__film, .how__media,
+.fq__tabs, .fq__help, .rv__card, .pr__card, .legal__form, .app__card, .void--fit .verdict, .addon { border-radius: 20px !important; }
+.pr__steps li, .promise-page .pr__steps li, .pr__terms, .promise-page .pr__terms, .help__talk a, .pdp-faq__ask a, .roles div, .fq__q { border-radius: 12px !important; }
+
+/* ── 9. Help centre (/help, /guides, /terms, /privacy): same rule for labels ── */
+.eyebrow, .manual-motion-label { display: none !important; }
+.back-help { text-transform: none !important; letter-spacing: 0 !important; font: 500 15px/1.4 var(--body, 'Inter'), sans-serif !important; }
+.back-help::before { content: "← "; white-space: pre; }
