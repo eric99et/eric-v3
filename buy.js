@@ -154,14 +154,18 @@
       clearTimeout(bigT);
       if (!big && i === j && cv.width > 1250) bigT = setTimeout(() => fetchFrame(finish, j, true).then(draw), vel || down ? 300 : 120);
     }
-    // coarse to fine; a finish starts when it is shown, or when its dot is reached for
-    const started = {};
-    const fill = f => {
-      if (started[f]) return; started[f] = true;
-      let k = 0;
-      const next = () => { if (k >= N) return; const b = ORDER.slice(k, k + 6); k += 6; Promise.all(b.map(i => fetchFrame(f, i))).then(() => { if (f === finish) draw(); next(); }); };
+    // coarse to fine. Until someone touches the lock only every 30° loads (12 frames, ~0.7 MB); the rest comes on
+    // the first drag, arrow or hover, so a phone that never turns it does not pay for the whole turn
+    const started = {}, COARSE = ORDER.filter(i => i % 6 === 0).length;
+    let engaged = false;
+    const fill = (f, all = engaged) => {
+      const upto = all ? N : COARSE;
+      if ((started[f] || 0) >= upto) return;
+      let k = started[f] || 0; started[f] = upto;
+      const next = () => { if (k >= upto) return; const b = ORDER.slice(k, Math.min(k + 6, upto)); k += b.length; Promise.all(b.map(i => fetchFrame(f, i))).then(() => { if (f === finish) draw(); next(); }); };
       next();
     };
+    const engage = () => { if (engaged) return; engaged = true; fill(finish, true); };
     // back to the front view, the short way round, HOME_MS after the last touch
     const home = () => { clearTimeout(homeT); homeT = setTimeout(() => {
       if (down) return;
@@ -180,9 +184,10 @@
       const tick = now => { const t = ms ? Math.min(1, (now - t0) / ms) : 1; pos = from + (to - from) * ease(t); draw(); if (t < 1) raf = requestAnimationFrame(tick); else if (!inOut) home(); };
       raf = requestAnimationFrame(tick);
     }
-    const glide = d => { hint?.classList.add('is-used'); fill(finish); clearTimeout(homeT); turnTo(Math.round(pos) + d * 9, 420); };   // the arrows: 45°
+    const glide = d => { hint?.classList.add('is-used'); engage(); clearTimeout(homeT); turnTo(Math.round(pos) + d * 9, 420); };   // the arrows: 45°
     let lastX = 0, lastT = 0;
-    stage.addEventListener('pointerdown', e => { if (e.button > 0) return; down = { x: e.clientX, y: e.clientY }; lastX = e.clientX; lastT = performance.now(); cancelAnimationFrame(raf); clearTimeout(homeT); vel = 0; fill(finish); });
+    stage.addEventListener('pointerdown', e => { if (e.button > 0) return; down = { x: e.clientX, y: e.clientY }; lastX = e.clientX; lastT = performance.now(); cancelAnimationFrame(raf); clearTimeout(homeT); vel = 0; engage(); });
+    stage.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') engage(); });
     stage.addEventListener('pointermove', e => {
       if (!down) return;
       if (down !== true) {
