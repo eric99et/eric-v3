@@ -123,14 +123,14 @@ const DA = {
   'It fits.': 'Den passer.', 'Too wide.': 'For bredt.', 'Need a Flex-Mount?': 'Mangler du en Flex-Mount?', 'It fits, with the Flex-Mount.': 'Den passer, med Flex-Mount.',
   'The screws are in the box.': 'Skruerne ligger i æsken.',
   'The ring takes tyres up to 60 mm.': 'Ringen tager dæk op til 60 mm.',
-  'Add the Flex-Mount (€9.99) when you pre-order. It holds the lock on a frame without holes.': 'Tilføj Flex-Mount (75 kr.), når du forudbestiller. Den holder låsen på et stel uden huller.',
+  'Add the Flex-Mount (€9.99) when you order. It holds the lock on a frame without holes.': 'Tilføj Flex-Mount (75 kr.), når du bestiller. Den holder låsen på et stel uden huller.',
   // 05 buy (the finish names stay Steel, Copper and Black, as in the Drive copy)
   'Steel. Copper. Black.': 'Steel. Copper. Black.', 'Same lock, same price, three finishes. Pick the one that suits your bike.': 'Samme lås, samme pris, tre udgaver. Vælg den, der passer til din cykel.',
   'Drag to turn': 'Træk for at dreje', 'Intro price until 31 Dec 2026': 'Intropris til 31. dec. 2026',
   'Price until 31 Dec 2026': 'Pris til 31. dec. 2026', 'from 1 Jan 2027': 'fra 1. jan. 2027',
-  'Pre-order': 'Forudbestil', 'Added': 'Tilføjet', 'promise': 'løfte', 'Shipping €9, free over €250': 'Fragt 75 kr, gratis over 1.900 kr',
+  'Buy now': 'Køb nu', 'Added': 'Tilføjet', 'promise': 'løfte', 'Shipping €9, free over €250': 'Fragt 75 kr, gratis over 1.900 kr',
   'From Trustpilot, shortened where marked […]. LAAS does not check them; Trustpilot shows all reviews, including the less positive ones. Most are from our Kickstarter backers.': 'Fra Trustpilot, forkortet hvor der står […]. LAAS kontrollerer dem ikke; Trustpilot viser alle anmeldelser, også de mindre positive. De fleste er fra vores Kickstarter-backere.',
-  '57-day returns': '57 dages returret', 'Day trial': 'dages prøvetid', 'Promise': 'Løfte', 'Read our reviews': 'Læs vores anmeldelser', 'Pre-order: ships in November': 'Forudbestilling: sendes i november', 'Cancel before it ships and get all your money back (your legal right)': 'Annullér, før den sendes, og få alle pengene tilbage (din ret efter loven)', '3.7': '3,7', 'Free shipping over €250': 'Gratis fragt over 1.900 kr', '7 reviews': '7 anmeldelser', 'LAAS on Trustpilot: 3.7 out of 5 from 7 reviews': 'LAAS på Trustpilot: 3,7 ud af 5 fra 7 anmeldelser', 'Ringo W., Germany': 'Ringo W., Tyskland', 'D. A., Switzerland': 'D. A., Schweiz', 'R. I., United Kingdom': 'R. I., Storbritannien', 'Two-year right to complain': '2 års reklamationsret',
+  '57-day returns': '57 dages returret', 'Day trial': 'dages prøvetid', 'Promise': 'Løfte', 'Read our reviews': 'Læs vores anmeldelser', 'In stock: ships from Copenhagen': 'På lager: sendes fra København', 'Cancel before it ships and get all your money back (your legal right)': 'Annullér, før den sendes, og få alle pengene tilbage (din ret efter loven)', '3.7': '3,7', 'Free shipping over €250': 'Gratis fragt over 1.900 kr', '7 reviews': '7 anmeldelser', 'LAAS on Trustpilot: 3.7 out of 5 from 7 reviews': 'LAAS på Trustpilot: 3,7 ud af 5 fra 7 anmeldelser', 'Ringo W., Germany': 'Ringo W., Tyskland', 'D. A., Switzerland': 'D. A., Schweiz', 'R. I., United Kingdom': 'R. I., Storbritannien', 'Two-year right to complain': '2 års reklamationsret',
   // 06 faq
   'Questions, answered.': 'Spørgsmål og svar.', 'Question not here? Call us on': 'Finder du ikke dit spørgsmål? Ring til os på',
   'Will my insurance accept it?': 'Godkender mit forsikringsselskab den?',
@@ -141,7 +141,7 @@ const DA = {
   'How secure is it?': 'Hvor sikker er den?',
   '9 mm of hardened steel. Every unlock uses a one-time key over Bluetooth, so a recorded signal cannot be replayed.': '9 mm hærdet stål. Hver oplåsning bruger en engangsnøgle via Bluetooth, så et optaget signal ikke kan afspilles igen.',
   'How fast does it ship, and what does it cost?': 'Hvor hurtigt sendes den, og hvad koster det?',
-  'It is a pre-order and ships in November. You can cancel any time before it ships and get all your money back. Shipping is €9, and free on orders over €250. Questions about an order? Write to': 'Det er en forudbestilling, og den sendes i november. Du kan annullere når som helst, før den sendes, og få alle pengene tilbage. Fragten koster 75 kr. og er gratis ved køb over 1.900 kr. Spørgsmål om en ordre? Skriv til',
+  'It is in stock and ships from Copenhagen. You can cancel any time before it ships and get all your money back. Shipping is €9, and free on orders over €250. Questions about an order? Write to': 'Den er på lager og sendes fra København. Du kan annullere når som helst, før den sendes, og få alle pengene tilbage. Fragten koster 75 kr. og er gratis ved køb over 1.900 kr. Spørgsmål om en ordre? Skriv til',
   'How do returns and the right to complain work?': 'Hvordan fungerer returnering og reklamationsret?',
   'Changed your mind? Tell us at': 'Fortryder du? Giv os besked på',
   'within 57 days of delivery, then send the lock back to us. You get your money back, shipping included, within 14 days of telling us, once the lock is back with us or you have shown us you sent it. You also have the two-year right to complain (reklamationsret) under Danish law, counted from delivery.': 'senest 57 dage efter levering, og send låsen retur til os. Du får pengene tilbage, inklusive fragt, inden for 14 dage efter din besked, når låsen er tilbage hos os, eller du har vist os, at du har sendt den. Du har også to års reklamationsret efter dansk lov, regnet fra levering.',
@@ -865,7 +865,7 @@ function renderFit() {
   vHead.textContent = t(no ? 'Too wide.' : holes ? 'It fits.' : 'It fits, with the Flex-Mount.');
   vBody.textContent = no ? t('The ring takes tyres up to 60 mm.')
     : holes ? t('The screws are in the box.')
-    : t('Add the Flex-Mount (€9.99) when you pre-order. It holds the lock on a frame without holes.');
+    : t('Add the Flex-Mount (€9.99) when you order. It holds the lock on a frame without holes.');
   // no holes: a quiet way to the Flex-Mount on its own (the buy page's accessory)
   if (!no && !holes) { const a = document.createElement('a'); a.className = 'link verdict__more'; a.href = 'buy.html#flex-mount'; a.textContent = t('Need a Flex-Mount?'); vBody.append(' ', a); }
   verdict.classList.remove('is-swap'); void verdict.offsetWidth; verdict.classList.add('is-swap');
@@ -941,7 +941,7 @@ function renderBuy() {
   $('.qty-row').classList.toggle('is-cart', !!n);
   const just = n && Date.now() - added < 1600;
   $('#buy-label').classList.toggle('is-added', !!just);
-  $('#buy-label').textContent = t(just ? 'Added' : n ? 'Check out' : 'Pre-order');
+  $('#buy-label').textContent = t(just ? 'Added' : n ? 'Check out' : 'Buy now');
   // the link is the fallback when the cart script is missing: the buy page, with the choice
   $('#buy-label').href = n ? 'checkout-v2.html' : `buy.html?finish=${finish}&qty=${qty}`;
   $('#finish-name').textContent = FIN_NAME[finish];
