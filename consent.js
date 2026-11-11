@@ -49,6 +49,10 @@
     gtag('consent', 'update', { analytics_storage: g(c.s), ad_storage: g(c.m), ad_user_data: g(c.m), ad_personalization: g(c.m) });
     window.laasConsent.statistics = !!c.s;
     window.laasConsent.marketing = !!c.m;
+    // the same yes/no for the checkout on shop.laaslocks.com, whose Shopify pixel ("LAAS GA4") reads it: only the choice,
+    // no ID (strictly necessary, like the choice itself)
+    try { if (ok) document.cookie = 'laas_stats=' + (c.s ? 1 : 0) + '; domain=laaslocks.com; path=/; max-age=31536000; SameSite=Lax; Secure'; } catch { /* blocked */ }
+    dispatchEvent(new Event('laas-consent'));
     if (c.s && ok && !loaded) {
       loaded = true;
       gtag('js', new Date());

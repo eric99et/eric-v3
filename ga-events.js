@@ -44,6 +44,13 @@
   const read = () => { try { const v = JSON.parse(localStorage.getItem(KEY)); return Array.isArray(v) ? v.filter(Boolean) : []; } catch { return []; } };
   const what = i => /Flex/.test(i.name) ? 'Flex-Mount' : 'Ring-Lock ' + (!i.finish || i.finish === 'Silver' ? 'Steel' : i.finish);
   const tally = () => read().reduce((m, i) => { m[what(i)] = (m[what(i)] || 0) + (+i.qty || 1); return m; }, {});
+  // GA4 e-commerce: the cart's prices are in euro (buy.js PRICE; the checkout may charge in kroner)
+  const CUR = 'EUR';
+  const price = k => { const i = read().find(x => what(x) === k); return i ? +i.unit || 0 : k === 'Flex-Mount' ? 9.99 : 129; };
+  const item = (k, q, p = price(k)) => ({ item_id: k === 'Flex-Mount' ? 'flex-mount' : 'ring-lock', item_name: k,
+    item_variant: k === 'Flex-Mount' ? undefined : k.replace('Ring-Lock ', ''), price: p, quantity: q });
+  const money = list => Math.round(list.reduce((v, i) => v + i.price * i.quantity, 0) * 100) / 100;
+  const cartItems = () => { const t = tally(); return Object.keys(t).map(k => item(k, t[k])); };
   const locks = t => Object.keys(t).reduce((n, k) => n + (k === 'Flex-Mount' ? 0 : t[k]), 0);
   const handoff = () => { try { return !!localStorage.getItem('laas.handoff'); } catch { return false; } };
 
@@ -59,7 +66,8 @@
     if (name + where === last && e.timeStamp - lastAt < 500) return; // a double click is one
     last = name + where; lastAt = e.timeStamp;
     if (/checkout-v2\.html/.test(el.getAttribute('href') || '') || /^(check out|gå til kassen)$/i.test(name)) {
-      send('begin_checkout', { area: where, locks: locks(tally()) });
+      const list = cartItems();
+      send('begin_checkout', { area: where, locks: locks(tally()), currency: CUR, value: money(list), items: list });
       return;
     }
     const data = { area: where };
@@ -69,18 +77,22 @@
   }, true);
 
   // in and out of the cart, from the buy page, the bag, the cart page or anywhere else (cart-nav.js says "laas-cart")
-  let had = tally(), away = handoff();
+  let had = tally(), away = handoff(), prices = {};
+  const remember = () => { read().forEach(i => { prices[what(i)] = +i.unit || prices[what(i)]; }); };
+  remember();
   // another tab changed it: that tab reports it, this one only catches up (capture: before buy.js repaints)
-  addEventListener('storage', e => { if (e.key === KEY || e.key === null) { had = tally(); away = handoff(); } }, true);
+  addEventListener('storage', e => { if (e.key === KEY || e.key === null) { had = tally(); away = handoff(); remember(); } }, true);
   addEventListener('laas-cart', () => {
     const now = tally();
     // the cart that went to Shopify, emptied by cart-nav.js once the order is placed, is not a change of mind. (Orders
     // themselves are not counted here: on a fresh page cart-nav.js empties the cart before this script runs.)
     if (!(away && !handoff() && !Object.keys(now).length)) new Set([...Object.keys(had), ...Object.keys(now)]).forEach(k => {
       const d = (now[k] || 0) - (had[k] || 0);
-      if (d) send(d > 0 ? 'add_to_cart' : 'remove_from_cart', { items: [{ item_name: k, quantity: Math.abs(d) }] });
+      if (!d) return;
+      const it = item(k, Math.abs(d), prices[k] || price(k));
+      send(d > 0 ? 'add_to_cart' : 'remove_from_cart', { currency: CUR, value: money([it]), items: [it] });
     });
-    had = now; away = handoff();
+    had = now; away = handoff(); remember();
   });
 
   // how far down the page: 25, 50, 75 and 100 per cent, each once per page view
@@ -136,6 +148,20 @@
       send('search', { search_term: q.slice(0, 60), area: area(f) });
     }, 1500);
   }, true);
+
+  // the buy page seen: GA4's view_item, the first step of the shop funnel (once per page view; also when the visitor says
+  // yes to statistics only after the page opened)
+  if (/\/buy(\.html)?$/.test(location.pathname)) {
+    let seen = false;
+    const view = () => {
+      if (seen || !(window.laasConsent && window.laasConsent.statistics)) return;
+      seen = true;
+      const it = item('Ring-Lock Steel', 1, 129);
+      send('view_item', { currency: CUR, value: 129, items: [it] });
+    };
+    view();
+    addEventListener('laas-consent', view);
+  }
 
   // a missing page (404.html answers for any address that does not exist; i18n.js may have put its title in Danish)
   if (/^(Page not found|Siden findes ikke)/.test(document.title)) {
