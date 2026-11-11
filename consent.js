@@ -16,7 +16,7 @@
   const T = da ? {
     title: 'Cookies',
     text: 'Vi vil gerne bruge cookies fra Google Analytics til at se, hvordan siden bruges, og cookies til markedsføring til at måle vores annoncer. Kun hvis du siger ja.',
-    more: 'Læs mere', privacy: '/da/privacy.html#cookies',
+    more: 'Læs mere', moreLabel: 'Læs mere om cookies', privacy: '/da/privacy.html#cookies',
     yes: 'Accepter alle', no: 'Afvis', pick: 'Vælg selv', save: 'Gem valg',
     need: 'Nødvendige', needT: 'Kurv og sprog. Altid til.',
     stat: 'Statistik', statT: 'Google Analytics viser os, hvordan siden bruges.',
@@ -25,7 +25,7 @@
   } : {
     title: 'Cookies',
     text: 'We would like to use Google Analytics cookies to see how the site is used, and marketing cookies to measure our ads. Only if you say yes.',
-    more: 'Read more', privacy: '/privacy.html#cookies',
+    more: 'Read more', moreLabel: 'Read more about cookies', privacy: '/privacy.html#cookies',
     yes: 'Accept all', no: 'Decline', pick: 'Choose', save: 'Save choices',
     need: 'Necessary', needT: 'Your cart and language. Always on.',
     stat: 'Statistics', statT: 'Google Analytics shows us how the site is used.',
@@ -118,7 +118,7 @@
     box.setAttribute('aria-labelledby', 'laas-consent-h');
     box.setAttribute('aria-live', 'polite');
     box.innerHTML = `<h2 id="laas-consent-h">${T.title}</h2>
-<p>${T.text} <a href="${T.privacy}">${T.more}</a></p>
+<p>${T.text} <a href="${T.privacy}" aria-label="${T.moreLabel}">${T.more}</a></p>
 <ul class="lc-opts">
   <li><input type="checkbox" checked disabled id="lc-n"><label for="lc-n"><b>${T.need}</b><span>${T.needT}</span></label></li>
   <li><input type="checkbox" id="lc-s"${c.s ? ' checked' : ''}><label for="lc-s"><b>${T.stat}</b><span>${T.statT}</span></label></li>
