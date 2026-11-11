@@ -272,3 +272,22 @@ html.in-tale .nav__bag, html.in-tale .nav .nav__menu { background: #202F30; bord
   .buybar { bottom: calc(10px + max(env(safe-area-inset-bottom, 0px), var(--consent-h, 0px))); }
 }
 @media (prefers-reduced-motion: reduce) { .hero__copy { transition: none; } }
+
+/* ── 11. Small things from the 11 Nov sweep ── */
+/* touch tablets, 761–900 px: "About LAAS" is centred in its 44 px target like the other links. It was shown again
+   there as inline-block, which dropped the centring the touch rule gives every link (it sat 5 px high) */
+@media (min-width: 761px) and (max-width: 900px) and (pointer: coarse) {
+  .nav__shell:has(.nav__buy) .nav__links a[href$="about.html"] { display: inline-flex; }
+}
+/* portrait tablets: the fit photo sits further right and the trial line breaks sooner, so no word runs over the lock
+   (the line went straight across the mark on it) */
+@media (min-width: 761px) and (max-width: 1100px) and (max-aspect-ratio: 1/1) {
+  .void--fit3 .fit3__photo img { object-position: 30% 45%; }
+  .void--fit3 .fit3__try { max-width: 24em; }
+}
+/* phones: the label on the lab film was 9 px */
+@media (max-width: 760px) {
+  .void--ins2 .ins__film figcaption { font-size: 10px; letter-spacing: .02em; border-radius: 14px; }
+}
+/* the manual card's title stays on one line at every width (it broke at about 1000 to 1100 px) */
+.help__manual b { white-space: nowrap; }
