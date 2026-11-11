@@ -77,3 +77,6 @@ body .lgn.lgn .lgn__garan-mark svg { width: .42em; height: .38em; margin-top: .3
 
 /* inside the terms of sale: the notice sits in the text column */
 .legal__wrap .lgn { margin: 18px 0 8px; }
+
+/* on the buy page: smaller and centred, at the end of the page (Eric 11 Nov) */
+.lgn-sec .lgn { max-width: 620px; margin: 0 auto; }
