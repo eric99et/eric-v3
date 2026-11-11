@@ -80,3 +80,13 @@ body .lgn.lgn .lgn__garan-mark svg { width: .42em; height: .38em; margin-top: .3
 
 /* on the buy page: smaller and centred, at the end of the page (Eric 11 Nov) */
 .lgn-sec .lgn { max-width: 620px; margin: 0 auto; }
+
+/* on the buy page (Eric 11 Nov): narrower, and the notice folds: the official blue band always shows and is the
+   button; the rest of the notice, unchanged, opens under it */
+.lgn-sec .lgn { max-width: 440px; }
+.lgn-sec .lgn:has(.lgn__dd:not([open])) { padding-bottom: 0; }
+body .lgn.lgn summary.lgn__band { cursor: pointer; list-style: none; padding-right: 48px; }
+body .lgn.lgn summary.lgn__band::-webkit-details-marker { display: none; }
+body .lgn.lgn summary.lgn__band:focus-visible { outline: 3px solid var(--lgn-yellow); outline-offset: -3px; }
+.lgn__chev { position: absolute; right: 16px; top: 50%; width: 20px; height: 20px; translate: 0 -50%; fill: none; stroke: #FFFFFF; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: rotate .25s ease; }
+.lgn__dd[open] .lgn__chev { rotate: 180deg; }

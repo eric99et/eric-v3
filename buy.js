@@ -236,6 +236,11 @@
     const btn = $('#buy-btn'); btn.disabled = false; btn.classList.remove('is-added'); render(true); paintCart();
   });
 
+  /* --------------------------------------- the EU legal-guarantee notice */
+  // it folds under its blue band; a link to #legal-guarantee opens it
+  const openNotice = () => { if (location.hash === '#legal-guarantee') $$('#legal-guarantee .lgn__dd').forEach(d => (d.open = true)); };
+  openNotice(); addEventListener('hashchange', openNotice);
+
   /* ------------------------------------------------------- the cart link */
   // the bag in the nav (cart-nav.js) listens for this
   function paintCart() { dispatchEvent(new Event('laas-cart')); }
