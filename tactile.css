@@ -291,3 +291,22 @@ html.in-tale .nav__bag, html.in-tale .nav .nav__menu { background: #202F30; bord
 }
 /* the manual card's title stays on one line at every width (it broke at about 1000 to 1100 px) */
 .help__manual b { white-space: nowrap; }
+
+/* ── 12. One column on the info pages (Shipping, Promises, Terms, Privacy): the head on top and centred, as on the
+   help pages (Eric, 11 Nov: no title in a column of its own on the left). The cards follow in one centred column,
+   860 px; the two reading pages 680 px. Phones are as they were ── */
+@media (min-width: 761px) {
+  .legal-page .ip, .legal-page .ip__grid:not(.ip__grid--faq) { display: block; }
+  .legal-page .ip > .ip__head, .legal-page .ip > .pr__top, .legal-page .ip__grid:not(.ip__grid--faq) > .pr__top {
+    position: static; max-width: 860px; margin: 0 auto clamp(36px, 4vw, 60px); text-align: center;
+  }
+  .legal-page .ip > .ip__head > *, .legal-page .ip > .pr__top > *, .legal-page .ip__grid:not(.ip__grid--faq) > .pr__top > * { margin-left: auto !important; margin-right: auto !important; }
+  .legal-page .ip > .ip__head > h1, .legal-page .ip > .pr__top > h1, .legal-page .ip__grid:not(.ip__grid--faq) > .pr__top > h1 { justify-content: center; text-align: center; }
+  .legal-page .ip > .ip__head > p, .legal-page .ip > .pr__top > p, .legal-page .ip__grid:not(.ip__grid--faq) > .pr__top > p { max-width: 34em; text-wrap: balance; }
+  .legal-page .ip > .ip__body, .legal-page .ip__grid:not(.ip__grid--faq) > .ip__body { max-width: 860px; margin: 0 auto; }
+  .legal-page .ip--legal > .ip__body { max-width: 680px; }
+}
+/* the buy page on a portrait tablet: the ring no longer touches the left edge of the screen */
+@media (min-width: 761px) and (max-width: 1100px) and (max-aspect-ratio: 1/1) {
+  .buy-page:not(.shop-page) .pdp--v2 .lock3d__still { width: 112%; }
+}
