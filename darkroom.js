@@ -307,6 +307,7 @@ $$('.split').forEach(el => {
 
 /* ------------------------------------------------------- in-page links */
 document.addEventListener('click', e => {
+  if (e.defaultPrevented) return;   // a link that already did its own thing (the hero's and the bar's Buy put the lock in the cart)
   const a = e.target.closest('a[href^="#"]'); if (!a) return;
   const id = a.getAttribute('href').slice(1);
   const el = id === 'top' ? document.body : document.getElementById(id);
@@ -981,6 +982,15 @@ $('#buy-label').addEventListener('click', e => {
   e.preventDefault();
   C().buy(finish, qty, () => { qty = 1; if (inCart()) { added = Date.now(); setTimeout(renderBuy, 1600); } renderBuy(); });
 });
+// the hero's and the bar's Buy do what the card's does, right where the visitor is (owner, 11 Nov): the one question,
+// then one lock in the chosen finish (steel until another is picked) goes in the cart and the card offers Check out.
+// With that finish in the cart already, Buy is the checkout. Without the cart script the link still glides to the card.
+$$('.hero__buy, .nav__buy').forEach(a => a.addEventListener('click', e => {
+  if (!C() || !C().buy || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+  e.preventDefault();
+  if (inCart()) { location.href = (window.LAAS_SITE ? LAAS_SITE.shop : '') + 'checkout-v2.html'; return; }
+  C().buy(finish, 1, () => { if (inCart()) { added = Date.now(); setTimeout(renderBuy, 1600); } renderBuy(); });
+}));
 // the finish dots are one radio group (as on buy.html): one tab stop, the arrow keys move and pick
 const dots = $$('[data-finish]');
 const syncDots = () => dots.forEach(b => { b.tabIndex = b.getAttribute('aria-checked') === 'true' ? 0 : -1; });
