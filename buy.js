@@ -3,9 +3,8 @@
 // Buy writes, right here, the same line items the old product page writes (via cart-nav.js): localStorage 'laas.cart.v1.en', an array of
 // {name, finish, unit, qty, img}, merged by name + finish. No new page.
 // ?finish=steel|copper|black (silver also works) and ?qty=1..15 preselect.
-// The lock is the studio render of the real Ring-Lock (v8, images/lock), the same files as the landing page:
-// six angles per finish. A sideways drag, the arrows or the arrow keys step through them; an up-and-down swipe
-// still scrolls the page.
+// The lock turns all the way round: 72 studio frames per finish rendered from the v8 model (images/spin).
+// A sideways drag turns it, the arrows and the arrow keys turn it 45°; an up-and-down swipe still scrolls the page.
 (() => {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -107,51 +106,105 @@
     qty = clamp(qty + d, 1, 15); render(false);
   }));
 
-  /* --------------------------------------------- the lock: the studio renders */
-  // The real Ring-Lock as on the landing page: the v8 studio renders (images/lock), six angles per finish.
-  // A sideways drag steps through the angles (one per 50 px), as do the arrows and the arrow keys.
+  /* --------------------------------------------- the lock: a 360° turn */
+  // The real Ring-Lock all the way round: 72 studio frames per finish (every 5°), rendered from the v8 model in
+  // Marcus's studio light (images/spin/<finish>/1200 and /2400). The lock follows a sideways drag and coasts on;
+  // the arrows and the arrow keys turn it 45°; an up-and-down swipe still scrolls the page. Frames load coarse to
+  // fine (every 30°, 15°, 10°, 5°) once the page has settled, so the turn works early and fills in; the sharp
+  // 2400 px frame comes in when the lock rests on a large screen.
   const lock3d = (() => {
-    // in turning order round the lock (left 3/4, front, hero, side, from behind, from above), starting on the hero view
-    const ANGLES = ['00', '03', '04', '05', '02', '01'];
-    const res = () => stage.clientWidth * Math.min(devicePixelRatio || 1, 2) > 900 ? 1600 : 800;
-    const src = (f, a) => `${(window.LAAS_ROOT || '')}images/lock/${f}-${a}-${res()}.webp`;
-    const cache = new Map();
-    const get = u => cache.get(u) || (cache.set(u, new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(u); im.onerror = no; im.src = u; })), cache.get(u));
-    let angle = 0, want = '';
-    const hint = $('#lock-hint');
-    // where the lock's centre sits in each render (shares of the frame, as darkroom.js measures them): the still is
-    // nudged by the difference, so every angle stands optically centred in the stage instead of up to 2% off
-    const GEO = { '00': [0.5128, 0.4881], '01': [0.4997, 0.5093], '02': [0.4844, 0.4878], '03': [0.5228, 0.4872], '04': [0.5109, 0.4866], '05': [0.4862, 0.48] };
-    const centre = a => { const [cx, cy] = GEO[a]; still.style.setProperty('--lx', ((0.5 - cx) * 100).toFixed(2) + '%'); still.style.setProperty('--ly', ((0.5 - cy) * 100).toFixed(2) + '%'); };
-    const paint = () => {
-      const a = ANGLES[((angle % 6) + 6) % 6], u = src(finish, a); want = u;
-      get(u).then(() => { if (want === u) { still.src = u; centre(a); } }, () => {});
+    // STEP: 2 while only every 10° is published, 1 once all 72 frames (every 5°) are in images/spin
+    // FRONT: the front view (as Marcus's 01-front); the lock starts there and goes back there 3 s after a turn
+    const N = 72, STEP = 2, FRONT = 6, HOME_MS = 3000, base = (window.LAAS_ROOT || '') + 'images/spin/';
+    const ORDER = [6, 3, 2, 1].flatMap((d, k, all) => [...Array(N).keys()].filter(i => i % d === 0 && all.slice(0, k).every(e => i % e))).filter(i => i % STEP === 0);
+    const pad = i => String(i).padStart(2, '0');
+    const url = (f, i, big) => `${base}${f}/${big ? 2400 : 1200}/${pad(i)}.webp`;
+    const cv = document.createElement('canvas'), ctx = cv.getContext('2d');
+    cv.className = 'lock3d__spin'; cv.setAttribute('aria-hidden', 'true'); stage.appendChild(cv);
+    const pending = new Map(), got = {};                  // got: finished images, drawn straight away
+    const fetchFrame = (f, i, big) => {
+      const k = f + i + (big ? 'b' : '');
+      if (got[k]) return Promise.resolve(got[k]);
+      if (!pending.has(k)) pending.set(k, new Promise(r => {
+        const im = new Image(); im.decoding = 'async';
+        im.onload = () => { got[k] = im; r(im); };
+        im.onerror = () => { pending.set(k, null); r(null); };
+        im.src = url(f, i, big);
+      }));
+      return pending.get(k) || Promise.resolve(null);
     };
-    centre('00');
-    const warm = () => ANGLES.forEach(a => get(src(finish, a)).catch(() => {}));
-    const step = d => { angle += d; hint?.classList.add('is-used'); paint(); warm(); };
-    let down = null, lastX = 0, acc = 0;
-    stage.addEventListener('pointerdown', e => { if (e.button > 0) return; down = { x: e.clientX, y: e.clientY }; lastX = e.clientX; acc = 0; });
+    let pos = FRONT, vel = 0, raf = 0, shown = '', bigT = 0, down = null, homeT = 0;
+    const wrap = i => ((i % N) + N) % N;
+    const nearest = i => { for (let d = 0; d <= N / 2; d++) for (const j of [i + d, i - d]) if (got[finish + wrap(j)]) return wrap(j); return -1; };
+    const size = () => {                                  // the canvas sits exactly over the still
+      const s = still.getBoundingClientRect(), r = stage.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
+      Object.assign(cv.style, { left: (s.left - r.left) + 'px', top: (s.top - r.top) + 'px', width: s.width + 'px', height: s.height + 'px' });
+      cv.width = Math.round(s.width * d); cv.height = Math.round(s.height * d); shown = ''; draw();
+    };
+    function draw() {
+      const i = wrap(Math.round(pos)), j = nearest(i);
+      if (j < 0 || !cv.width) return;
+      const big = got[finish + j + 'b'], im = big || got[finish + j], id = finish + j + (big ? 'b' : '') + cv.width;
+      if (id !== shown) {
+        // the renders frame the lock 5% larger and a little lower than the cut-outs: draw them to the cut-out's size
+        const W = cv.width * 0.95, x = (cv.width - W) / 2, y = (cv.height - W) / 2 - cv.height * 0.035;
+        ctx.clearRect(0, 0, cv.width, cv.height); ctx.drawImage(im, x, y, W, W); shown = id;
+        stage.classList.add('is-3d');
+      }
+      clearTimeout(bigT);
+      if (!big && i === j && cv.width > 1250) bigT = setTimeout(() => fetchFrame(finish, j, true).then(draw), vel || down ? 300 : 120);
+    }
+    // coarse to fine; a finish starts when it is shown, or when its dot is reached for
+    const started = {};
+    const fill = f => {
+      if (started[f]) return; started[f] = true;
+      let k = 0;
+      const next = () => { if (k >= N) return; const b = ORDER.slice(k, k + 6); k += 6; Promise.all(b.map(i => fetchFrame(f, i))).then(() => { if (f === finish) draw(); next(); }); };
+      next();
+    };
+    // back to the front view, the short way round, HOME_MS after the last touch
+    const home = () => { clearTimeout(homeT); homeT = setTimeout(() => {
+      if (down) return;
+      let d = wrap(FRONT - Math.round(pos)); if (d > N / 2) d -= N;
+      if (d) turnTo(Math.round(pos) + d, Math.min(1400, 450 + Math.abs(d) * 25), true);
+    }, HOME_MS); };
+    const coast = () => {
+      vel *= 0.93; pos += vel; draw();
+      if (Math.abs(vel) > 0.03) raf = requestAnimationFrame(coast); else { vel = 0; pos = Math.round(pos); draw(); home(); }
+    };
+    const hint = $('#lock-hint');
+    function turnTo(to, ms, inOut) {                      // eased turn to a frame (ease-out for the arrows, in-out for going home)
+      cancelAnimationFrame(raf); vel = 0;
+      const from = pos, t0 = performance.now(); ms = reduce ? 0 : ms;
+      const ease = t => inOut ? (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2) : 1 - Math.pow(1 - t, 3);
+      const tick = now => { const t = ms ? Math.min(1, (now - t0) / ms) : 1; pos = from + (to - from) * ease(t); draw(); if (t < 1) raf = requestAnimationFrame(tick); else if (!inOut) home(); };
+      raf = requestAnimationFrame(tick);
+    }
+    const glide = d => { hint?.classList.add('is-used'); fill(finish); clearTimeout(homeT); turnTo(Math.round(pos) + d * 9, 420); };   // the arrows: 45°
+    let lastX = 0, lastT = 0;
+    stage.addEventListener('pointerdown', e => { if (e.button > 0) return; down = { x: e.clientX, y: e.clientY }; lastX = e.clientX; lastT = performance.now(); cancelAnimationFrame(raf); clearTimeout(homeT); vel = 0; fill(finish); });
     stage.addEventListener('pointermove', e => {
       if (!down) return;
       if (down !== true) {
         const dx = Math.abs(e.clientX - down.x), dy = Math.abs(e.clientY - down.y);
         if (dx < 6 && dy < 6) return;
         if (dy > dx) { down = null; return; }
-        down = true; stage.classList.add('is-drag'); try { stage.setPointerCapture(e.pointerId); } catch {}
+        down = true; stage.classList.add('is-drag'); hint?.classList.add('is-used'); try { stage.setPointerCapture(e.pointerId); } catch {}
       }
-      acc += e.clientX - lastX; lastX = e.clientX;
-      while (Math.abs(acc) >= 50) { step(acc > 0 ? -1 : 1); acc -= Math.sign(acc) * 50; }
+      const now = performance.now(), step = (e.clientX - lastX) * N / Math.max(240, stage.clientWidth * 1.3);
+      pos += step; vel = step / Math.max(1, now - lastT) * 16; lastX = e.clientX; lastT = now; draw();
     });
-    const end = () => { down = null; stage.classList.remove('is-drag'); };
+    const end = () => { const was = down === true; down = null; stage.classList.remove('is-drag'); if (was && !reduce) coast(); else { vel = 0; draw(); if (was) home(); } };
     stage.addEventListener('pointerup', end); stage.addEventListener('pointercancel', end); stage.addEventListener('lostpointercapture', end);
-    stage.addEventListener('keydown', e => { if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return; e.preventDefault(); step(e.key === 'ArrowRight' ? 1 : -1); });
-    $$('[data-turn]').forEach(btn => btn.addEventListener('click', () => step(+btn.dataset.turn)));
-    paint();
-    // the rest of the turn once the first view is in; the other finishes when a finish dot is reached for
-    get(src(finish, '00')).then(warm, () => {});
-    $$('.finishes [data-finish]').forEach(d => ['pointerenter', 'touchstart', 'focus'].forEach(ev => d.addEventListener(ev, () => get(src(d.dataset.finish, ANGLES[((angle % 6) + 6) % 6])).catch(() => {}), { passive: true })));
-    return { show: () => { paint(); warm(); } };
+    stage.addEventListener('keydown', e => { if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return; e.preventDefault(); glide(e.key === 'ArrowRight' ? 1 : -1); });
+    $$('[data-turn]').forEach(btn => btn.addEventListener('click', () => glide(+btn.dataset.turn)));
+    addEventListener('resize', size);
+    // the still (the front view) carries the first paint; the turn loads once the page has settled
+    still.src = url(finish, FRONT); still.style.setProperty('--lx', '0%'); still.style.setProperty('--ly', '0%');
+    const start = () => { size(); fill(finish); };
+    if (document.readyState === 'complete') setTimeout(start, 300); else addEventListener('load', () => setTimeout(start, 300));
+    $$('.finishes [data-finish]').forEach(d => ['pointerenter', 'touchstart', 'focus'].forEach(ev => d.addEventListener(ev, () => fill(d.dataset.finish), { passive: true })));
+    return { show: () => { shown = ''; still.src = url(finish, FRONT); fill(finish); draw(); } };
   })();
 
   // Buy: the locks go in the cart, then the cart page
