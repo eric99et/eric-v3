@@ -69,7 +69,9 @@
   };
   const choose = (s, m) => { const c = { v: VERSION, s: !!s, m: !!m, t: Date.now() }; write(c); apply(c); close(); };
 
-  // the banner: its own styles, so it looks the same on the help centre's pages
+  // the banner: its own styles, so it looks the same on the help centre's pages.
+  // Asked for the first time it is a low row along the bottom edge (11 Nov): the card it used to be sat on the hero's
+  // sub-headline and Buy button on a phone, and on the Buy button on a large screen. "Choose" opens the card.
   const CSS = `
 #laas-consent{position:fixed;z-index:2147483000;left:16px;right:16px;bottom:16px;max-width:420px;margin:0;box-sizing:border-box;
   background:#fff;color:#202F30;border:1px solid rgba(32,47,48,.14);border-radius:20px;padding:20px 20px 16px;
@@ -93,13 +95,26 @@
 #laas-consent .lc-save{display:none}
 #laas-consent.is-open .lc-save{display:block}
 #laas-consent.is-open .lc-main{display:none}
-@media (min-width:600px){#laas-consent{left:24px;bottom:24px;right:auto;width:420px}}
+#laas-consent:not(.is-open){left:0;right:0;bottom:0;max-width:none;border:0;border-top:1px solid rgba(32,47,48,.14);border-radius:16px 16px 0 0;
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));font-size:12.5px;line-height:1.4;box-shadow:0 -6px 24px rgba(32,47,48,.12)}
+#laas-consent:not(.is-open) h2{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+#laas-consent:not(.is-open) p{margin:0 0 10px}
+#laas-consent.is-open{max-height:calc(100svh - 32px);overflow:auto}
+@media (min-width:600px){#laas-consent.is-open{left:24px;bottom:24px;right:auto;width:420px}}
+@media (min-width:900px){#laas-consent:not(.is-open){display:flex;align-items:center;gap:24px;border-radius:0;padding:10px 32px;font-size:13.5px}
+  #laas-consent:not(.is-open) p{margin:0;flex:1 1 auto}
+  #laas-consent:not(.is-open) .lc-row{flex:0 0 auto;flex-wrap:nowrap}
+  #laas-consent:not(.is-open) button{min-height:40px;flex:0 0 auto}}
 @media print{#laas-consent{display:none}}`;
 
   let box = null, back = null;
+  // how much of the bottom edge the row takes, for the page (--consent-h): the hero keeps its words and its Buy button
+  // above it (tactile.css). 0 once it is answered, or opened as the card
+  const room = () => document.documentElement.style.setProperty('--consent-h', box && !box.classList.contains('is-open') ? box.offsetHeight + 'px' : '0px');
+  addEventListener('resize', room);
   const close = () => {
     if (!box) return;
-    box.remove(); box = null;
+    box.remove(); box = null; room();
     if (back && document.contains(back)) back.focus({ preventScroll: true });
   };
   const open = (detail) => {
@@ -133,10 +148,10 @@
       const a = b.dataset.lc;
       if (a === 'yes') choose(true, true);
       else if (a === 'no') choose(false, false);
-      else if (a === 'pick') { box.classList.add('is-open'); box.querySelector('#lc-s').focus(); }
+      else if (a === 'pick') { box.classList.add('is-open'); room(); box.querySelector('#lc-s').focus(); }
       else if (a === 'save') choose(box.querySelector('#lc-s').checked, box.querySelector('#lc-m').checked);
     });
-    document.body.appendChild(box);
+    document.body.appendChild(box); room();
     if (detail) box.querySelector('#lc-s').focus({ preventScroll: true });
   };
 
