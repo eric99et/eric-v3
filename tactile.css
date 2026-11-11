@@ -310,3 +310,16 @@ html.in-tale .nav__bag, html.in-tale .nav .nav__menu { background: #202F30; bord
 @media (min-width: 761px) and (max-width: 1100px) and (max-aspect-ratio: 1/1) {
   .buy-page:not(.shop-page) .pdp--v2 .lock3d__still { width: 112%; }
 }
+
+/* ── 13. Buy page, "Before you decide": one centred column (Eric, 11 Nov: the heading and the two contact cards stood
+   alone in a left column over an empty half). The heading on top and centred with its link, the questions under it,
+   the two ways to reach us side by side, and the legal-guarantee band centred under them. Phones are as they were ── */
+@media (min-width: 761px) {
+  body.buy-page:not(.shop-page) .pdp-faq { display: block; }
+  body.buy-page:not(.shop-page) .pdp-faq > * { max-width: 860px; margin-left: auto; margin-right: auto; }
+  body.buy-page:not(.shop-page) .pdp-faq__head { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 14px; margin-bottom: clamp(28px, 3vw, 44px); text-align: center; }
+  body.buy-page:not(.shop-page) .pdp-faq__head .details__h { width: 100%; max-width: none; margin: 0; text-align: center; }
+  body.buy-page:not(.shop-page) .pdp-faq__ask { grid-template-columns: 1fr 1fr; max-width: 860px; margin-top: 28px; }
+  body.buy-page:not(.shop-page) .lgn-sec { display: block; }
+  body.buy-page:not(.shop-page) .lgn-sec .lgn { margin-left: auto; margin-right: auto; }
+}
